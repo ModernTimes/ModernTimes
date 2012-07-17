@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/7/trunk/gtc/fullCrud/templates/default
+END
+_view.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/4/trunk/gtc/fullCrud/templates/default/_view.php
+END
+view.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/9/trunk/gtc/fullCrud/templates/default/view.php
+END
+update.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/4/trunk/gtc/fullCrud/templates/default/update.php
+END
+_form.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/6/trunk/gtc/fullCrud/templates/default/_form.php
+END
+create.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/4/trunk/gtc/fullCrud/templates/default/create.php
+END
+controller.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/9/trunk/gtc/fullCrud/templates/default/controller.php
+END
+_search.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/6/trunk/gtc/fullCrud/templates/default/_search.php
+END
+index.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/4/trunk/gtc/fullCrud/templates/default/index.php
+END
+admin.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/4/trunk/gtc/fullCrud/templates/default/admin.php
+END
