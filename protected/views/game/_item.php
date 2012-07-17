@@ -4,6 +4,6 @@
  * Used by CListView widget in inventory.php
  */ 
 
-echo $data->item->name . " (" . $data->n . ")";
-
+echo $data->item->name . " (" . $data->n . ")<BR />"
+    . "equip - get rid of";
 ?>
