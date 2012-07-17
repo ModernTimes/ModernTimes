@@ -375,10 +375,11 @@ class Character extends BaseCharacter {
     // Load relations that are not taken care of by CD
     public function loadItems() {
         if(empty($this->characterItems)) {
-            d("EMPTY characterItems");
-            $characterItems = CharacterItems::model()->with(array('item'))->findAll('t.characterID=:characterID', 
-                 array(':characterID'=>$this->id));
-            d($characterItems);
+            // d("EMPTY characterItems");
+            $characterItems = CharacterItems::model()->with(array('item'))->findAll(
+                't.characterID=:characterID', 
+                array(':characterID'=>$this->id));
+            // d($characterItems);
             $this->characterItems = $characterItems;
         }
     }

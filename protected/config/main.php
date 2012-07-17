@@ -137,7 +137,7 @@ return array(
                 'plugins'=>array(
                     // Optionally you can configure the "global" plugins (button, popover, tooltip and transition)
                     // To prevent a plugin from being loaded set it to false as demonstrated below
-                    'transition'=>false, // disable CSS transitions
+                    'transition'=>true, // disable CSS transitions
                     'tooltip'=>array(
                         'selector'=>'a.tooltip', // bind the plugin tooltip to anchor tags with the 'tooltip' class
                         'options'=>array(

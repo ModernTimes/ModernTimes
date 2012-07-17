@@ -14,12 +14,13 @@ Yii::import('bootstrap.widgets.input.BootInput');
  */
 class BootActiveForm extends CActiveForm
 {
-	// The different form types.
+	// Form types.
 	const TYPE_VERTICAL = 'vertical';
 	const TYPE_INLINE = 'inline';
 	const TYPE_HORIZONTAL = 'horizontal';
 	const TYPE_SEARCH = 'search';
 
+	// Input classes.
 	const INPUT_HORIZONTAL = 'bootstrap.widgets.input.BootInputHorizontal';
 	const INPUT_INLINE = 'bootstrap.widgets.input.BootInputInline';
 	const INPUT_SEARCH = 'bootstrap.widgets.input.BootInputSearch';
@@ -33,7 +34,7 @@ class BootActiveForm extends CActiveForm
 	/**
 	 * @var boolean flag that indicates if the errors should be displayed as blocks.
 	 */
-	public $inlineErrors = true;
+	public $inlineErrors;
 
 	/**
 	 * Initializes the widget.
@@ -46,10 +47,13 @@ class BootActiveForm extends CActiveForm
 		else
 			$this->htmlOptions['class'] .= ' form-'.$this->type;
 
+		if (!isset($this->inlineErrors))
+			$this->inlineErrors = $this->type === self::TYPE_HORIZONTAL;
+
 		if ($this->inlineErrors)
-			$this->errorMessageCssClass = 'help-inline';
+			$this->errorMessageCssClass = 'help-inline error';
 		else
-			$this->errorMessageCssClass = 'help-block';
+			$this->errorMessageCssClass = 'help-block error';
 
 		parent::init();
 	}
@@ -201,7 +205,7 @@ class BootActiveForm extends CActiveForm
 	 */
 	public function captchaRow($model, $attribute, $htmlOptions = array())
 	{
-		return $this->inputRow(BootInput::TYPE_CAPTCHA, $model, $attribute, null, $htmlOptions);
+		return $this->inputRow(BootInput::TYPE_CAPTCHA, $model, $attribute, $htmlOptions);
 	}
 
 	/**
@@ -268,7 +272,7 @@ class BootActiveForm extends CActiveForm
 
 		if ($model->hasErrors($attribute))
 		{
-			if(isset($htmlOptions['class']))
+			if (isset($htmlOptions['class']))
 				$htmlOptions['class'] .= ' '.CHtml::$errorCss;
 			else
 				$htmlOptions['class'] = CHtml::$errorCss;
@@ -310,10 +314,10 @@ class BootActiveForm extends CActiveForm
 		$labelCssClass = $checkbox ? 'checkbox' : 'radio';
 
 		if (isset($htmlOptions['inline']))
-        {
-                $labelCssClass .= ' inline';
-                unset($htmlOptions['inline']);
-        }
+		{
+			$labelCssClass .= ' inline';
+			unset($htmlOptions['inline']);
+		}
 
 		foreach ($data as $value => $label)
 		{
@@ -323,9 +327,9 @@ class BootActiveForm extends CActiveForm
 			$option = CHtml::$method($name, $checked, $htmlOptions);
 			$label = CHtml::label($label, $htmlOptions['id'], $labelOptions);
 			$items[] = strtr($template, array(
-				'{labelCssClass}'=>$labelCssClass,
-				'{input}'=>$option,
-				'{label}'=>$label,
+				'{labelCssClass}' => $labelCssClass,
+				'{input}' => $option,
+				'{label}' => $label,
 			));
 		}
 
@@ -373,7 +377,7 @@ class BootActiveForm extends CActiveForm
 			$htmlOptions['class'] = $this->errorMessageCssClass;
 
 		if (!$enableAjaxValidation && !$enableClientValidation)
-			return $this->getErrorHtml($model, $attribute, $htmlOptions);
+			return $this->renderError($model, $attribute, $htmlOptions);
 
 		$id = CHtml::activeId($model,$attribute);
 		$inputID = isset($htmlOptions['inputID']) ? $htmlOptions['inputID'] : $id;
@@ -388,7 +392,7 @@ class BootActiveForm extends CActiveForm
 			'model'=>get_class($model),
 			'name'=>CHtml::resolveName($model, $attribute),
 			'enableAjaxValidation'=>$enableAjaxValidation,
-			'inputContainer'=>'div.clearfix', // Bootstrap requires this
+			'inputContainer'=>'div.control-group', // Bootstrap requires this
 		);
 
 		$optionNames = array(
@@ -419,25 +423,28 @@ class BootActiveForm extends CActiveForm
 		if ($enableClientValidation)
 		{
 			$validators = isset($htmlOptions['clientValidation']) ? array($htmlOptions['clientValidation']) : array();
-			foreach ($model->getValidators($attribute) as $validator)
+
+			$attributeName = $attribute;
+			if (($pos = strrpos($attribute, ']')) !== false && $pos !== strlen($attribute) - 1) // e.g. [a]name
+				$attributeName = substr($attribute, $pos + 1);
+
+			foreach ($model->getValidators($attributeName) as $validator)
 			{
-				if ($enableClientValidation && $validator->enableClientValidation)
-				{
-					if (($js = $validator->clientValidateAttribute($model,$attribute)) != '')
+				if ($validator->enableClientValidation)
+					if (($js = $validator->clientValidateAttribute($model, $attributeName)) != '')
 						$validators[] = $js;
-				}
 			}
 
 			if ($validators !== array())
-				$option['clientValidation']="js:function(value, messages, attribute) {\n".implode("\n",$validators)."\n}";
+				$option['clientValidation'] = "js:function(value, messages, attribute) {\n".implode("\n", $validators)."\n}";
 		}
 
-		$html = $this->getErrorHtml($model, $attribute, $htmlOptions);
+		$html = $this->renderError($model, $attribute, $htmlOptions);
 
 		if ($html === '')
 		{
 			if (isset($htmlOptions['style']))
-				$htmlOptions['style'] = rtrim($htmlOptions['style'], ';').';display: none';
+				$htmlOptions['style'] = rtrim($htmlOptions['style'], ';').'; display: none';
 			else
 				$htmlOptions['style'] = 'display: none';
 
@@ -445,6 +452,7 @@ class BootActiveForm extends CActiveForm
 		}
 
 		$this->attributes[$inputID] = $option;
+
 		return $html;
 	}
 
@@ -453,20 +461,15 @@ class BootActiveForm extends CActiveForm
 	 * @param CModel $model the data model
 	 * @param string $attribute the attribute name
 	 * @param array $htmlOptions additional HTML attributes to be rendered in the container div tag.
-	 * @param string $tag the tag to use for rendering the error.
 	 * @return string the error display. Empty if no errors are found.
 	 * @see CModel::getErrors
 	 * @see errorMessageCss
 	 */
-	public static function getErrorHtml($model, $attribute, $htmlOptions = array())
+	protected static function renderError($model, $attribute, $htmlOptions = array())
 	{
-		CHtml::resolveName($model, $attribute);
+		CHtml::resolveName($model, $attribute); // turn [a][b]attr into attr
 		$error = $model->getError($attribute);
-
-		if ($error !== null)
-			return CHtml::tag('span', $htmlOptions, $error); // Bootstrap errors must be spans
-		else
-			return '';
+		return $error != '' ? CHtml::tag('span', $htmlOptions, $error) : '';
 	}
 
 	/**

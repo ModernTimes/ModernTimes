@@ -1,11 +1,21 @@
 <?php
 /**
- * Collects data and renders the inventory screen
+ * Collects items and renders the inventory screen
  */
 
 class InventoryAction extends CAction {
 
     public function run() {
-        $this->controller->render("inventory");
+        $character = CD();
+        
+        $itemDataProvider = new CActiveDataProvider(
+            CharacterItems::model()->with(
+                    'item'
+            )
+        );
+
+        $this->controller->render("inventory", array(
+            'itemDataProvider' => $itemDataProvider,
+        ));
     }
 }

@@ -20,21 +20,26 @@ class BootInputHorizontal extends BootInput
 	 */
 	public function run()
 	{
-		$errorCss = $this->model->hasErrors($this->attribute) ? ' '.CHtml::$errorCss : '';
-		echo CHtml::openTag('div', array('class'=>'control-group'.$errorCss));
+		echo CHtml::openTag('div', array('class'=>'control-group '.$this->getContainerCssClass()));
 		parent::run();
 		echo '</div>';
 	}
 
 	/**
 	 * Returns the label for this block.
-	 * @param array $htmlOptions additional HTML attributes
 	 * @return string the label
 	 */
-	protected function getLabel($htmlOptions = array())
+	protected function getLabel()
 	{
-		$htmlOptions['class'] = 'control-label';
-		return parent::getLabel($htmlOptions);
+		if (!isset($this->htmlOptions['labelOptions']))
+			$this->htmlOptions['labelOptions'] = array();
+
+		if (isset($this->htmlOptions['labelOptions']['class']))
+			$this->htmlOptions['labelOptions']['class'] .= ' control-label';
+		else
+			$this->htmlOptions['labelOptions']['class'] = 'control-label';
+
+		return parent::getLabel();
 	}
 
 	/**
@@ -43,10 +48,11 @@ class BootInputHorizontal extends BootInput
 	 */
 	protected function checkBox()
 	{
+		$attribute = $this->attribute;
 		echo '<div class="controls">';
-		echo '<label class="checkbox" for="'.CHtml::getIdByName(CHtml::resolveName($this->model, $this->attribute)).'">';
-		echo $this->form->checkBox($this->model, $this->attribute, $this->htmlOptions).PHP_EOL;
-		echo $this->model->getAttributeLabel($this->attribute);
+		echo '<label class="checkbox" for="'.$this->getAttributeId($attribute).'">';
+		echo $this->form->checkBox($this->model, $attribute, $this->htmlOptions).PHP_EOL;
+		echo $this->model->getAttributeLabel($attribute);
 		echo $this->getError().$this->getHint();
 		echo '</label></div>';
 	}
@@ -57,7 +63,8 @@ class BootInputHorizontal extends BootInput
 	 */
 	protected function checkBoxList()
 	{
-		echo $this->getLabel().'<div class="controls">';
+		echo $this->getLabel();
+		echo '<div class="controls">';
 		echo $this->form->checkBoxList($this->model, $this->attribute, $this->data, $this->htmlOptions);
 		echo $this->getError().$this->getHint();
 		echo '</div>';
@@ -79,7 +86,8 @@ class BootInputHorizontal extends BootInput
 	 */
 	protected function dropDownList()
 	{
-		echo $this->getLabel().'<div class="controls">';
+		echo $this->getLabel();
+		echo '<div class="controls">';
 		echo $this->form->dropDownList($this->model, $this->attribute, $this->data, $this->htmlOptions);
 		echo $this->getError().$this->getHint();
 		echo '</div>';
@@ -91,7 +99,8 @@ class BootInputHorizontal extends BootInput
 	 */
 	protected function fileField()
 	{
-		echo $this->getLabel().'<div class="controls">';
+		echo $this->getLabel();
+		echo '<div class="controls">';
 		echo $this->form->fileField($this->model, $this->attribute, $this->htmlOptions);
 		echo $this->getError().$this->getHint();
 		echo '</div>';
@@ -103,8 +112,11 @@ class BootInputHorizontal extends BootInput
 	 */
 	protected function passwordField()
 	{
-		echo $this->getLabel().'<div class="controls">';
+		echo $this->getLabel();
+		echo '<div class="controls">';
+		echo $this->getPrepend();
 		echo $this->form->passwordField($this->model, $this->attribute, $this->htmlOptions);
+		echo $this->getAppend();
 		echo $this->getError().$this->getHint();
 		echo '</div>';
 	}
@@ -115,10 +127,11 @@ class BootInputHorizontal extends BootInput
 	 */
 	protected function radioButton()
 	{
+		$attribute = $this->attribute;
 		echo '<div class="controls">';
-		echo '<label class="radio" for="'.CHtml::getIdByName(CHtml::resolveName($this->model, $this->attribute)).'">';
-		echo $this->form->radioButton($this->model, $this->attribute, $this->htmlOptions).PHP_EOL;
-		echo $this->model->getAttributeLabel($this->attribute);
+		echo '<label class="radio" for="'.$this->getAttributeId($attribute).'">';
+		echo $this->form->radioButton($this->model, $attribute, $this->htmlOptions).PHP_EOL;
+		echo $this->model->getAttributeLabel($attribute);
 		echo $this->getError().$this->getHint();
 		echo '</label></div>';
 	}
@@ -129,7 +142,8 @@ class BootInputHorizontal extends BootInput
 	 */
 	protected function radioButtonList()
 	{
-		echo $this->getLabel().'<div class="controls">';
+		echo $this->getLabel();
+		echo '<div class="controls">';
 		echo $this->form->radioButtonList($this->model, $this->attribute, $this->data, $this->htmlOptions);
 		echo $this->getError().$this->getHint();
 		echo '</div>';
@@ -151,7 +165,8 @@ class BootInputHorizontal extends BootInput
 	 */
 	protected function textArea()
 	{
-		echo $this->getLabel().'<div class="controls">';
+		echo $this->getLabel();
+		echo '<div class="controls">';
 		echo $this->form->textArea($this->model, $this->attribute, $this->htmlOptions);
 		echo $this->getError().$this->getHint();
 		echo '</div>';
@@ -163,8 +178,11 @@ class BootInputHorizontal extends BootInput
 	 */
 	protected function textField()
 	{
-		echo $this->getLabel().'<div class="controls">';
+		echo $this->getLabel();
+		echo '<div class="controls">';
+		echo $this->getPrepend();
 		echo $this->form->textField($this->model, $this->attribute, $this->htmlOptions);
+		echo $this->getAppend();
 		echo $this->getError().$this->getHint();
 		echo '</div>';
 	}
@@ -175,8 +193,9 @@ class BootInputHorizontal extends BootInput
 	 */
 	protected function captcha()
 	{
-		echo $this->getLabel().'<div class="controls"><div class="captcha">';
-		echo '<div class="widget">'.$this->widget('CCaptcha', array('showRefreshButton'=>false), true).'</div>';
+		echo $this->getLabel();
+		echo '<div class="controls"><div class="captcha">';
+		echo '<div class="widget">'.$this->widget('CCaptcha', $this->getCaptchaOptions(), true).'</div>';
 		echo $this->form->textField($this->model, $this->attribute, $this->htmlOptions);
 		echo $this->getError().$this->getHint();
 		echo '</div></div>';
@@ -188,8 +207,9 @@ class BootInputHorizontal extends BootInput
 	 */
 	protected function uneditableField()
 	{
-		echo $this->getLabel().'<div class="controls">';
-		echo '<span class="uneditable-input">'.$this->model->{$this->attribute}.'</span>';
+		echo $this->getLabel();
+		echo '<div class="controls">';
+		echo CHtml::tag('span', $this->htmlOptions, $this->model->{$this->attribute});
 		echo $this->getError().$this->getHint();
 		echo '</div>';
 	}

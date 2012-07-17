@@ -12,6 +12,25 @@
  */
 class BootPager extends CLinkPager
 {
+	// Pager alignments.
+	const ALIGNMENT_LEFT = '';
+	const ALIGNMENT_CENTER = 'centered';
+	const ALIGNMENT_RIGHT = 'right';
+
+	/**
+	 * @var string the pager alignment (default to '').
+	 * Valid values are 'left', 'centered' and 'right'.
+	 */
+	public $alignment = self::ALIGNMENT_LEFT;
+	/**
+	 * @var string the text shown before page buttons (defaults to '').
+	 */
+	public $header = '';
+	/**
+	 * @var string the URL of the CSS file used by this pager.
+	 * Defaults to false, meaning that no CSS will be included.
+	 */
+	public $cssFile = false;
 	/**
 	 * @var boolean whether to display the first and last items.
 	 */
@@ -22,26 +41,29 @@ class BootPager extends CLinkPager
 	 */
 	public function init()
 	{
-		if ($this->header === null)
-			$this->header = ''; // Bootstrap does not use a header
-
 		if ($this->nextPageLabel === null)
-			$this->nextPageLabel=Yii::t('bootstrap','Next').' &rarr;';
+			$this->nextPageLabel = Yii::t('bootstrap','Next').' &rarr;';
 
 		if ($this->prevPageLabel === null)
-			$this->prevPageLabel='&larr; '.Yii::t('bootstrap','Previous');
+			$this->prevPageLabel = '&larr; '.Yii::t('bootstrap','Previous');
 
 		if ($this->firstPageLabel === null)
-			$this->firstPageLabel=Yii::t('bootstrap','First');
+			$this->firstPageLabel = Yii::t('bootstrap','First');
 
 		if ($this->lastPageLabel === null)
-			$this->lastPageLabel=Yii::t('bootstrap','Last');
+			$this->lastPageLabel = Yii::t('bootstrap','Last');
 
-		if ($this->cssFile === null)
-			$this->cssFile = false; // Bootstrap has its own css
+		$classes = array();
 
-		if (!isset($this->htmlOptions['class']))
-			$this->htmlOptions['class'] = ''; // would default to yiiPager
+		$validAlignments = array(self::ALIGNMENT_LEFT, self::ALIGNMENT_CENTER, self::ALIGNMENT_RIGHT);
+		if (in_array($this->alignment, $validAlignments))
+			$classes[] = 'pagination-'.$this->alignment;
+
+		$classes = implode(' ', $classes);
+		if (isset($this->htmlOptions['class']))
+			$this->htmlOptions['class'] = ' '.$classes;
+		else
+			$this->htmlOptions['class'] = $classes;
 
 		parent::init();
 	}
