@@ -1,0 +1,30 @@
+<?php 
+/**
+ * Used by ItemWidget
+ */ 
+
+if(!empty($this->item)) {
+    echo CHtml::link($this->item->name, "#", array(
+        'class'=>'', 
+        'data-title'=>$this->item->name, 
+        'data-content'=>$this->item->call('getPopup'),
+        'rel'=>'popover'));
+
+    if($this->context == "inventory") {
+        echo " (" . $this->n . ")";
+    }
+    echo "<BR />";
+    switch($this->context) {
+        case "equipment":
+            echo "unequip";
+            break;
+        case "inventory":
+            echo "equip - get rid of";
+            break;
+        default:
+            break;
+    }
+} else {
+    echo "Nada!";
+}
+?>
