@@ -18,6 +18,8 @@ class GameController extends Controller {
             'battleAction'     => 'application.controllers.actions.BattleActionAction',
             'encounter'        => 'application.controllers.actions.EncounterAction',
             
+            'inventory'        => 'application.controllers.actions.InventoryAction',
+            
             'rest'             => 'application.controllers.actions.RestAction',
             
             'pablo'            => 'application.controllers.actions.PabloAction',
