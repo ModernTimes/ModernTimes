@@ -3,15 +3,24 @@
 Yii::import('application.models._base.BaseMonster');
 Yii::import('application.components.monsters.*');
 
+/**
+ * Simulates monsters during battles
+ */
+
 class Monster extends BaseMonster {
 
-    // Temporary values
+    /**
+     * Temporary values. set to attribute hpMax at the beginning of a battle
+     * @var int
+     */
     public $hp;
 
-    // Returns a Skill object
-    // Future AI can refer to the current battle state
-    // ToDo: make use of skill.prob to find out the appropriate skill to use
-    // ToDo: check if the the skill can actually be used
+    /**
+     * Future AI can refer to the current battle state
+     * @param Battle $battle
+     * @return Skill
+     * ToDo: check if the skill can actually be used
+     *      */
     public function act($battle) {
         $l = new Lottery();
         $l->addParticipants($this->monsterSkills);
@@ -25,7 +34,12 @@ class Monster extends BaseMonster {
         return $winner->skill;
     }
     
-    // dropItemPerc are percentage point increasers/decreasers as usual
+    /**
+     * Decides for each potential item drop whether it is indeed dropped or not
+     * dropItemPerc are percentage point increasers/decreasers as usual
+     * @param int $dropItemPerc
+     * @return array|Item
+     */
     public function dropItems($dropItemPerc = 0) {
         $loot = array();
         foreach($this->monsterItems as $monsterItem) {
@@ -44,7 +58,6 @@ class Monster extends BaseMonster {
             $this->hp = 0;
         }
     }
-    
     
     public function getReadyForBattle() {
         $this->hp = $this->hpMax;
@@ -69,10 +82,9 @@ class Monster extends BaseMonster {
     }
 
 
-    /*
-     *    Stuff that cannot be made special
+    /**
+     * Stuff that cannot be made special
      */
-    
     public function getNormalAttack() {
         return $this->attack;
     }
@@ -85,7 +97,6 @@ class Monster extends BaseMonster {
     public function getHpMax() {
         return $this->hpMax;
     }
-
     
     public function behaviors() {
             return array("application.components.SpecialnessBehavior",

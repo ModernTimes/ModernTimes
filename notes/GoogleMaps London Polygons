@@ -1,0 +1,145 @@
+How to get London area polygon data:
+- http://maps.met.police.uk/
+- Click on "Text view"
+- Select borough, ward, or sub-ward
+- "Copy image URL" on the area map in the upper right corner
+
+
+
+Police: http://maps.google.com/maps?q=182+Bishopsgate,+London,+United+Kingdom&hl=en&ll=51.51782,-0.080153&spn=0.00216,0.004544&sll=51.517576,-0.079786&layer=c&cbp=13,136.58,,1,0.43&cbll=51.51782,-0.080153&hnear=City+Of+London+Police,+182+Bishopsgate,+London+EC2M+4NP,+United+Kingdom&t=h&z=18&panoid=BFxGWr8sG-WwWkuKJ7CKbQ
+
+Westminster: 
+    s`oyHfei@{]wx@`^ew@as@mf@mL}xBzEyfA`\\_}@tv@cp@`d@os@bRwbAaBmiA|ZBzd@rfAj}@fI|m@b`@vId|Bq[l_@sm@hDqDhhAzBthAau@`i@{c@tp@kc@bn@c|@~wA
+
+    St. James's: 
+        cclyH`iXmAcBmCg[eFkpA|ZBlCj`@l`@fe@j}@fIRfz@eQ`HxDxk@_C`U}[f`@}Y}m@uOig@yXmq@
+    West End: 
+        http://maps.google.com/staticmap?path=rgba:0x000099ff,weight:3|51.5134222205612,-0.158407454239835|51.5137275085991,-0.155991050828947|51.5142307801025,-0.150743465319638|51.51593920184,-0.145311822506835|51.5197888480417,-0.144787847452093|51.5208021991907,-0.139163329420697|51.5163905766374,-0.130407608455561|51.5133723226958,-0.129105569376926|51.5129755474092,-0.129605231562351|51.5088505901555,-0.137677489324293|51.5061772131222,-0.144129497600128|51.5018707358894,-0.151636439566585|51.505397906812,-0.150966960414228|51.5084716721264,-0.154312774655686|51.5134222205612,-0.158407454239835&size=200x160&key=ABQIAAAAGl6xdqN7hSHRBrTynwKjNBQni4rbNQtJQxLRdW41Tl5ZphSSfxRWyByHGpy-53vvKWcMSFIe4HAYQg
+        {elyH`}]}@cNcBy_@uI}`@aWgBiEeb@pZuu@zQcGlAbBxXlq@tOhg@|Y|m@aUeCeRzS}]rX
+
+
+        areaWestminster = new google.maps.Polygon({
+            paths: google.maps.geometry.encoding.decodePath("s`oyHfei@{]wx@`^ew@as@mf@mL}xBzEyfA`\\_}@tv@cp@`d@os@bRwbAaBmiA|ZBzd@rfAj}@fI|m@b`@vId|Bq[l_@sm@hDqDhhAzBthAau@`i@{c@tp@kc@bn@c|@~wA"),
+            strokeColor: "#000000",
+            strokeOpacity: 0.9,
+            strokeWeight: 2,
+            fillColor: "#FFFF00",
+            fillOpacity: 0.05
+        });
+        // areaWestminster.setMap(gmap);
+
+        areaStJames = new google.maps.Polygon({
+            paths: google.maps.geometry.encoding.decodePath("cclyH`iXmAcBmCg[eFkpA|ZBlCj`@l`@fe@j}@fIRfz@eQ`HxDxk@_C`U}[f`@}Y}m@uOig@yXmq@"),
+            strokeColor: "#000000",
+            strokeOpacity: 0.9,
+            strokeWeight: 2,
+            fillColor: "#FFFF00",
+            fillOpacity: 0.08
+        });
+        // areaStJames.setMap(gmap);
+
+        areaWestEnd = new google.maps.Polygon({
+            paths: google.maps.geometry.encoding.decodePath("{elyH`}]}@cNcBy_@uI}`@aWgBiEeb@pZuu@zQcGlAbBxXlq@tOhg@|Y|m@aUeCeRzS}]rX"),
+            strokeColor: "#000000",
+            strokeOpacity: 0.9,
+            strokeWeight: 2,
+            fillColor: "#FFFF00",
+            fillOpacity: 0.08
+        });
+        // areaWestEnd.setMap(gmap);
+        // google.maps.event.addListener(areaWestEnd, 'click', focusWestEnd);
+
+
+
+
+    var overlay;
+
+    function MTInfowindowOverlay(pos, map) {
+        // Now initialize all properties.
+        this.pos_ = pos;
+        this.map_ = map;
+
+        // We define a property to hold the image's
+        // div. We'll actually create this div
+        // upon receipt of the add() method so we'll
+        // leave it null for now.
+        this.div_ = null;
+
+        // Explicitly call setMap on this overlay
+        this.setMap(map);
+    }
+    MTInfowindowOverlay.prototype = new google.maps.OverlayView();
+
+    MTInfowindowOverlay.prototype.onAdd = function() {
+        // Note: an overlay's receipt of add() indicates that
+        // the map's panes are now available for attaching
+        // the overlay to the map via the DOM.
+
+        // Create the DIV and set some basic attributes.
+        var div = document.createElement('DIV');
+        div.style.border = "solid";
+        div.style.borderWidth = "2px";
+        div.style.position = "absolute";
+
+        div.innerHTML = "TEST";
+
+        // Set the overlay's div_ property to this DIV
+        this.div_ = div;
+
+        // We add an overlay to a map via one of the map's panes.
+        // We'll add this overlay to the overlayImage pane.
+        var panes = this.getPanes();
+        panes.overlayImage.appendChild(this.div_);
+    }
+
+    MTInfowindowOverlay.prototype.draw = function() {
+        // position the overlay. 
+        // We need to retrieve the projection from this overlay to do this.
+        var overlayProjection = this.getProjection();
+
+        // convert pos (lat/lng) to pixels coordinates.
+        // We'll use these coordinates to position the DIV.
+        var posPixel = overlayProjection.fromLatLngToDivPixel(this.pos_);
+
+        // Position the div
+        var div = this.div_;
+        div.style.left = posPixel.x + 'px';
+        div.style.top = posPixel.y + 'px';
+        div.style.width = '75px';
+        div.style.height = '75px';
+    }
+
+    MTInfowindowOverlay.prototype.onRemove = function() {
+        this.div_.parentNode.removeChild(this.div_);
+    }
+
+    // Note that the visibility property must be a string enclosed in quotes
+    MTInfowindowOverlay.prototype.hide = function() {
+        if (this.div_) {
+            this.div_.style.visibility = "hidden";
+        }
+    }
+
+    MTInfowindowOverlay.prototype.show = function() {
+        if (this.div_) {
+            this.div_.style.visibility = "visible";
+        }
+    }
+
+    MTInfowindowOverlay.prototype.toggle = function() {
+        if (this.div_) {
+            if (this.div_.style.visibility == "hidden") {
+                this.show();
+            } else {
+                this.hide();
+            }
+        }
+    }
+
+    MTInfowindowOverlay.prototype.toggleDOM = function() {
+        if (this.getMap()) {
+            this.setMap(null);
+        } else {
+            this.setMap(this.map_);
+        }
+    }

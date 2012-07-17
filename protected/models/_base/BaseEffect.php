@@ -12,9 +12,12 @@
  * @property integer $id
  * @property string $name
  * @property string $specialClass
+ * @property integer $charactermodifierID
  * @property string $desc
  *
  * @property CharacterEffects[] $characterEffects
+ * @property Charactermodifier $charactermodifier
+ * @property Encounter[] $encounters
  */
 abstract class BaseEffect extends GxActiveRecord {
 
@@ -36,16 +39,21 @@ abstract class BaseEffect extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('name, specialClass, desc', 'required'),
+			array('name, specialClass, charactermodifierID', 'required'),
+			array('charactermodifierID', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>75),
 			array('specialClass', 'length', 'max'=>50),
-			array('id, name, specialClass, desc', 'safe', 'on'=>'search'),
+			array('desc', 'safe'),
+			array('desc', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, name, specialClass, charactermodifierID, desc', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function relations() {
 		return array(
 			'characterEffects' => array(self::HAS_MANY, 'CharacterEffects', 'effectID'),
+			'charactermodifier' => array(self::BELONGS_TO, 'Charactermodifier', 'charactermodifierID'),
+			'encounters' => array(self::HAS_MANY, 'Encounter', 'createEffect'),
 		);
 	}
 
@@ -59,8 +67,11 @@ abstract class BaseEffect extends GxActiveRecord {
 			'id' => Yii::t('app', 'ID'),
 			'name' => Yii::t('app', 'Name'),
 			'specialClass' => Yii::t('app', 'Special Class'),
+			'charactermodifierID' => null,
 			'desc' => Yii::t('app', 'Desc'),
 			'characterEffects' => null,
+			'charactermodifier' => null,
+			'encounters' => null,
 		);
 	}
 
@@ -70,6 +81,7 @@ abstract class BaseEffect extends GxActiveRecord {
 		$criteria->compare('id', $this->id);
 		$criteria->compare('name', $this->name, true);
 		$criteria->compare('specialClass', $this->specialClass, true);
+		$criteria->compare('charactermodifierID', $this->charactermodifierID);
 		$criteria->compare('desc', $this->desc, true);
 
 		return new CActiveDataProvider($this, array(

@@ -1,11 +1,21 @@
 <?php
 
-Yii::import('application.models._base.BaseEquipment');
+Yii::import('application.models._base.BaseCharacterEquipments');
 
-class Equipment extends BaseEquipment {
+/**
+ * Basic HAS_MANY association model
+ * Which equipment configurations has a character defined?
+ * Only one can be active at a given time
+ */
+
+class CharacterEquipments extends BaseCharacterEquipments {
     
-    // Attaches all Item Model callbacks to the character event handlers
-    // Care: The giix Model generator adds a "0" after the item slot names, for whatever reason
+    /**
+     * Attaches all Item model callbacks to the character event handlers
+     * Care: The giix Model generator adds a "0" after the item slot names, 
+     *       for whatever reason
+     * @param Character $character 
+     */
     public function attachToCharacter($character) {
         if(is_a($this->weapon0, "Item")) {
             $this->weapon0->call("attachToCharacter", $character);
@@ -25,6 +35,6 @@ class Equipment extends BaseEquipment {
     }
     
     public static function model($className=__CLASS__) {
-            return parent::model($className);
+        return parent::model($className);
     }
 }

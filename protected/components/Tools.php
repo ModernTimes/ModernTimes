@@ -1,7 +1,17 @@
 <?php
 
+/**
+ * Defines a number of global utility functions
+ */
+
 class Tools extends CApplicationComponent {
     
+    /**
+     * returns an integer number adjacent to $number
+     * 3.38 has a 38% chance to return 4 and a 62% chance to return 3.
+     * @param float $number
+     * @return int
+     */
     function decideBetweenTwoNumbers($number) {
         $modulo = $number - floor($number);
         $number = floor($number);
@@ -13,10 +23,14 @@ class Tools extends CApplicationComponent {
         }
         return $number;
     }
-        
-    function spendAction () {
+
+    /**
+     * decreases the number of available turns by 1
+     * reduces the duration of active effects by 1
+     */
+    function spendTurn () {
         $character = CD();
-        $character->actions--;
+        $character->turns--;
         
         foreach($character->characterEffects as $characterEffect) {
             $characterEffect->turns--;
@@ -29,20 +43,20 @@ class Tools extends CApplicationComponent {
         // $character->withRelated->save(true, array("characterEffects"));
     }
     
-    /*
-     * effect  mixed  int    => effect model id
-     *                name   => effect model name
-     *                object => effect model AR
-     * turns   int    Number of turns that the effect is in place
-     *                0 means that it is a battle effect which will not be written
-     *                into the db
+    /**
+     * Adds an effect to the active character
+     * @param Effect|int|string $effect, Effect model or its PK or its name
+     * @param int $turns, number of turns for which the effect is to be active
+     *                    0 means that it is only used during the current battle
      * options
-     * 'addTurns'    bool  Whether to increase the number of turns when the effect
-     *                     is already in place. Default is true
-     * 'characterID' int   which character the effect has to be attached to
-     *                     Default is current character
-     *
-     * * ToDo:        Effects to other players
+     * @param bool 'addTurns', whether to increase the number of turns when the 
+     *                         effect is already in place instead of adding a 
+     *                         second effect of the same kind. Default is true.
+     * @param int 'characterID', PK of the character that the effect is to be
+     *                           attached to
+     * 
+     * @return boolean, whether or not the effect was added
+     * ToDo: Make it possible to add effects to other characters
      */
     function addEffect($effect, $turns = 0, $options = array()) {
         $options = array_merge(
@@ -53,7 +67,9 @@ class Tools extends CApplicationComponent {
             ),
             // The specified options
             $options
-        );        
+        );
+        
+        // d($effect);
 
         if ($turns == 0) {
             Yii::trace("Cannot add effect with duration of 0 turns");
@@ -66,7 +82,8 @@ class Tools extends CApplicationComponent {
             $effectModel = Effect::model()->find("name = '" . $effect . "'");
         } elseif (is_a($effect, "Effect")) {
             $effectModel = $effect;
-        } else {
+        }
+        if(!is_a($effectModel, "Effect")) {
             return false;
         }
         
@@ -74,8 +91,9 @@ class Tools extends CApplicationComponent {
         
         if ($character->hasEffect($effectModel)) {
             if($options['addTurns']) {
+                // returns CharacterEffects model, not Effect model
                 $effectInPlace = $character->getEffect($effectModel);
-                $effectInPlace->increaseTurns($turns);
+                $effectInPlace->increaseDuration($turns);
                 if ($effectInPlace->save()) {
                     Yii::trace("Effect already in place, increased turns by " . $turns);
                     return true;
@@ -102,6 +120,11 @@ class Tools extends CApplicationComponent {
         }
     }
     
+    /**
+     * Returns the possessive pronoun for a given character
+     * @param Character $character, default is the active character
+     * @return string, "his" or "her"
+     */
     public function getPossessivePronoun($character = null) {
         if(empty($character)) {
             $character = CD();
@@ -113,6 +136,11 @@ class Tools extends CApplicationComponent {
         }
     }
     
+    /**
+     * Returns the personal pronoun for a given character
+     * @param Character $character, default is the active character
+     * @return string, "he" or "she"
+     */
     public function getPersonalPronoun($character = null) {
         if(empty($character)) {
             $character = CD();

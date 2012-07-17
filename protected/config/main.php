@@ -33,22 +33,25 @@ return array(
         ),
 
 	'modules'=>array(
-            
-                // 'game',
-            
-                'user',
+            // 'game',
 
-		'gii'=>array(
-			'class'=>'system.gii.GiiModule',
-                        'generatorPaths' => array(
-                                'ext.giix-core', // giix generators
-                                'ext.gtc',       // gii template collection
-                                'bootstrap.gii', // since 0.9.1
-                        ),
-			'password'=>'pass',
-		 	// If removed, Gii defaults to localhost only. Edit carefully to taste.
-			'ipFilters'=>array('127.0.0.1','::1'),
-		),
+            'user'=>array(
+                // 'tableUsers' => 'mt_users',
+                // 'tableProfiles' => 'mt_profiles',
+                // 'tableProfileFields' => 'mt_profiles_fields',
+            ),
+            
+            'gii'=>array(
+                'class'=>'system.gii.GiiModule',
+                'generatorPaths' => array(
+                        'ext.giix-core', // giix generators
+                        'ext.gtc',       // gii template collection
+                        'bootstrap.gii', // since 0.9.1
+                ),
+                'password'=>'pass',
+                // If removed, Gii defaults to localhost only. Edit carefully to taste.
+                'ipFilters'=>array('127.0.0.1','::1'),
+            ),
 	),
 
 	// application components

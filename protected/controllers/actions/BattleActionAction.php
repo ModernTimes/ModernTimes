@@ -1,13 +1,16 @@
 <?php
 
+/**
+ * Act in an ongoing battle, 
+ * either by using a skill or an item
+ * ToDo: implement item actions
+ */
+
 class BattleActionAction extends BattleAction {
 
-    /*
-     *  ToDo: - Items
-     */
     public function run($skillID = "", $itemID = "") {
         $character = CD();
-        if($character->ongoingBattleID == 0) {
+        if($character->ongoingBattleID === null) {
             EUserFlash::setErrorMessage("You are not engaged in any battle right now.", 'validate');
             $this->controller->redirect(array('index'));
         }

@@ -1,18 +1,26 @@
 <?php
 
-/*
- *  Gets attached to Character and Monster to take care of certain battle-related tasks
+/**
+ * Gets attached to Character and Monster models 
+ * to take care of certain battle-related tasks
  */
 
 class CombatantBehavior extends CModelBehavior {
 
+    /**
+     * @param int $damage, how much damage the combatant is to take
+     * @param enum(normal, special) $damageType
+     * @return int, how much damage the combatant actually suffered after
+     *              damage reduction effects
+     */
     public function takeDamage($damage, $damageType) {
         $event = new CModelEvent($this, array('damage' => &$damage,
                                               'damageType' => &$damageType));
         $this->onBeforeTakingDamage($event);
         
-        /*
+        /**
          * Calculate damage reduction for normal damage
+         * (cunningBuffed for characters, defense attribute for monsters)
          */
         if($damageType == "normal") {
             $damage -= $this->owner->getDefense();

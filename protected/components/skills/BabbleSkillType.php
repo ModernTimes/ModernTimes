@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Provides babble bullshit phrases for BabbleSkills
+ * ToDo: create babble bullshit phrases dynamically
+ *       (https://github.com/ModernTimes/ModernTimes/issues/7)
+ */
+
 class BabbleSkillType extends CBehavior {
 
     public function getBabbleBullshit() {

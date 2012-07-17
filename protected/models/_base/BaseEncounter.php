@@ -11,21 +11,22 @@
  *
  * @property integer $id
  * @property string $name
- * @property string $nameOption
  * @property string $specialClass
+ * @property integer $onetime
  * @property string $msg
- * @property integer $costAdventure
- * @property integer $dropCash
- * @property integer $dropFavours
- * @property integer $dropKudos
+ * @property integer $costsAction
+ * @property integer $gainCash
+ * @property integer $gainFavours
+ * @property integer $gainKudos
  * @property integer $gainXp
  * @property integer $gainResoluteness
  * @property integer $gainWillpower
  * @property integer $gainCunning
- * @property integer $createEffect
+ * @property integer $effectID
+ * @property integer $effectDuration
  *
  * @property AreaEncounters[] $areaEncounters
- * @property Effect $createEffect0
+ * @property Effect $effect
  * @property EncounterEncounters[] $encounterEncounters
  * @property EncounterEncounters[] $encounterEncounters1
  * @property EncounterItems[] $encounterItems
@@ -50,22 +51,21 @@ abstract class BaseEncounter extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('name, nameOption, specialClass, msg', 'required'),
-			array('costAdventure, dropCash, dropFavours, dropKudos, gainXp, gainResoluteness, gainWillpower, gainCunning, createEffect', 'numerical', 'integerOnly'=>true),
+			array('name, specialClass, msg, effectID', 'required'),
+			array('onetime, costsAction, gainCash, gainFavours, gainKudos, gainXp, gainResoluteness, gainWillpower, gainCunning, effectID, effectDuration', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>150),
-			array('nameOption', 'length', 'max'=>100),
 			array('specialClass', 'length', 'max'=>50),
-			array('costAdventure, dropCash, dropFavours, dropKudos, gainXp, gainResoluteness, gainWillpower, gainCunning, createEffect', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, name, nameOption, specialClass, msg, costAdventure, dropCash, dropFavours, dropKudos, gainXp, gainResoluteness, gainWillpower, gainCunning, createEffect', 'safe', 'on'=>'search'),
+			array('onetime, costsAction, gainCash, gainFavours, gainKudos, gainXp, gainResoluteness, gainWillpower, gainCunning, effectDuration', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, name, specialClass, onetime, msg, costsAction, gainCash, gainFavours, gainKudos, gainXp, gainResoluteness, gainWillpower, gainCunning, effectID, effectDuration', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function relations() {
 		return array(
 			'areaEncounters' => array(self::HAS_MANY, 'AreaEncounters', 'encounterID'),
-			'createEffect0' => array(self::BELONGS_TO, 'Effect', 'createEffect'),
-			'encounterEncounters' => array(self::HAS_MANY, 'EncounterEncounters', 'toEncounterID'),
-			'encounterEncounters1' => array(self::HAS_MANY, 'EncounterEncounters', 'fromEncounterID'),
+			'effect' => array(self::BELONGS_TO, 'Effect', 'effectID'),
+			'encounterEncounters' => array(self::HAS_MANY, 'EncounterEncounters', 'fromEncounterID'),
+			'encounterEncounters1' => array(self::HAS_MANY, 'EncounterEncounters', 'toEncounterID'),
 			'encounterItems' => array(self::HAS_MANY, 'EncounterItems', 'encounterID'),
 		);
 	}
@@ -79,20 +79,21 @@ abstract class BaseEncounter extends GxActiveRecord {
 		return array(
 			'id' => Yii::t('app', 'ID'),
 			'name' => Yii::t('app', 'Name'),
-			'nameOption' => Yii::t('app', 'Name Option'),
 			'specialClass' => Yii::t('app', 'Special Class'),
+			'onetime' => Yii::t('app', 'Onetime'),
 			'msg' => Yii::t('app', 'Msg'),
-			'costAdventure' => Yii::t('app', 'Cost Adventure'),
-			'dropCash' => Yii::t('app', 'Drop Cash'),
-			'dropFavours' => Yii::t('app', 'Drop Favours'),
-			'dropKudos' => Yii::t('app', 'Drop Kudos'),
+			'costsAction' => Yii::t('app', 'Costs Action'),
+			'gainCash' => Yii::t('app', 'Gain Cash'),
+			'gainFavours' => Yii::t('app', 'Gain Favours'),
+			'gainKudos' => Yii::t('app', 'Gain Kudos'),
 			'gainXp' => Yii::t('app', 'Gain Xp'),
 			'gainResoluteness' => Yii::t('app', 'Gain Resoluteness'),
 			'gainWillpower' => Yii::t('app', 'Gain Willpower'),
 			'gainCunning' => Yii::t('app', 'Gain Cunning'),
-			'createEffect' => null,
+			'effectID' => null,
+			'effectDuration' => Yii::t('app', 'Effect Duration'),
 			'areaEncounters' => null,
-			'createEffect0' => null,
+			'effect' => null,
 			'encounterEncounters' => null,
 			'encounterEncounters1' => null,
 			'encounterItems' => null,
@@ -104,18 +105,19 @@ abstract class BaseEncounter extends GxActiveRecord {
 
 		$criteria->compare('id', $this->id);
 		$criteria->compare('name', $this->name, true);
-		$criteria->compare('nameOption', $this->nameOption, true);
 		$criteria->compare('specialClass', $this->specialClass, true);
+		$criteria->compare('onetime', $this->onetime);
 		$criteria->compare('msg', $this->msg, true);
-		$criteria->compare('costAdventure', $this->costAdventure);
-		$criteria->compare('dropCash', $this->dropCash);
-		$criteria->compare('dropFavours', $this->dropFavours);
-		$criteria->compare('dropKudos', $this->dropKudos);
+		$criteria->compare('costsAction', $this->costsAction);
+		$criteria->compare('gainCash', $this->gainCash);
+		$criteria->compare('gainFavours', $this->gainFavours);
+		$criteria->compare('gainKudos', $this->gainKudos);
 		$criteria->compare('gainXp', $this->gainXp);
 		$criteria->compare('gainResoluteness', $this->gainResoluteness);
 		$criteria->compare('gainWillpower', $this->gainWillpower);
 		$criteria->compare('gainCunning', $this->gainCunning);
-		$criteria->compare('createEffect', $this->createEffect);
+		$criteria->compare('effectID', $this->effectID);
+		$criteria->compare('effectDuration', $this->effectDuration);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

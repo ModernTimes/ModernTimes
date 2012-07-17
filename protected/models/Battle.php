@@ -3,45 +3,60 @@
 Yii::import('application.models._base.BaseBattle');
 Yii::import('application.components.battleEffects.*');
 
+/**
+ * Models and manages battles, both PvE and PvP
+ * ToDo: implememnt battle phases in State pattern?
+ */
+
 class Battle extends BaseBattle {
 
-    // Expects Combatant objects
+    /**
+     * @var Combatant (Character or Monster) 
+     */
     public $combatantA;
     public $combatantB;
     
-    // Integer
+    /**
+     * @var int
+     */
     public $round = 0;
     
-    // Skill or Item objects for the current round
+    /**
+     * @var Skill or Item to be used by the combatants this round
+     */
     public $combatantAAction;
     public $combatantBAction;
     
-    // CTypedList of effect objects
+    /**
+     * @var CTypedList of Battleeffect objects
+     */
     public $battleeffects;
     
-    /*
-     *  Battle history and messages
-     *  round # => array
-     *      combatantA => array
-     *          0 => array
-     *              'skill' => array(id, name, type, desc, etc. -- or empty)
-     *              'msg' => string
-     *              'result' => array
-     *                  type => 
-     *                  additional properties (like damageType, amount, etc.)
+    /**
+     * @var array, saves battle history and messages, 
+     * used to render the battle history view
      * 
+     * round # => array
+     *     combatantA => array
+     *         0 => array
+     *             'skill' => array(id, name, type, desc, etc. -- or empty)
+     *             'msg' => string
+     *             'result' => array
+     *                 type => 
+     *                 additional properties (like damageType, amount, etc.)
      *      combatantB => ...
      */
     public $_log = array(0 => array('combatantA' => array(), 'combatantB' => array()));
     
-     /*
-      *  ToDo: Trigger beginningOfCombat effects
+     /**
+      * ToDo: Trigger beginningOfCombat effects
       */
      public function start() {
         // Init stuff
         $this->combatantAID = $this->combatantA->id;
         $this->combatantBID = $this->combatantB->id;
 
+        // Decide between pve and pvp
         if(get_class($this->combatantB) == "Monster") {
             $this->combatantB->call("getReadyForBattle");
             $this->type = "monster";
@@ -56,7 +71,8 @@ class Battle extends BaseBattle {
         
         
         if($this->type == "pvp") {
-            // Player first round messages are only needed in PVP. (Are they?)
+            // Player first round messages are only needed in PVP.
+            // ToDo: Are they?
         } else {
             $battleMsg = new Battlemessage(
                 $this->combatantB->call("createFirstRoundCombatMessage")
@@ -67,20 +83,20 @@ class Battle extends BaseBattle {
         // Insert new DB record
         $this->insert();
         
-        // Set ongoing battle flag
-        $this->combatantA->setBattleFlag($this->id);
+        // Set ongoingBattleID for combattants
+        $this->combatantA->ongoingBattleID = $this->id;
         if($this->type == "pvp") {
-            $this->combatantB->setBattleFlag($this->id);
+            $this->combatantB->ongoingBattleID = $this->id;
             $this->combatantB->save();
         }
         
         $this->saveObjectState();
     }
     
-    /*
-     *  Determine winner
-     *  Handle consequences of winning + loosing
-     *  Do some cleaning up
+    /**
+     * Determine winner
+     * Handle consequences of winning + loosing
+     * Do some cleaning up
      */
     public function stop() {
         if($this->combatantA->hp > 0) {
@@ -102,19 +118,32 @@ class Battle extends BaseBattle {
             $this->combatantA->gainFavours($this->combatantB->dropFavours, "battle");
             $this->combatantA->gainKudos($this->combatantB->dropKudos, "battle");
 
-            $this->combatantA->increaseXp($this->combatantB->attack / 2);
+            /**
+             * monster->xp can be defined to deviate from the standard
+             * attack / 2 xp reward
+             */
+            if(isset($this->combatantB->xp)) {
+                $this->combatantA->increaseXp($this->combatantB->xp);
+            } else {
+                $this->combatantA->increaseXp($this->combatantB->attack / 2);
+            }
         }
 
+        $this->combatantA->ongoingBattleID = null;
         if($this->type == "pvp") {
             // ToDo: Message to PVP enemy
-            $this->combatantB->setBattleFlag(0);
+            $this->combatantB->ongoingBattleID = null;
         }
-        $this->combatantA->setBattleFlag(0);
 
         $this->state = "resolved";
         $this->objectState = "";
 
-        $this->combatantA->save();
+        /**
+         * ToDo: why does backupbehavior think that no attribute changed
+         *       if we set ongoingBattleID to null?
+         */
+        $this->combatantA->update();
+        // $this->combatantA->save();
         if($this->type == "pvp") {
             $this->combatantB->save();
         }
@@ -123,9 +152,9 @@ class Battle extends BaseBattle {
         $this->reconstructCombatants();
     }
     
-    /*
-     *  Gültigkeit von $playerAction wird vom Controller überprüft
-     *  bzw. stammt von Monster model
+    /**
+     * Validity of $playerAction is checked by controller or is provided by
+     * a monster model directly
      */
     public function playerAction($playerAction = null) {
         // Yii::trace("playerAction. Action: " . $playerAction->name);
@@ -153,7 +182,7 @@ class Battle extends BaseBattle {
         }
     }
     
-    /*
+    /**
      * 1. resolve block actions
      * 2. resolve delayed effects
      * 3. resolve defensive actions
@@ -166,9 +195,13 @@ class Battle extends BaseBattle {
         $this->nextRound();
         $this->onBeforeRound(new CEvent($this));
 
-        // Resolve actions
-        // Action calls expects $battle, $hero, $enemy, from the action's user point of view
-        // If actions happen in the same battle
+        /**
+         * Resolve actions
+         * Action calls expects $battle, $hero, $enemy, from the action's user 
+         * point of view
+         * If actions happen in the same battle phase, RNG decides who acts 
+         * first. Otherwise, actions resolve in the order of the battle phases
+         */
         if($this->combatantAAction->battlePhase == $this->combatantBAction->battlePhase) {
             $rand = mt_rand(0,100);
             if($rand >= 50) {
@@ -185,12 +218,7 @@ class Battle extends BaseBattle {
         } elseif ($this->combatantBAction->battlePhase == "defense") {
             $first = "combatantB";
         }
-        
-        if($first == "combatantA") {
-            $second = "combatantB";
-        } else {
-            $second = "combatantA";
-        }
+        $second = ($first == "combatantA" ? "combatantB" : "combatantA");
         
         // First action
         $event = new CModelEvent($this, array('hero' => $this->{$first},
@@ -209,6 +237,7 @@ class Battle extends BaseBattle {
         $this->onAfterAction($event);
 
         
+        // Clean up
         $this->combatantAAction = null;
         $this->combatantBAction = null;
 
@@ -229,8 +258,8 @@ class Battle extends BaseBattle {
     }
 
 
-    /*
-     *    EVENTS + RELATED STUFF
+    /**
+     * EVENTS + RELATED STUFF
      */
     
     public function addEffect($effect) {
@@ -248,8 +277,12 @@ class Battle extends BaseBattle {
         }
     }
 
-    // Finds out if a combatant "owns" battleeffects
-    // ToDo: allow obj for combatantString
+    /**
+     * Finds out if a combatant has battleeffects attached to them
+     * @param string $combatantString
+     * @return boolean 
+     * ToDo: allow obj for combatantString
+     */
     public function combatantHasEffects($combatantString) {
         foreach($this->battleeffects as $battleeffect) {
             if ($battleeffect->heroString == $combatantString) {
@@ -259,8 +292,11 @@ class Battle extends BaseBattle {
         return false;
     }
     
-    // Event raisers
-    // When adding new ones: Don't forget to add their names to the array in detachAll...
+    /**
+     * Event raisers
+     * When adding new ones: Don't forget to add their names to the array in 
+     * detachAll...
+     */
     public function onBeforeRound($event) {
         $this->raiseEvent("onBeforeRound", $event);
     }
@@ -296,15 +332,15 @@ class Battle extends BaseBattle {
     
     
     
-    /*
-     *    BORING STUFF
+    /**
+     * BORING STUFF
      */
 
-    /*
-     *  Add a message to the log array
-     *  combatant    obj of the combatant on whose side the message should appear
-     *  Default value for round is the current round
-     *  For more details, see comment @ $_log
+    /**
+     * Add a message to the log array
+     * @param Combatant $combatant, on whose side the message should appear
+     * @param Battlemessage $battleMsg
+     * @param int $round, default is the current round
      */
     public function log($combatant, $battleMsg, $round = null) {
         if(empty($round)) {
@@ -321,13 +357,11 @@ class Battle extends BaseBattle {
         $this->_log[$round][] = $battleMsg;
     }
     
-    /*
-     *  ToDo: array, check if round exists, etc.
-     *  round  mixed  all gives the whole array
-     *               current gives the messages of the current round
-     *               last    gives the messages of the last round played
-     *               number gives the messages of the indicated round
-     *               array of numbers gives the messages of the indicated rounds
+    /**
+     * Returns Battlemessages of a given round or set of rounds
+     * @param mixed $rounds, "all", "last", "current" or int of round
+     * @return array
+     * ToDo: array, check if round exists, etc.
      */
     public function getLogs($rounds = "all") {
         switch($rounds) {
@@ -343,12 +377,17 @@ class Battle extends BaseBattle {
             default:
                 return $this->_log;
                 break;
-                
         }
     }
     
     
-    // From current user's point of view
+    /**
+     * All getWhateverCombatants are from current user's point of view
+     */
+    
+    /**
+     * @return Combatant 
+     */
     public function getHero() {
         if($this->combatantAID == CD()->id) {
             return $this->combatantA;
@@ -356,6 +395,9 @@ class Battle extends BaseBattle {
             return $this->combatantB;
         }
     }
+    /**
+     * @return Combatant 
+     */
     public function getEnemy() {
         if($this->combatantAID == CD()->id) {
             return $this->combatantB;
@@ -363,6 +405,9 @@ class Battle extends BaseBattle {
             return $this->combatantA;
         }
     }
+    /**
+     * @return string, either "combatantA" or "combatantB"
+     */
     public function getHeroString() {
         if($this->combatantAID == CD()->id) {
             return "combatantA";
@@ -370,6 +415,9 @@ class Battle extends BaseBattle {
             return "combatantB";
         }
     }
+    /**
+     * @return string, either "combatantA" or "combatantB"
+     */
     public function getEnemyString() {
         if($this->combatantAID == CD()->id) {
             return "combatantB";
@@ -377,7 +425,9 @@ class Battle extends BaseBattle {
             return "combatantA";
         }
     }
-    
+    /**
+     * @return Combatant or string "draw"
+     */
     public function getWinner() {
         if($this->winnerType == "draw") {
             return "draw";
@@ -387,6 +437,9 @@ class Battle extends BaseBattle {
             return $this->combatantB;
         }
     }
+    /**
+     * @return Combatant or string "draw"
+     */
     public function getLoser() {
         if($this->winnerType == "draw") {
             return "draw";
@@ -396,6 +449,10 @@ class Battle extends BaseBattle {
             return $this->combatantA;
         }
     }
+    
+    /**
+     * @return bool
+     */
     public function isUserWinner() {
         if($this->winnerType == "player" && $this->winnerID == CD()->id) {
             return true;
@@ -403,6 +460,10 @@ class Battle extends BaseBattle {
         return false;
     }
     
+    /**
+     * returns the combatant-string of a Combatant object
+     * @return string, "combatantA" or "combatantB"
+     */
     public function getCombatantString($obj) {
         if(is_a($obj, "Monster")) {
             return "combatantB";
@@ -417,8 +478,8 @@ class Battle extends BaseBattle {
         $this->round++;
     }
     
-    /*
-     * __sleep sets Character model properties to null
+    /**
+     * __sleep sets Combatant model properties to null
      * reconstructBattle reconstructs these properties
      * Saves space on DB and makes it possible to use CharacterData component
      * throughout the battle
@@ -429,6 +490,7 @@ class Battle extends BaseBattle {
         $this->save();
         $this->reconstructCombatants();
     }
+    
     public function __sleep() {
         if($this->type == "pvp") {
             $this->combatantA = null;
@@ -437,9 +499,11 @@ class Battle extends BaseBattle {
             $this->combatantA = null;
         }
         
-        // This is ugly, but you can't remove items from a CList while cycling through
-        // the list with foreach. The iterator's $_i for the current position is not
-        // updated. Apparently, this is how it should be. Weird.
+        /**
+         * This is ugly, but you can't remove items from a CList while cycling 
+         * through the list with foreach. The iterator's $_i for the current 
+         * position is not updated. Apparently, this is how it should be. Weird.
+         */
         $toDelete = array();
         foreach($this->battleeffects as $battleeffect) {
             if(!$battleeffect->active) {
@@ -449,13 +513,16 @@ class Battle extends BaseBattle {
         foreach($toDelete as $deletee) {
             $this->battleeffects->remove($deletee);
         }
-            
         
         return parent::__sleep();
     }
     
-    // Factory method
-    // ToDo: reconstruct enemy Character model in PVP
+    /**
+     * Factory method
+     * @param type $battleID
+     * @return Battle or false in case of an error
+     * ToDo: reconstruct enemy Character model in PVP
+     */
     static public function reconstructBattle($battleID) {
         $battleModel = Battle::model()->findByPk($battleID);
         $battle = unserialize(base64_decode($battleModel->objectState));
@@ -466,7 +533,7 @@ class Battle extends BaseBattle {
         return false;
     }
     
-    // ToDo: reconstruct non-user character in pvp as well
+    // ToDo: reconstruct the second Character in case of a pvp fight as well
     private function reconstructCombatants() {
         if($this->type == "pvp") {
             if($this->combatantAID == CD()->id) {

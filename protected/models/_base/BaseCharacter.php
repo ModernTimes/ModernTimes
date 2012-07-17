@@ -16,12 +16,13 @@
  * @property string $sex
  * @property string $class
  * @property integer $ongoingBattleID
- * @property integer $actions
+ * @property integer $ongoingEncounterID
+ * @property integer $turns
  * @property integer $badConscience
  * @property integer $networkStrainedness
- * @property string $resolutenessSub
- * @property string $willpowerSub
- * @property string $cunningSub
+ * @property integer $resolutenessSub
+ * @property integer $willpowerSub
+ * @property integer $cunningSub
  * @property integer $hp
  * @property integer $energy
  * @property integer $cash
@@ -30,11 +31,11 @@
  *
  * @property User $user
  * @property CharacterEffects[] $characterEffects
+ * @property CharacterEquipments[] $characterEquipments
+ * @property CharacterFamiliars[] $characterFamiliars
  * @property CharacterItems[] $characterItems
  * @property CharacterSkills[] $characterSkills
- * @property Equipment[] $equipments
- * @property Familiar[] $familiars
- * @property Skillset[] $skillsets
+ * @property CharacterSkillsets[] $characterSkillsets
  */
 abstract class BaseCharacter extends GxActiveRecord {
 
@@ -56,14 +57,13 @@ abstract class BaseCharacter extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('userID, active, name, class, ongoingBattleID, actions, badConscience, networkStrainedness, resolutenessSub, willpowerSub, cunningSub, hp, cash, favours, kudos', 'required'),
-			array('userID, active, ongoingBattleID, actions, badConscience, networkStrainedness, hp, energy, cash, favours, kudos', 'numerical', 'integerOnly'=>true),
+			array('userID, active, name, class, ongoingBattleID, ongoingEncounterID, turns, badConscience, networkStrainedness, hp, cash, favours, kudos', 'required'),
+			array('userID, active, ongoingBattleID, ongoingEncounterID, turns, badConscience, networkStrainedness, resolutenessSub, willpowerSub, cunningSub, hp, energy, cash, favours, kudos', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>50),
 			array('sex', 'length', 'max'=>6),
 			array('class', 'length', 'max'=>10),
-			array('resolutenessSub, willpowerSub, cunningSub', 'length', 'max'=>8),
-			array('sex, energy', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, userID, active, name, sex, class, ongoingBattleID, actions, badConscience, networkStrainedness, resolutenessSub, willpowerSub, cunningSub, hp, energy, cash, favours, kudos', 'safe', 'on'=>'search'),
+			array('sex, resolutenessSub, willpowerSub, cunningSub, energy', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, userID, active, name, sex, class, ongoingBattleID, ongoingEncounterID, turns, badConscience, networkStrainedness, resolutenessSub, willpowerSub, cunningSub, hp, energy, cash, favours, kudos', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,11 +71,11 @@ abstract class BaseCharacter extends GxActiveRecord {
 		return array(
 			'user' => array(self::BELONGS_TO, 'User', 'userID'),
 			'characterEffects' => array(self::HAS_MANY, 'CharacterEffects', 'characterID'),
+			'characterEquipments' => array(self::HAS_MANY, 'CharacterEquipments', 'characterID'),
+			'characterFamiliars' => array(self::HAS_MANY, 'CharacterFamiliars', 'characterID'),
 			'characterItems' => array(self::HAS_MANY, 'CharacterItems', 'characterID'),
 			'characterSkills' => array(self::HAS_MANY, 'CharacterSkills', 'characterID'),
-			'equipments' => array(self::HAS_MANY, 'Equipment', 'characterID'),
-			'familiars' => array(self::HAS_MANY, 'Familiar', 'characterID'),
-			'skillsets' => array(self::HAS_MANY, 'Skillset', 'characterID'),
+			'characterSkillsets' => array(self::HAS_MANY, 'CharacterSkillsets', 'characterID'),
 		);
 	}
 
@@ -93,7 +93,8 @@ abstract class BaseCharacter extends GxActiveRecord {
 			'sex' => Yii::t('app', 'Sex'),
 			'class' => Yii::t('app', 'Class'),
 			'ongoingBattleID' => Yii::t('app', 'Ongoing Battle'),
-			'actions' => Yii::t('app', 'Actions'),
+			'ongoingEncounterID' => Yii::t('app', 'Ongoing Encounter'),
+			'turns' => Yii::t('app', 'Turns'),
 			'badConscience' => Yii::t('app', 'Bad Conscience'),
 			'networkStrainedness' => Yii::t('app', 'Network Strainedness'),
 			'resolutenessSub' => Yii::t('app', 'Resoluteness Sub'),
@@ -106,11 +107,11 @@ abstract class BaseCharacter extends GxActiveRecord {
 			'kudos' => Yii::t('app', 'Kudos'),
 			'user' => null,
 			'characterEffects' => null,
+			'characterEquipments' => null,
+			'characterFamiliars' => null,
 			'characterItems' => null,
 			'characterSkills' => null,
-			'equipments' => null,
-			'familiars' => null,
-			'skillsets' => null,
+			'characterSkillsets' => null,
 		);
 	}
 
@@ -124,12 +125,13 @@ abstract class BaseCharacter extends GxActiveRecord {
 		$criteria->compare('sex', $this->sex, true);
 		$criteria->compare('class', $this->class, true);
 		$criteria->compare('ongoingBattleID', $this->ongoingBattleID);
-		$criteria->compare('actions', $this->actions);
+		$criteria->compare('ongoingEncounterID', $this->ongoingEncounterID);
+		$criteria->compare('turns', $this->turns);
 		$criteria->compare('badConscience', $this->badConscience);
 		$criteria->compare('networkStrainedness', $this->networkStrainedness);
-		$criteria->compare('resolutenessSub', $this->resolutenessSub, true);
-		$criteria->compare('willpowerSub', $this->willpowerSub, true);
-		$criteria->compare('cunningSub', $this->cunningSub, true);
+		$criteria->compare('resolutenessSub', $this->resolutenessSub);
+		$criteria->compare('willpowerSub', $this->willpowerSub);
+		$criteria->compare('cunningSub', $this->cunningSub);
 		$criteria->compare('hp', $this->hp);
 		$criteria->compare('energy', $this->energy);
 		$criteria->compare('cash', $this->cash);

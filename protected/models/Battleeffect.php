@@ -2,36 +2,63 @@
 
 Yii::import('application.models._base.BaseBattleeffect');
 
-/*
- *       use Specialness Behavior design
- *       define basic methods
+/**
+ * Defines basic Battleeffect behavior, which includes
+ * - basic blocking mechanics (chance, types of actions, number of blocks,
+ *                             active for a number of turns)
+ * Can be "overwridden" via the usual specialnessBehavior method
+ * See, e.g., BabbleComboEffect
+ * ToDo: add more basic effect mechanics
  */
 
 class Battleeffect extends BaseBattleeffect {
     
-    // hero => the combatant under whose name the effect appears
+    /**
+     * hero is the combatant under whose name the effect appears
+     * @var string
+     */
     public $heroString;
     public $enemyString;
     
-    // bool
-    // inactive effects will be erased and detached by battle's sleep procedure
+    /**
+     * inactive effects will be erased and detached by battle's sleep procedure
+     * @var bool
+     */
     public $active;
 
-    /* 
-     *  Not used by all skills
+    /** 
+     * The following properties are not used by all skills
      */
-    // To keep track of "counters" of all sort
+
+    /**
+     * keeps track of "counters" of all sort
+     * @var int
+     */
     public $charges = 0;
-    // To keep track of the lifespan, if appropriate. 
-    // -1 means that the effect holds indefinitely
+
+    /**
+     * Keeps track of the lifespan of the effect
+     * -1 means that the effect holds indefinitely
+     * @var int
+     */
     public $turns = -1;
     
-    // Set to true once the effect is added to the BattleModel
-    // Used to decide whether or not the skill that creates this effect
-    // should log a battle action or not
+    /**
+     * Set to true once the effect is added to the BattleModel
+     * Used to decide whether or not the skill that creates this effect
+     * should log a battle action or not
+     * @var bool
+     */
     public $added = false;
     
-    // return: added, increasedDuration, notAdded
+    /**
+     *
+     * @param Battle $battle
+     * @param Combatant $hero
+     * @param Combatant $enemy
+     * @param array|mixed $options
+     * @return enum(added, increasedDuration, notAdded)
+     */
     public function initialize($battle, $hero, $enemy, $options = array()) {
         $options = array_merge(
             // The default options
@@ -43,8 +70,10 @@ class Battleeffect extends BaseBattleeffect {
             $options
         );        
 
-        // hero = skill user that brings this effect into place
-        // Adjust so that heroString is the owner of the buff/debuff
+        /**
+         * up to this point: hero = combatant who brought this effect into play
+         * adjust so that heroString is the owner of the buff/debuff
+         */
         if($this->buff) {
             $this->heroString = $battle->getCombatantString($hero);
             $this->enemyString = $battle->getCombatantString($enemy);
@@ -60,9 +89,11 @@ class Battleeffect extends BaseBattleeffect {
             $this->charges = $this->blockNumberOfBlocks;
         }
         
-        // Adds the effect in case it's not already active
-        //     Unless the effect should only be active once per combatant,
-        //         in which case the duration will be increased
+        /**
+         * Adds the effect in case it's not already active
+         * Unless the effect should only be active once per combatant,
+         * in which case the duration will be increased
+         */
         if($options['autoAttach']) {
             if(!$this->singleton || !$battle->battleeffects->contains($this)) {
                 $battle->addEffect($this);
@@ -80,13 +111,13 @@ class Battleeffect extends BaseBattleeffect {
         if($this->blocks) {
             return $this->desc . "<BR />&nbsp;<BR />" . 
                 "<b>Blocks" . 
-                    ($this->blockNumberOfBlocks > 0 ? " the next " . $this->numberOfBlocks : "") .
-                    $this->blockActionTypes . " actions" . 
+                    ($this->blockNumberOfBlocks > 0 ? " the next" . $this->numberOfBlocks : "") .
+                    " " . $this->blockActionTypes . " actions" . 
                 ($this->blockChance < 1 ? " with a chance of " . floor($this->blockChance * 100) . "%" : "") . 
                 ($this->turns > 0 ? " within the next " . $this->turns . " rounds" : "") .
                 ".";
         }
-        return $this->desc; 
+        return $this->desc;
     }
 
     public function getTurns() { return $this->turns; }
@@ -102,15 +133,15 @@ class Battleeffect extends BaseBattleeffect {
     }
 
     
-    // Overwrite by using these commands:
-    /*
-        $battle->onBeforeAction = array($this, 'reactToOnBeforeAction');
-        $battle->onAfterAction = array($this, 'reactToOnAfterAction');
-        $battle->onBeforeDealingDamage = array($this, 'reactToOnBeforeDealingDamage');
-        $battle->onAfterDealingDamage = array($this, 'reactToOnAfterDealingDamage');
-        $battle->onBeforeTakingDamage = array($this, 'reactToOnBeforeTakingDamage');
-        $battle->onAfterTakingDamage = array($this, 'reactToOnAfterTakingDamage');
-    */
+    /** 
+     * Override by child classes by using these commands:
+     * $battle->onBeforeAction = array($this, 'reactToOnBeforeAction');
+     * $battle->onAfterAction = array($this, 'reactToOnAfterAction');
+     * $battle->onBeforeDealingDamage = array($this, 'reactToOnBeforeDealingDamage');
+     * $battle->onAfterDealingDamage = array($this, 'reactToOnAfterDealingDamage');
+     * $battle->onBeforeTakingDamage = array($this, 'reactToOnBeforeTakingDamage');
+     * $battle->onAfterTakingDamage = array($this, 'reactToOnAfterTakingDamage');
+     */
     public function attachToBattle($battle) {
         $battle->onAfterRound = array($this, 'reactToOnAfterRound');
         if($this->blocks) {
@@ -118,7 +149,7 @@ class Battleeffect extends BaseBattleeffect {
         }
     }
 
-    // Overwrite / extend as necessary
+    // Override / extend as necessary
     public function reactToOnBeforeRound($event) { }
     public function reactToOnAfterRound($event) {
         $this->turns --;
@@ -129,8 +160,9 @@ class Battleeffect extends BaseBattleeffect {
             $event->sender->log($event->sender->{$this->heroString}, $battleMsg);
         }
     }
-    /*
-     *  ToDo: check typeOfActions
+    
+    /**
+     * ToDo: check typeOfActions
      */
     public function reactToOnBeforeAction($event) {
         if($this->blocks &&

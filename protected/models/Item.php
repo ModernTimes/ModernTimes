@@ -5,15 +5,10 @@ Yii::import('application.components.items.*');
 
 class Item extends BaseItem {
 
-    /*
-     * BACKGROUND STUFF
-     */
-    
     public function behaviors() {
         return array("application.components.SpecialnessBehavior",
-                     'characterModifier'=>array(
-                        'class'=>"application.components.CharacterModifierBehavior"),
-                     );
+                     "application.components.CharacterModifierBehavior",
+               );
     }
     
     public static function model($className=__CLASS__) {

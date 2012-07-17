@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Provides a render function that other battle-related action classes can use
+ */
+
 class BattleAction extends CAction {
 
     protected $_battle;
@@ -7,14 +11,11 @@ class BattleAction extends CAction {
     public function renderBattle() {
         if(!is_a($this->_battle, "Battle")) {
             $battleID = CD()->ongoingBattleID;
-            if(!$this->_battle = Battle::reconstructBattle($battleID)) {
+            if(!($this->_battle = Battle::reconstructBattle($battleID))) {
                 // throw exception
             }
         }
 
-        // $test = base64_encode(serialize($this->_battle));
-        // d($this->_battle->objectState);
-        
         $this->controller->layout = '//layouts/g_fullscreen';
         $this->controller->render('battle', array("battle" => $this->_battle));
     }

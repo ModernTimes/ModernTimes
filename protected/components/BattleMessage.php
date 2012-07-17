@@ -2,10 +2,23 @@
 
 class BattleMessage extends CComponent {
 
+    /**
+     * @var string, set by Battle's logging function
+     */
     public $hero;
     
+    /**
+     * @var array, log details of the skill that is responsible for the message
+     */
     public $skill;
+    
+    /**
+     * @var string, the message itself
+     */
     public $msg;
+    /**
+     * @var array, log details of a battle action result
+     */
     public $result;
     
     public function __construct($msg = "", $skill = array(), $result = array()) {
@@ -32,6 +45,11 @@ class BattleMessage extends CComponent {
         return "";
     }
     
+    /**
+     * Redirects setResult requests to more specific setResult methods
+     * @param enum(damage,effect) firstOne, type of the result
+     * @param rest, see these more specific setResult methods
+     */
     public function setResult() {
         switch(func_get_arg(0)) {
             case "damage":

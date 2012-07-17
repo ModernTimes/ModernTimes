@@ -1,13 +1,15 @@
 <?php
 
+/**
+ * Start a battle against a monster
+ * Cannot be called by user directly
+ */
+
 class BattleMonsterAction extends CAction {
 
     public $monsterID;
     public $params;
     
-    /*
-     *  ToDo: - Check: Can only be called from inside the application
-     */
     public function run() {
         $battle = new Battle;
         $battle->combatantA = CD();
@@ -19,7 +21,7 @@ class BattleMonsterAction extends CAction {
             ))->findByPk($this->monsterID);
         $battle->start();
         
-        Yii::app()->tools->spendAction();
+        Yii::app()->tools->spendTurn();
         
         $this->controller->layout = '//layouts/g_fullscreen';
         $this->controller->render('battle', array("battle" => $battle));

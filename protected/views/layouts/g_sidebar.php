@@ -1,16 +1,14 @@
 <?php $this->beginContent('//layouts/game'); ?>
 
     <div class="row-fluid">
-        <div class="span3">
+        <div class="span2">
         <!--Sidebar content-->
 
             <?php $this->widget('CharacterStatsWidget'); ?>
 
         </div>
-        <div class="span9">
+        <div class="span10">
         <!--Body content-->
-
-            <?php $this->widget('UserFlashesBasic'); ?>
 
             <div><?php echo $content; ?></div>
                                 

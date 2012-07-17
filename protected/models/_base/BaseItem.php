@@ -12,7 +12,10 @@
  * @property integer $id
  * @property string $name
  * @property string $specialClass
+ * @property integer $charactermodifierID
  * @property string $type
+ * @property integer $usable
+ * @property integer $tradeable
  * @property string $desc
  * @property string $reqClass
  * @property integer $reqResoluteness
@@ -21,30 +24,19 @@
  * @property integer $autosellCash
  * @property integer $autosellFavours
  * @property integer $autosellKudos
- * @property integer $hp
- * @property integer $hpPerc
- * @property integer $energy
- * @property integer $energyPerc
- * @property integer $resoluteness
- * @property integer $resolutenessPerc
- * @property integer $willpower
- * @property integer $willpowerPerc
- * @property integer $cunning
- * @property integer $cunningPerc
- * @property integer $dropCash
- * @property integer $dropCashPerc
- * @property integer $dropFavours
- * @property integer $dropFavoursPerc
- * @property integer $dropKudos
- * @property integer $dropKudosPerc
- * @property integer $dropItemPerc
+ * @property integer $useHp
+ * @property integer $useEnergy
+ * @property integer $useEffectID
+ * @property integer $useEffectDuration
  *
+ * @property CharacterEquipments[] $characterEquipments
+ * @property CharacterEquipments[] $characterEquipments1
+ * @property CharacterEquipments[] $characterEquipments2
+ * @property CharacterEquipments[] $characterEquipments3
+ * @property CharacterEquipments[] $characterEquipments4
  * @property CharacterItems[] $characterItems
- * @property Equipment[] $equipments
- * @property Equipment[] $equipments1
- * @property Equipment[] $equipments2
- * @property Equipment[] $equipments3
- * @property Equipment[] $equipments4
+ * @property EncounterItems[] $encounterItems
+ * @property Charactermodifier $charactermodifier
  * @property MonsterItems[] $monsterItems
  */
 abstract class BaseItem extends GxActiveRecord {
@@ -67,25 +59,27 @@ abstract class BaseItem extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('name, specialClass, desc', 'required'),
-			array('reqResoluteness, reqWillpower, reqCunning, autosellCash, autosellFavours, autosellKudos, hp, hpPerc, energy, energyPerc, resoluteness, resolutenessPerc, willpower, willpowerPerc, cunning, cunningPerc, dropCash, dropCashPerc, dropFavours, dropFavoursPerc, dropKudos, dropKudosPerc, dropItemPerc', 'numerical', 'integerOnly'=>true),
+			array('name, specialClass, desc, useEffectID', 'required'),
+			array('charactermodifierID, usable, tradeable, reqResoluteness, reqWillpower, reqCunning, autosellCash, autosellFavours, autosellKudos, useHp, useEnergy, useEffectID, useEffectDuration', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>75),
 			array('specialClass', 'length', 'max'=>50),
 			array('reqClass', 'length', 'max'=>10),
 			array('type', 'safe'),
-			array('type, reqClass, reqResoluteness, reqWillpower, reqCunning, autosellCash, autosellFavours, autosellKudos, hp, hpPerc, energy, energyPerc, resoluteness, resolutenessPerc, willpower, willpowerPerc, cunning, cunningPerc, dropCash, dropCashPerc, dropFavours, dropFavoursPerc, dropKudos, dropKudosPerc, dropItemPerc', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, name, specialClass, type, desc, reqClass, reqResoluteness, reqWillpower, reqCunning, autosellCash, autosellFavours, autosellKudos, hp, hpPerc, energy, energyPerc, resoluteness, resolutenessPerc, willpower, willpowerPerc, cunning, cunningPerc, dropCash, dropCashPerc, dropFavours, dropFavoursPerc, dropKudos, dropKudosPerc, dropItemPerc', 'safe', 'on'=>'search'),
+			array('charactermodifierID, type, usable, tradeable, reqClass, reqResoluteness, reqWillpower, reqCunning, autosellCash, autosellFavours, autosellKudos, useHp, useEnergy, useEffectDuration', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, name, specialClass, charactermodifierID, type, usable, tradeable, desc, reqClass, reqResoluteness, reqWillpower, reqCunning, autosellCash, autosellFavours, autosellKudos, useHp, useEnergy, useEffectID, useEffectDuration', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function relations() {
 		return array(
+			'characterEquipments' => array(self::HAS_MANY, 'CharacterEquipments', 'weapon'),
+			'characterEquipments1' => array(self::HAS_MANY, 'CharacterEquipments', 'offhand'),
+			'characterEquipments2' => array(self::HAS_MANY, 'CharacterEquipments', 'accessoryA'),
+			'characterEquipments3' => array(self::HAS_MANY, 'CharacterEquipments', 'accessoryB'),
+			'characterEquipments4' => array(self::HAS_MANY, 'CharacterEquipments', 'accessoryC'),
 			'characterItems' => array(self::HAS_MANY, 'CharacterItems', 'itemID'),
-			'equipments' => array(self::HAS_MANY, 'Equipment', 'weapon'),
-			'equipments1' => array(self::HAS_MANY, 'Equipment', 'offhand'),
-			'equipments2' => array(self::HAS_MANY, 'Equipment', 'accessoryA'),
-			'equipments3' => array(self::HAS_MANY, 'Equipment', 'accessoryB'),
-			'equipments4' => array(self::HAS_MANY, 'Equipment', 'accessoryC'),
+			'encounterItems' => array(self::HAS_MANY, 'EncounterItems', 'itemID'),
+			'charactermodifier' => array(self::BELONGS_TO, 'Charactermodifier', 'charactermodifierID'),
 			'monsterItems' => array(self::HAS_MANY, 'MonsterItems', 'itemID'),
 		);
 	}
@@ -100,7 +94,10 @@ abstract class BaseItem extends GxActiveRecord {
 			'id' => Yii::t('app', 'ID'),
 			'name' => Yii::t('app', 'Name'),
 			'specialClass' => Yii::t('app', 'Special Class'),
+			'charactermodifierID' => null,
 			'type' => Yii::t('app', 'Type'),
+			'usable' => Yii::t('app', 'Usable'),
+			'tradeable' => Yii::t('app', 'Tradeable'),
 			'desc' => Yii::t('app', 'Desc'),
 			'reqClass' => Yii::t('app', 'Req Class'),
 			'reqResoluteness' => Yii::t('app', 'Req Resoluteness'),
@@ -109,29 +106,18 @@ abstract class BaseItem extends GxActiveRecord {
 			'autosellCash' => Yii::t('app', 'Autosell Cash'),
 			'autosellFavours' => Yii::t('app', 'Autosell Favours'),
 			'autosellKudos' => Yii::t('app', 'Autosell Kudos'),
-			'hp' => Yii::t('app', 'Hp'),
-			'hpPerc' => Yii::t('app', 'Hp Perc'),
-			'energy' => Yii::t('app', 'Energy'),
-			'energyPerc' => Yii::t('app', 'Energy Perc'),
-			'resoluteness' => Yii::t('app', 'Resoluteness'),
-			'resolutenessPerc' => Yii::t('app', 'Resoluteness Perc'),
-			'willpower' => Yii::t('app', 'Willpower'),
-			'willpowerPerc' => Yii::t('app', 'Willpower Perc'),
-			'cunning' => Yii::t('app', 'Cunning'),
-			'cunningPerc' => Yii::t('app', 'Cunning Perc'),
-			'dropCash' => Yii::t('app', 'Drop Cash'),
-			'dropCashPerc' => Yii::t('app', 'Drop Cash Perc'),
-			'dropFavours' => Yii::t('app', 'Drop Favours'),
-			'dropFavoursPerc' => Yii::t('app', 'Drop Favours Perc'),
-			'dropKudos' => Yii::t('app', 'Drop Kudos'),
-			'dropKudosPerc' => Yii::t('app', 'Drop Kudos Perc'),
-			'dropItemPerc' => Yii::t('app', 'Drop Item Perc'),
+			'useHp' => Yii::t('app', 'Use Hp'),
+			'useEnergy' => Yii::t('app', 'Use Energy'),
+			'useEffectID' => Yii::t('app', 'Use Effect'),
+			'useEffectDuration' => Yii::t('app', 'Use Effect Duration'),
+			'characterEquipments' => null,
+			'characterEquipments1' => null,
+			'characterEquipments2' => null,
+			'characterEquipments3' => null,
+			'characterEquipments4' => null,
 			'characterItems' => null,
-			'equipments' => null,
-			'equipments1' => null,
-			'equipments2' => null,
-			'equipments3' => null,
-			'equipments4' => null,
+			'encounterItems' => null,
+			'charactermodifier' => null,
 			'monsterItems' => null,
 		);
 	}
@@ -142,7 +128,10 @@ abstract class BaseItem extends GxActiveRecord {
 		$criteria->compare('id', $this->id);
 		$criteria->compare('name', $this->name, true);
 		$criteria->compare('specialClass', $this->specialClass, true);
+		$criteria->compare('charactermodifierID', $this->charactermodifierID);
 		$criteria->compare('type', $this->type, true);
+		$criteria->compare('usable', $this->usable);
+		$criteria->compare('tradeable', $this->tradeable);
 		$criteria->compare('desc', $this->desc, true);
 		$criteria->compare('reqClass', $this->reqClass, true);
 		$criteria->compare('reqResoluteness', $this->reqResoluteness);
@@ -151,23 +140,10 @@ abstract class BaseItem extends GxActiveRecord {
 		$criteria->compare('autosellCash', $this->autosellCash);
 		$criteria->compare('autosellFavours', $this->autosellFavours);
 		$criteria->compare('autosellKudos', $this->autosellKudos);
-		$criteria->compare('hp', $this->hp);
-		$criteria->compare('hpPerc', $this->hpPerc);
-		$criteria->compare('energy', $this->energy);
-		$criteria->compare('energyPerc', $this->energyPerc);
-		$criteria->compare('resoluteness', $this->resoluteness);
-		$criteria->compare('resolutenessPerc', $this->resolutenessPerc);
-		$criteria->compare('willpower', $this->willpower);
-		$criteria->compare('willpowerPerc', $this->willpowerPerc);
-		$criteria->compare('cunning', $this->cunning);
-		$criteria->compare('cunningPerc', $this->cunningPerc);
-		$criteria->compare('dropCash', $this->dropCash);
-		$criteria->compare('dropCashPerc', $this->dropCashPerc);
-		$criteria->compare('dropFavours', $this->dropFavours);
-		$criteria->compare('dropFavoursPerc', $this->dropFavoursPerc);
-		$criteria->compare('dropKudos', $this->dropKudos);
-		$criteria->compare('dropKudosPerc', $this->dropKudosPerc);
-		$criteria->compare('dropItemPerc', $this->dropItemPerc);
+		$criteria->compare('useHp', $this->useHp);
+		$criteria->compare('useEnergy', $this->useEnergy);
+		$criteria->compare('useEffectID', $this->useEffectID);
+		$criteria->compare('useEffectDuration', $this->useEffectDuration);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

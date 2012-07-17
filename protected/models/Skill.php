@@ -3,12 +3,21 @@
 Yii::import('application.models._base.BaseSkill');
 Yii::import('application.components.skills.*');
 
+/**
+ * Resolve the skill by interfering with the battle object
+ * The following holds true for all funcitons in this class:
+ * hero and enemy are from the Skill user's point of view
+ * @param Battle $battle
+ * @param Combatant $hero
+ * @param Combatant $enemy
+ * ToDo: source out battle action behavior (sharable with Item model)
+ * ToDo: implement non-combat skill mechanics
+ */
+
 class Skill extends BaseSkill {
 
     public $blocked = false;
 
-    // Resolve the skill by interfering with the battle object
-    // hero and enemy are from the Skill user's point of view
     public function resolve($battle, $hero, $enemy) {
         if(!$this->call("checkBlocked", $battle, $hero, $enemy)) {
             return;
@@ -24,8 +33,10 @@ class Skill extends BaseSkill {
             $battleMsg->setResult("blocked");
             $battle->log($hero, $battleMsg);
             
-            // Remember that blocked is a property of this class and gets
-            // carried over to future rounds unless it is reset properly
+            /**
+             * Remember that blocked is a property of the skill class and gets
+             * carried over to future rounds unless it is reset properly
+             */
             $this->blocked = false;
             
             return false;
@@ -33,13 +44,17 @@ class Skill extends BaseSkill {
         return true;
     }
     
-    /*
-     *  basic battleeffect creation
+    /**
+     * basic Battleeffect creation
      */
     public function createEffects($battle, $hero, $enemy, $log = true) {
         if($this->createEffect != null) {
             $effect = clone $this->createEffect0;
-            $result = $effect->call("initialize", $battle, $hero, $enemy, array('turns' => $this->effectTurns));
+            
+            // See Battleeffect->initialize for further details
+            $result = $effect->call("initialize", $battle, $hero, $enemy, array(
+                'turns' => $this->effectTurns)
+            );
             if($log) {
                 $battleMsg = new Battlemessage("", $this);
                 if($result == "added") {
@@ -53,8 +68,8 @@ class Skill extends BaseSkill {
         }
     }
     
-    /*
-     *  Basic damage dealing stuff
+    /**
+     * Basic damage dealing stuff
      */
     public function dealDamage($battle, $hero, $enemy) {
         if($this->dealsDamage) {
@@ -123,6 +138,7 @@ class Skill extends BaseSkill {
     public function behaviors() {
         return array(
             "application.components.SpecialnessBehavior",
+            "application.components.CharacterModifierBehavior",
         );
     }
 

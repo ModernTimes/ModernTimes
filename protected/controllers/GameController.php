@@ -2,18 +2,25 @@
 
 class GameController extends Controller {
 
-    public $layout='//layouts/g_sidebar';
+    public $layout='//layouts/g_sidebar_standard';
 
+    // standard action for the game controller is the map overview
     public function actionIndex() {
-        $this->redirect(array('go'));
+        $this->redirect(array('map'));
     }
 
     public function actions() {
         return array(
-            'go'              => 'application.controllers.actions.GoAction',
-            'doMischief'      => 'application.controllers.actions.DoMischiefAction',
-            'battleMonster'   => 'application.controllers.actions.BattleMonsterAction',
-            'battleAction'    => 'application.controllers.actions.BattleActionAction',
+            'map'              => 'application.controllers.actions.MapAction',
+
+            'mischief'         => 'application.controllers.actions.MischiefAction',
+            'battleMonster'    => 'application.controllers.actions.BattleMonsterAction',
+            'battleAction'     => 'application.controllers.actions.BattleActionAction',
+            'encounter'        => 'application.controllers.actions.EncounterAction',
+            
+            'rest'             => 'application.controllers.actions.RestAction',
+            
+            'pablo'            => 'application.controllers.actions.PabloAction',
             
             /* 'action2'=>array(
                             'class'=>'path.to.AnotherActionClass',
@@ -26,7 +33,11 @@ class GameController extends Controller {
         $this->render('character', array("character" => CD()));
     }
     
-    // ToDo: get rid of this in deployment
+    /**
+     * Allows to fight a monster without going through an encounter.
+     * Should only be used during development
+     * ToDo: get rid of this in deployment
+     */
     public function actionBattleMonsterDirectly($monsterID) {
         $battleMonsterAction = new BattleMonsterAction($this, "battleMonster");
         $battleMonsterAction->monsterID = $monsterID;
@@ -36,9 +47,14 @@ class GameController extends Controller {
     
     
     public function filters() {
-        return array('isRegistered', 'initCharacterDataComponent', 
-            'checkOngoingBattle'
+        return array(
+            'isRegistered', 
             // has active character
+            'initCharacterDataComponent', 
+            'noOngoingBattle',
+            'noOngoingEncounter',
+            'hasTurns + mischief, battleMonster, rest',
+            'hasHp + mischief',
             // 'debugInfo'
             );
     }
@@ -52,8 +68,8 @@ class GameController extends Controller {
         Yii::beginProfile("game action: " . $action->id);
         return true;
     }
+    
     public function afterAction($action) {
-        
         $character = CD();
 
         // Add GoodForNothing effect if character has 0 hp
@@ -62,7 +78,9 @@ class GameController extends Controller {
             Yii::app()->tools->addEffect(1, 3, array('addTurns' => false));
         }
         
+        // d($character);
         // Save Character AR in case it changed
+        // (whether or not AR has changed is checked by AR behavior automatically)
         Yii::app()->cd->save();
 
         Yii::endProfile("game action: " . $action->id);
@@ -80,19 +98,52 @@ class GameController extends Controller {
         }
     }
     
-    /*  If no active character can be found, the user is redirected to
-     *  character/create
+    /**  
+     * game actions need initialized CharacterData
+     * If no active character can be found, the user is redirected to
+     * character/create automatically at this point
      */
     public function filterInitCharacterDataComponent($c) {
         Yii::app()->cd->initialize();
         $c->run();
     }
     
-    public function filterCheckOngoingBattle($c) {
-        if(CD()->ongoingBattleID != 0 && 
+    // Players mustn't cheat their way out of ongoing battles
+    public function filterNoOngoingBattle($c) {
+        if(CD()->ongoingBattleID !== null && 
            Yii::app()->controller->action->id != "battleAction") {
 
             $this->redirect(array('battleAction'));
+            return;
+        }
+        $c->run();
+    }
+    // Players mustn't cheat their way out of ongoing encounters or encounter paths
+    public function filterNoOngoingEncounter($c) {
+        if(CD()->ongoingEncounterID !== null && 
+           Yii::app()->controller->action->id != "encounter") {
+
+            $this->redirect(array('encounter'));
+            return;
+        }
+        $c->run();
+    }    
+    
+    // Turn consuming actions require that the character has ... turns left!
+    public function filterHasTurns($c) {
+        if(CD()->turns == 0) {
+            EUserFlash::setErrorMessage("You can't do any more mischief right now.", 'validate');
+            $this->redirect(array('index'));
+            return;
+        }
+        $c->run();
+    }
+    
+    // Certain game actions require that the character has at least 1 hp
+    public function filterHasHp($c) {
+        if(CD()->hp <= 0) {
+            EUserFlash::setErrorMessage("You are too exhausted to do any mischief right now.", 'validate');
+            $this->redirect(array('index'));
             return;
         }
         $c->run();

@@ -1,14 +1,16 @@
-<div class="hero-unit" style="padding: 0px; margin: 0px">
+<div class="hero-unit" style="padding: 0px; margin: 0px; background: none">
 
 <?php /* d($battle); */ ?>    
     
-<?php if($battle->type == 'monster' && $battle->round == 0) { ?>
+<?php // entering battle message
+if($battle->type == 'monster' && $battle->round == 0) { ?>
     <h1 align="center" style="margin-bottom: 15px">Battle</h1>
     <?php $monsterMsgs = $battle->getLogs('last');
     echo "<div align=center><p align='center' style='width: 70%; margin-bottom: 40px'>" . $monsterMsgs[0]->msg . "</p></div>";
 } ?>
     
-<?php if($battle->state == "resolved") { ?>
+<?php // Battle result
+if($battle->state == "resolved") { ?>
     <h1 align="center" style="margin-bottom: 30px">
         <?php if($battle->winnerType == "draw") { ?>
             It's a DRAW
@@ -22,19 +24,19 @@
             <?php $this->widget('UserFlashesBasic'); ?>
 
     
-<?php if($battle->state == "resolved") { ?>
+<?php // Options to continue after the battle is over
+if($battle->state == "resolved") { ?>
     <center><table style="width: 66%"><tr><td width="50%" align="center">
     <?php if(!empty(Yii::app()->session['lastArea']) && $battle->isUserWinner()) { ?>
         <div class="btn-group"><span class="btn">1 <i class='icon-time'></i></span>
-            <?php echo CHtml::link("Do more mischief at " . Yii::app()->session['lastArea']['name'], array('game/doMischief', 'areaID' => Yii::app()->session['lastArea']['id']), array('class'=>'btn btn-warning')); ?>
+            <?php echo CHtml::link("Do more mischief at " . Yii::app()->session['lastArea']['name'], array('game/mischief', 'areaID' => Yii::app()->session['lastArea']['id']), array('class'=>'btn btn-warning')); ?>
         </div>
     <?php } ?>
     </td><td width="50%" align="center">
-    <?php if(!empty(Yii::app()->session['lastTravel'])) { ?>
-        <div class="btn-group"><span class="btn"><i class='icon-road'></i>&nbsp;</span>
-            <?php echo CHtml::link("Back to " . Yii::app()->session['lastTravel']['name'], array('game/go', 'region' => Yii::app()->session['lastTravel']['region']), array('class'=>'btn btn-success')); ?>
-        </div>
-    <?php } ?>
+
+    <div class="btn-group"><!--<span class="btn"><i class='icon-road'></i>&nbsp;</span>-->
+        <?php echo CHtml::link("Back to London", array('game/map'), array('class'=>'btn btn-success')); ?>
+    </div>
     </td></tr></table></center>
     
     <hr style="margin-bottom: 30px; margin-top: 45px; border-style: dashed; border-width: 1px; border-color: black">
@@ -43,7 +45,7 @@
 
     
     <center><table style="width: 100%">
-        <!-- PROFILES -->
+        <!-- PROFILES OF THE COMBATANTS -->
         <tr>
             <td width="45%" style="padding-right: 10px;"><table width="100%">
                     <tr>
@@ -144,7 +146,7 @@
                         );
                         echo $msgs[mt_rand(0, count($msgs)-1)];
                     ?></h3>
-                    <?php foreach($battle->{$battle->getHero()}->characterSkills as $characterSkill) {
+                    <?php foreach($battle->getHero()->characterSkills as $characterSkill) {
                         if($characterSkill->skill->skillType == "combat") {
                             echo CHtml::link($characterSkill->skill->name, array('game/battleAction', 'skillID' => $characterSkill->skill->id), array('class'=>'btn btn-primary btn-danger', 'data-title'=>$characterSkill->skill->name, 'data-content'=>$characterSkill->skill->call("getPopup"), 'rel'=>'popover'));
                             echo " &nbsp; ";

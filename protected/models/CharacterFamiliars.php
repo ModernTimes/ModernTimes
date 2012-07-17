@@ -1,10 +1,15 @@
 <?php
 
-Yii::import('application.models._base.BaseFamiliar');
+Yii::import('application.models._base.BaseCharacterFamiliars');
 
-class Familiar extends BaseFamiliar
+/**
+ * Basic HAS_MANY association model
+ * Which familiars does a character have?
+ * Only one can be active at a given time
+ */
+
+class CharacterFamiliars extends BaseCharacterFamiliars
 {
-    
     // Calculate based on xp
     public function getLevel() {
         return floor(sqrt($this->xp));
@@ -18,5 +23,5 @@ class Familiar extends BaseFamiliar
     
     public static function model($className=__CLASS__) {
 		return parent::model($className);
-	}
+    }
 }

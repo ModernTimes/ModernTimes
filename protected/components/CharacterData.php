@@ -1,12 +1,28 @@
 <?php
 
-class CharacterData extends CApplicationComponent
-{
-    // Here goes the Character model
+/**
+ * Provides global utility functions and wrappers to access the Character model 
+ * and related character data. In particular, it defines the global function 
+ * CD() (for CharacterData), which returns the Character model with a number of 
+ * related models. CharacterData is initialized by GameController before any 
+ * game action is executed. It redirects to the character creation action if it 
+ * does not find an active character. On initialization, it attaches equipments,
+ * skills, familiars, and other related models to the Character model, so that 
+ * the CharacterModifierBehavior of these related models can interact with the 
+ * Character model's calculations of basic character stats, like getMaxHp, 
+ * getRobustness, getLevel, etc.
+ */
+
+class CharacterData extends CApplicationComponent {
+    /**
+     * @var Character model
+     */
     private $_model = null;
     
-    // Called by Yii preloader
-    // Used to initialize alias for Yii::app()->cd->_()
+    /**
+     * Called by Yii preloader
+     * Used to initialize alias for Yii::app()->cd->_()
+     */
     public function init() {
         if (!function_exists('CD')) {
             function CD() {
@@ -17,10 +33,10 @@ class CharacterData extends CApplicationComponent
         }
     }
     
-    /*
-     *  Called by GameController before any game actions are started
-     *  ToDo: Only read the complete character record from the DB,
-     *        if some 'changed' parameter was set in the meantime
+    /**
+     * Called by GameController before any game actions are started
+     * ToDo: Only read the complete character record from the DB,
+     *       if some 'changed' parameter was set in the meantime
      */
     public function initialize () {
         if(is_a(Yii::app()->session['CD'], "Character")) {
@@ -38,20 +54,67 @@ class CharacterData extends CApplicationComponent
         }
     }
     
+    /**
+     * Loads the Character model and related models
+     * Attaches related models like passive skills, familiars, etc. to the 
+     * Character model
+     * Redirects to character creation action in case it doesn't find an active 
+     * character for the current user
+     * ToDo: Find a way to add the "available = 1" conditions again, without
+     *       causing any errors
+     */
     public function load() {
         $this->_model = Character::model()->with(array(
             // Care: The giix Model generator adds a "0" after the item slot names, for whatever reason
-            'equipments'=>array('with' => array('weapon0','offhand0','accessoryA0','accessoryB0','accessoryC0'), 'condition'=>"`equipments`.`active`=1"),
-            'familiars'=>array('condition'=>"`familiars`.`active`=1"),
+            // Care: Current Yii version does not yet automatically alias recurring table names in with-calls. Use alias!
+            'characterEquipments'=>array(
+                'with' => array(
+                    'weapon0' => array('with' => array(
+                        'charactermodifier' => array('alias' => 'weaponCharactermodifier'))),
+                    'offhand0' => array('with' => array(
+                        'charactermodifier' => array('alias' => 'offhandCharactermodifier'))),
+                    'accessoryA0' => array('with' => array(
+                        'charactermodifier' => array('alias' => 'accessoryACharactermodifier'))),
+                    'accessoryB0' => array('with' => array(
+                        'charactermodifier' => array('alias' => 'accessoryBCharactermodifier'))),
+                    'accessoryC0' => array('with' => array(
+                        'charactermodifier' => array('alias' => 'accessoryCCharactermodifier'))),
+                ),
+                // 'condition'=>"`characterEquipments`.`active`=1"
+            ),
+            'characterFamiliars'=>array(
+                // 'condition'=>"`characterFamiliars`.`active`=1"
+            ),
             // ToDo: with slot1, slot2, ...
-            'skillsets'=>array('condition'=>"`skillsets`.`active`=1"),
+            'characterSkillsets'=>array(
+                // 'condition'=>"`characterSkillsets`.`active`=1"
+            ),
 	    // 'characterItems' => array('with' => array('item')),
-	    'characterSkills' => array('with' => array('skill' => array('with' => array('createEffect0'))), 
-                                       'condition' => "available = 1"),
-            'characterEffects'=>array('with' => array('effect')),
+            'characterSkills' => array(
+                'with' => array(
+                    'skill' => array(
+                        'with' => array(
+                            'createEffect0',
+                            'charactermodifier' => array('alias' => 'skillCharactermodifier'),
+                        )
+                    )
+                ), 
+                // 'condition' => "available = 1"
+            ),
+            'characterEffects'=> array(
+                'with' => array(
+                    'effect' => array(
+                        'with' => array(
+                            'charactermodifier' => array('alias' => 'effectCharactermodifier'),
+                        )
+                    )
+                )
+            ),
         ))->find('t.userID=:userID AND t.active=1', 
                  array(':userID'=>Yii::app()->user->id));
 
+        // d($this->_model);
+        
         // If no active character can be found: redirect
         // ToDo: Fix character/create
         if(!is_a($this->_model, "Character")) {
@@ -61,10 +124,17 @@ class CharacterData extends CApplicationComponent
         
         // Let Equipment Model attach all Item event handlers to the Character class
         $equipment = $this->_model->getEquipment();
-        $equipment->attachToCharacter($this->_model);
+        if($equipment !== null) {
+            $equipment->attachToCharacter($this->_model);
+        }
         
+        // Attach effects
         foreach($this->_model->characterEffects as $characterEffect) {
             $characterEffect->effect->call("attachToCharacter", $this->_model);
+        }
+        // Attach passive skill effects
+        foreach($this->_model->characterSkills as $characterSkill) {
+            $characterSkill->skill->call("attachToCharacter", $this->_model);
         }
         
         PQPLogRoute::logMemory($this, "Completely loaded character data model");
@@ -82,9 +152,14 @@ class CharacterData extends CApplicationComponent
         return $this->_model;
     }
     
+    /**
+     * Is called by GameController after game actions
+     * Saves the Character model in case it has changed since it was loaded
+     */
     public function save() {
         if($this->_model->attributesChanged()) {
-            $this->_model->save();
+            $this->_model->update();
+            // $this->_model->save();
             $this->saveSession();
             Yii::trace("CharacterData: Character model saved");
         } else {
@@ -92,8 +167,12 @@ class CharacterData extends CApplicationComponent
         }
     }
     
-    // ToDo: Since the Character record is red in full for every request,
-    //       there is no need to use the session ...
+    /**
+     * Does not do anything useful right now, since the character data is read 
+     * in full from the database before any game action is executed. In 
+     * deployment, the character data should only be read from the database if 
+     * it has changed. If not, the data in the session can be used instead.
+     */
     public function saveSession() {
         Yii::app()->session['CD'] = $this->_model;
     }

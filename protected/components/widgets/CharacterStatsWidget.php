@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * Simply handler for the characterStats view
+ */
+
 class CharacterStatsWidget extends CWidget {
 
     public $character;

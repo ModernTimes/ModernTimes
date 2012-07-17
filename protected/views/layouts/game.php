@@ -4,29 +4,17 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
 
-	<?php /*
-        <!-- blueprint CSS framework -->
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
-	<!--[if lt IE 8]>
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
-	<![endif]-->
-
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
-         */ ?>
-
-	<title><?php echo CHtml::encode($this->pageTitle); ?> - GAME</title>
+        <title><?php echo CHtml::encode($this->pageTitle); ?> - The Game</title>
 </head>
 
-<body style="padding-top: 40px">
+<body style="padding-top: 40px;">
 
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner"><div class="container">
         <a class="brand" href="#">ModernTimes</a>
 
         <ul class="nav pull-left">
-            <li><?php echo CHtml::link("Travel", array('game/index')); ?></li>
+            <li><?php echo CHtml::link("London", array('game/map')); ?></li>
             <li><?php echo CHtml::link("Character", array('game/character')); ?></li>
             <li><?php echo CHtml::link("Inventory", array('game/inventory')); ?></li>
         </ul>
@@ -39,7 +27,7 @@
 </div>
 
 
-<div class="container-fluid" style="padding-top: 40px">
+<div class="container-fluid" style="padding-top: 30px;">
 
     <div><?php echo $content; ?></div>
     

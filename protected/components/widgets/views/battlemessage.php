@@ -2,10 +2,12 @@
 // SKILL
 if(!empty($this->msg->skill)) {
     echo "<table width='100%'><tr><td width='50%' align='center'>";
+    // small button with mouseover popup
     echo CHtml::link($this->msg->skill['name'], "#", array('class'=>'btn btn-mini', 'data-title'=>$this->msg->skill['name'], 'data-content'=>$this->msg->skill['popup'], 'rel'=>'popover'));
     echo "</td><td width='50%' align='center'>";
 
     // RESULT
+    // again a small button, whose icon and some specifics depend on the result type
     if($this->msg->getResultType() == 'damage') {
         echo "<span class='btn-group'><span class='btn btn-mini'><i class='icon-heart'></i> " . $this->msg->result['damageDone'] . "</span>" . 
                 " . <span class='btn btn-mini btn-danger'>" . 
