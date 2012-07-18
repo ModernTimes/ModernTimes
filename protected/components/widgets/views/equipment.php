@@ -8,16 +8,16 @@ $this->widget('ItemWidget', array(
 $this->widget('ItemWidget', array(
     "context" => "equipment",
     "equipmentSlot" => "accessory1",
-    "item" => (!empty($this->equipment->accessory10) ? $this->equipment->accessory10 : null)
+    "item" => (!empty($this->equipment->accessoryA0) ? $this->equipment->accessoryA0 : null)
 )); 
 $this->widget('ItemWidget', array(
     "context" => "equipment",
     "equipmentSlot" => "accessory2",
-    "item" => (!empty($this->equipment->accessory20) ? $this->equipment->accessory20 : null)
+    "item" => (!empty($this->equipment->accessoryB0) ? $this->equipment->accessoryB0 : null)
 )); 
 $this->widget('ItemWidget', array(
     "context" => "equipment",
     "equipmentSlot" => "accessory3",
-    "item" => (!empty($this->equipment->accessory30) ? $this->equipment->accessory30 : null)
+    "item" => (!empty($this->equipment->accessoryC0) ? $this->equipment->accessoryC0 : null)
 )); 
 ?>

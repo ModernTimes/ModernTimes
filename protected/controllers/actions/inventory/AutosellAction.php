@@ -8,7 +8,7 @@
 class AutosellAction extends CAction {
 
     public function run($itemID) {
-        // positive integer > 0
+        // positive integer
         $validSyntax = (!empty($itemID)
                         // are all characters digits? rules out decimal numbers
                         && ctype_digit($itemID)
@@ -21,40 +21,41 @@ class AutosellAction extends CAction {
             
             $validCharacterItem = false;
             foreach($Character->characterItems as $CharacterItem) {
-                if($CharacterItem->item->id == $itemID) {
+                if($CharacterItem->item->id == $itemID &&
+                   $CharacterItem->n > 0) {
+                    
                     $validCharacterItem = true;
                     break;
                 }
             }
             
             if(!$validCharacterItem) {
-                EUserFlash::setErrorMessage("Something went wrong. Shit happens.");
+                EUserFlash::setErrorMessage("You don't have that.");
             } else {
                 
-                if($CharacterItem->n < 1) {
-                    EUserFlash::setErrorMessage("You don't own that.");
-                } else {
-                    
-                    $transaction = Yii::app()->db->beginTransaction();
-                    try {
-                        
-                        $CharacterItem->n --;
+                $transaction = Yii::app()->db->beginTransaction();
+                try {
+
+                    $CharacterItem->n --;
+                    if($CharacterItem->n < 1) {
+                        $CharacterItem->delete();
+                    } else { 
                         $CharacterItem->save();
-                        
-                        $Character->gainCash($CharacterItem->item->autosellCash);
-                        $Character->gainFavours($CharacterItem->item->autosellFavours);
-                        $Character->gainKudos($CharacterItem->item->autosellKudos);
-
-                        // Don't forget to trigger the character data updates before the redirect
-                        $this->controller->afterAction($this);
-
-                        $transaction->commit();
-                        EUserFlash::setMessage("You sold 1 " . $CharacterItem->item->name);
-                        
-                    } catch(Exception $e) {
-                        $transaction->rollback();
-                        EUserFlash::setErrorMessage("Weird database shit happened.");
                     }
+
+                    $Character->gainCash($CharacterItem->item->autosellCash);
+                    $Character->gainFavours($CharacterItem->item->autosellFavours);
+                    $Character->gainKudos($CharacterItem->item->autosellKudos);
+
+                    // Don't forget to trigger the character data updates before the redirect
+                    $this->controller->afterAction($this);
+
+                    $transaction->commit();
+                    EUserFlash::setMessage("You sold 1 " . $CharacterItem->item->name);
+
+                } catch(Exception $e) {
+                    $transaction->rollback();
+                    EUserFlash::setErrorMessage("Weird database shit happened.");
                 }
             }
         }

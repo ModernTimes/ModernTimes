@@ -6,7 +6,7 @@
 class UnequipAction extends CAction {
 
     public function run($slot) {
-        $validSlots = array("weapon", "offhand", "accessory1", "accessory2", "accessory3");
+        $validSlots = array("weapon", "offhand", "accessoryA", "accessoryB", "accessoryC");
         $validSyntax = (in_array($slot, $validSlots));
         if(!$validSyntax) {
             EUserFlash::setErrorMessage("Something went wrong. Shit happens.");
