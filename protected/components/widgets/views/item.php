@@ -20,7 +20,7 @@
         switch($this->context) {
             case "equipment":
                 echo "<span style='font-size:0.8em'>";
-                echo "<a href='./unequip?itemID=" . $this->item->id . "'>unequip</a></span>";
+                echo "<a href='./unequip?slot=" . $this->equipmentSlot . "'>unequip</a></span>";
                 break;
             case "inventory":
                 echo "<span style='font-size:0.8em'>";

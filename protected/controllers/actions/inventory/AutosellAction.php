@@ -8,11 +8,12 @@
 class AutosellAction extends CAction {
 
     public function run($itemID) {
-        $validInput = (!empty($itemID)
-                       // are all characters digits? rules out decimal numbers
-                       && ctype_digit($itemID)
-                       && $itemID >= 1);
-        if(!$validInput) {
+        // positive integer > 0
+        $validSyntax = (!empty($itemID)
+                        // are all characters digits? rules out decimal numbers
+                        && ctype_digit($itemID)
+                        && $itemID > 0);
+        if(!$validSyntax) {
             EUserFlash::setErrorMessage("Something went wrong. Shit happens.");
         } else {
             $Character = CD();
