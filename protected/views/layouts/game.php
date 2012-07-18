@@ -15,8 +15,8 @@
 
         <ul class="nav pull-left">
             <li><?php echo CHtml::link("London", array('game/map')); ?></li>
-            <li><?php echo CHtml::link("Character", array('game/character')); ?></li>
-            <li><?php echo CHtml::link("Inventory", array('game/inventory')); ?></li>
+            <li><?php echo CHtml::link("Me", array('game/character')); ?></li>
+            <li><?php echo CHtml::link("My stuff", array('game/inventory')); ?></li>
         </ul>
         <ul class="nav pull-right">
             <li><?php echo CHtml::link("Logout (" . Yii::app()->user->name . ")", array('site/logout')); ?></li>

@@ -23,4 +23,32 @@ class BootListView extends CListView
 	 * @var array the configuration for the pager.
 	 */
 	public $pager = array('class'=>'bootstrap.widgets.BootPager');
+	/**
+	 * @var string the URL of the CSS file used by this detail view.
+	 * Defaults to false, meaning that no CSS will be included.
+	 */
+	public $cssFile = false;
+
+	/**
+	 * Initializes the widget.
+	 */
+	public function init()
+	{
+		parent::init();
+
+		$popover = Yii::app()->bootstrap->popoverSelector;
+		$tooltip = Yii::app()->bootstrap->tooltipSelector;
+
+		$afterAjaxUpdate = "js:function() {
+			jQuery('.popover').remove();
+			jQuery('{$popover}').popover();
+			jQuery('.tooltip').remove();
+			jQuery('{$tooltip}').tooltip();
+		}";
+
+		if (!isset($this->afterAjaxUpdate))
+			$this->afterAjaxUpdate = $afterAjaxUpdate;
+	}
+
+
 }

@@ -5,16 +5,18 @@
  * @copyright Copyright &copy; Christoffer Niska 2011-
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
  * @package bootstrap.widgets
+ * @since 0.9.7
  */
-
-Yii::import('bootstrap.widgets.BootWidget');
 
 /**
  * Bootstrap navigation bar widget.
- * @since 0.9.7
  */
-class BootNavbar extends BootWidget
+class BootNavbar extends CWidget
 {
+	// Navbar fix locations.
+	const FIXED_TOP = 'top';
+	const FIXED_BOTTOM = 'bottom';
+
 	/**
 	 * @var string the text for the brand.
 	 */
@@ -33,19 +35,25 @@ class BootNavbar extends BootWidget
 	 */
 	public $items = array();
 	/**
-	 * @var boolean whether the nav span over the full width. Defaults to false.
+	 * @var mixed fix location of the navbar if applicable.
+	 * Valid values are 'top' and 'bottom'. Defaults to 'top'.
+	 * Setting the value to false will make the navbar static.
 	 * @since 0.9.8
 	 */
-	public $fluid = false;
+	public $fixed = self::FIXED_TOP;
 	/**
-	 * @var boolean whether the nav bar is fixed to the top of the page. Defaults to true.
-	 * @since 0.9.8
-	 */
-	public $fixed = true;
+	* @var boolean whether the nav span over the full width. Defaults to false.
+	* @since 0.9.8
+	*/
+	public $fluid = false;
 	/**
 	 * @var boolean whether to enable collapsing on narrow screens. Default to false.
 	 */
 	public $collapse = false;
+	/**
+	 * @var array the HTML attributes for the widget container.
+	 */
+	public $htmlOptions = array();
 
 	/**
 	 * Initializes the widget.
@@ -59,10 +67,29 @@ class BootNavbar extends BootWidget
 
 			if (!isset($this->brandUrl))
 				$this->brandUrl = Yii::app()->homeUrl;
+
+			$this->brandOptions['href'] = $this->brandUrl;
+
+			if (isset($this->brandOptions['class']))
+				$this->brandOptions['class'] .= ' brand';
+			else
+				$this->brandOptions['class'] = 'brand';
 		}
 
-		if ($this->collapse)
-			Yii::app()->bootstrap->registerCollapse();
+		$classes = array('navbar');
+
+		if ($this->fixed !== false)
+		{
+			$validFixes = array(self::FIXED_TOP, self::FIXED_BOTTOM);
+			if (in_array($this->fixed, $validFixes))
+				$classes[] = 'navbar-fixed-'.$this->fixed;
+		}
+
+		$classes = implode(' ', $classes);
+		if (isset($this->htmlOptions['class']))
+			$this->htmlOptions['class'] .= ' '.$classes;
+		else
+			$this->htmlOptions['class'] = $classes;
 	}
 
 	/**
@@ -70,24 +97,6 @@ class BootNavbar extends BootWidget
 	 */
 	public function run()
 	{
-		if (isset($this->htmlOptions['class']))
-			$this->htmlOptions['class'] .= ' navbar';
-		else
-			$this->htmlOptions['class'] = 'navbar';
-
-		if ($this->fixed)
-			$this->htmlOptions['class'] .= ' navbar-fixed-top';
-		else
-			$this->htmlOptions['class'] .= ' navbar-static';
-
-		if (isset($this->brandOptions['class']))
-			$this->brandOptions['class'] .= ' brand';
-		else
-			$this->brandOptions['class'] = 'brand';
-
-		if (isset($this->brandUrl))
-			$this->brandOptions['href'] = $this->brandUrl;
-
 		$containerCssClass = $this->fluid ? 'container-fluid' : 'container';
 
 		echo CHtml::openTag('div', $this->htmlOptions);

@@ -18,6 +18,11 @@ class GameController extends Controller {
             'battleAction'     => 'application.controllers.actions.BattleActionAction',
             'encounter'        => 'application.controllers.actions.EncounterAction',
             
+            'inventory'        => 'application.controllers.actions.inventory.InventoryAction',
+            'autosell'         => 'application.controllers.actions.inventory.AutosellAction',
+            'equip'            => 'application.controllers.actions.inventory.EquipAction',
+            'unequip'          => 'application.controllers.actions.inventory.UnequipAction',
+            
             'rest'             => 'application.controllers.actions.RestAction',
             
             'pablo'            => 'application.controllers.actions.PabloAction',
@@ -27,11 +32,6 @@ class GameController extends Controller {
              * game functions
              */
             'test'             => 'application.controllers.actions.TestAction'
-            
-            /* 'action2'=>array(
-                            'class'=>'path.to.AnotherActionClass',
-                            'propertyName'=>'propertyValue',
-                    ), */
         );
     }
     

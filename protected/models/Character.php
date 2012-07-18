@@ -20,7 +20,7 @@ class Character extends BaseCharacter {
      * gainResource raises events which makes it possible for other stuff
      * to hook into the calculations
      * @param float $amount
-     * @param enum(battle, encounter, quest) $from
+     * @param enum(battle, encounter, quest, autosell) $from
      * Allows said other stuff to react to gainX events only in case the
      * resources come from a certain source
      * ToDo: define other sources (trade, whatever)
@@ -375,10 +375,11 @@ class Character extends BaseCharacter {
     // Load relations that are not taken care of by CD
     public function loadItems() {
         if(empty($this->characterItems)) {
-            d("EMPTY characterItems");
-            $characterItems = CharacterItems::model()->with(array('item'))->findAll('t.characterID=:characterID', 
-                 array(':characterID'=>$this->id));
-            d($characterItems);
+            // d("EMPTY characterItems");
+            $characterItems = CharacterItems::model()->with(array('item'))->findAll(
+                't.characterID=:characterID', 
+                array(':characterID'=>$this->id));
+            // d($characterItems);
             $this->characterItems = $characterItems;
         }
     }

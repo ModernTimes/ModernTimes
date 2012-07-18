@@ -10,7 +10,6 @@
 /**
  * Bootstrap input widget.
  * Used for rendering inputs according to Bootstrap standards.
- * @todo Implement BootInputInline and BootInputVertical. http://twitter.github.com/bootstrap/base-css.html#forms
  */
 abstract class BootInput extends CInputWidget
 {
@@ -48,23 +47,35 @@ abstract class BootInput extends CInputWidget
 	 */
 	public $data = array();
 
+	private $_addon = false;
+
 	/**
 	 * Initializes the widget.
+	 * @throws CException if the widget could not be initialized.
 	 */
 	public function init()
 	{
-		if ($this->form === null)
+		if (!isset($this->form))
 			throw new CException(__CLASS__.': Failed to initialize widget! Form is not set.');
 
-		if ($this->model === null)
+		if (!isset($this->model))
 			throw new CException(__CLASS__.': Failed to initialize widget! Model is not set.');
 
-		if ($this->type === null)
+		if (!isset($this->type))
 			throw new CException(__CLASS__.': Failed to initialize widget! Input type is not set.');
+
+		if ($this->type === self::TYPE_UNEDITABLE)
+		{
+			if (isset($this->htmlOptions['class']))
+				$this->htmlOptions['class'] .= ' uneditable-input';
+			else
+				$this->htmlOptions['class'] = 'uneditable-input';
+		}
 	}
 
 	/**
 	 * Runs the widget.
+	 * @throws CException if the widget type is invalid.
 	 */
 	public function run()
 	{
@@ -128,44 +139,207 @@ abstract class BootInput extends CInputWidget
 	}
 
 	/**
-	 * Returns the error text for this block.
-	 * @param array $htmlOptions additional HTML attributes
-	 * @return string the error text
-	 */
-	protected function getError($htmlOptions = array())
-	{
-		return $this->form->error($this->model, $this->attribute, $htmlOptions);
-	}
-
-	/**
-	 * Returns the hint text for this block.
-	 * @return string the hint text
-	 */
-	protected function getHint()
-	{
-		if (isset($this->htmlOptions['hint']))
-		{
-			$hint = $this->htmlOptions['hint'];
-			unset($this->htmlOptions['hint']);
-			return '<p class="help-block">'.$hint.'</p>';
-		}
-		else
-			return '';
-	}
-
-	/**
-	 * Returns the label for this block.
-	 * @param array $htmlOptions additional HTML attributes
+	 * Returns the label for the input.
 	 * @return string the label
 	 */
-	protected function getLabel($htmlOptions = array())
+	protected function getLabel()
 	{
+		if (isset($this->htmlOptions['labelOptions']))
+		{
+			$htmlOptions = $this->htmlOptions['labelOptions'];
+			unset($this->htmlOptions['labelOptions']);
+		}
+		else
+			$htmlOptions = array();
+
 		if ($this->label !== false && !in_array($this->type, array('checkbox', 'radio')) && $this->hasModel())
 			return $this->form->labelEx($this->model, $this->attribute, $htmlOptions);
 		else if ($this->label !== null)
 			return $this->label;
 		else
 			return '';
+	}
+
+	/**
+	 * Returns the prepend element for the input.
+	 * @return string the element
+	 */
+	protected function getPrepend()
+	{
+		if ($this->hasAddOn())
+		{
+			if (isset($this->htmlOptions['prependOptions']))
+			{
+				$htmlOptions = $this->htmlOptions['prependOptions'];
+				unset($this->htmlOptions['prependOptions']);
+			}
+			else
+				$htmlOptions = array();
+
+			if (isset($htmlOptions['class']))
+				$htmlOptions['class'] .= ' add-on';
+			else
+				$htmlOptions['class'] = 'add-on';
+
+			$classes = $this->getInputContainerCssClass();
+			ob_start();
+			echo '<div class="'.$classes.'">';
+			if (isset($this->htmlOptions['prepend']))
+			{
+				$this->_addon = true;
+				echo CHtml::tag('span', $htmlOptions, $this->htmlOptions['prepend']);
+				unset($this->htmlOptions['prepend']);
+			}
+			return ob_get_clean();
+		}
+		else
+			return '';
+	}
+
+	/**
+	 * Returns the append element for the input.
+	 * @return string the element
+	 */
+	protected function getAppend()
+	{
+		if ($this->hasAddOn())
+		{
+			if (isset($this->htmlOptions['appendOptions']))
+			{
+				$htmlOptions = $this->htmlOptions['appendOptions'];
+				unset($this->htmlOptions['appendOptions']);
+			}
+			else
+				$htmlOptions = array();
+
+			if (isset($htmlOptions['class']))
+				$htmlOptions['class'] .= ' add-on';
+			else
+				$htmlOptions['class'] = 'add-on';
+
+			ob_start();
+			if (isset($this->htmlOptions['append']))
+			{
+				$this->_addon = true;
+				echo CHtml::tag('span', $htmlOptions, $this->htmlOptions['append']);
+				unset($this->htmlOptions['append']);
+			}
+			echo '</div>';
+			return ob_get_clean();
+		}
+		else
+			return '';
+	}
+	
+	/**
+	 * Returns the id that should be used for the specified attribute
+	 * @param string $attribute the attribute
+	 * @return string the id 
+	 */
+	protected function getAttributeId($attribute) 
+	{
+		return isset($this->htmlOptions['id'])
+				? $this->htmlOptions['id']
+				: CHtml::getIdByName(CHtml::resolveName($this->model, $attribute));
+	}
+
+	/**
+	 * Returns the error text for the input.
+	 * @return string the error text
+	 */
+	protected function getError()
+	{
+		if (isset($this->htmlOptions['errorOptions']))
+		{
+			$htmlOptions = $this->htmlOptions['errorOptions'];
+			unset($this->htmlOptions['errorOptions']);
+		}
+		else
+			$htmlOptions = array();
+
+		return $this->form->error($this->model, $this->attribute, $htmlOptions);
+	}
+
+	/**
+	 * Returns the hint text for the input.
+	 * @return string the hint text
+	 */
+	protected function getHint()
+	{
+		if (isset($this->htmlOptions['hint']))
+		{
+			if (isset($this->htmlOptions['hintOptions']))
+			{
+				$htmlOptions = $this->htmlOptions['hintOptions'];
+				unset($this->htmlOptions['hintOptions']);
+			}
+			else
+				$htmlOptions = array();
+
+			if (isset($htmlOptions['class']))
+				$htmlOptions['class'] .= ' help-block';
+			else
+				$htmlOptions['class'] = 'help-block';
+
+			$hint = $this->htmlOptions['hint'];
+			unset($this->htmlOptions['hint']);
+
+			return CHtml::tag('p', $htmlOptions, $hint);
+		}
+		else
+			return '';
+	}
+
+	/**
+	 * Returns the container CSS class for the input.
+	 * @return string the CSS class
+	 */
+	protected function getContainerCssClass()
+	{
+		$attribute = $this->attribute;
+		return $this->model->hasErrors(CHtml::resolveName($this->model, $attribute)) ? CHtml::$errorCss : '';
+	}
+
+	/**
+	 * Returns the input container CSS classes.
+	 * @return string the CSS class
+	 */
+	protected function getInputContainerCssClass()
+	{
+		$classes = array();
+		if (isset($this->htmlOptions['prepend']))
+			$classes[] = 'input-prepend';
+		if (isset($this->htmlOptions['append']))
+			$classes[] = 'input-append';
+
+		return implode(' ', $classes);
+	}
+
+	/**
+	 * Returns the HTML attributes for the CAPTCHA widget.
+	 * @return array the attributes
+	 * @since 0.10.0
+	 */
+	protected function getCaptchaOptions()
+	{
+		if (isset($this->htmlOptions['captchaOptions']))
+		{
+			$htmlOptions = $this->htmlOptions['captchaOptions'];
+			unset($this->htmlOptions['captchaOptions']);
+		}
+		else
+			$htmlOptions = array();
+
+		return $htmlOptions;
+	}
+
+	/**
+	 * Returns whether the input has an add-on (prepend and/or append).
+	 * @return boolean the result
+	 */
+	protected function hasAddOn()
+	{
+		return $this->_addon || isset($this->htmlOptions['prepend']) || isset($this->htmlOptions['append']);
 	}
 
 	/**
