@@ -1,4 +1,22 @@
-<?php $this->widget('EquipmentWidget'); ?>
+<div class="accordion" id="inventoryAccordion">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#inventoryAccordion" href="#collapseEquipment">
+                Equipment
+            </a>
+        </div>
+        <?php /* add "in" as class to open on default */ ?>
+        <div id="collapseEquipment" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <?php $this->widget('EquipmentWidget'); ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // $(".collapse").collapse();
+</script>
 
 <BR />
 <p><b>Inventory</b><BR /></p>

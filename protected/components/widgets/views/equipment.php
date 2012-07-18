@@ -1,5 +1,3 @@
-<p><b>Equipment</b></p>
-
 <?php
 
 $this->widget('ItemWidget', array(
