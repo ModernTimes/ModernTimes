@@ -33,7 +33,7 @@ class AutosellAction extends CAction {
                 EUserFlash::setErrorMessage("You don't have that.");
             } else {
                 
-                $transaction = Yii::app()->db->beginTransaction();
+                $transaction = Yii::app()->tools->getTransaction();
                 try {
 
                     $CharacterItem->n --;

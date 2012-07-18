@@ -1,6 +1,7 @@
 <?php
 /**
  * Equips an item in the proper equipment slot
+ * ToDo: check item requirements!
  */
 
 class EquipAction extends CAction {
@@ -39,13 +40,17 @@ class EquipAction extends CAction {
                 * Check: Is the item equippable?
                 */
                 
-                $slot = $Item->type;
-                $validSlots = array("weapon", "offhand", "accessoryA", "accessoryB", "accessoryC");
-                if(!in_array($slot, $validSlots)) {
+                $validTypes = array("weapon", "offhand", "accessory");
+                if(!in_array($Item->type, $validTypes)) {
                     EUserFlash::setErrorMessage("That item is not equippable. You probably know that.");
                 } else {
-                    $transaction = Yii::app()->db->beginTransaction();
+                    $transaction = Yii::app()->tools->getTransaction();
                     try {
+                        
+                        /**
+                         * Equipping implies that the item is not in the
+                         * inventory anymore
+                         */
                         $CharacterItem->n --;
                         if($CharacterItem->n < 1) {
                             $CharacterItem->delete();
@@ -55,14 +60,36 @@ class EquipAction extends CAction {
 
                         $Equipment = $Character->getEquipment();
 
-                        // Detach event handlers
-                        if(!empty($Equipment->{$slot})) {
-                            // ...
+                        /**
+                         * Find out which equipment slot the item should be
+                         * equipped into
+                         */
+                        $slot = $Item->type;
+                        if($slot == "accessory") {
+                            // A, B, or C?
+                            $slot = "accessoryA";
                         }
+                        
+                        // Detach all Charactermodifier event handlers
+                        $Equipment->detachFromCharacter($Character);
+                        
+                        // if there already is an item in the slot: unequip!
+                        if(!empty($Equipment->{$slot})) {
+                            $UnequipAction = new UnequipAction($this->controller, "unequip");
+                            $UnequipAction->slot = $slot;
+                            // to prevent starting a new transaction etc.
+                            $UnequipAction->setChildAction();
+                            $this->controller->runAction($UnequipAction);
+                        }
+                        
+                        // The actual equipping
                         $Equipment->{$slot} = $Item->id;
                         $Equipment->{$slot . "0"} = $Item;
-                        // Re-attach event handlers
+                        $Equipment->save();
 
+                        // Re-Attach event handlers
+                        $Equipment->attachToCharacter($Character);
+                        
                         // Don't forget to trigger the character data updates before the redirect
                         $this->controller->afterAction($this);
 
@@ -71,6 +98,7 @@ class EquipAction extends CAction {
 
                     } catch(Exception $e) {
                         $transaction->rollback();
+                        dd($e);
                         EUserFlash::setErrorMessage("Weird database shit happened.");
                     }
                 }

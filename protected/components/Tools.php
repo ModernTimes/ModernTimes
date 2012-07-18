@@ -121,6 +121,18 @@ class Tools extends CApplicationComponent {
     }
     
     /**
+     * Returns a new CDbTransaction or returns the currently active one
+     * @return CDbTransaction
+     */
+    public function getTransaction() {
+        $transaction = Yii::app()->db->getCurrentTransaction();
+        if(empty($transaction)) {
+            $transaction = Yii::app()->db->beginTransaction();
+        }
+        return $transaction;
+    }
+    
+    /**
      * Returns the possessive pronoun for a given character
      * @param Character $character, default is the active character
      * @return string, "his" or "her"
