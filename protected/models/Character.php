@@ -20,7 +20,7 @@ class Character extends BaseCharacter {
      * gainResource raises events which makes it possible for other stuff
      * to hook into the calculations
      * @param float $amount
-     * @param enum(battle, encounter, quest) $from
+     * @param enum(battle, encounter, quest, autosell) $from
      * Allows said other stuff to react to gainX events only in case the
      * resources come from a certain source
      * ToDo: define other sources (trade, whatever)
