@@ -19,10 +19,13 @@
         echo "<BR />";
         switch($this->context) {
             case "equipment":
-                echo "unequip";
+                echo "<span style='font-size:0.8em'>";
+                echo "<a href='./game/unequip&itemID=" . $this->item->id . "'>unequip</a></span>";
                 break;
             case "inventory":
-                echo "equip - get rid of";
+                echo "<span style='font-size:0.8em'>";
+                echo "<a href='./game/equip&itemID=" . $this->item->id . "'>equip</a> - "
+                    . "<a href='./game/autosell&itemID=" . $this->item->id . "'>get rid of</a></span>";
                 break;
             default:
                 break;

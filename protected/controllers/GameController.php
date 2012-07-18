@@ -18,16 +18,14 @@ class GameController extends Controller {
             'battleAction'     => 'application.controllers.actions.BattleActionAction',
             'encounter'        => 'application.controllers.actions.EncounterAction',
             
-            'inventory'        => 'application.controllers.actions.InventoryAction',
+            'inventory'        => 'application.controllers.actions.inventory.InventoryAction',
+            'autosell'         => 'application.controllers.actions.inventory.AutosellAction',
+            'equip'            => 'application.controllers.actions.inventory.EquipAction',
+            'unequip'          => 'application.controllers.actions.inventory.UnequipAction',
             
             'rest'             => 'application.controllers.actions.RestAction',
             
             'pablo'            => 'application.controllers.actions.PabloAction',
-            
-            /* 'action2'=>array(
-                            'class'=>'path.to.AnotherActionClass',
-                            'propertyName'=>'propertyValue',
-                    ), */
         );
     }
     
