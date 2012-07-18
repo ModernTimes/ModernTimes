@@ -7,10 +7,17 @@
  */
 
 class CharacterModifierBehavior extends CBehavior {
-    public function attachToCharacter($character) {
+    public function attachToCharacter($Character) {
         if(is_a($this->owner->charactermodifier, "Charactermodifier")) {
             // d($this->owner->charactermodifier);
-            $this->owner->charactermodifier->attachToCharacter($character);
+            $this->owner->charactermodifier->attachToCharacter($Character);
+        }
+    }
+
+    public function detachFromCharacter($Character) {
+        if(is_a($this->owner->charactermodifier, "Charactermodifier")) {
+            // d($this->owner->charactermodifier);
+            $this->owner->charactermodifier->detachFromCharacter($Character);
         }
     }
     
