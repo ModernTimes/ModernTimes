@@ -1,5 +1,29 @@
 /assets/
 /images/potential/
-/nbproject/
 /protected/runtime/
 /protected/extensions/gtc
+
+# hidden files and other weird stuff #
+######################
+.*
+!/.gitignore
+!.htaccess
+
+
+# Logs and databases #
+######################
+*.log
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDEs #
+#####################
+/nbproject/
