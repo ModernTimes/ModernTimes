@@ -65,9 +65,21 @@ class EquipAction extends CAction {
                          * equipped into
                          */
                         $slot = $Item->type;
+                        /**
+                         * Use the first open accessory slot
+                         * If none is open, use the first and unequip the
+                         * currently equipped item 
+                         */
                         if($slot == "accessory") {
-                            // A, B, or C?
-                            $slot = "accessoryA";
+                            if(empty($Equipment->accessoryA)) {
+                                $slot = "accessoryA";
+                            } elseif (empty($Equipment->accessoryB)) {
+                                $slot = "accessoryB";
+                            } elseif (empty($Equipment->accessoryC)) {
+                                $slot = "accessoryC";
+                            } else {
+                                $slot = "accessoryA";
+                            }
                         }
                         
                         // Detach all Charactermodifier event handlers
