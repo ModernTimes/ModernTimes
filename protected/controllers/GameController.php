@@ -21,6 +21,12 @@ class GameController extends Controller {
             'rest'             => 'application.controllers.actions.RestAction',
             
             'pablo'            => 'application.controllers.actions.PabloAction',
+
+            /**
+             * To test new features without having to mess around with actual
+             * game functions
+             */
+            'test'             => 'application.controllers.actions.TestAction'
             
             /* 'action2'=>array(
                             'class'=>'path.to.AnotherActionClass',
