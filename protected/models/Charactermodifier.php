@@ -16,34 +16,36 @@ class Charactermodifier extends BaseCharactermodifier {
      * - dropCash/Favours/Kudos Abs/Perc
      * - dropItem Perc
      * - gainXp/Resoluteness/Willpower/Cunning Abs/Perc
+     *
+     * @param Character $Character
      */
-    public function attachToCharacter($character) {
+    public function attachToCharacter($Character) {
         if($this->hp != 0 || $this->hpPerc != 0) {
-            $character->onCalcHp = array($this, 'reactToOnCalcHp');
+            $Character->getEventHandlers("onCalcHp")->add(array($this, 'reactToOnCalcHp'));
         }
         if($this->energy != 0 || $this->energyPerc != 0) {
-            $character->onCalcEnergy = array($this, 'reactToOnCalcEnergy');
+            $Character->getEventHandlers("onCalcEnergy")->add(array($this, 'reactToOnCalcEnergy'));
         }
         if($this->resoluteness != 0 || $this->resolutenessPerc != 0) {
-            $character->onCalcResoluteness = array($this, 'reactToOnCalcResoluteness');
+            $Character->getEventHandlers("onCalcResoluteness")->add(array($this, 'reactToOnCalcResoluteness'));
         }
         if($this->willpower != 0 || $this->willpowerPerc != 0) {
-            $character->onCalcWillpower = array($this, 'reactToOnCalcWillpower');
+            $Character->getEventHandlers("onCalcWillpower")->add(array($this, 'reactToOnCalcWillpower'));
         }
         if($this->cunning != 0 || $this->cunningPerc != 0) {
-            $character->onCalcCunning = array($this, 'reactToOnCalcCunning');
+            $Character->getEventHandlers("onCalcCunning")->add(array($this, 'reactToOnCalcCunning'));
         }
         if($this->dropCash != 0 || $this->dropCashPerc != 0) {
-            $character->onGainingCash = array($this, 'reactToOnGainingCash');
+            $Character->getEventHandlers("onGainingCash")->add(array($this, 'reactToOnGainingCash'));
         }
         if($this->dropFavours != 0 || $this->dropFavoursPerc != 0) {
-            $character->onGainingFavours = array($this, 'reactToOnGainingFavours');
+            $Character->getEventHandlers("onGainingFavours")->add(array($this, 'reactToOnGainingFavours'));
         }
         if($this->dropKudos != 0 || $this->dropKudosPerc != 0) {
-            $character->onGainingKudos = array($this, 'reactToOnGainingKudos');
+            $Character->getEventHandlers("onGainingKudos")->add(array($this, 'reactToOnGainingKudos'));
         }
         if($this->dropItemPerc != 0) {
-            $character->onCalcDropItemBonus = array($this, 'reactToOnCalcDropItemBonus');
+            $Character->getEventHandlers("onCalcDropItemBonus")->add(array($this, 'reactToOnCalcDropItemBonus'));
         }
     }
 
