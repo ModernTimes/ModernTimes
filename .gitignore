@@ -10,7 +10,7 @@
 !.htaccess
 
 
-# Logs and databases #
+# Logs #
 ######################
 *.log
 
