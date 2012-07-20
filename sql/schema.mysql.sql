@@ -3,13 +3,11 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 15. Jul 2012 um 14:21
+-- Erstellungszeit: 20. Jul 2012 um 17:39
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT=0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -37,13 +35,6 @@ CREATE TABLE IF NOT EXISTS `mt_area` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Daten für Tabelle `mt_area`
---
-
-INSERT INTO `mt_area` (`id`, `name`, `specialClass`, `combatProb`, `reqMainstat`) VALUES
-(1, 'Insurance company', '', 1.000000, 0);
 
 -- --------------------------------------------------------
 
@@ -93,13 +84,6 @@ CREATE TABLE IF NOT EXISTS `mt_area_monsters` (
 --       `mt_monster` -> `id`
 --
 
---
--- Daten für Tabelle `mt_area_monsters`
---
-
-INSERT INTO `mt_area_monsters` (`id`, `areaID`, `monsterID`, `prob`) VALUES
-(1, 1, 1, 1.000000);
-
 -- --------------------------------------------------------
 
 --
@@ -121,13 +105,7 @@ CREATE TABLE IF NOT EXISTS `mt_battle` (
   KEY `combatantBID` (`combatantBID`),
   KEY `state` (`state`),
   KEY `winnerID` (`winnerID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
-
---
--- Daten für Tabelle `mt_battle`
---
-
-INSERT INTO `mt_battle` (`id`, `type`, `combatantAID`, `combatantBID`, `state`, `winnerType`, `winnerID`, `objectState`) VALUES
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
 
 -- --------------------------------------------------------
 
@@ -153,13 +131,6 @@ CREATE TABLE IF NOT EXISTS `mt_battleeffect` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Daten für Tabelle `mt_battleeffect`
---
-
-INSERT INTO `mt_battleeffect` (`id`, `name`, `specialClass`, `buff`, `singleton`, `increaseDuration`, `blocks`, `blockActionTypes`, `blockActionNormalSpecial`, `blockChance`, `blockTurns`, `blockNumberOfBlocks`, `desc`, `msgExpire`) VALUES
-(1, 'Babble momentum', 'BabbleComboEffect', 1, 1, 0, 0, 'all', 'all', 0.000000, 0, 0, 'From the mouth of a professional, babbling gets more obnoxious the longer it goes on.', '%1 lost babble momentum.');
 
 -- --------------------------------------------------------
 
@@ -198,13 +169,6 @@ CREATE TABLE IF NOT EXISTS `mt_character` (
 --       `mt_user` -> `id`
 --
 
---
--- Daten für Tabelle `mt_character`
---
-
-INSERT INTO `mt_character` (`id`, `userID`, `active`, `name`, `sex`, `class`, `ongoingBattleID`, `ongoingEncounterID`, `turns`, `badConscience`, `networkStrainedness`, `resolutenessSub`, `willpowerSub`, `cunningSub`, `hp`, `energy`, `cash`, `favours`, `kudos`) VALUES
-(1, 1, 1, 'Dummy', 'male', 'consultant', NULL, NULL, 184, 0, 0, 1, 1, 4, 4, 4, 8, 8, 10);
-
 -- --------------------------------------------------------
 
 --
@@ -225,20 +189,13 @@ CREATE TABLE IF NOT EXISTS `mt_charactermodifier` (
   `cunningPerc` smallint(6) NOT NULL DEFAULT '0',
   `dropCash` smallint(6) NOT NULL DEFAULT '0',
   `dropCashPerc` smallint(6) NOT NULL DEFAULT '0',
-  `dopFavours` smallint(6) NOT NULL DEFAULT '0',
+  `dropFavours` smallint(6) NOT NULL DEFAULT '0',
   `dropFavoursPerc` smallint(6) NOT NULL DEFAULT '0',
   `dropKudos` smallint(6) NOT NULL DEFAULT '0',
   `dropKudosPerc` smallint(6) NOT NULL DEFAULT '0',
   `dropItemPerc` smallint(6) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Daten für Tabelle `mt_charactermodifier`
---
-
-INSERT INTO `mt_charactermodifier` (`id`, `hp`, `hpPerc`, `energy`, `energyPerc`, `resoluteness`, `resolutenessPerc`, `willpower`, `willpowerPerc`, `cunning`, `cunningPerc`, `dropCash`, `dropCashPerc`, `dopFavours`, `dropFavoursPerc`, `dropKudos`, `dropKudosPerc`, `dropItemPerc`) VALUES
-(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -292,16 +249,19 @@ CREATE TABLE IF NOT EXISTS `mt_character_equipments` (
 
 --
 -- RELATIONEN DER TABELLE `mt_character_equipments`:
+--   `accessoryC`
+--       `mt_item` -> `id`
 --   `characterID`
 --       `mt_character` -> `id`
+--   `weapon`
+--       `mt_item` -> `id`
+--   `offhand`
+--       `mt_item` -> `id`
+--   `accessoryA`
+--       `mt_item` -> `id`
+--   `accessoryB`
+--       `mt_item` -> `id`
 --
-
---
--- Daten für Tabelle `mt_character_equipments`
---
-
-INSERT INTO `mt_character_equipments` (`id`, `characterID`, `active`, `weapon`, `offhand`, `accessoryA`, `accessoryB`, `accessoryC`) VALUES
-(1, 1, 0, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -341,7 +301,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_items` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `itemID` (`itemID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_items`:
@@ -375,14 +335,6 @@ CREATE TABLE IF NOT EXISTS `mt_character_skills` (
 --   `characterID`
 --       `mt_character` -> `id`
 --
-
---
--- Daten für Tabelle `mt_character_skills`
---
-
-INSERT INTO `mt_character_skills` (`id`, `characterID`, `skillID`, `available`, `permed`) VALUES
-(1, 1, 1, 1, 1),
-(2, 1, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -445,13 +397,6 @@ CREATE TABLE IF NOT EXISTS `mt_character_skillsets` (
 --       `mt_skill` -> `id`
 --
 
---
--- Daten für Tabelle `mt_character_skillsets`
---
-
-INSERT INTO `mt_character_skillsets` (`id`, `characterID`, `active`, `pos1`, `pos2`, `pos3`, `pos4`, `pos5`, `pos6`, `pos7`, `pos8`, `pos9`, `pos10`) VALUES
-(1, 1, 1, 1, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -487,7 +432,7 @@ CREATE TABLE IF NOT EXISTS `mt_encounter` (
   `specialClass` varchar(50) NOT NULL,
   `onetime` tinyint(1) NOT NULL DEFAULT '0',
   `msg` text NOT NULL,
-  `costsAction` tinyint(1) NOT NULL DEFAULT '1',
+  `costsTurn` tinyint(1) NOT NULL DEFAULT '1',
   `gainCash` smallint(6) NOT NULL DEFAULT '0',
   `gainFavours` smallint(6) NOT NULL DEFAULT '0',
   `gainKudos` smallint(6) NOT NULL DEFAULT '0',
@@ -578,20 +523,13 @@ CREATE TABLE IF NOT EXISTS `mt_item` (
   UNIQUE KEY `name` (`name`),
   KEY `charactermodifierID` (`charactermodifierID`),
   KEY `useEffectID` (`useEffectID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_item`:
 --   `charactermodifierID`
 --       `mt_charactermodifier` -> `id`
 --
-
---
--- Daten für Tabelle `mt_item`
---
-
-INSERT INTO `mt_item` (`id`, `name`, `specialClass`, `charactermodifierID`, `type`, `usable`, `tradable`, `desc`, `reqClass`, `reqResoluteness`, `reqWilpower`, `reqCunning`, `autosellCash`, `autosellFavours`, `autosellKudos`, `useHp`, `useEnergy`, `useEffectID`, `useEffectDuration`) VALUES
-(1, 'Pink socks', '', NULL, 'accessory', 0, 1, '', 'none', 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -606,7 +544,7 @@ CREATE TABLE IF NOT EXISTS `mt_monster` (
   `hpMax` int(11) NOT NULL,
   `attack` int(11) NOT NULL,
   `defense` int(11) NOT NULL,
-  `xp` int(11) NOT NULL,
+  `xp` int(11) DEFAULT NULL,
   `dropCash` int(11) NOT NULL,
   `dropFavours` int(11) NOT NULL,
   `dropKudos` int(11) NOT NULL,
@@ -614,13 +552,6 @@ CREATE TABLE IF NOT EXISTS `mt_monster` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Daten für Tabelle `mt_monster`
---
-
-INSERT INTO `mt_monster` (`id`, `name`, `specialClass`, `hpMax`, `attack`, `defense`, `xp`, `dropCash`, `dropFavours`, `dropKudos`, `msgEncounter`) VALUES
-(1, 'Middle management marketing guy', '', 7, 1, 1, 1, 0, 0, 2, 'The five forces are strong with him.');
 
 -- --------------------------------------------------------
 
@@ -670,13 +601,36 @@ CREATE TABLE IF NOT EXISTS `mt_monster_skills` (
 --       `mt_monster` -> `id`
 --
 
+-- --------------------------------------------------------
+
 --
--- Daten für Tabelle `mt_monster_skills`
+-- Tabellenstruktur für Tabelle `mt_recipe`
 --
 
-INSERT INTO `mt_monster_skills` (`id`, `monsterID`, `skillID`, `prob`) VALUES
-(1, 1, 1, 0.500000),
-(2, 1, 3, 0.500000);
+CREATE TABLE IF NOT EXISTS `mt_recipe` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `item1ID` int(11) NOT NULL,
+  `item2ID` int(11) NOT NULL,
+  `itemResultID` int(11) NOT NULL,
+  `costCash` smallint(6) NOT NULL DEFAULT '0',
+  `costFavours` smallint(6) NOT NULL DEFAULT '0',
+  `costKudos` smallint(6) NOT NULL DEFAULT '0',
+  `costsTurn` smallint(6) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `item1ID` (`item1ID`),
+  KEY `item2ID` (`item2ID`),
+  KEY `itemResultID` (`itemResultID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- RELATIONEN DER TABELLE `mt_recipe`:
+--   `itemResultID`
+--       `mt_item` -> `id`
+--   `item1ID`
+--       `mt_item` -> `id`
+--   `item2ID`
+--       `mt_item` -> `id`
+--
 
 -- --------------------------------------------------------
 
@@ -712,18 +666,11 @@ CREATE TABLE IF NOT EXISTS `mt_skill` (
 
 --
 -- RELATIONEN DER TABELLE `mt_skill`:
+--   `createEffect`
+--       `mt_battleeffect` -> `id`
 --   `charactermodifierID`
 --       `mt_charactermodifier` -> `id`
 --
-
---
--- Daten für Tabelle `mt_skill`
---
-
-INSERT INTO `mt_skill` (`id`, `name`, `skillType`, `actionType`, `battlePhase`, `subType`, `specialClass`, `charactermodifierID`, `costEnergy`, `dealsDamage`, `damageAttackFactor`, `damageFixedAmount`, `damageType`, `healing`, `createEffect`, `effectTurns`, `effectMsgIncreasedDuration`, `desc`, `msgResolved`) VALUES
-(1, 'Procrastinate', 'combat', 'personal', 'offense', '', 'ProcrastinateSkill', NULL, 0, 0, 0.000, 0, 'normal', 0, NULL, 0, '', 'Do nothing. Not yet.', '%1$s does nothing. Not yet.'),
-(2, 'Babble', 'combat', 'personal', 'offense', 'babbling', 'BabbleConsultantSpeakSkill', NULL, 0, 1, 0.000, 3, 'normal', 0, 1, 0, '', 'Trust me, it hurts.', ''),
-(3, 'Throw pencils', 'combat', 'personal', 'offense', '', '', NULL, 0, 2, 0.000, 0, 'normal', 0, NULL, 0, '', 'The sharpened ones, obviously!', '%1$s throws a bunch of sharpened pencils around.');
 
 -- --------------------------------------------------------
 
@@ -748,14 +695,6 @@ CREATE TABLE IF NOT EXISTS `mt_user` (
   KEY `superuser` (`superuser`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
---
--- Daten für Tabelle `mt_user`
---
-
-INSERT INTO `mt_user` (`id`, `username`, `password`, `email`, `activkey`, `createtime`, `lastvisit`, `superuser`, `status`) VALUES
-(1, 'admin', '5f4dcc3b5aa765d61d8327deb882cf99', 'webmaster@example.com', '9a24eff8c15a6a141ece27eb6947da0f', 1261146094, 1342348568, 1, 1),
-(2, 'demo', 'fe01ce2a7fbac8fafaed7c982a04e229', 'demo@example.com', '099f825543f7850cc038b90aaff39fac', 1261146096, 0, 0, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -775,14 +714,6 @@ CREATE TABLE IF NOT EXISTS `mt_user_profile` (
 --   `user_id`
 --       `mt_user` -> `id`
 --
-
---
--- Daten für Tabelle `mt_user_profile`
---
-
-INSERT INTO `mt_user_profile` (`user_id`, `lastname`, `firstname`, `birthday`) VALUES
-(1, 'Admin', 'Administrator', '0000-00-00'),
-(2, 'Demo', 'Demo', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -810,15 +741,6 @@ CREATE TABLE IF NOT EXISTS `mt_user_profilefield` (
   PRIMARY KEY (`id`),
   KEY `varname` (`varname`,`widget`,`visible`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT AUTO_INCREMENT=4 ;
-
---
--- Daten für Tabelle `mt_user_profilefield`
---
-
-INSERT INTO `mt_user_profilefield` (`id`, `varname`, `title`, `field_type`, `field_size`, `field_size_min`, `required`, `match`, `range`, `error_message`, `other_validator`, `default`, `widget`, `widgetparams`, `position`, `visible`) VALUES
-(1, 'lastname', 'Last Name', 'VARCHAR', 50, 3, 1, '', '', 'Incorrect Last Name (length between 3 and 50 characters).', '', '', '', '', 1, 3),
-(2, 'firstname', 'First Name', 'VARCHAR', 50, 3, 1, '', '', 'Incorrect First Name (length between 3 and 50 characters).', '', '', '', '', 0, 3),
-(3, 'birthday', 'Birthday', 'DATE', 0, 0, 2, '', '', '', '', '0000-00-00', 'UWjuidate', '{"ui-theme":"redmond"}', 3, 2);
 
 --
 -- Constraints der exportierten Tabellen
@@ -855,7 +777,12 @@ ALTER TABLE `mt_character_effects`
 -- Constraints der Tabelle `mt_character_equipments`
 --
 ALTER TABLE `mt_character_equipments`
-  ADD CONSTRAINT `mt_character_equipments_ibfk_1` FOREIGN KEY (`characterID`) REFERENCES `mt_character` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `mt_character_equipments_ibfk_6` FOREIGN KEY (`accessoryC`) REFERENCES `mt_item` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `mt_character_equipments_ibfk_1` FOREIGN KEY (`characterID`) REFERENCES `mt_character` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `mt_character_equipments_ibfk_2` FOREIGN KEY (`weapon`) REFERENCES `mt_item` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `mt_character_equipments_ibfk_3` FOREIGN KEY (`offhand`) REFERENCES `mt_item` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `mt_character_equipments_ibfk_4` FOREIGN KEY (`accessoryA`) REFERENCES `mt_item` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `mt_character_equipments_ibfk_5` FOREIGN KEY (`accessoryB`) REFERENCES `mt_item` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `mt_character_familiars`
@@ -934,9 +861,18 @@ ALTER TABLE `mt_monster_skills`
   ADD CONSTRAINT `mt_monster_skills_ibfk_1` FOREIGN KEY (`monsterID`) REFERENCES `mt_monster` (`id`) ON UPDATE CASCADE;
 
 --
+-- Constraints der Tabelle `mt_recipe`
+--
+ALTER TABLE `mt_recipe`
+  ADD CONSTRAINT `mt_recipe_ibfk_3` FOREIGN KEY (`itemResultID`) REFERENCES `mt_item` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `mt_recipe_ibfk_1` FOREIGN KEY (`item1ID`) REFERENCES `mt_item` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `mt_recipe_ibfk_2` FOREIGN KEY (`item2ID`) REFERENCES `mt_item` (`id`) ON UPDATE CASCADE;
+
+--
 -- Constraints der Tabelle `mt_skill`
 --
 ALTER TABLE `mt_skill`
+  ADD CONSTRAINT `mt_skill_ibfk_2` FOREIGN KEY (`createEffect`) REFERENCES `mt_battleeffect` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `mt_skill_ibfk_1` FOREIGN KEY (`charactermodifierID`) REFERENCES `mt_charactermodifier` (`id`) ON UPDATE CASCADE;
 
 --
@@ -944,7 +880,6 @@ ALTER TABLE `mt_skill`
 --
 ALTER TABLE `mt_user_profile`
   ADD CONSTRAINT `mt_user_profile_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `mt_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
