@@ -100,7 +100,7 @@ return array(
                     // 'enableParamLogging' => true,
 
                     // Increase in deployment to reduce number of SQL queries drastically
-                    'schemaCachingDuration' => 300,
+                    'schemaCachingDuration' => 0,
             ),
 
             /*

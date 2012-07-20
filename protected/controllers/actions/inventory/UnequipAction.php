@@ -1,6 +1,8 @@
 <?php
 /**
  * Unequips an equipped item and puts it back into the inventory
+ * 
+ * @package Actions.inventory
  */
 
 class UnequipAction extends CAction {
@@ -11,8 +13,20 @@ class UnequipAction extends CAction {
      */
     public $slot;
     
+    /**
+     * Specifies whether or not this action is run as a child process of
+     * some other action. If so, this action does not redirect, render, etc.
+     * @var bool
+     */
     private $_childAction = false;
     
+    /**
+     * Unequips an equipped item and puts it back into the inventory
+     * @param string $slot enum(weapon|offhand|accessoryA|etc)
+     * @throws Exception if run as a child process, does not handle db
+     * exceptions on its own but throws them around to be handled by the parent
+     * process
+     */
     public function run($slot = null) {
         if(empty($slot)) {
             $slot = $this->slot;
@@ -67,6 +81,10 @@ class UnequipAction extends CAction {
         }
     }
     
+    /**
+     * Basic setter
+     * @param bool $state
+     */
     public function setChildAction($state = true) {
         $this->_childAction = $state;
     }

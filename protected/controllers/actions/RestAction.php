@@ -1,11 +1,16 @@
 <?php
 /**
- * ToDo: The effectiveness of resting depends on 135134 factors -- that all
+ * Rest in your home to regenerate hp and energy
+ * @todo The effectiveness of resting depends on 135134 factors -- that all
  *       have to be implemented.
+ * @package Actions
  */
 
 class RestAction extends CAction {
 
+    /**
+     * Rest and redirect to index, i.e. MapAction
+     */
     public function run() {
         EUserFlash::setMessage("You rest.", '');
         

@@ -1,0 +1,2935 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+
+	<title>Class Character | Modern Times Documentation</title>
+
+	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
+	<script type="text/javascript" src="elementlist.js?3025928408"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">Modern Times Documentation</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="package-Character.html" title="Summary of Character"><span>Package</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="" />
+			<input type="hidden" name="ie" value="UTF-8" />
+			<input type="text" name="q" class="search-query" placeholder="Search" />
+		</form>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li><a href="package-Actions.html">Actions<span></span></a>
+						<ul>
+				<li><a href="package-Actions.inventory.html">inventory</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Battle.html">Battle<span></span></a>
+						<ul>
+				<li><a href="package-Battle.Battleeffects.html">Battleeffects</a>
+						</li>
+				<li><a href="package-Battle.Skills.html">Skills</a>
+						</li>
+							</ul></li>
+				<li class="active"><a href="package-Character.html">Character<span></span></a>
+						<ul>
+				<li><a href="package-Character.Relations.html">Relations</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Items.html">Items</a>
+						</li>
+				<li><a href="package-Site.html">Site<span></span></a>
+						<ul>
+				<li><a href="package-Site.Forms.html">Forms</a>
+						</li>
+							</ul></li>
+				<li><a href="package-System.html">System<span></span></a>
+						<ul>
+				<li><a href="package-System.Models.html">Models<span></span></a>
+						<ul>
+				<li><a href="package-System.Models.Base.html">Base</a>
+						</li>
+				<li><a href="package-System.Models.Relations.html">Relations</a>
+						</li>
+							</ul></li>
+				<li><a href="package-System.Tools.html">Tools</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Widgets.html">Widgets</a>
+						</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-Character.html">Character</a></li>
+				<li><a href="class-CharacterData.html">CharacterData</a></li>
+				<li><a href="class-Charactermodifier.html">Charactermodifier</a></li>
+				<li><a href="class-CharacterModifierBehavior.html">CharacterModifierBehavior</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class Character</h1>
+
+
+	<div class="description">
+	
+<p>Provides nice getter, setter, and "gainer" methods Getter and "gainer"
+methods raise events which allow other code thingies to hook into the respective
+calculations</p>
+
+<p>See BaseCharacter for a list of attributes and related Models</p>
+
+	</div>
+
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+GxActiveRecord
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-BaseCharacter.html"><span>BaseCharacter</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>Character</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		
+		<b>Package:</b> <a href="package-Character.html">Character</a><br />
+
+				<b>See:</b>
+				<code><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code></code><br />
+				<b>See:</b>
+				<code><code><a href="class-CharacterModifierBehavior.html">CharacterModifierBehavior</a></code></code><br />
+				<b>Link:</b>
+				<a href="http://www.yiiframework.com/extension/attributesbackupbehavior/">http://www.yiiframework.com/extension/attributesbackupbehavior/</a><br />
+		<b>Located at</b> <a href="source-class-Character.html#6" title="Go to source code">protected/models/Character.php</a><br />
+	</div>
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="gainCash" id="_gainCash">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_gainCash">#</a>
+			<code><a href="source-class-Character.html#24" title="Go to source code">gainCash</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span>, <span>string <var>$from</var> = <span class="php-quote">''</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for gainResource</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for gainResource</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$amount</var></dt>
+						<dd><code>float</code></dd>
+						<dt><var>$from</var></dt>
+						<dd><code>string</code><br> enum(battle|encounter|quest|autosell)</dd>
+					</dl></div>
+
+
+
+					<h4>See</h4>
+					<div class="list">
+							gainResource<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="gainFavours" id="_gainFavours">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_gainFavours">#</a>
+			<code><a href="source-class-Character.html#33" title="Go to source code">gainFavours</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span>, <span>string <var>$from</var> = <span class="php-quote">''</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for gainResource</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for gainResource</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$amount</var></dt>
+						<dd><code>float</code></dd>
+						<dt><var>$from</var></dt>
+						<dd><code>string</code><br> enum(battle|encounter|quest|autosell)</dd>
+					</dl></div>
+
+
+
+					<h4>See</h4>
+					<div class="list">
+							gainResource<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="gainKudos" id="_gainKudos">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_gainKudos">#</a>
+			<code><a href="source-class-Character.html#42" title="Go to source code">gainKudos</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span>, <span>string <var>$from</var> = <span class="php-quote">''</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for gainResource</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for gainResource</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$amount</var></dt>
+						<dd><code>float</code></dd>
+						<dt><var>$from</var></dt>
+						<dd><code>string</code><br> enum(battle|encounter|quest|autosell)</dd>
+					</dl></div>
+
+
+
+					<h4>See</h4>
+					<div class="list">
+							gainResource<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="increaseCash" id="_increaseCash">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_increaseCash">#</a>
+			<code><a href="source-class-Character.html#82" title="Go to source code">increaseCash</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for increaseResource</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for increaseResource</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$amount</var></dt>
+						<dd><code>float</code></dd>
+					</dl></div>
+
+
+
+					<h4>See</h4>
+					<div class="list">
+							increaseResource<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="increaseFavours" id="_increaseFavours">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_increaseFavours">#</a>
+			<code><a href="source-class-Character.html#90" title="Go to source code">increaseFavours</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for increaseResource</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for increaseResource</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$amount</var></dt>
+						<dd><code>float</code></dd>
+					</dl></div>
+
+
+
+					<h4>See</h4>
+					<div class="list">
+							increaseResource<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="increaseKudos" id="_increaseKudos">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_increaseKudos">#</a>
+			<code><a href="source-class-Character.html#98" title="Go to source code">increaseKudos</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for increaseResource</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for increaseResource</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$amount</var></dt>
+						<dd><code>float</code></dd>
+					</dl></div>
+
+
+
+					<h4>See</h4>
+					<div class="list">
+							increaseResource<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getDropItemPerc" id="_getDropItemPerc">
+
+			<td class="attributes"><code>
+				 public 
+				float
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getDropItemPerc">#</a>
+			<code><a href="source-class-Character.html#121" title="Go to source code">getDropItemPerc</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns the cumulative bonus to item drop chances by raising a
+CalcDropItemBonus event, which is then modified by everything that affects this
+stat, especially Model records with CharacterModifierBehavior.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns the cumulative bonus to item drop chances by raising a
+CalcDropItemBonus event, which is then modified by everything that affects this
+stat, especially Model records with CharacterModifierBehavior.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>float</code><br>bonus in percentage points<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="gainItems" id="_gainItems">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_gainItems">#</a>
+			<code><a href="source-class-Character.html#137" title="Go to source code">gainItems</a>( <span>array <var>$items</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for gainItem. Allows handling of multiple Items.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for gainItem. Allows handling of multiple Items.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$items</var></dt>
+						<dd><code>array</code><br> several Items</dd>
+					</dl></div>
+
+
+
+					<h4>See</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::gainItem()</a></code></code><br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="gainItem" id="_gainItem">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_gainItem">#</a>
+			<code><a href="source-class-Character.html#149" title="Go to source code">gainItem</a>( <span><code><a href="class-Item.html">Item</a></code> <var>$item</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Adds an item to the character's inventory</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Adds an item to the character's inventory</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$item</var></dt>
+						<dd><code><code><a href="class-Item.html">Item</a></code></code></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br>success?<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="decreaseHp" id="_decreaseHp">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_decreaseHp">#</a>
+			<code><a href="source-class-Character.html#186" title="Go to source code">decreaseHp</a>( <span>integer <var>$amount</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for changeHp</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for changeHp</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$amount</var></dt>
+						<dd><code>integer</code></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br>how the hp actually changed<br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::changeHp()</a></code></code><br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="increaseHp" id="_increaseHp">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_increaseHp">#</a>
+			<code><a href="source-class-Character.html#195" title="Go to source code">increaseHp</a>( <span>integer <var>$amount</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for changeHp</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for changeHp</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$amount</var></dt>
+						<dd><code>integer</code></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br>how the hp actually changed<br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::changeHp()</a></code></code><br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="changeHp" id="_changeHp">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_changeHp">#</a>
+			<code><a href="source-class-Character.html#205" title="Go to source code">changeHp</a>( <span>integer <var>$amount</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Changes $this-&gt;hp by $amount Generates a EUserFlash message to inform the
+user about healing</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Changes $this-&gt;hp by $amount Generates a EUserFlash message to inform the
+user about healing</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$amount</var></dt>
+						<dd><code>integer</code></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br>how the hp actually changed<br />
+					</div>
+
+
+					<h4>Todo</h4>
+					<div class="list">
+							raise event in case the Character hits 0 hp<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="decreaseEnergy" id="_decreaseEnergy">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_decreaseEnergy">#</a>
+			<code><a href="source-class-Character.html#232" title="Go to source code">decreaseEnergy</a>( <span>integer <var>$amount</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for changeEnergy</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for changeEnergy</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$amount</var></dt>
+						<dd><code>integer</code></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br>how the energy actually changed<br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::changeEnergy()</a></code></code><br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="increaseEnergy" id="_increaseEnergy">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_increaseEnergy">#</a>
+			<code><a href="source-class-Character.html#241" title="Go to source code">increaseEnergy</a>( <span>integer <var>$amount</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for changeEnergy</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for changeEnergy</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$amount</var></dt>
+						<dd><code>integer</code></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br>how the energy actually changed<br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::changeEnergy()</a></code></code><br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="changeEnergy" id="_changeEnergy">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_changeEnergy">#</a>
+			<code><a href="source-class-Character.html#251" title="Go to source code">changeEnergy</a>( <span>integer <var>$amount</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Changes $this-&gt;energy by $amount Generates a EUserFlash message to inform
+the user about energy boosts</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Changes $this-&gt;energy by $amount Generates a EUserFlash message to inform
+the user about energy boosts</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$amount</var></dt>
+						<dd><code>integer</code></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br>how the energy actually changed<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="gainXp" id="_gainXp">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_gainXp">#</a>
+			<code><a href="source-class-Character.html#277" title="Go to source code">gainXp</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span>, <span>string <var>$from</var> = <span class="php-quote">''</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for gainSubstat</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for gainSubstat</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$amount</var></dt>
+						<dd><code>float</code></dd>
+						<dt><var>$from</var></dt>
+						<dd><code>string</code><br> enum(battle|encounter|quest|autosell)</dd>
+					</dl></div>
+
+
+
+					<h4>See</h4>
+					<div class="list">
+							gainSubstat<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="gainResoluteness" id="_gainResoluteness">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_gainResoluteness">#</a>
+			<code><a href="source-class-Character.html#286" title="Go to source code">gainResoluteness</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span>, <span>string <var>$from</var> = <span class="php-quote">''</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for gainSubstat</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for gainSubstat</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$amount</var></dt>
+						<dd><code>float</code></dd>
+						<dt><var>$from</var></dt>
+						<dd><code>string</code><br> enum(battle|encounter|quest|autosell)</dd>
+					</dl></div>
+
+
+
+					<h4>See</h4>
+					<div class="list">
+							gainSubstat<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="gainWillpower" id="_gainWillpower">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_gainWillpower">#</a>
+			<code><a href="source-class-Character.html#295" title="Go to source code">gainWillpower</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span>, <span>string <var>$from</var> = <span class="php-quote">''</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for gainSubstat</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for gainSubstat</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$amount</var></dt>
+						<dd><code>float</code></dd>
+						<dt><var>$from</var></dt>
+						<dd><code>string</code><br> enum(battle|encounter|quest|autosell)</dd>
+					</dl></div>
+
+
+
+					<h4>See</h4>
+					<div class="list">
+							gainSubstat<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="gainCunning" id="_gainCunning">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_gainCunning">#</a>
+			<code><a href="source-class-Character.html#304" title="Go to source code">gainCunning</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span>, <span>string <var>$from</var> = <span class="php-quote">''</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for gainSubstat</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for gainSubstat</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$amount</var></dt>
+						<dd><code>float</code></dd>
+						<dt><var>$from</var></dt>
+						<dd><code>string</code><br> enum(battle|encounter|quest|autosell)</dd>
+					</dl></div>
+
+
+
+					<h4>See</h4>
+					<div class="list">
+							gainSubstat<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="increaseXp" id="_increaseXp">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_increaseXp">#</a>
+			<code><a href="source-class-Character.html#344" title="Go to source code">increaseXp</a>( <span>float <var>$xp</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Divides xp gains among the three substats, depending on the Character
+class</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Divides xp gains among the three substats, depending on the Character
+class</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$xp</var></dt>
+						<dd><code>float</code></dd>
+					</dl></div>
+
+
+
+					<h4>See</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::increaseResoluteness()</a></code></code><br />
+							<code><code><a href="class-Character.html#_">Character::increaseWillpower()</a></code></code><br />
+							<code><code><a href="class-Character.html#_">Character::increaseCunning()</a></code></code><br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="increaseResoluteness" id="_increaseResoluteness">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_increaseResoluteness">#</a>
+			<code><a href="source-class-Character.html#363" title="Go to source code">increaseResoluteness</a>( <span>float <var>$amount</var></span>, <span>boolean <var>$generateMsg</var> = <span class="php-keyword1">true</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for increaseSubstat</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for increaseSubstat</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$amount</var></dt>
+						<dd><code>float</code></dd>
+						<dt><var>$generateMsg</var></dt>
+						<dd><code>boolean</code></dd>
+					</dl></div>
+
+
+
+					<h4>See</h4>
+					<div class="list">
+							increaseSubstat<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="increaseWillpower" id="_increaseWillpower">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_increaseWillpower">#</a>
+			<code><a href="source-class-Character.html#372" title="Go to source code">increaseWillpower</a>( <span>float <var>$amount</var></span>, <span>boolean <var>$generateMsg</var> = <span class="php-keyword1">true</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for increaseSubstat</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for increaseSubstat</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$amount</var></dt>
+						<dd><code>float</code></dd>
+						<dt><var>$generateMsg</var></dt>
+						<dd><code>boolean</code></dd>
+					</dl></div>
+
+
+
+					<h4>See</h4>
+					<div class="list">
+							increaseSubstat<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="increaseCunning" id="_increaseCunning">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_increaseCunning">#</a>
+			<code><a href="source-class-Character.html#381" title="Go to source code">increaseCunning</a>( <span>float <var>$amount</var></span>, <span>boolean <var>$generateMsg</var> = <span class="php-keyword1">true</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for increaseSubstat</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for increaseSubstat</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$amount</var></dt>
+						<dd><code>float</code></dd>
+						<dt><var>$generateMsg</var></dt>
+						<dd><code>boolean</code></dd>
+					</dl></div>
+
+
+
+					<h4>See</h4>
+					<div class="list">
+							increaseSubstat<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getResolutenessBuffed" id="_getResolutenessBuffed">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getResolutenessBuffed">#</a>
+			<code><a href="source-class-Character.html#429" title="Go to source code">getResolutenessBuffed</a>( )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for getStatBuffed</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for getStatBuffed</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							getStatBuffed<br />
+					</div>
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::getNormalAttack()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getWillpowerBuffed" id="_getWillpowerBuffed">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getWillpowerBuffed">#</a>
+			<code><a href="source-class-Character.html#437" title="Go to source code">getWillpowerBuffed</a>( )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for getStatBuffed</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for getStatBuffed</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							getStatBuffed<br />
+					</div>
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::getSpecialAttack()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getCunningBuffed" id="_getCunningBuffed">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getCunningBuffed">#</a>
+			<code><a href="source-class-Character.html#445" title="Go to source code">getCunningBuffed</a>( )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for getStatBuffed</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for getStatBuffed</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							getStatBuffed<br />
+					</div>
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::getDefense()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getResolutenessBase" id="_getResolutenessBase">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getResolutenessBase">#</a>
+			<code><a href="source-class-Character.html#482" title="Go to source code">getResolutenessBase</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns the base value (unbuffed) of the Character's resoluteness</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns the base value (unbuffed) of the Character's resoluteness</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getWillpowerBase" id="_getWillpowerBase">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getWillpowerBase">#</a>
+			<code><a href="source-class-Character.html#489" title="Go to source code">getWillpowerBase</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns the base value (unbuffed) of the Character's willpower</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns the base value (unbuffed) of the Character's willpower</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getCunningBase" id="_getCunningBase">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getCunningBase">#</a>
+			<code><a href="source-class-Character.html#496" title="Go to source code">getCunningBase</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns the base value (unbuffed) of the Character's cunning</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns the base value (unbuffed) of the Character's cunning</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getHpMax" id="_getHpMax">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getHpMax">#</a>
+			<code><a href="source-class-Character.html#504" title="Go to source code">getHpMax</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns the Character's buffed maximum hp value Buffed = Base *
+BonusPerc(entage based) + BonusAbs(olute) In order to determine BonusPerc and
+BonusAbs, it raises a CalcHp event, to which other code elements can react,
+especially Model records with CharacterModifierBehavior.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns the Character's buffed maximum hp value Buffed = Base *
+BonusPerc(entage based) + BonusAbs(olute) In order to determine BonusPerc and
+BonusAbs, it raises a CalcHp event, to which other code elements can react,
+especially Model records with CharacterModifierBehavior.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getEnergyMax" id="_getEnergyMax">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getEnergyMax">#</a>
+			<code><a href="source-class-Character.html#527" title="Go to source code">getEnergyMax</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns the Character's buffed maximum energy value Buffed = Base *
+BonusPerc(entage based) + BonusAbs(olute) In order to determine BonusPerc and
+BonusAbs, it raises a CalcHp event, to which other code elements can react,
+especially Model records with CharacterModifierBehavior.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns the Character's buffed maximum energy value Buffed = Base *
+BonusPerc(entage based) + BonusAbs(olute) In order to determine BonusPerc and
+BonusAbs, it raises a CalcHp event, to which other code elements can react,
+especially Model records with CharacterModifierBehavior.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getLevel" id="_getLevel">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getLevel">#</a>
+			<code><a href="source-class-Character.html#551" title="Go to source code">getLevel</a>( )</code>
+
+			<div class="description short">
+				
+<p>Calculates the level (x) of the Character based on mainstat (y) y = (x−1)^2
++ 4 =&gt; y-4 = (x-1)^2 =&gt; sqrt(y-4) = x-1 =&gt; sqrt(y-4)+1 = x</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Calculates the level (x) of the Character based on mainstat (y) y = (x−1)^2
++ 4 =&gt; y-4 = (x-1)^2 =&gt; sqrt(y-4) = x-1 =&gt; sqrt(y-4)+1 = x</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br />
+					</div>
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::getTitle()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getLevelProgress" id="_getLevelProgress">
+
+			<td class="attributes"><code>
+				 public 
+				float
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getLevelProgress">#</a>
+			<code><a href="source-class-Character.html#565" title="Go to source code">getLevelProgress</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns level progression in % (0.25 for 25%)</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns level progression in % (0.25 for 25%)</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>float</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getMainstatBase" id="_getMainstatBase">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getMainstatBase">#</a>
+			<code><a href="source-class-Character.html#578" title="Go to source code">getMainstatBase</a>( )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for getResolutenessBase, getCunningBase, or getWillpowerBase,
+depending on the Character's class's main stat</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for getResolutenessBase, getCunningBase, or getWillpowerBase,
+depending on the Character's class's main stat</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::getResolutenessBase()</a></code></code><br />
+							<code><code><a href="class-Character.html#_">Character::getCunningBase()</a></code></code><br />
+							<code><code><a href="class-Character.html#_">Character::getWillpowerBase()</a></code></code><br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getMainstatBuffed" id="_getMainstatBuffed">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getMainstatBuffed">#</a>
+			<code><a href="source-class-Character.html#589" title="Go to source code">getMainstatBuffed</a>( )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for getResolutenessBuffed, getCunningBuffed, or getWillpowerBuffed,
+depending on the Character's class's main stat</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for getResolutenessBuffed, getCunningBuffed, or getWillpowerBuffed,
+depending on the Character's class's main stat</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::getResolutenessBuffed()</a></code></code><br />
+							<code><code><a href="class-Character.html#_">Character::getCunningBuffed()</a></code></code><br />
+							<code><code><a href="class-Character.html#_">Character::getWillpowerBuffed()</a></code></code><br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getMainstatSub" id="_getMainstatSub">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getMainstatSub">#</a>
+			<code><a href="source-class-Character.html#600" title="Go to source code">getMainstatSub</a>( )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for getResolutenessSub, getCunningSub, or getWillpowerSub, depending
+on the Character's class's main stat</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for getResolutenessSub, getCunningSub, or getWillpowerSub, depending
+on the Character's class's main stat</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							getResolutenessSub<br />
+							getCunningSub<br />
+							getWillpowerSub<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getNormalAttack" id="_getNormalAttack">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getNormalAttack">#</a>
+			<code><a href="source-class-Character.html#612" title="Go to source code">getNormalAttack</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns the attack value of the Character (for normal attacks) = resoluteness
+buffed</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns the attack value of the Character (for normal attacks) = resoluteness
+buffed</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br />
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::getResolutenessBuffed()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getSpecialAttack" id="_getSpecialAttack">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getSpecialAttack">#</a>
+			<code><a href="source-class-Character.html#621" title="Go to source code">getSpecialAttack</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns the special attack value of the Character (for special attacks) =
+willpower buffed</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns the special attack value of the Character (for special attacks) =
+willpower buffed</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br />
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::getWillpowerBuffed()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getDefense" id="_getDefense">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getDefense">#</a>
+			<code><a href="source-class-Character.html#630" title="Go to source code">getDefense</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns the defense value of the Character (against normal attacks) = cunning
+buffed</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns the defense value of the Character (against normal attacks) = cunning
+buffed</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br />
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::getCunningBuffed()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="loadItems" id="_loadItems">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_loadItems">#</a>
+			<code><a href="source-class-Character.html#645" title="Go to source code">loadItems</a>( )</code>
+
+			<div class="description short">
+				
+<p>Lazy loading of inventory items associated with the Character</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Lazy loading of inventory items associated with the Character</p>
+
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="createFirstRoundCombatMessage" id="_createFirstRoundCombatMessage">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_createFirstRoundCombatMessage">#</a>
+			<code><a href="source-class-Character.html#659" title="Go to source code">createFirstRoundCombatMessage</a>( )</code>
+
+			<div class="description short">
+				
+<p>Generates a "get into position" combat message</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Generates a "get into position" combat message</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>string</code><br />
+					</div>
+
+
+					<h4>Todo</h4>
+					<div class="list">
+							If this is going to be used, make it more dynamic<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getTitle" id="_getTitle">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getTitle">#</a>
+			<code><a href="source-class-Character.html#667" title="Go to source code">getTitle</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns a string that represents the title of the Character</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns a string that represents the title of the Character</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>string</code><br />
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::getLevel()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="hasEffect" id="_hasEffect">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_hasEffect">#</a>
+			<code><a href="source-class-Character.html#676" title="Go to source code">hasEffect</a>( <span><code><a href="class-Effect.html">Effect</a></code> <var>$effect</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Checks if the character has a certain Effect attached to them</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Checks if the character has a certain Effect attached to them</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$effect</var></dt>
+						<dd><code><code><a href="class-Effect.html">Effect</a></code></code></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="addEffect" id="_addEffect">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_addEffect">#</a>
+			<code><a href="source-class-Character.html#689" title="Go to source code">addEffect</a>( <span><code><a href="class-CharacterEffects.html">CharacterEffects</a></code> <var>$characterEffect</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Adds a CharacterEffects record to the Character record</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Adds a CharacterEffects record to the Character record</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$characterEffect</var></dt>
+						<dd><code><code><a href="class-CharacterEffects.html">CharacterEffects</a></code></code></dd>
+					</dl></div>
+
+
+
+					<h4>See</h4>
+					<div class="list">
+							<code><code><a href="class-CharacterEffects.html">CharacterEffects</a></code></code><br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getEffect" id="_getEffect">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getEffect">#</a>
+			<code><a href="source-class-Character.html#706" title="Go to source code">getEffect</a>( <span><code><a href="class-Effect.html">Effect</a></code> <var>$effect</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Returns an Effect record of the indicated type if such an Effect is attached
+to the Character. (false if there is no such Effect attached to the
+Character)</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns an Effect record of the indicated type if such an Effect is attached
+to the Character. (false if there is no such Effect attached to the
+Character)</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$effect</var></dt>
+						<dd><code><code><a href="class-Effect.html">Effect</a></code></code></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>mixed</code><br>Effect if Effect of the indicated type is found, false otherwise<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getFamiliar" id="_getFamiliar">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getFamiliar">#</a>
+			<code><a href="source-class-Character.html#723" title="Go to source code">getFamiliar</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns the active CharacterFamiliars record</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns the active CharacterFamiliars record</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>mixed</code><br>CharacterFamiliar or null<br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							<code><code><a href="class-CharacterFamiliars.html">CharacterFamiliars</a></code></code><br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getEquipment" id="_getEquipment">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getEquipment">#</a>
+			<code><a href="source-class-Character.html#736" title="Go to source code">getEquipment</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns the active CharacterEquipments record</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns the active CharacterEquipments record</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>mixed</code><br>CharacterEquipments or null<br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							<code><code><a href="class-CharacterEquipments.html">CharacterEquipments</a></code></code><br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getSkillset" id="_getSkillset">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getSkillset">#</a>
+			<code><a href="source-class-Character.html#749" title="Go to source code">getSkillset</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns the active CharacterSkillsets record</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns the active CharacterSkillsets record</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>mixed</code><br>CharacterSkillsets or null<br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							<code><code><a href="class-CharacterSkillsets.html">CharacterSkillsets</a></code></code><br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onCalcHp" id="_onCalcHp">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onCalcHp">#</a>
+			<code><a href="source-class-Character.html#767" title="Go to source code">onCalcHp</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onCalcEnergy" id="_onCalcEnergy">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onCalcEnergy">#</a>
+			<code><a href="source-class-Character.html#774" title="Go to source code">onCalcEnergy</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onCalcResoluteness" id="_onCalcResoluteness">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onCalcResoluteness">#</a>
+			<code><a href="source-class-Character.html#781" title="Go to source code">onCalcResoluteness</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onCalcWillpower" id="_onCalcWillpower">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onCalcWillpower">#</a>
+			<code><a href="source-class-Character.html#788" title="Go to source code">onCalcWillpower</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onCalcCunning" id="_onCalcCunning">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onCalcCunning">#</a>
+			<code><a href="source-class-Character.html#795" title="Go to source code">onCalcCunning</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onGainingCash" id="_onGainingCash">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onGainingCash">#</a>
+			<code><a href="source-class-Character.html#803" title="Go to source code">onGainingCash</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onGainingFavours" id="_onGainingFavours">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onGainingFavours">#</a>
+			<code><a href="source-class-Character.html#810" title="Go to source code">onGainingFavours</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onGainingKudos" id="_onGainingKudos">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onGainingKudos">#</a>
+			<code><a href="source-class-Character.html#817" title="Go to source code">onGainingKudos</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onGainingXp" id="_onGainingXp">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onGainingXp">#</a>
+			<code><a href="source-class-Character.html#824" title="Go to source code">onGainingXp</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onGainingResoluteness" id="_onGainingResoluteness">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onGainingResoluteness">#</a>
+			<code><a href="source-class-Character.html#831" title="Go to source code">onGainingResoluteness</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onGainingWillpower" id="_onGainingWillpower">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onGainingWillpower">#</a>
+			<code><a href="source-class-Character.html#838" title="Go to source code">onGainingWillpower</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onGainingCunning" id="_onGainingCunning">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onGainingCunning">#</a>
+			<code><a href="source-class-Character.html#845" title="Go to source code">onGainingCunning</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onCalcDropItemBonus" id="_onCalcDropItemBonus">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onCalcDropItemBonus">#</a>
+			<code><a href="source-class-Character.html#853" title="Go to source code">onCalcDropItemBonus</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getClassAttributes" id="_getClassAttributes">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getClassAttributes">#</a>
+			<code><a href="source-class-Character.html#865" title="Go to source code">getClassAttributes</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns an array indicating the relative importance of character stats for
+all the Character classes</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns an array indicating the relative importance of character stats for
+all the Character classes</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>array</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getClassType" id="_getClassType">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getClassType">#</a>
+			<code><a href="source-class-Character.html#881" title="Go to source code">getClassType</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns the name of the Character's class's mainstat Relies on mainstat
+getting 50% of the substat gains</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns the name of the Character's class's mainstat Relies on mainstat
+getting 50% of the substat gains</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>string</code><br>enum(resoluteness|cunning|willpower)<br />
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							getClassAttribute<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="behaviors" id="_behaviors">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_behaviors">#</a>
+			<code><a href="source-class-Character.html#892" title="Go to source code">behaviors</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns a list of CBehaviors to be attached to this Model</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns a list of CBehaviors to be attached to this Model</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>array</code><br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							<code><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code></code><br />
+					</div>
+					<h4>Link</h4>
+					<div class="list">
+							<a href="http://www.yiiframework.com/doc/api/CBehavior">http://www.yiiframework.com/doc/api/CBehavior</a><br />
+							<a href="http://www.yiiframework.com/extension/attributesbackupbehavior/">http://www.yiiframework.com/extension/attributesbackupbehavior/</a><br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="model" id="_model">
+
+			<td class="attributes"><code>
+				 public static
+				CModel
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_model">#</a>
+			<code><a href="source-class-Character.html#907" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
+
+			<div class="description short">
+				
+<p>Factory method to get Model objects</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Factory method to get Model objects</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$className</var></dt>
+						<dd><code>string</code></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>CModel</code><br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							<a
+href="http://www.yiiframework.com/doc/api/CModel">http://www.yiiframework.com/doc/api/CModel</a><br />
+					</div>
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-BaseCharacter.html#_">BaseCharacter::model</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+		<h3>Methods inherited from <a href="class-BaseCharacter.html#methods">BaseCharacter</a></h3>
+		<p class="elementList">
+			<code><a href="class-BaseCharacter.html#_">attributeLabels()</a></code>, 
+			<code><a href="class-BaseCharacter.html#_">label()</a></code>, 
+			<code><a href="class-BaseCharacter.html#_">pivotModels()</a></code>, 
+			<code><a href="class-BaseCharacter.html#_">relations()</a></code>, 
+			<code><a href="class-BaseCharacter.html#_">representingColumn()</a></code>, 
+			<code><a href="class-BaseCharacter.html#_">rules()</a></code>, 
+			<code><a href="class-BaseCharacter.html#_">search()</a></code>, 
+			<code><a href="class-BaseCharacter.html#_">tableName()</a></code>
+		</p>
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		Modern Times Documentation API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="1.3.0">
+	<file name="D:\Homepages\ModernTimes\protected\models\ContactForm.php">
+		<error severity="error" line="12" message="Missing documentation of property ContactForm::$name" source="ApiGen.Documentation.Documentation"/>
+		<error severity="error" line="13" message="Missing documentation of property ContactForm::$email" source="ApiGen.Documentation.Documentation"/>
+		<error severity="error" line="14" message="Missing documentation of property ContactForm::$subject" source="ApiGen.Documentation.Documentation"/>
+		<error severity="error" line="15" message="Missing documentation of property ContactForm::$body" source="ApiGen.Documentation.Documentation"/>
+		<error severity="error" line="16" message="Missing documentation of property ContactForm::$verifyCode" source="ApiGen.Documentation.Documentation"/>
+		<error severity="error" line="21" message="Missing documentation of return value of method ContactForm::rules()" source="ApiGen.Documentation.Documentation"/>
+		<error severity="error" line="38" message="Missing documentation of return value of method ContactForm::attributeLabels()" source="ApiGen.Documentation.Documentation"/>
+	</file>
+	<file name="D:\Homepages\ModernTimes\protected\models\LoginForm.php">
+		<error severity="error" line="12" message="Missing documentation of property LoginForm::$username" source="ApiGen.Documentation.Documentation"/>
+		<error severity="error" line="13" message="Missing documentation of property LoginForm::$password" source="ApiGen.Documentation.Documentation"/>
+		<error severity="error" line="14" message="Missing documentation of property LoginForm::$rememberMe" source="ApiGen.Documentation.Documentation"/>
+		<error severity="error" line="23" message="Missing documentation of return value of method LoginForm::rules()" source="ApiGen.Documentation.Documentation"/>
+		<error severity="error" line="38" message="Missing documentation of return value of method LoginForm::attributeLabels()" source="ApiGen.Documentation.Documentation"/>
+		<error severity="error" line="49" message="Missing documentation of parameter LoginForm::authenticate()($params)" source="ApiGen.Documentation.Documentation"/>
+		<error severity="error" line="49" message="Missing documentation of parameter LoginForm::authenticate()($attribute)" source="ApiGen.Documentation.Documentation"/>
+	</file>
+</checkstyle>

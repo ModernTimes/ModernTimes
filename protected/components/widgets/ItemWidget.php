@@ -1,20 +1,24 @@
 <?php
 
 /**
- * Displays an item
+ * Displays an Item
+ * adds additional links like "equip" or "unequip", depending on the
+ * context in which the item is to be displayed
+ * 
+ * @see Item
+ * @package Widgets
  */
 
 class ItemWidget extends CWidget {
 
     /**
+     * The Item record to be displayed
      * @var Item
      */
     public $item;
     
     /**
-     * adds additional links like "equip" or "unequip", depending on the
-     * context in which the item is to be displayed
-     * @var enum(free, inventory, equipment)
+     * @var string enum(free|inventory|equipment)
      */
     public $context = "free";
 
@@ -33,6 +37,9 @@ class ItemWidget extends CWidget {
      */
     public $equipmentSlot = "";
     
+    /**
+     * Renders the item.php view file 
+     */
     public function run() {
         $this->render("item");
     }

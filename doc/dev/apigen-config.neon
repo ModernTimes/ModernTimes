@@ -1,0 +1,29 @@
+# neon file - edit it now!
+
+source: ../../
+destination: ../
+wipeout: yes
+templateConfig: ../template/config.neon
+
+# useful when doc is to be uploaded
+baseUrl:
+report: poorDoc.xml
+extensions: php
+exclude: 
+    - */framework/*
+    - */assets/*
+    - */tests/*
+    - */protected/modules/*
+    - */protected/extensions/*
+#skipDocPath:
+#    - */_base/*
+
+title: Modern Times Documentation
+download: no
+sourceCode: yes
+todo: yes
+tree: yes
+php: no
+
+# tracking code
+googleAnalytics:

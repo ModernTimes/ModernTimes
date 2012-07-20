@@ -5,13 +5,21 @@ Yii::import('application.models._base.BaseEncounter');
 /**
  * Handles basic encounter procedures.
  * Can be "overridden" by specialnessBehavior classes
+ * 
+ * See BaseEncounter for a list of attributes and related Models
+ * 
+ * @see SpecialnessBehavior
+ * @see CharacterModifierBehavior
+ * @see Charactermodifier
+ * @package System.Models
  */
 
 class Encounter extends BaseEncounter {
     
     /**
-     * ToDo: split into smaller parts,
-     * so that specialnessBehavior classes can call __parent-methods?
+     * Resolves an Encounter
+     * @todo split into smaller parts, so that specialnessBehavior classes can 
+     * call these smaller __parent-methods?
      */
     public function run() {
         $character = CD();
@@ -50,15 +58,23 @@ class Encounter extends BaseEncounter {
     }
         
     /** 
-    * Encounters can form encounter paths
-    * If there are two or more encounters originating from an encounter,
-    * the actual path is usually based on the player's choice. It can also be
-    * based on some kind of algorithm, though.
-    */
+     * Checks if the Encounter leadds to further Encounters, i.e. if
+     * the Encounter path of this Encounter is not yet finished
+     * If there are two or more encounters originating from an encounter,
+     * the actual path is usually based on the player's choice. It can also be
+     * based on some kind of algorithm, though.
+     * @see EncounterEncounters
+     * @return bool
+     */
     public function isChoiceEncounter() {
         return (count($this->encounterEncounters) > 0);
     }
     
+    /**
+     * Returns a list of Items that the Character finds during the Encounter
+     * @see EncounterItems
+     * @return array of Item records
+     */
     public function dropItems() {
         $loot = array();
         foreach($this->encounterItems as $encounterItem) {
@@ -71,11 +87,23 @@ class Encounter extends BaseEncounter {
         return $loot;
     }        
     
+    /**
+     * Returns a list of CBehaviors to be attached to this Model
+     * @link http://www.yiiframework.com/doc/api/CBehavior
+     * @see SpecialnessBehavior
+     * @return array
+     */
     public function behaviors() {
         return array("application.components.SpecialnessBehavior",
                      );
     }
     
+    /**
+     * Factory method to get Model objects
+     * @see http://www.yiiframework.com/doc/api/CModel
+     * @param string $className
+     * @return CModel
+     */
     public static function model($className=__CLASS__) {
         return parent::model($className);
     }

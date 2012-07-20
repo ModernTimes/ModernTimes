@@ -5,51 +5,66 @@ Yii::import('application.components.battleEffects.*');
 
 /**
  * Models and manages battles, both PvE and PvP
- * ToDo: implememnt battle phases in State pattern?
+ * 
+ * See BaseBattle for a list of attributes and related Models
+ *
+ * @todo implememnt battle phases in State pattern?
+ * @link http://www.yiiframework.com/extension/attributesbackupbehavior/
+ * @uses BattleeffectList
+ * @package Battle
  */
 
 class Battle extends BaseBattle {
 
     /**
-     * @var Combatant (Character or Monster) 
+     * @var CombatantBehavior actually a Model record with a
+     * CombatantBehavior attached to it (Character or Monster) 
+     * @CombatantBehavior
      */
     public $combatantA;
+    /**
+     * @var CombatantBehavior actually a Model record with a
+     * CombatantBehavior attached to it (Character or Monster) 
+     * @CombatantBehavior
+     */
     public $combatantB;
     
     /**
-     * @var int
+     * @var int we are in round ...
      */
     public $round = 0;
     
     /**
-     * @var Skill or Item to be used by the combatants this round
+     * @var mixed Skill or Item to be used by CombatantA this round
      */
     public $combatantAAction;
+    /**
+     * @var mixed Skill or Item to be used by CombatantB this round
+     */
     public $combatantBAction;
     
     /**
-     * @var CTypedList of Battleeffect objects
+     * @var BattleeffectList a CTypedList of Battleeffect objects
+     * @see BattleeffectList
      */
     public $battleeffects;
     
     /**
-     * @var array, saves battle history and messages, 
-     * used to render the battle history view
-     * 
+     * Saves BattleMessages to keep track of the battle history
+     * Used to render the battle history view
      * round # => array
-     *     combatantA => array
-     *         0 => array
-     *             'skill' => array(id, name, type, desc, etc. -- or empty)
-     *             'msg' => string
-     *             'result' => array
-     *                 type => 
-     *                 additional properties (like damageType, amount, etc.)
-     *      combatantB => ...
+     *     combatantA => array of BattleMessages
+     *      combatantB => array of BattleMessages
+     * 
+     * @var array 
      */
-    public $_log = array(0 => array('combatantA' => array(), 'combatantB' => array()));
+    private $_log = array(0 => array('combatantA' => array(), 'combatantB' => array()));
     
      /**
-      * ToDo: Trigger beginningOfCombat effects
+      * Starts the battle
+      * Sets some initial values and inserts the record in the database
+      * 
+      * @todo Trigger beginningOfCombat effects
       */
      public function start() {
         // Init stuff
@@ -71,8 +86,7 @@ class Battle extends BaseBattle {
         
         
         if($this->type == "pvp") {
-            // Player first round messages are only needed in PVP.
-            // ToDo: Are they?
+            // @todo Should players have first round battle messages?
         } else {
             $battleMsg = new Battlemessage(
                 $this->combatantB->call("createFirstRoundCombatMessage")
@@ -94,9 +108,8 @@ class Battle extends BaseBattle {
     }
     
     /**
-     * Determine winner
-     * Handle consequences of winning + loosing
-     * Do some cleaning up
+     * Stops the battle and handle consequences of winning + loosing
+     * Also does some cleaning up
      */
     public function stop() {
         if($this->combatantA->hp > 0) {
@@ -153,8 +166,13 @@ class Battle extends BaseBattle {
     }
     
     /**
+     * Checks if all combatants have valid actions defined. Calls
+     * calculateRound if that is so.
      * Validity of $playerAction is checked by controller or is provided by
-     * a monster model directly
+     * a Monster model directly
+     * @see BattleMonsterAction
+     * @see calculateRound
+     * @param mixed Skill or Item record
      */
     public function playerAction($playerAction = null) {
         // Yii::trace("playerAction. Action: " . $playerAction->name);
@@ -262,26 +280,38 @@ class Battle extends BaseBattle {
      * EVENTS + RELATED STUFF
      */
     
-    public function addEffect($effect) {
-        $effect->call("attachToBattle", $this);
-        $this->battleeffects->add($effect);
+    /**
+     * Adds a Battleeffect to the battle
+     * @see Battleeffect
+     * @see BattleeffectList
+     * @param Battleeffect $effect 
+     */
+    public function addEffect($Effect) {
+        $Effect->call("attachToBattle", $this);
+        $this->battleeffects->add($Effect);
     }
     
-    public function increaseEffectDuration($effect, $sameHero = true) {
-        $existingEffectIndex = $this->battleeffects->indexOf($effect, $sameHero);
+    /**
+     * Increases the duration of $Effect, if $Effect is already in the list
+     * of active Battleeffects, and if $Effect is not a permanent effect
+     * @param Battleeffect $Effect
+     * @param bool $sameHero default true
+     */
+    public function increaseEffectDuration($Effect, $sameHero = true) {
+        $existingEffectIndex = $this->battleeffects->indexOf($Effect, $sameHero);
         if($existingEffectIndex > -1) {
             $existingEffect = $this->battleeffects->itemAt($existingEffectIndex);
-            $existingEffect->turns += $effect->turns;
+            $existingEffect->turns += $Effect->turns;
         } else {
             // nothing or throw exception?
         }
     }
 
     /**
-     * Finds out if a combatant has battleeffects attached to them
+     * Finds out if a combatant has Battleeffects attached to them
+     * @todo allow obj for combatantString
      * @param string $combatantString
      * @return boolean 
-     * ToDo: allow obj for combatantString
      */
     public function combatantHasEffects($combatantString) {
         foreach($this->battleeffects as $battleeffect) {
@@ -295,33 +325,70 @@ class Battle extends BaseBattle {
     /**
      * Event raisers
      * When adding new ones: Don't forget to add their names to the array in 
-     * detachAll...
+     * detachAll()
+     */
+    
+    /**
+     * Raises an event
+     * @param CEvent $event 
      */
     public function onBeforeRound($event) {
         $this->raiseEvent("onBeforeRound", $event);
     }
+    /**
+     * Raises an event
+     * @param CEvent $event 
+     */
     public function onAfterRound($event) {
         $this->raiseEvent("onAfterRound", $event);
     }
+    /**
+     * Raises an event
+     * @param CEvent $event 
+     */
     public function onBeforeAction($event) {
         $this->raiseEvent("onBeforeAction", $event);
     }
+    /**
+     * Raises an event
+     * @param CEvent $event 
+     */
     public function onAfterAction($event) {
         $this->raiseEvent("onAfterAction", $event);
     }
+    /**
+     * Raises an event
+     * @param CEvent $event 
+     */
     public function onBeforeDealingDamage($event) {
         $this->raiseEvent("onBeforeDealingDamage", $event);
     }
+    /**
+     * Raises an event
+     * @param CEvent $event 
+     */
     public function onAfterDealingDamage($event) {
         $this->raiseEvent("onAfterDealingDamage", $event);
     }
+    /**
+     * Raises an event
+     * @param CEvent $event 
+     */
     public function onBeforeTakingDamage($event) {
         $this->raiseEvent("onBeforeTakingDamage", $event);
     }
+    /**
+     * Raises an event
+     * @param CEvent $event 
+     */
     public function onAfterTakingDamage($event) {
         $this->raiseEvent("onAfterTakingDamage", $event);
     }
     
+    /**
+     * Detaches the Effect's event handlers from all Battle events
+     * @param Battleeffect $effect
+     */
     public function detachAllEventHandlers($effect) {
         $eventNames = array("onBeforeAction", "onAfterAction", "onBeforeDealingDamage", "onAfterDealingDamage", "onBeforeTakingDamage", "onAfterTakingDamage");
         foreach($eventNames as $eventName) {
@@ -338,9 +405,10 @@ class Battle extends BaseBattle {
 
     /**
      * Add a message to the log array
-     * @param Combatant $combatant, on whose side the message should appear
+     * @param CombatantBehavior $combatant Model record with CombatantBehavior 
+     * on whose side the message should appear
      * @param Battlemessage $battleMsg
-     * @param int $round, default is the current round
+     * @param int $round default is the current round
      */
     public function log($combatant, $battleMsg, $round = null) {
         if(empty($round)) {
@@ -358,10 +426,12 @@ class Battle extends BaseBattle {
     }
     
     /**
-     * Returns Battlemessages of a given round or set of rounds
-     * @param mixed $rounds, "all", "last", "current" or int of round
+     * Returns the Battlemessages of a given round or set of rounds
+     * @todo accept arrays
+     * @todo check if round exists
+     * @see $_log
+     * @param mixed $rounds enum(all|last|current) or int
      * @return array
-     * ToDo: array, check if round exists, etc.
      */
     public function getLogs($rounds = "all") {
         switch($rounds) {
@@ -382,11 +452,8 @@ class Battle extends BaseBattle {
     
     
     /**
-     * All getWhateverCombatants are from current user's point of view
-     */
-    
-    /**
-     * @return Combatant 
+     * Returns hero (from the current user's point of view)
+     * @return CombatantBehavior Model record with CombatantBehavior
      */
     public function getHero() {
         if($this->combatantAID == CD()->id) {
@@ -396,7 +463,8 @@ class Battle extends BaseBattle {
         }
     }
     /**
-     * @return Combatant 
+     * Returns enemy (from the current user's point of view)
+     * @return CombatantBehavior Model record with CombatantBehavior
      */
     public function getEnemy() {
         if($this->combatantAID == CD()->id) {
@@ -405,8 +473,11 @@ class Battle extends BaseBattle {
             return $this->combatantA;
         }
     }
+
     /**
-     * @return string, either "combatantA" or "combatantB"
+     * Returns a strig identifier of hero 
+     * (from the current user's point of view)
+     * @return string
      */
     public function getHeroString() {
         if($this->combatantAID == CD()->id) {
@@ -416,7 +487,9 @@ class Battle extends BaseBattle {
         }
     }
     /**
-     * @return string, either "combatantA" or "combatantB"
+     * Returns a string identifier of enemy 
+     * (from the current user's point of view)
+     * @return string
      */
     public function getEnemyString() {
         if($this->combatantAID == CD()->id) {
@@ -426,7 +499,8 @@ class Battle extends BaseBattle {
         }
     }
     /**
-     * @return Combatant or string "draw"
+     * Returns the winning combatant or the string "draw"
+     * @return mixed CombatantBehavior or string "draw"
      */
     public function getWinner() {
         if($this->winnerType == "draw") {
@@ -438,7 +512,8 @@ class Battle extends BaseBattle {
         }
     }
     /**
-     * @return Combatant or string "draw"
+     * Returns the losing combatant or the string "draw"
+     * @return mixed CombatantBehavior or string "draw"
      */
     public function getLoser() {
         if($this->winnerType == "draw") {
@@ -451,6 +526,7 @@ class Battle extends BaseBattle {
     }
     
     /**
+     * Checks if the Character of the user won the battle
      * @return bool
      */
     public function isUserWinner() {
@@ -461,8 +537,9 @@ class Battle extends BaseBattle {
     }
     
     /**
-     * returns the combatant-string of a Combatant object
-     * @return string, "combatantA" or "combatantB"
+     * returns a string identifier of a Combatant
+     * @param CombatantBehavior $obj Model record with CombatantBehavior
+     * @return string "combatantA" or "combatantB"
      */
     public function getCombatantString($obj) {
         if(is_a($obj, "Monster")) {
@@ -474,15 +551,21 @@ class Battle extends BaseBattle {
         }
     }
     
+    /**
+     * Just increases $this->round by 1
+     * @param bool $nextRound not used yet
+     */
     public function nextRound($nextRound = true) {
         $this->round++;
     }
     
     /**
-     * __sleep sets Combatant model properties to null
-     * reconstructBattle reconstructs these properties
-     * Saves space on DB and makes it possible to use CharacterData component
-     * throughout the battle
+     * Saves the Battle state in the database
+     * serialize invokes __sleep, which sets $this->combatantA and B to null
+     * reconstructCombatants reconstructs the Combatants. That way, the
+     * complex Combatant objects do not use up space in the DB
+     * @see __sleep
+     * @uses reconstructCombatants
      */
     public function saveObjectState() {
         $this->objectState = base64_encode(serialize($this));
@@ -491,6 +574,11 @@ class Battle extends BaseBattle {
         $this->reconstructCombatants();
     }
     
+    /**
+     * Prepares the object for hibernation
+     * Sets combatantA and B to null and removes inactive Battleeffects
+     * @return array array_keys((array)$this)
+     */
     public function __sleep() {
         if($this->type == "pvp") {
             $this->combatantA = null;
@@ -519,9 +607,12 @@ class Battle extends BaseBattle {
     
     /**
      * Factory method
-     * @param type $battleID
-     * @return Battle or false in case of an error
-     * ToDo: reconstruct enemy Character model in PVP
+     * Reconstructs a battle record with unserialize from the attribute
+     * objectState
+     * @todo reconstruct enemy Character model in PVP
+     * @uses reconstructCombatants
+     * @param int $battleID
+     * @return mixed Battle record or false in case of an error
      */
     static public function reconstructBattle($battleID) {
         $battleModel = Battle::model()->findByPk($battleID);
@@ -533,7 +624,11 @@ class Battle extends BaseBattle {
         return false;
     }
     
-    // ToDo: reconstruct the second Character in case of a pvp fight as well
+    /**
+     * Reconstructs $this->combatantA and B after the Battle record was in
+     * hibernation
+     * @todo Reconstruct the second Character record in case of pvp
+     */
     private function reconstructCombatants() {
         if($this->type == "pvp") {
             if($this->combatantAID == CD()->id) {
@@ -546,12 +641,24 @@ class Battle extends BaseBattle {
         }
     }
 
+    /**
+     * Returns a list of CBehaviors to be attached to this Model
+     * @link http://www.yiiframework.com/doc/api/CBehavior
+     * @link http://www.yiiframework.com/extension/attributesbackupbehavior/
+     * @return array
+     */
     public function behaviors() {
         return array(
             'AttributesBackupBehavior' => 'ext.AttributesBackupBehavior',
             );
     }
     
+    /**
+     * Factory method to get Model objects
+     * @see http://www.yiiframework.com/doc/api/CModel
+     * @param string $className
+     * @return CModel
+     */
     public static function model($className=__CLASS__) {
         return parent::model($className);
     }

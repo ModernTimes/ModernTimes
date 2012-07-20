@@ -4,24 +4,32 @@
  * Provides global utility functions and wrappers to access the Character model 
  * and related character data. In particular, it defines the global function 
  * CD() (for CharacterData), which returns the Character model with a number of 
- * related models. CharacterData is initialized by GameController before any 
+ * related models. 
+ * 
+ * CharacterData is initialized by GameController before any 
  * game action is executed. It redirects to the character creation action if it 
  * does not find an active character. On initialization, it attaches equipments,
  * skills, familiars, and other related models to the Character model, so that 
  * the CharacterModifierBehavior of these related models can interact with the 
  * Character model's calculations of basic character stats, like getMaxHp, 
  * getRobustness, getLevel, etc.
+ * 
+ * @see Character
+ * @see GameController
+ * @link http://www.yiiframework.com/doc/api/1.1/CApplicationComponent
+ * @package Character
  */
 
 class CharacterData extends CApplicationComponent {
     /**
-     * @var Character model
+     * @var Character Model record
      */
     private $_model = null;
     
     /**
      * Called by Yii preloader
      * Used to initialize alias for Yii::app()->cd->_()
+     * @return void
      */
     public function init() {
         if (!function_exists('CD')) {
@@ -35,8 +43,9 @@ class CharacterData extends CApplicationComponent {
     
     /**
      * Called by GameController before any game actions are started
-     * ToDo: Only read the complete character record from the DB,
+     * @todo Only read the complete character record from the DB,
      *       if some 'changed' parameter was set in the meantime
+     * @return void
      */
     public function initialize () {
         if(is_a(Yii::app()->session['CD'], "Character")) {
@@ -55,13 +64,14 @@ class CharacterData extends CApplicationComponent {
     }
     
     /**
-     * Loads the Character model and related models
-     * Attaches related models like passive skills, familiars, etc. to the 
+     * - Loads the Character model and related models
+     * - Attaches related models like passive skills, familiars, etc. to the 
      * Character model
-     * Redirects to character creation action in case it doesn't find an active 
-     * character for the current user
-     * ToDo: Find a way to add the "available = 1" conditions again, without
+     * - Redirects to character creation action in case it doesn't find an 
+     * active character for the current user
+     * @todo Find a way to add the "available = 1" conditions again, without
      *       causing any errors
+     * @return void
      */
     public function load() {
         $this->_model = Character::model()->with(array(
@@ -142,12 +152,19 @@ class CharacterData extends CApplicationComponent {
         $this->saveSession();
     }
     
-    // ToDo: Add further search criteria
+    /**
+     * Tells the Character record to load related CharacterItem records
+     * @todo Add further search criteria
+     * @return void
+     */
     public function loadItems() {
         $this->_model->loadItems();
     }
 
-    // Returns the Character model
+    /**
+     * Returns the Character model
+     * @return Character
+     */
     public function _() {
         return $this->_model;
     }
@@ -155,6 +172,7 @@ class CharacterData extends CApplicationComponent {
     /**
      * Is called by GameController after game actions
      * Saves the Character model in case it has changed since it was loaded
+     * @return void
      */
     public function save() {
         if($this->_model->attributesChanged()) {
@@ -172,6 +190,7 @@ class CharacterData extends CApplicationComponent {
      * in full from the database before any game action is executed. In 
      * deployment, the character data should only be read from the database if 
      * it has changed. If not, the data in the session can be used instead.
+     * @return void
      */
     public function saveSession() {
         Yii::app()->session['CD'] = $this->_model;

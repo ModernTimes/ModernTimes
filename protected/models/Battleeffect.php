@@ -6,22 +6,31 @@ Yii::import('application.models._base.BaseBattleeffect');
  * Defines basic Battleeffect behavior, which includes
  * - basic blocking mechanics (chance, types of actions, number of blocks,
  *                             active for a number of turns)
- * Can be "overwridden" via the usual specialnessBehavior method
- * See, e.g., BabbleComboEffect
- * ToDo: add more basic effect mechanics
+ * Can be "overridden" via the usual SpecialnessBehavior method
+ * 
+ * See BaseBattleeffect for a list of attributes and related Models
+ * 
+ * @todo add more basic effect mechanics
+ * @see SpecialnessBehavior
+ * @package Battle
  */
 
 class Battleeffect extends BaseBattleeffect {
     
     /**
-     * hero is the combatant under whose name the effect appears
-     * @var string
+     * string identifier of hero, under whose name the effect appears
+     * @var string enum(combatantA|combatantB)
      */
     public $heroString;
+    /**
+     * string identifier of enemy
+     * @var string enum(combatantA|combatantB)
+     */
     public $enemyString;
     
     /**
      * inactive effects will be erased and detached by battle's sleep procedure
+     * @see Battle->__sleep
      * @var bool
      */
     public $active;
@@ -31,20 +40,21 @@ class Battleeffect extends BaseBattleeffect {
      */
 
     /**
-     * keeps track of "counters" of all sort
+     * Keeps track of "counters" of all sort
+     * Specific use depends on the skill in question
      * @var int
      */
     public $charges = 0;
 
     /**
-     * Keeps track of the lifespan of the effect
+     * Keeps track of the lifespan of the Battleeffect
      * -1 means that the effect holds indefinitely
      * @var int
      */
     public $turns = -1;
     
     /**
-     * Set to true once the effect is added to the BattleModel
+     * Set to true once the effect is added to the Battle record
      * Used to decide whether or not the skill that creates this effect
      * should log a battle action or not
      * @var bool
@@ -52,12 +62,14 @@ class Battleeffect extends BaseBattleeffect {
     public $added = false;
     
     /**
-     *
+     * Initializes the Battleeffect
+     * Attaches itself to the Battle, or increases the duration of an
+     * existing (same) Battleeffect 
      * @param Battle $battle
-     * @param Combatant $hero
-     * @param Combatant $enemy
-     * @param array|mixed $options
-     * @return enum(added, increasedDuration, notAdded)
+     * @param CombatantBehavior $hero Model record with CombatantBehavior
+     * @param CombatantBehavior $enemy Model record with CombatantBehavior
+     * @param array $options 
+     * @return string enum(added|increasedDuration|notAdded)
      */
     public function initialize($battle, $hero, $enemy, $options = array()) {
         $options = array_merge(
@@ -106,7 +118,11 @@ class Battleeffect extends BaseBattleeffect {
         return "notAdded";
     }
 
-    // basic getters
+    /**
+     * Returns a string that can be used as the ocntent of a popup for
+     * the Battleeffect
+     * @return string 
+     */
     public function getPopup() { 
         if($this->blocks) {
             return $this->desc . "<BR />&nbsp;<BR />" . 
@@ -120,8 +136,26 @@ class Battleeffect extends BaseBattleeffect {
         return $this->desc;
     }
 
-    public function getTurns() { return $this->turns; }
-    public function getCharges() { return $this->charges; }
+    /**
+     * Basic getter
+     * @return int 
+     */
+    public function getTurns() { 
+        return $this->turns; 
+    }
+    /**
+     * Basic getter
+     * @return int 
+     */
+    public function getCharges() { 
+        return $this->charges; 
+    }
+    /**
+     * Returns an array with log details that can be part of a BattleMessage
+     * Includes id, name, buff, desc, and popup
+     * @see BattleMessage
+     * @return array
+     */
     public function getLogDetails() {
         return array(
             'id' => $this->id,
@@ -134,13 +168,17 @@ class Battleeffect extends BaseBattleeffect {
 
     
     /** 
-     * Override by child classes by using these commands:
+     * Attaches the Battleeffect to the Battle
+     * @todo Add more event handlers once Battleeffects can handle more stuff
+     * "Override" by specialness classes by using these commands:
      * $battle->onBeforeAction = array($this, 'reactToOnBeforeAction');
      * $battle->onAfterAction = array($this, 'reactToOnAfterAction');
      * $battle->onBeforeDealingDamage = array($this, 'reactToOnBeforeDealingDamage');
      * $battle->onAfterDealingDamage = array($this, 'reactToOnAfterDealingDamage');
      * $battle->onBeforeTakingDamage = array($this, 'reactToOnBeforeTakingDamage');
      * $battle->onAfterTakingDamage = array($this, 'reactToOnAfterTakingDamage');
+     * @see SpecialnessBehavior
+     * @param Battle $battle
      */
     public function attachToBattle($battle) {
         $battle->onAfterRound = array($this, 'reactToOnAfterRound');
@@ -149,8 +187,21 @@ class Battleeffect extends BaseBattleeffect {
         }
     }
 
-    // Override / extend as necessary
+    /**
+     * Empty event handler. Only there to have a fallback function if
+     * a SpecialnessBehavior class does not provide it.
+     * "Override" and extend by SpecialnessBehavior classes as necessary
+     * @param CEvent $event 
+     */
     public function reactToOnBeforeRound($event) { }
+
+    /**
+     * Decreases the duration of the Battleeffect. If it goes down to 0, it
+     * deactivates itself, adds a deactivation Battlemessage and waits for
+     * Battle->__sleep to be destroyed
+     * "Override" and extend by SpecialnessBehavior classes as necessary
+     * @param CEvent $event 
+     */
     public function reactToOnAfterRound($event) {
         $this->turns --;
         if($this->turns == 0) {
@@ -162,7 +213,10 @@ class Battleeffect extends BaseBattleeffect {
     }
     
     /**
-     * ToDo: check typeOfActions
+     * Checks if a battle action is blocked by this Battleeffect
+     * "Override" and extend by SpecialnessBehavior classes as necessary
+     * @todo check typeOfActions
+     * @param CEvent $event 
      */
     public function reactToOnBeforeAction($event) {
         if($this->blocks &&
@@ -193,15 +247,58 @@ class Battleeffect extends BaseBattleeffect {
             }
         }
     }
+    
+    /**
+     * Empty event handler. Only there to have a fallback function if
+     * a SpecialnessBehavior class does not provide it.
+     * "Override" and extend by SpecialnessBehavior classes as necessary
+     * @param CEvent $event 
+     */
     public function reactToOnAfterAction($event) { }
+    /**
+     * Empty event handler. Only there to have a fallback function if
+     * a SpecialnessBehavior class does not provide it.
+     * "Override" and extend by SpecialnessBehavior classes as necessary
+     * @param CEvent $event 
+     */
     public function reactToOnBeforeDealingDamage($event) { }
+    /**
+     * Empty event handler. Only there to have a fallback function if
+     * a SpecialnessBehavior class does not provide it.
+     * "Override" and extend by SpecialnessBehavior classes as necessary
+     * @param CEvent $event 
+     */
     public function reactToOnAfterDealingDamage($event) { }
+    /**
+     * Empty event handler. Only there to have a fallback function if
+     * a SpecialnessBehavior class does not provide it.
+     * "Override" and extend by SpecialnessBehavior classes as necessary
+     * @param CEvent $event 
+     */
     public function reactToOnBeforeTakingDamage($event) { }
+    /**
+     * Empty event handler. Only there to have a fallback function if
+     * a SpecialnessBehavior class does not provide it.
+     * "Override" and extend by SpecialnessBehavior classes as necessary
+     * @param CEvent $event 
+     */
     public function reactToOnAfterTakingDamage($event) { }
 
+    /**
+     * Returns a list of CBehaviors to be attached to this Model
+     * @link http://www.yiiframework.com/doc/api/CBehavior
+     * @see SpecialnessBehavior
+     * @return array
+     */
     public function behaviors() {
         return array("application.components.SpecialnessBehavior");
     }
+    /**
+     * Factory method to get Model objects
+     * @see http://www.yiiframework.com/doc/api/CModel
+     * @param string $className
+     * @return CModel
+     */
     public static function model($className=__CLASS__) {
         return parent::model($className);
     }

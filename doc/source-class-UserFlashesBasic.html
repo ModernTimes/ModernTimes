@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+	<meta name="robots" content="noindex" />
+
+	<title>File protected/components/widgets/UserFlashesBasic.php | Modern Times Documentation</title>
+
+	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
+	<script type="text/javascript" src="elementlist.js?3025928408"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">Modern Times Documentation</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="package-Widgets.html" title="Summary of Widgets"><span>Package</span></a>
+						</li>
+						<li>
+							<a href="class-UserFlashesBasic.html" title="Summary of UserFlashesBasic"><span>Class</span></a>
+						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="" />
+			<input type="hidden" name="ie" value="UTF-8" />
+			<input type="text" name="q" class="search-query" placeholder="Search" />
+		</form>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li><a href="package-Actions.html">Actions<span></span></a>
+						<ul>
+				<li><a href="package-Actions.inventory.html">inventory</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Battle.html">Battle<span></span></a>
+						<ul>
+				<li><a href="package-Battle.Battleeffects.html">Battleeffects</a>
+						</li>
+				<li><a href="package-Battle.Skills.html">Skills</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Character.html">Character<span></span></a>
+						<ul>
+				<li><a href="package-Character.Relations.html">Relations</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Items.html">Items</a>
+						</li>
+				<li><a href="package-Site.html">Site<span></span></a>
+						<ul>
+				<li><a href="package-Site.Forms.html">Forms</a>
+						</li>
+							</ul></li>
+				<li><a href="package-System.html">System<span></span></a>
+						<ul>
+				<li><a href="package-System.Models.html">Models<span></span></a>
+						<ul>
+				<li><a href="package-System.Models.Base.html">Base</a>
+						</li>
+				<li><a href="package-System.Models.Relations.html">Relations</a>
+						</li>
+							</ul></li>
+				<li><a href="package-System.Tools.html">Tools</a>
+						</li>
+							</ul></li>
+				<li class="active"><a href="package-Widgets.html">Widgets</a>
+						</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-BattleMessageWidget.html">BattleMessageWidget</a></li>
+				<li><a href="class-CharacterStatsWidget.html">CharacterStatsWidget</a></li>
+				<li><a href="class-EquipmentWidget.html">EquipmentWidget</a></li>
+				<li><a href="class-ItemWidget.html">ItemWidget</a></li>
+				<li class="active"><a href="class-UserFlashesBasic.html">UserFlashesBasic</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<pre id="source"><code><a href="#1" id="1" class="l"> 1 </a><span class="xlang">&lt;?php</span>
+<a href="#2" id="2" class="l"> 2 </a>
+<a href="#3" id="3" class="l"> 3 </a><span class="php-comment">/**
+</span><a href="#4" id="4" class="l"> 4 </a><span class="php-comment"> * Displays UserFlash messages, if there are any
+</span><a href="#5" id="5" class="l"> 5 </a><span class="php-comment"> * 
+</span><a href="#6" id="6" class="l"> 6 </a><span class="php-comment"> * @package Widgets
+</span><a href="#7" id="7" class="l"> 7 </a><span class="php-comment"> */</span>
+<a href="#8" id="8" class="l"> 8 </a>
+<a href="#9" id="9" class="l"> 9 </a><span class="php-keyword1">class</span> UserFlashesBasic <span class="php-keyword1">extends</span> CWidget {
+<a href="#10" id="10" class="l">10 </a>
+<a href="#11" id="11" class="l">11 </a>    <span class="php-comment">/**
+</span><a href="#12" id="12" class="l">12 </a><span class="php-comment">     * Renders the userFlashesBasic.php view file 
+</span><a href="#13" id="13" class="l">13 </a><span class="php-comment">     */</span>
+<a href="#14" id="14" class="l">14 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> run() {
+<a href="#15" id="15" class="l">15 </a>        <span class="php-var">$this</span>-&gt;render(<span class="php-quote">&quot;userFlashesBasic&quot;</span>);
+<a href="#16" id="16" class="l">16 </a>    }
+<a href="#17" id="17" class="l">17 </a>}</code></pre>
+	</div>
+
+	<div id="footer">
+		Modern Times Documentation API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</body>
+</html>

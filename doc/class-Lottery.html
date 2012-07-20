@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+
+	<title>Class Lottery | Modern Times Documentation</title>
+
+	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
+	<script type="text/javascript" src="elementlist.js?3025928408"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">Modern Times Documentation</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="package-System.Tools.html" title="Summary of System\Tools"><span>Package</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="" />
+			<input type="hidden" name="ie" value="UTF-8" />
+			<input type="text" name="q" class="search-query" placeholder="Search" />
+		</form>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li><a href="package-Actions.html">Actions<span></span></a>
+						<ul>
+				<li><a href="package-Actions.inventory.html">inventory</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Battle.html">Battle<span></span></a>
+						<ul>
+				<li><a href="package-Battle.Battleeffects.html">Battleeffects</a>
+						</li>
+				<li><a href="package-Battle.Skills.html">Skills</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Character.html">Character<span></span></a>
+						<ul>
+				<li><a href="package-Character.Relations.html">Relations</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Items.html">Items</a>
+						</li>
+				<li><a href="package-Site.html">Site<span></span></a>
+						<ul>
+				<li><a href="package-Site.Forms.html">Forms</a>
+						</li>
+							</ul></li>
+				<li class="active"><a href="package-System.html">System<span></span></a>
+						<ul>
+				<li><a href="package-System.Models.html">Models<span></span></a>
+						<ul>
+				<li><a href="package-System.Models.Base.html">Base</a>
+						</li>
+				<li><a href="package-System.Models.Relations.html">Relations</a>
+						</li>
+							</ul></li>
+				<li class="active"><a href="package-System.Tools.html">Tools</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Widgets.html">Widgets</a>
+						</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-Lottery.html">Lottery</a></li>
+				<li><a href="class-Tools.html">Tools</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class Lottery</h1>
+
+
+	<div class="description">
+	
+<p>Determines a winner object based on the number of lots that each
+participating object has been assigned during registration. Main usage: decide
+which encounter to use in an area which has several possible encounters (same
+for other models with HAS_MANY relationships with a prob attribute)</p>
+
+	</div>
+
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+CComponent
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>Lottery</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		
+		<b>Package:</b> <a href="package-System.html">System</a>\<a href="package-System.Tools.html">Tools</a><br />
+
+				<b>Used by:</b>
+				<code><code><a href="class-Area.html#_">Area::generateEpisode()</a></code></code> <br />
+				<b>Used by:</b>
+				<code><code><a href="class-Monster.html#_">Monster::act()</a></code></code> <br />
+				<b>Todo:</b>
+				extends CAttributeList in order to inherit getRidOf-functions<br />
+		<b>Located at</b> <a href="source-class-Lottery.html#4" title="Go to source code">protected/components/Lottery.php</a><br />
+	</div>
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="addParticipants" id="_addParticipants">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_addParticipants">#</a>
+			<code><a href="source-class-Lottery.html#33" title="Go to source code">addParticipants</a>( <span>array <var>$ARs</var></span>, <span>string <var>$lotColumn</var> = <span class="php-quote">'prob'</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Useful wrapper for addParticipant in case the participants are represented by
+certain ActiveRelation objects</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Useful wrapper for addParticipant in case the participants are represented by
+certain ActiveRelation objects</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$ARs</var></dt>
+						<dd><code>array</code><br> array of ActiveRelation objects The AR objects have to represent
+HAS-MANY-relationships, and they must have an attribute representing the number
+of lots that each element gets in the lottery.</dd>
+						<dt><var>$lotColumn</var></dt>
+						<dd><code>string</code><br> the column name of the AR objects that holds the number of lots that each
+object is to receive in the lottery</dd>
+					</dl></div>
+
+
+
+					<h4>See</h4>
+					<div class="list">
+							<code><code><a href="class-AreaEncounters.html">AreaEncounters</a></code></code><br />
+							<code><code><a href="class-MonsterItems.html">MonsterItems</a></code></code><br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="addParticipant" id="_addParticipant">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_addParticipant">#</a>
+			<code><a href="source-class-Lottery.html#51" title="Go to source code">addParticipant</a>( <span>mixed <var>$obj</var></span>, <span>float <var>$lots</var> = <span class="php-num">1</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Adds a new participant to the lottery, with a given number of lots</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Adds a new participant to the lottery, with a given number of lots</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$obj</var></dt>
+						<dd><code>mixed</code><br> can be anything</dd>
+						<dt><var>$lots</var></dt>
+						<dd><code>float</code><br> number of lots that the registered object has in the lottery</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getWinner" id="_getWinner">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getWinner">#</a>
+			<code><a href="source-class-Lottery.html#66" title="Go to source code">getWinner</a>( )</code>
+
+			<div class="description short">
+				
+<p>Determines the winner of the lottery based on the number of lots that each
+participant has. Lots and their owner objects are all lined up, then the RNG
+determines the position of the winning lot.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Determines the winner of the lottery based on the number of lots that each
+participant has. Lots and their owner objects are all lined up, then the RNG
+determines the position of the winning lot.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>mixed</code><br>whatever variable was registered as a participant<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+
+
+
+		<h2>Properties summary</h2>
+		<table class="summary table table-bordered table-striped" id="properties">
+		<tr data-order="participants" id="$participants">
+
+			<td class="attributes"><code>
+				public 
+				array
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Lottery.html#18" title="Go to source code"><var>$participants</var></a>
+			</td>
+			<td class="value"><code><span class="php-keyword1">array</span>()</code></td>
+			<td class="description"><div>
+				<a href="#$participants" class="anchor">#</a>
+
+				<div class="description short">
+					
+<p>list of participants in the lottery. Participants are<br />
+array('participant' =&gt; $obj,<br />
+'lots' =&gt; (float) $lots),</p>
+
+				</div>
+
+				<div class="description detailed hidden">
+					
+<p>list of participants in the lottery. Participants are array('participant'
+=&gt; $obj, 'lots' =&gt; (float) $lots),</p>
+
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="lotsTotal" id="$lotsTotal">
+
+			<td class="attributes"><code>
+				public 
+				float
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Lottery.html#26" title="Go to source code"><var>$lotsTotal</var></a>
+			</td>
+			<td class="value"><code><span class="php-num">0</span></code></td>
+			<td class="description"><div>
+				<a href="#$lotsTotal" class="anchor">#</a>
+
+				<div class="description short">
+					
+<p>total lots in the pool Lots can come in decimals as well, like 0.02</p>
+
+				</div>
+
+				<div class="description detailed hidden">
+					
+<p>total lots in the pool Lots can come in decimals as well, like 0.02</p>
+
+
+				</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		Modern Times Documentation API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</body>
+</html>

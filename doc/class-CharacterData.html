@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+
+	<title>Class CharacterData | Modern Times Documentation</title>
+
+	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
+	<script type="text/javascript" src="elementlist.js?3025928408"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">Modern Times Documentation</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="package-Character.html" title="Summary of Character"><span>Package</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="" />
+			<input type="hidden" name="ie" value="UTF-8" />
+			<input type="text" name="q" class="search-query" placeholder="Search" />
+		</form>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li><a href="package-Actions.html">Actions<span></span></a>
+						<ul>
+				<li><a href="package-Actions.inventory.html">inventory</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Battle.html">Battle<span></span></a>
+						<ul>
+				<li><a href="package-Battle.Battleeffects.html">Battleeffects</a>
+						</li>
+				<li><a href="package-Battle.Skills.html">Skills</a>
+						</li>
+							</ul></li>
+				<li class="active"><a href="package-Character.html">Character<span></span></a>
+						<ul>
+				<li><a href="package-Character.Relations.html">Relations</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Items.html">Items</a>
+						</li>
+				<li><a href="package-Site.html">Site<span></span></a>
+						<ul>
+				<li><a href="package-Site.Forms.html">Forms</a>
+						</li>
+							</ul></li>
+				<li><a href="package-System.html">System<span></span></a>
+						<ul>
+				<li><a href="package-System.Models.html">Models<span></span></a>
+						<ul>
+				<li><a href="package-System.Models.Base.html">Base</a>
+						</li>
+				<li><a href="package-System.Models.Relations.html">Relations</a>
+						</li>
+							</ul></li>
+				<li><a href="package-System.Tools.html">Tools</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Widgets.html">Widgets</a>
+						</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Character.html">Character</a></li>
+				<li class="active"><a href="class-CharacterData.html">CharacterData</a></li>
+				<li><a href="class-Charactermodifier.html">Charactermodifier</a></li>
+				<li><a href="class-CharacterModifierBehavior.html">CharacterModifierBehavior</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class CharacterData</h1>
+
+
+	<div class="description">
+	
+<p>Provides global utility functions and wrappers to access the Character model
+and related character data. In particular, it defines the global function CD()
+(for CharacterData), which returns the Character model with a number of related
+models.</p>
+
+<p>CharacterData is initialized by GameController before any game action is
+executed. It redirects to the character creation action if it does not find an
+active character. On initialization, it attaches equipments, skills, familiars,
+and other related models to the Character model, so that the
+CharacterModifierBehavior of these related models can interact with the
+Character model's calculations of basic character stats, like getMaxHp,
+getRobustness, getLevel, etc.</p>
+
+	</div>
+
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+CApplicationComponent
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>CharacterData</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		
+		<b>Package:</b> <a href="package-Character.html">Character</a><br />
+
+				<b>See:</b>
+				<code><code><a href="class-Character.html">Character</a></code></code><br />
+				<b>See:</b>
+				<code><code><a href="class-GameController.html">GameController</a></code></code><br />
+				<b>Link:</b>
+				<a href="http://www.yiiframework.com/doc/api/1.1/CApplicationComponent">http://www.yiiframework.com/doc/api/1.1/CApplicationComponent</a><br />
+		<b>Located at</b> <a href="source-class-CharacterData.html#4" title="Go to source code">protected/components/CharacterData.php</a><br />
+	</div>
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="init" id="_init">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_init">#</a>
+			<code><a href="source-class-CharacterData.html#29" title="Go to source code">init</a>( )</code>
+
+			<div class="description short">
+				
+<p>Called by Yii preloader Used to initialize alias for
+Yii::app()-&gt;cd-&gt;_()</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Called by Yii preloader Used to initialize alias for
+Yii::app()-&gt;cd-&gt;_()</p>
+
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="initialize" id="_initialize">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_initialize">#</a>
+			<code><a href="source-class-CharacterData.html#44" title="Go to source code">initialize</a>( )</code>
+
+			<div class="description short">
+				
+<p>Called by GameController before any game actions are started</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Called by GameController before any game actions are started</p>
+
+
+
+
+
+
+					<h4>Todo</h4>
+					<div class="list">
+							Only read the complete character record from the DB, if some 'changed' parameter
+was set in the meantime<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="load" id="_load">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_load">#</a>
+			<code><a href="source-class-CharacterData.html#66" title="Go to source code">load</a>( )</code>
+
+			<div class="description short">
+				
+<ul>
+	<li>Loads the Character model and related models</li>
+
+	<li>Attaches related models like passive skills, familiars, etc. to the</li>
+</ul>
+
+<p>Character model</p>
+
+<ul>
+	<li>Redirects to character creation action in case it doesn't find an</li>
+</ul>
+
+<p>active character for the current user</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<ul>
+	<li>Loads the Character model and related models</li>
+
+	<li>Attaches related models like passive skills, familiars, etc. to the</li>
+</ul>
+
+<p>Character model</p>
+
+<ul>
+	<li>Redirects to character creation action in case it doesn't find an</li>
+</ul>
+
+<p>active character for the current user</p>
+
+
+
+
+
+
+					<h4>Todo</h4>
+					<div class="list">
+							Find a way to add the "available = 1" conditions again, without causing any
+errors<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="loadItems" id="_loadItems">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_loadItems">#</a>
+			<code><a href="source-class-CharacterData.html#155" title="Go to source code">loadItems</a>( )</code>
+
+			<div class="description short">
+				
+<p>Tells the Character record to load related CharacterItem records</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Tells the Character record to load related CharacterItem records</p>
+
+
+
+
+
+
+					<h4>Todo</h4>
+					<div class="list">
+							Add further search criteria<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_" id="__">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Character.html">Character</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__">#</a>
+			<code><a href="source-class-CharacterData.html#164" title="Go to source code">_</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns the Character model</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns the Character model</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-Character.html">Character</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="save" id="_save">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_save">#</a>
+			<code><a href="source-class-CharacterData.html#172" title="Go to source code">save</a>( )</code>
+
+			<div class="description short">
+				
+<p>Is called by GameController after game actions Saves the Character model in
+case it has changed since it was loaded</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Is called by GameController after game actions Saves the Character model in
+case it has changed since it was loaded</p>
+
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="saveSession" id="_saveSession">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_saveSession">#</a>
+			<code><a href="source-class-CharacterData.html#188" title="Go to source code">saveSession</a>( )</code>
+
+			<div class="description short">
+				
+<p>Does not do anything useful right now, since the character data is read in
+full from the database before any game action is executed. In deployment, the
+character data should only be read from the database if it has changed. If not,
+the data in the session can be used instead.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Does not do anything useful right now, since the character data is read in
+full from the database before any game action is executed. In deployment, the
+character data should only be read from the database if it has changed. If not,
+the data in the session can be used instead.</p>
+
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		Modern Times Documentation API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</body>
+</html>

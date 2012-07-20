@@ -1,14 +1,36 @@
 <?php
 
+/**
+ * - Starts game actions based on user input
+ * - Defines filters that are checked before specific game actions are started
+ * - Takes care of initializing CharacterData
+ * - Cleans up after game actions are done
+ * 
+ * @see CharacterData
+ * @package Actions 
+ */
+
 class GameController extends Controller {
 
+    /**
+     * Defines the standard layout file to render view files in
+     * Can be changed by Action classes
+     * @var string
+     */
     public $layout='//layouts/g_sidebar_standard';
 
-    // standard action for the game controller is the map overview
+    /**
+     * The standard action for the game controller,
+     * in this case MapAction
+     */
     public function actionIndex() {
         $this->redirect(array('map'));
     }
 
+    /**
+     * Returns an array that maps action ids with Action classes
+     * @return array
+     */
     public function actions() {
         return array(
             'map'              => 'application.controllers.actions.MapAction',
@@ -35,6 +57,9 @@ class GameController extends Controller {
         );
     }
     
+    /**
+     * So short that it's still in GameController. Will get its own file soon. 
+     */
     public function actionCharacter() {
         $this->render('character', array("character" => CD()));
     }
@@ -42,7 +67,8 @@ class GameController extends Controller {
     /**
      * Allows to fight a monster without going through an encounter.
      * Should only be used during development
-     * ToDo: get rid of this in deployment
+     * @todo get rid of this in deployment
+     * @param int $monsterID ID of the monster to fight (for testing purposes!)
      */
     public function actionBattleMonsterDirectly($monsterID) {
         $battleMonsterAction = new BattleMonsterAction($this, "battleMonster");
@@ -51,7 +77,12 @@ class GameController extends Controller {
     }
     
     
-    
+    /**
+     * Returns a list of filters that are applied before a game action
+     * is executed. See filterXXX functions for more details.
+     * @link http://www.yiiframework.com/doc/api/CFilterChain
+     * @return array
+     */
     public function filters() {
         return array(
             'isRegistered', 
@@ -65,16 +96,33 @@ class GameController extends Controller {
             );
     }
     
+    /**
+     * Start logging memory usage of the render process
+     * @param string $view
+     * @return boolean always true
+     */
     protected function beforeRender($view) {
         PQPLogRoute::logMemory("memory used before render");
         return true;
     }
+    
+    /**
+     * Start logging memory usage of the action handling process
+     * @param CAction $action action id
+     * @return boolean always true
+     */
     public function beforeAction($action) {
         PQPLogRoute::logMemory("memory used before game action");
         Yii::beginProfile("game action: " . $action->id);
         return true;
     }
     
+    /**
+     * - Add the GoodForNothing Effect if Character has no hp left
+     * - Save the Character record in case it has changed during the action
+     * @param CAction $action
+     * @return boolean always true
+     */
     public function afterAction($action) {
         $character = CD();
 
@@ -94,7 +142,10 @@ class GameController extends Controller {
         return true;
     }
     
-    // All GameController actions require the user to be logged in
+    /**
+     * Checks if the user is registered
+     * @param CFilterChain $c 
+     */
     public function filterIsRegistered($c) {
         // if(Yii::app()->user->checkAccess('registered')) {
         if(!Yii::app()->user->isGuest) {
@@ -104,17 +155,23 @@ class GameController extends Controller {
         }
     }
     
-    /**  
-     * game actions need initialized CharacterData
-     * If no active character can be found, the user is redirected to
-     * character/create automatically at this point
+    /**
+     * Initializes CharacterData. If there is no active Character record,
+     * CharacterData will redirect to character/create action automatically
+     * @see CharacterData
+     * @param CFilterChain $c 
      */
     public function filterInitCharacterDataComponent($c) {
         Yii::app()->cd->initialize();
         $c->run();
     }
     
-    // Players mustn't cheat their way out of ongoing battles
+    /**
+     * Makes sure that the user does not cheat their way out of an
+     * ongoing battle
+     * @see Battle
+     * @param CFilterChain $c 
+     */
     public function filterNoOngoingBattle($c) {
         if(CD()->ongoingBattleID !== null && 
            Yii::app()->controller->action->id != "battleAction") {
@@ -124,7 +181,13 @@ class GameController extends Controller {
         }
         $c->run();
     }
-    // Players mustn't cheat their way out of ongoing encounters or encounter paths
+
+    /**
+     * Makes sure that the user does not cheat their way out of an
+     * ongoing Encounter path
+     * @see Encounter
+     * @param CFilterChain $c 
+     */
     public function filterNoOngoingEncounter($c) {
         if(CD()->ongoingEncounterID !== null && 
            Yii::app()->controller->action->id != "encounter") {
@@ -135,7 +198,11 @@ class GameController extends Controller {
         $c->run();
     }    
     
-    // Turn consuming actions require that the character has ... turns left!
+    /**
+     * Checks if the Character has turns left to do the action.
+     * Only applies to certain actions.
+     * @param CFilterChain $c 
+     */
     public function filterHasTurns($c) {
         if(CD()->turns == 0) {
             EUserFlash::setErrorMessage("You can't do any more mischief right now.", 'validate');
@@ -145,7 +212,11 @@ class GameController extends Controller {
         $c->run();
     }
     
-    // Certain game actions require that the character has at least 1 hp
+    /**
+     * Checks if the Character has hp left.
+     * Only applies to certain actions.
+     * @param CFilterChain $c 
+     */
     public function filterHasHp($c) {
         if(CD()->hp <= 0) {
             EUserFlash::setErrorMessage("You are too exhausted to do any mischief right now.", 'validate');
@@ -155,6 +226,10 @@ class GameController extends Controller {
         $c->run();
     }
     
+    /**
+     * Adds data about the active session to the log
+     * @param CFilterChain $c 
+     */
     public function filterDebugInfo($c) {
         Yii::trace("Session: " . var_export(Yii::app()->session, true));
         $c->run();

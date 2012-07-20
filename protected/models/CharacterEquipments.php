@@ -6,6 +6,12 @@ Yii::import('application.models._base.BaseCharacterEquipments');
  * Basic HAS_MANY association model
  * Which equipment configurations has a character defined?
  * Only one can be active at a given time
+ * 
+ * See BaseCharacterEquipments for a list of attributes and related Models
+ * 
+ * @see Character
+ * @see Item
+ * @package Character.Relations
  */
 
 class CharacterEquipments extends BaseCharacterEquipments {
@@ -56,6 +62,12 @@ class CharacterEquipments extends BaseCharacterEquipments {
         }
     }
     
+    /**
+     * Factory method to get Model objects
+     * @see http://www.yiiframework.com/doc/api/CModel
+     * @param string $className
+     * @return CModel
+     */
     public static function model($className=__CLASS__) {
         return parent::model($className);
     }

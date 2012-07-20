@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+
+	<title>Class SpecialnessBehavior | Modern Times Documentation</title>
+
+	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
+	<script type="text/javascript" src="elementlist.js?3025928408"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">Modern Times Documentation</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="package-System.html" title="Summary of System"><span>Package</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="" />
+			<input type="hidden" name="ie" value="UTF-8" />
+			<input type="text" name="q" class="search-query" placeholder="Search" />
+		</form>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li><a href="package-Actions.html">Actions<span></span></a>
+						<ul>
+				<li><a href="package-Actions.inventory.html">inventory</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Battle.html">Battle<span></span></a>
+						<ul>
+				<li><a href="package-Battle.Battleeffects.html">Battleeffects</a>
+						</li>
+				<li><a href="package-Battle.Skills.html">Skills</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Character.html">Character<span></span></a>
+						<ul>
+				<li><a href="package-Character.Relations.html">Relations</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Items.html">Items</a>
+						</li>
+				<li><a href="package-Site.html">Site<span></span></a>
+						<ul>
+				<li><a href="package-Site.Forms.html">Forms</a>
+						</li>
+							</ul></li>
+				<li class="active"><a href="package-System.html">System<span></span></a>
+						<ul>
+				<li><a href="package-System.Models.html">Models<span></span></a>
+						<ul>
+				<li><a href="package-System.Models.Base.html">Base</a>
+						</li>
+				<li><a href="package-System.Models.Relations.html">Relations</a>
+						</li>
+							</ul></li>
+				<li><a href="package-System.Tools.html">Tools</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Widgets.html">Widgets</a>
+						</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Controller.html">Controller</a></li>
+				<li class="active"><a href="class-SpecialnessBehavior.html">SpecialnessBehavior</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class SpecialnessBehavior</h1>
+
+
+	<div class="description">
+	
+<p>Makes it possible to define special behavior for specific entries for certain
+models, like special monsters, items, areas, etc.</p>
+
+<p>Important: If a model can have specially defined behaviors, do not call that
+model's function directly. Use the $model-&gt;call('functionName', params)
+syntax instead. SpecialnessBehavior will then redirect the call to either the
+standard model's function or to the special function of a class defined by the
+attribute specialClass in the model entry.</p>
+
+	</div>
+
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+CBehavior
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>SpecialnessBehavior</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		
+		<b>Package:</b> <a href="package-System.html">System</a><br />
+
+		<b>Located at</b> <a href="source-class-SpecialnessBehavior.html#4" title="Go to source code">protected/components/SpecialnessBehavior.php</a><br />
+	</div>
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="call" id="_call">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_call">#</a>
+			<code><a href="source-class-SpecialnessBehavior.html#18" title="Go to source code">call</a>( )</code>
+
+			<div class="description short">
+				
+<p>Non-magic call function Redirects requests to the special method, if it
+exists, or to the basic method of the owner class otherwise param string 1st
+parameter name of the function to be called params mixed 2nd+ parameter whatever
+params the desired function needs</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Non-magic call function Redirects requests to the special method, if it
+exists, or to the basic method of the owner class otherwise param string 1st
+parameter name of the function to be called params mixed 2nd+ parameter whatever
+params the desired function needs</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>mixed</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="initSpecialness" id="_initSpecialness">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_initSpecialness">#</a>
+			<code><a href="source-class-SpecialnessBehavior.html#61" title="Go to source code">initSpecialness</a>( )</code>
+
+			<div class="description short">
+				
+<p>Initializes the class that defines the special behavior and attaches it to
+$this-&gt;owner.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Initializes the class that defines the special behavior and attaches it to
+$this-&gt;owner.</p>
+
+
+
+
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="http://www.yiiframework.com/doc/api/CBehavior">http://www.yiiframework.com/doc/api/CBehavior</a><br />
+					</div>
+					<h4>Todo</h4>
+					<div class="list">
+							Do some checking for classname, is_child_of CBehavior, etc.<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="isSpecial" id="_isSpecial">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_isSpecial">#</a>
+			<code><a href="source-class-SpecialnessBehavior.html#76" title="Go to source code">isSpecial</a>( )</code>
+
+			<div class="description short">
+				
+<p>Checks if $this-&gt;owner is special, i.e. if it has a specialClass attribute
+defined</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Checks if $this-&gt;owner is special, i.e. if it has a specialClass attribute
+defined</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		Modern Times Documentation API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</body>
+</html>
