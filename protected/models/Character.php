@@ -3,9 +3,16 @@
 Yii::import('application.models._base.BaseCharacter');
 
 /**
- * Provides nice getter and setter ("gainer") methods 
- * These methods raise events which allow other code thingies to hook into the 
- * respective calculations
+ * Provides nice getter, setter, and "gainer" methods 
+ * Getter and "gainer" methods raise events which allow other code thingies to 
+ * hook into the respective calculations
+ * 
+ * See BaseCharacter for a list of attributes and related Models
+ * 
+ * @see CombatantBehavior
+ * @see CharacterModifierBehavior
+ * @link http://www.yiiframework.com/extension/attributesbackupbehavior/
+ * @package Character
  */
 
 class Character extends BaseCharacter {
@@ -15,25 +22,44 @@ class Character extends BaseCharacter {
      */
     
     /**
-     * Wrapper for gainResource, which gives resources to the character 
-     * (or takes them away in case of negative values)
-     * gainResource raises events which makes it possible for other stuff
-     * to hook into the calculations
+     * Wrapper for gainResource
+     * @see gainResource
      * @param float $amount
-     * @param enum(battle, encounter, quest, autosell) $from
-     * Allows said other stuff to react to gainX events only in case the
-     * resources come from a certain source
-     * ToDo: define other sources (trade, whatever)
+     * @param string $from enum(battle|encounter|quest|autosell) 
      */
     public function gainCash($amount = 0, $from = '') {
         $this->gainResource('cash', $amount, $from);
     }
+    /**
+     * Wrapper for gainResource
+     * @see gainResource
+     * @param float $amount
+     * @param string $from enum(battle|encounter|quest|autosell) 
+     */
     public function gainFavours($amount = 0, $from = '') {
         $this->gainResource('favours', $amount, $from);
     }
+    /**
+     * Wrapper for gainResource
+     * @see gainResource
+     * @param float $amount
+     * @param string $from enum(battle|encounter|quest|autosell) 
+     */
     public function gainKudos($amount = 0, $from = '') {
         $this->gainResource('kudos', $amount, $from);
     }
+    /**
+     * Gives resources to the character (or take them away)
+     * Before it actually does, it raises a gainingResource event, to which
+     * other code elements can react, especially Model records with
+     * CharacterModifierBehavior.
+     * @todo define other sources (trade, whatever)
+     * @param string $resource enum(cash|favours|kudos)
+     * @param float $amount
+     * @param string $from enum(battle|encounter|quest|autosell) 
+     * Allows event handlers to react to gainStuff events only in case the
+     * resources come from a certain source
+     */ 
     private function gainResource($resource, $amount, $from) {
         $bonusAbs = 0;
         $bonusPerc = 1;
@@ -55,17 +81,36 @@ class Character extends BaseCharacter {
     
     /**
      * Wrapper for increaseResource
-     * @param type int
+     * @see increaseResource
+     * @param float $amount
      */
     public function increaseCash($amount = 0) {
         $this->increaseResource('cash', $amount);
     }
+    /**
+     * Wrapper for increaseResource
+     * @see increaseResource
+     * @param float $amount
+     */
     public function increaseFavours($amount = 0) {
         $this->increaseResource('favours', $amount);
     }
+    /**
+     * Wrapper for increaseResource
+     * @see increaseResource
+     * @param float $amount
+     */
     public function increaseKudos($amount = 0) {
         $this->increaseResource('kudos', $amount);
     }
+    /**
+     * Increases the indicated resource by $amount (which can be negative)
+     * Also generates an EUserFlash message to inform the user about this
+     * fortunate turn of events.
+     * This is more of a setter method and does not raise any events.
+     * @param string $resource enum(cash|favours|kudos)
+     * @param type int
+     */
     private function increaseResource($resource, $amount) {
         if($amount > 0) {
             $this->{$resource} += (int) $amount;
@@ -73,6 +118,13 @@ class Character extends BaseCharacter {
         }
     }
     
+    /**
+     * Returns the cumulative bonus to item drop chances by raising a
+     * CalcDropItemBonus event, which is then modified by everything that
+     * affects this stat, especially Model records with
+     * CharacterModifierBehavior.
+     * @return float bonus in percentage points
+     */ 
     public function getDropItemPerc() {
         $bonusPerc = 0;
 
@@ -83,8 +135,9 @@ class Character extends BaseCharacter {
     }
     
     /**
-     * Wrapper for gainItem. Allows handling of multiple Item models
-     * @param array|Item $items
+     * Wrapper for gainItem. Allows handling of multiple Items.
+     * @see gainItem
+     * @param array $items several Items
      */
     public function gainItems($items) {
         if(!is_array($items) || empty($items)) { return; }
@@ -96,7 +149,7 @@ class Character extends BaseCharacter {
     /**
      * Adds an item to the character's inventory
      * @param Item $item 
-     * @return bool, success?
+     * @return bool success?
      */
     public function gainItem($item) {
         // d($item);
@@ -130,53 +183,145 @@ class Character extends BaseCharacter {
         return true;
     }
 
+    /**
+     * Wrapper for changeHp
+     * @see changeHp
+     * @param int $amount
+     * @return int how the hp actually changed
+     */
     public function decreaseHp($amount) {
-        $this->hp -= (int) $amount;
-        if($this->hp <= 0) {
-            // ToDo: make bad things happen
-            $this->hp = 0;
-        }
+        return $this->changeHp(-$amount);
     }
+    /**
+     * Wrapper for changeHp
+     * @see changeHp
+     * @param int $amount 
+     * @return int how the hp actually changed
+     */
     public function increaseHp($amount) {
+        return $this->changeHp($amount);
+    }
+    
+    /** 
+     * Changes $this->hp by $amount
+     * Generates a EUserFlash message to inform the user about healing
+     * @todo raise event in case the Character hits 0 hp
+     * @param int $amount 
+     * @return int how the hp actually changed
+     */
+    public function changeHp($amount) {
+        $amount = (int) $amount;
         $hpBefore = $this->hp;
-        $this->hp += (int) $amount;
+        
+        $this->hp += $amount;
+
         if ($this->hp > $this->getHpMax()) {
             $this->hp = $this->getHpMax();
         }
-        EUserFlash::setSuccessMessage(($this->hp - $hpBefore), 'gainHp');
-        return ($this->hp - $hpBefore);
-    }
-    public function decreaseEnergy($amount) {
-        $this->energy -= (int) $amount;
-        if($this->energy <= 0) {
-            $this->energy = 0;
+        if($this->hp < 0) {
+            $this->hp = 0;
         }
-    }
-    public function increaseEnergy($amount) {
-        $energyBefore = $this->energy;
-        $this->energy += (int) $amount;
-        if ($this->energy > $this->getEnergyMax()) {
-            $this->energy = $this->getEnergyMax();
+        
+        $hpDifference = ($this->hp - $hpBefore);
+        if(hpDifference > 0) {
+            EUserFlash::setSuccessMessage($hpDifference, 'gainHp');
         }
-        EUserFlash::setSuccessMessage(($this->energy - $energyBefore), 'gainEnergy');
-        return ($this->energy - $energyBefore);
+        return $hpDifference;
     }
     
     /**
-     * same as gainResource stuff, see above
+     * Wrapper for changeEnergy
+     * @see changeEnergy
+     * @param int $amount 
+     * @return int how the energy actually changed
+     */
+    public function decreaseEnergy($amount) {
+        return $this->changeEnergy(-$amount);
+    }
+    /**
+     * Wrapper for changeEnergy
+     * @see changeEnergy
+     * @param int $amount 
+     * @return int how the energy actually changed
+     */
+    public function increaseEnergy($amount) {
+        return $this->changeEnergy($amount);
+    }
+    
+    /** 
+     * Changes $this->energy by $amount
+     * Generates a EUserFlash message to inform the user about energy boosts
+     * @param int $amount 
+     * @return int how the energy actually changed
+     */
+    public function changeEnergy($amount) {
+        $amount = (int) $amount;
+        $energyBefore = $this->energy;
+
+        $this->energy += $amount;
+        
+        if ($this->energy > $this->getEnergyMax()) {
+            $this->energy = $this->getEnergyMax();
+        }
+        if($this->energy <= 0) {
+            $this->energy = 0;
+        }
+        
+        $energyDifference = $this->energy - $energyBefore;
+        if($energyDifference > 0) {
+            EUserFlash::setSuccessMessage($energyDifference, 'gainEnergy');
+        }
+        return $energyDifference;
+    }
+    
+    /**
+     * Wrapper for gainSubstat
+     * @see gainSubstat
+     * @param float $amount
+     * @param string $from enum(battle|encounter|quest|autosell) 
      */
     public function gainXp($amount = 0, $from = '') {
         $this->gainSubstat('xp', $amount, $from);
     }
+    /**
+     * Wrapper for gainSubstat
+     * @see gainSubstat
+     * @param float $amount
+     * @param string $from enum(battle|encounter|quest|autosell) 
+     */
     public function gainResoluteness($amount = 0, $from = '') {
         $this->gainSubstat('resoluteness', $amount, $from);
     }
+    /**
+     * Wrapper for gainSubstat
+     * @see gainSubstat
+     * @param float $amount
+     * @param string $from enum(battle|encounter|quest|autosell) 
+     */
     public function gainWillpower($amount = 0, $from = '') {
         $this->gainSubstat('willpower', $amount, $from);
     }
+    /**
+     * Wrapper for gainSubstat
+     * @see gainSubstat
+     * @param float $amount
+     * @param string $from enum(battle|encounter|quest|autosell) 
+     */
     public function gainCunning($amount = 0, $from = '') {
         $this->gainSubstat('cunning', $amount, $from);
     }
+    /**
+     * Gives substats to the character (or take them away)
+     * Before it actually does, it raises a gainingSubstat event, to which
+     * other code elements can react, especially Model records with
+     * CharacterModifierBehavior.
+     * @todo define other sources (trade, whatever)
+     * @param string $substat enum(xp|robustness|cunning|willpower)
+     * @param float $amount
+     * @param string $from enum(battle|encounter|quest|autosell) 
+     * Allows event handlers to react to gainingStuff events only in case the
+     * substat come from a certain source
+     */ 
     private function gainSubstat($substat, $amount, $from) {
         $bonusAbs = 0;
         $bonusPerc = 1;
@@ -196,7 +341,14 @@ class Character extends BaseCharacter {
         call_user_func(array($this, "increase" . ucfirst($substat)), $amount);
     }
 
-    // Divides the number of xp among the three substats
+    /**
+     * Divides xp gains among the three substats, depending on the Character
+     * class
+     * @see increaseResoluteness
+     * @see increaseWillpower
+     * @see increaseCunning
+     * @param float $xp 
+     */
     public function increaseXp($xp) {
         if($xp > 0) {
             EUserFlash::setSuccessMessage((int) $xp . " experience points", 'gainStat gainXP');
@@ -207,16 +359,45 @@ class Character extends BaseCharacter {
         $this->increaseWillpower($xp * $cA[$this->class]['willpower'], false);
         $this->increaseCunning($xp * $cA[$this->class]['cunning'], false);
     }
-    // ToDo: negative amounts (rare cases)
+    
+    /**
+     * Wrapper for increaseSubstat
+     * @see increaseSubstat
+     * @param float $amount
+     * @param bool $generateMsg
+     */
     public function increaseResoluteness($amount, $generateMsg = true) {
         $this->increaseSubstat("resoluteness", $amount, $generateMsg);
     }
+    /**
+     * Wrapper for increaseSubstat
+     * @see increaseSubstat
+     * @param float $amount
+     * @param bool $generateMsg
+     */
     public function increaseWillpower($amount, $generateMsg = true) {
         $this->increaseSubstat("willpower", $amount, $generateMsg);
     }
+    /**
+     * Wrapper for increaseSubstat
+     * @see increaseSubstat
+     * @param float $amount
+     * @param bool $generateMsg
+     */
     public function increaseCunning($amount, $generateMsg = true) {
         $this->increaseSubstat("cunning", $amount, $generateMsg);
     }
+    
+    /**
+     * Increases the indicated substat by $amount
+     * @todo handle negative $amount
+     * If $generateMsg: also generates an EUserFlash message to inform the user 
+     * about this fortunate turn of events.
+     * This is more of a setter method and does not raise any events.
+     * @see Tools->decideBetweenTwoNumbers
+     * @param string $stat enum(resoluteness|cunning|willpower)
+     * @param bool $generateMsg
+     */
     private function increaseSubstat($stat, $amount, $generateMsg = true) {
         // If amount is between two numbers, use RNG to determine which one to use
         $amount = Yii::app()->tools->decideBetweenTwoNumbers($amount);
@@ -245,23 +426,45 @@ class Character extends BaseCharacter {
      * RETRIEVAL OF CHARACTER DATA
      */
     
-    /** 
-     * Buffed: Base * BonusPerc(entage based) + BonusAbs(olute)
-     * CEvents don't need a sender object
+    /**
+     * Wrapper for getStatBuffed
+     * @see getStatBuffed
+     * @return int
      */
     public function getResolutenessBuffed() {
         return $this->getStatBuffed("resoluteness");
     }
+    /**
+     * Wrapper for getStatBuffed
+     * @see getStatBuffed
+     * @return int
+     */
     public function getWillpowerBuffed() {
         return $this->getStatBuffed("willpower");
     }
+    /**
+     * Wrapper for getStatBuffed
+     * @see getStatBuffed
+     * @return int
+     */
     public function getCunningBuffed() {
         return $this->getStatBuffed("cunning");
     }
+
+    /**
+     * Returns the Character's buffed $stat (resoluteness, cunning, willpower)
+     * Buffed = Base * BonusPerc(entage based) + BonusAbs(olute)
+     * In order to determine BonusPerc and BonusAbs, it raises a CalcStat 
+     * event, to which other code elements can react, especially Model records 
+     * with CharacterModifierBehavior.
+     * @param string $stat enum(robustness|cunning|willpower)
+     * @return int
+     */ 
     private function getStatBuffed($stat) {
         $bonusAbs = 0;
         $bonusPerc = 0;
 
+        // CEvents don't need a sender object
         $event = new CEvent(null, array('bonusAbs' => &$bonusAbs,
                                         'bonusPerc' => &$bonusPerc));
         call_user_func(array($this, "onCalc" . ucfirst($stat)), $event);
@@ -276,26 +479,36 @@ class Character extends BaseCharacter {
         return $ret;
     }
     
+    /**
+     * Returns the base value (unbuffed) of the Character's resoluteness
+     * @return int
+     */
     public function getResolutenessBase() {
         return floor(sqrt($this->resolutenessSub));
     }
+    /**
+     * Returns the base value (unbuffed) of the Character's willpower
+     * @return int
+     */
     public function getWillpowerBase() {
         return floor(sqrt($this->willpowerSub));
     }
+    /**
+     * Returns the base value (unbuffed) of the Character's cunning
+     * @return int
+     */
     public function getCunningBase() {
         return floor(sqrt($this->cunningSub));
     }
     
-    public function getResolutenessProgress() {
-        return sqrt($this->resolutenessSub);
-    }
-    public function getWillpowerProgress() {
-        return sqrt($this->willpowerSub);
-    }
-    public function getCunningProgress() {
-        return sqrt($this->cunningSub);
-    }
-
+    /**
+     * Returns the Character's buffed maximum hp value
+     * Buffed = Base * BonusPerc(entage based) + BonusAbs(olute)
+     * In order to determine BonusPerc and BonusAbs, it raises a CalcHp
+     * event, to which other code elements can react, especially Model records 
+     * with CharacterModifierBehavior.
+     * @return int
+     */ 
     public function getHpMax() {
         $bonusAbs = 0;
         $bonusPerc = 0;
@@ -311,6 +524,14 @@ class Character extends BaseCharacter {
                 
         return $ret;
     }
+    /**
+     * Returns the Character's buffed maximum energy value
+     * Buffed = Base * BonusPerc(entage based) + BonusAbs(olute)
+     * In order to determine BonusPerc and BonusAbs, it raises a CalcHp
+     * event, to which other code elements can react, especially Model records 
+     * with CharacterModifierBehavior.
+     * @return int
+     */ 
     public function getEnergyMax() {
         $bonusAbs = 0;
         $bonusPerc = 0;
@@ -328,41 +549,90 @@ class Character extends BaseCharacter {
     }
     
     /**
-     * Calculate based on main substat
-     * y = (x − 1)^2 + 4
-     *   = sqrt(y - 4) = x-1
-     *   = sqrt(y-4)+1 = x
+     * Calculates the level (x) of the Character based on mainstat (y)
+     * y = (x−1)^2 + 4
+     * => y-4 = (x-1)^2
+     * => sqrt(y-4)   = x-1
+     * => sqrt(y-4)+1 = x
      * @return int
      */
     public function getLevel() {
         $mainstatBase = $this->getMainstatBase();
-        return floor(sqrt(max(4,$mainstatBase) - 4)+1);
+        return floor(
+                sqrt(max(4,$mainstatBase) - 4)
+               ) + 1;
     }
     /**
-     * Returns level progression in %
-     * @return int
+     * Returns level progression in % (0.25 for 25%)
+     * @return float
      */
     public function getLevelProgress() {
         $mainstatBase = $this->getMainstatBase();
-        return sqrt($mainstatBase - 4) + 1 - $this->getLevel();
+        $level = $this->getLevel();
+        
+        $statCurrentToNextLevel = pow($level, 2) - pow($level - 1, 2);
+        $statThisLevel = $mainstatBase - pow($level - 1, 2) - 4;
+        return $statThisLevel / $statCurrentToNextLevel;
     }
     
+    /**
+     * Wrapper for getResolutenessBase, getCunningBase, or getWillpowerBase,
+     * depending on the Character's class's main stat
+     * @see getResolutenessBase
+     * @see getCunningBase
+     * @see getWillpowerBase
+     * @return int
+     */
     public function getMainstatBase() {
         return call_user_func(array($this, "get" . ucfirst($this->getClassType()) . "Base"));
     }
+    /**
+     * Wrapper for getResolutenessBuffed, getCunningBuffed, or 
+     * getWillpowerBuffed, depending on the Character's class's main stat
+     * @see getResolutenessBuffed
+     * @see getCunningBuffed
+     * @see getWillpowerBuffed
+     * @return int
+     */
     public function getMainstatBuffed() {
         return call_user_func(array($this, "get" . ucfirst($this->getClassType()) . "Buffed"));
     }
+    /**
+     * Wrapper for getResolutenessSub, getCunningSub, or getWillpowerSub,
+     * depending on the Character's class's main stat
+     * @see getResolutenessSub
+     * @see getCunningSub
+     * @see getWillpowerSub
+     * @return int
+     */
     public function getMainstatSub() {
         return call_user_func(array($this, "get" . ucfirst($this->getClassType()) . "Sub"));
     }
 
+    /**
+     * Returns the attack value of the Character (for normal attacks)
+     * = resoluteness buffed
+     * @uses getResolutenessBuffed
+     * @return int
+     */
     public function getNormalAttack() {
         return $this->getResolutenessBuffed();
     }
+    /**
+     * Returns the special attack value of the Character (for special attacks)
+     * = willpower buffed
+     * @uses getWillpowerBuffed
+     * @return int
+     */
     public function getSpecialAttack() {
         return $this->getWillpowerBuffed();
     }
+    /**
+     * Returns the defense value of the Character (against normal attacks)
+     * = cunning buffed
+     * @uses getCunningBuffed
+     * @return int
+     */
     public function getDefense() {
         return $this->getCunningBuffed();
     }
@@ -372,7 +642,9 @@ class Character extends BaseCharacter {
      * OTHER STUFF
      */
 
-    // Load relations that are not taken care of by CD
+    /**
+     * Lazy loading of inventory items associated with the Character 
+     */
     public function loadItems() {
         if(empty($this->characterItems)) {
             // d("EMPTY characterItems");
@@ -384,10 +656,19 @@ class Character extends BaseCharacter {
         }
     }
     
-    // ToDo: make this way more dynamic
+    /**
+     * Generates a "get into position" combat message
+     * @todo If this is going to be used, make it more dynamic
+     * @return string
+     */
     public function createFirstRoundCombatMessage() {
         return $this->name . " gets into a proper fighting position.";
     }
+    /**
+     * Returns a string that represents the title of the Character
+     * @uses getLevel
+     * @return string
+     */
     public function getTitle() {
         return "Level " . $this->getLevel() . " " . ucfirst($this->class);
     }
@@ -405,6 +686,11 @@ class Character extends BaseCharacter {
         }
         return false;
     }
+    /**
+     * Adds a CharacterEffects record to the Character record
+     * @see CharacterEffects
+     * @param CharacterEffects $characterEffect 
+     */
     public function addEffect($characterEffect) {
         /**
          * Remember: $this->characterEffects is NOT a real property, but the 
@@ -416,6 +702,15 @@ class Character extends BaseCharacter {
         $characterEffect->effect->attachToCharacter($this);
         EUserFlash::setNoticeMessage($characterEffect->effect->name, "<b>" . $characterEffect->effect->name . "</b> (for the next " . $characterEffect->turns . " encounters)", 'effect');
     }
+    
+    /**
+     * Returns an Effect record of the indicated type if such an Effect is
+     * attached to the Character. (false if there is no such Effect attached
+     * to the Character)
+     * @param Effect $effect
+     * @return mixed Effect if Effect of the indicated type is found, false
+     * otherwise
+     */
     public function getEffect($effect) {
         foreach($this->characterEffects as $characterEffect) {
             if($characterEffect->effect->id == $effect->id) {
@@ -426,8 +721,9 @@ class Character extends BaseCharacter {
     }
 
     /**
-     * Returns the active entity of a given related model
-     * @return mixed
+     * Returns the active CharacterFamiliars record
+     * @see CharacterFamiliars
+     * @return mixed CharacterFamiliar or null
      */
     public function getFamiliar() {
         foreach($this->characterFamiliars as $familiar) {
@@ -437,6 +733,11 @@ class Character extends BaseCharacter {
         }
         return null;
     }
+    /**
+     * Returns the active CharacterEquipments record
+     * @see CharacterEquipments
+     * @return mixed CharacterEquipments or null
+     */
     public function getEquipment() {
         foreach($this->characterEquipments as $equipment) {
             if($equipment->active == 1) {
@@ -445,6 +746,11 @@ class Character extends BaseCharacter {
         }
         return null;
     }
+    /**
+     * Returns the active CharacterSkillsets record
+     * @see CharacterSkillsets
+     * @return mixed CharacterSkillsets or null
+     */
     public function getSkillset() {
         foreach($this->characterSkillsets as $skillset) {
             if($skillset->active == 1) {
@@ -458,52 +764,109 @@ class Character extends BaseCharacter {
      * EVENT RAISERS
      */
 
+    /**
+     * Event raiser
+     * @param CEvent $event 
+     */
     public function onCalcHp($event) {
         $this->raiseEvent("onCalcHp", $event);
     }
+    /**
+     * Event raiser
+     * @param CEvent $event 
+     */
     public function onCalcEnergy($event) {
         $this->raiseEvent("onCalcEnergy", $event);
     }
+    /**
+     * Event raiser
+     * @param CEvent $event 
+     */
     public function onCalcResoluteness($event) {
         $this->raiseEvent("onCalcResoluteness", $event);
     }
+    /**
+     * Event raiser
+     * @param CEvent $event 
+     */
     public function onCalcWillpower($event) {
         $this->raiseEvent("onCalcWillpower", $event);
     }
+    /**
+     * Event raiser
+     * @param CEvent $event 
+     */
     public function onCalcCunning($event) {
         $this->raiseEvent("onCalcCunning", $event);
     }
 
+    /**
+     * Event raiser
+     * @param CEvent $event 
+     */
     public function onGainingCash($event) {
         $this->raiseEvent("onGainingCash", $event);
     }
+    /**
+     * Event raiser
+     * @param CEvent $event 
+     */
     public function onGainingFavours($event) {
         $this->raiseEvent("onGainingFavours", $event);
     }
+    /**
+     * Event raiser
+     * @param CEvent $event 
+     */
     public function onGainingKudos($event) {
         $this->raiseEvent("onGainingKudos", $event);
     }
+    /**
+     * Event raiser
+     * @param CEvent $event 
+     */
     public function onGainingXp($event) {
         $this->raiseEvent("onGainingXp", $event);
     }
+    /**
+     * Event raiser
+     * @param CEvent $event 
+     */
     public function onGainingResoluteness($event) {
         $this->raiseEvent("onGainingResoluteness", $event);
     }
+    /**
+     * Event raiser
+     * @param CEvent $event 
+     */
     public function onGainingWillpower($event) {
         $this->raiseEvent("onGainingWillpower", $event);
     }
+    /**
+     * Event raiser
+     * @param CEvent $event 
+     */
     public function onGainingCunning($event) {
         $this->raiseEvent("onGainingCunning", $event);
     }
 
+    /**
+     * Event raiser
+     * @param CEvent $event 
+     */
     public function onCalcDropItemBonus($event) {
         $this->raiseEvent("onCalcDropItemBonus", $event);
     }
     
-    /*
-     *   BACKGROUND STUFF
+    /**
+     * BACKGROUND STUFF
      */
     
+    /**
+     * Returns an array indicating the relative importance of character stats
+     * for all the Character classes
+     * @return array
+     */
     public function getClassAttributes() {
         return array(
             'consultant'   => array('cunning' => 0.5, 'resoluteness' => 0.3, 'willpower' => 0.2),
@@ -514,15 +877,25 @@ class Character extends BaseCharacter {
             'politician'   => array('willpower' => 0.5, 'resoluteness' => 0.3, 'cunning' => 0.2), 
         );
     }
+    
     /**
+     * Returns the name of the Character's class's mainstat
      * Relies on mainstat getting 50% of the substat gains
-     * @return enum(resoluteness, cunning, willpower)
+     * @uses getClassAttribute
+     * @return string enum(resoluteness|cunning|willpower)
      */
     public function getClassType() {
         $cA = $this->getClassAttributes();
         return array_search('0.5', $cA[$this->class]);
     }
     
+    /**
+     * Returns a list of CBehaviors to be attached to this Model
+     * @link http://www.yiiframework.com/doc/api/CBehavior
+     * @see CombatantBehavior
+     * @link http://www.yiiframework.com/extension/attributesbackupbehavior/
+     * @return array
+     */
     public function behaviors() {
         return array(
             // 'withRelated'=>array('class'=>'ext.wr.WithRelatedBehavior',),
@@ -531,6 +904,12 @@ class Character extends BaseCharacter {
         );
     }
 
+    /**
+     * Factory method to get Model objects
+     * @see http://www.yiiframework.com/doc/api/CModel
+     * @param string $className
+     * @return CModel
+     */
     public static function model($className=__CLASS__) {
 	return parent::model($className);
     }

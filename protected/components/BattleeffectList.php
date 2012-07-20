@@ -2,9 +2,13 @@
 
 /**
  * A CTypedList to manage active Battleeffects
+ * @package Battle
  */
 
 class BattleeffectList extends CTypedList {
+    /**
+     * Constructor 
+     */
     public function __construct () {
         parent::__construct("Battleeffect");
     }
@@ -17,6 +21,7 @@ class BattleeffectList extends CTypedList {
      *                        if false: Checks if the list contains the item, 
      *                                  no matter which combattant the item is 
      *                                  attached to
+     * @return void
      */                       
     public function contains($item, $sameHero = true) {
         return $this->indexOf($item, $sameHero) >= 0;
@@ -30,6 +35,7 @@ class BattleeffectList extends CTypedList {
      *                        if false: removes the first Battleeffect of the 
      *                                  given type from the list, no matter to 
      *                                  which combattant it is attached
+     * @return void
      */                       
     public function remove($item, $sameHero = true) {
         if(($index = $this->indexOf($item, $sameHero)) >= 0) {
@@ -48,15 +54,8 @@ class BattleeffectList extends CTypedList {
      *                        if false: returns the first position of $item
      *                                  no matter which combattant it is 
      *                                  attached to
+     * @return int -1 if the item is not found
      */
-    /*
-    public function indexOf($item) {
-        if(($index=array_search($item,$this->_d,true))!==false)
-            return $index;
-        else
-            return -1;
-    }
-    */
     public function indexOf($item, $sameHero = true) {
         for($i = 0; $i < $this->getCount(); $i++) {
             if($this->itemAt($i)->id == $item->id) {
@@ -71,4 +70,12 @@ class BattleeffectList extends CTypedList {
         }
         return -1;
     }
+    /*
+    public function indexOf($item) {
+        if(($index=array_search($item,$this->_d,true))!==false)
+            return $index;
+        else
+            return -1;
+    }
+    */
 }

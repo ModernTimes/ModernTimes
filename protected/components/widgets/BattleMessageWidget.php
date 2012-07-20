@@ -1,13 +1,23 @@
 <?php
 
-/*
- *  Pretty simply so far, but can be used to encapsulate more complex battlemessages´display behavior later on
+/**
+ * Displays a BattleMessage
+ * 
+ * @see BattleMessage
+ * @package Widgets
  */
 
 class BattleMessageWidget extends CWidget {
 
+    /**
+     * The BattleMessage to be rendered
+     * @var BattleMessage
+     */
     public $msg;
     
+    /**
+     * Renders the battlemessage.php view file
+     */
     public function run() {
         // d($this->msg);
         $this->render("battlemessage");

@@ -1,11 +1,21 @@
 <?php
 /**
  * Equips an item in the proper equipment slot
- * ToDo: check item requirements!
+ * If the slot is occupied, run UnequipAction as a child process
+ * 
+ * @todo check item requirements
+ * 
+ * @see UnequipAction
+ * @package Actions.inventory
  */
 
 class EquipAction extends CAction {
 
+    /**
+     * Check if the character owns the item, then equip it and redirect
+     * to InventoryAction
+     * @param int $itemID ID of the Item to be equipped
+     */
     public function run($itemID) {
         // positive integer
         $validSyntax = (!empty($itemID)

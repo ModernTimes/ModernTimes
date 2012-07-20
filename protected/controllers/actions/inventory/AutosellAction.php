@@ -1,12 +1,19 @@
 <?php
 /**
- * Gets rid of an item
- * Gives the character cash, favours, and kudos according to the item's
+ * Gets rid of an Item
+ * Gives the character cash, favours, and kudos according to the Item's
  * autosell values
+ * 
+ * @package Actions.inventory
  */
 
 class AutosellAction extends CAction {
 
+    /**
+     * Checks if the Character actually owns such an item, then sells it
+     * and redirects to InventoryAction
+     * @param int $itemID ID of the Item to be sold
+     */
     public function run($itemID) {
         // positive integer
         $validSyntax = (!empty($itemID)

@@ -2,6 +2,7 @@
 
 source: ../../
 destination: ../
+wipeout: yes
 templateConfig: ../template/config.neon
 
 # useful when doc is to be uploaded
@@ -14,11 +15,10 @@ exclude:
     - */tests/*
     - */protected/modules/*
     - */protected/extensions/*
-skipDocPath:
-    - */_base/*
+#skipDocPath:
+#    - */_base/*
 
 title: Modern Times Documentation
-wipeout: yes
 download: no
 sourceCode: yes
 todo: yes

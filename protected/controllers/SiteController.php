@@ -1,8 +1,15 @@
 <?php
 
+/**
+ * Starts website actions (as opposed to game actions) based on user input
+ * @package Site
+ */
+
 class SiteController extends Controller {
+
     /**
-     * Declares class-based actions.
+     * Returns an array that maps action ids with action handlers
+     * @return array
      */
     public function actions() {
         return array(

@@ -3,20 +3,44 @@
  * Resolves an encounter
  * Cannot be called by user directly, so callFromWithinApplication has to be
  * set true before run() can be executed
+ * 
+ * @see MischiefAction
+ * @see Encounter
+ * @package Actions
  */
 
 class EncounterAction extends CAction {
 
+    /**
+     * ID of the Encounter record that the character is to ... encounter
+     * @see Encounter
+     * @var int
+     */
     public $encounterID;
-    public $callFromWithinApplication;
+    
+    /**
+     * Has to be set to true by some other action
+     * Prevents the action from being called by users directly
+     * @var bool
+     */
+    public $callFromWithinApplication = false;
 
+    /**
+     * The encounter to be ... encountered
+     * @var Encounter
+     */
     public $encounter;
+    
     // public $params;
     
+    /**
+     * Checks if the Encounter is legitimate and renders the encounter view 
+     */
     public function run() {
         /**
          * Encounters can't be requested by the user directly, at least not 
          * the first step of an encounter path
+         * @todo Syntax checks
          */
         if(CD()->ongoingEncounterID == null && !$this->callFromWithinApplication) {
             EUserFlash::setErrorMessage("Invalid choice", 'validate');
@@ -30,7 +54,8 @@ class EncounterAction extends CAction {
                 $this->encounterID = CD()->ongoingEncounterID;
             }
         }
-           
+        
+        // syntax checks
         
         $this->encounter = Encounter::model()->with(array(
             'effect' => array(
@@ -65,6 +90,11 @@ class EncounterAction extends CAction {
         $this->controller->render('encounter', array("encounter" => $this->encounter));
     }
 
+    /**
+     * Checks if $this->encounter is legitimate, i.e. if the Character can
+     * actually be at this point in an Encounter path
+     * @return boolean 
+     */
     public function legitimateEncounter() {
         // No ongoing encounter = fine
         if(CD()->ongoingEncounterID != null) {

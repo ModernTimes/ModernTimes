@@ -2,12 +2,20 @@
 
 /**
  * Act in an ongoing battle, 
- * either by using a skill or an item
- * ToDo: implement item actions
+ * either by using a Skill or an Item
+ * @todo implement item actions
+ * 
+ * @package Actions
  */
 
 class BattleActionAction extends BattleAction {
 
+    /**
+     * Checks if the battle action is legitimate and renders the battle view
+     * @todo syntax checks for skillID and itemID
+     * @param string $skillID treated as int, only string because of $GET
+     * @param string $itemID treated as int, only string because of $GET
+     */
     public function run($skillID = "", $itemID = "") {
         $character = CD();
         if($character->ongoingBattleID === null) {
@@ -16,8 +24,11 @@ class BattleActionAction extends BattleAction {
         }
         
         if(empty($skillID) && !empty($_GET['skillID'])) {
-            $skillID = (int) $_GET['skillID'];
+            $skillID = $_GET['skillID'];
         }
+        
+        // syntax checks
+        
         if(empty($skillID)) {
             $this->renderBattle();
             return;

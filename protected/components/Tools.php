@@ -2,6 +2,9 @@
 
 /**
  * Defines a number of global utility functions
+ * 
+ * @link http://www.yiiframework.com/doc/api/1.1/CApplicationComponent
+ * @package System.Tools
  */
 
 class Tools extends CApplicationComponent {
@@ -45,18 +48,18 @@ class Tools extends CApplicationComponent {
     
     /**
      * Adds an effect to the active character
-     * @param Effect|int|string $effect, Effect model or its PK or its name
-     * @param int $turns, number of turns for which the effect is to be active
-     *                    0 means that it is only used during the current battle
-     * options
-     * @param bool 'addTurns', whether to increase the number of turns when the 
+     * @todo Make it possible to add effects to other characters
+     * @param mixed $effect Effect|int|string Effect model or its PK or its name
+     * @param int $turns number of turns for which the effect is to be active
+     *                   0 means that it is only used during the current battle
+     * @param array $options
+     * param bool 'addTurns', whether to increase the number of turns when the 
      *                         effect is already in place instead of adding a 
      *                         second effect of the same kind. Default is true.
-     * @param int 'characterID', PK of the character that the effect is to be
+     * param int 'characterID', PK of the character that the effect is to be
      *                           attached to
      * 
-     * @return boolean, whether or not the effect was added
-     * ToDo: Make it possible to add effects to other characters
+     * @return boolean whether or not the effect was added
      */
     function addEffect($effect, $turns = 0, $options = array()) {
         $options = array_merge(
@@ -135,7 +138,7 @@ class Tools extends CApplicationComponent {
     /**
      * Returns the possessive pronoun for a given character
      * @param Character $character, default is the active character
-     * @return string, "his" or "her"
+     * @return string "his" or "her"
      */
     public function getPossessivePronoun($character = null) {
         if(empty($character)) {
@@ -151,7 +154,7 @@ class Tools extends CApplicationComponent {
     /**
      * Returns the personal pronoun for a given character
      * @param Character $character, default is the active character
-     * @return string, "he" or "she"
+     * @return string "he" or "she"
      */
     public function getPersonalPronoun($character = null) {
         if(empty($character)) {

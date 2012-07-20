@@ -5,6 +5,12 @@ Yii::import('application.components.monsters.*');
 
 /**
  * Simulates monsters during battles
+ * 
+ * See BaseMonster for a list of attributes and related Models
+ * 
+ * @see CombatantBehavior
+ * @see SpecialnessBehavior
+ * @package Battle
  */
 
 class Monster extends BaseMonster {
@@ -17,10 +23,11 @@ class Monster extends BaseMonster {
 
     /**
      * Future AI can refer to the current battle state
+     * @uses Lottery
      * @param Battle $battle
      * @return Skill
-     * ToDo: check if the skill can actually be used
-     *      */
+     * @todo check if the skill can actually be used
+     */
     public function act($battle) {
         $l = new Lottery();
         $l->addParticipants($this->monsterSkills);
@@ -37,8 +44,8 @@ class Monster extends BaseMonster {
     /**
      * Decides for each potential item drop whether it is indeed dropped or not
      * dropItemPerc are percentage point increasers/decreasers as usual
-     * @param int $dropItemPerc
-     * @return array|Item
+     * @param int $dropItemPerc bonus to the drop rate
+     * @return array of Item records
      */
     public function dropItems($dropItemPerc = 0) {
         $loot = array();
@@ -52,6 +59,10 @@ class Monster extends BaseMonster {
         return $loot;
     }
     
+    /**
+     * Decreases the monster's temporary hp by $damage
+     * @param int $damage 
+     */
     public function decreaseHp($damage) {
         $this->hp -= $damage;
         if($this->hp < 0) {
@@ -59,11 +70,20 @@ class Monster extends BaseMonster {
         }
     }
     
+    /**
+     * Initializes the Monster for battle 
+     */
     public function getReadyForBattle() {
         $this->hp = $this->hpMax;
     }
     
-    // ToDo: make this waaay more dynamic
+    
+    /**
+     * Create a message that appears when the battle against this monster starts
+     * @todo do this in Battle
+     * @todo do it way more dynamically
+     * @return string 
+     */
     public function createFirstRoundCombatMessage() {
         $msgs = array(
             "A " . $this->name . " sneaks up on you.",
@@ -77,33 +97,64 @@ class Monster extends BaseMonster {
         }
         return $ret;
     }
+    
+    /**
+     * Returns a string representation of the Monster's title
+     * Default is empty string, but can be changed by specialness behavior class
+     * @return string
+     */
     public function getTitle() {
         return "";
     }
 
-
     /**
-     * Stuff that cannot be made special
+     * Returns the Monster's attack value (for normal attacks)
+     * @return int
      */
     public function getNormalAttack() {
         return $this->attack;
     }
+    /**
+     * Returns the Monster's special attack value (for special attacks)
+     * @return int
+     */
     public function getSpecialAttack() {
         return $this->attack;
     }
+    /**
+     * Returns the Monster's defense value (against normal attacks)
+     * @return int
+     */
     public function getDefense() {
         return $this->defense;
     }
+    /**
+     * Returns the Monster's maximum hp value
+     * @return int
+     */
     public function getHpMax() {
         return $this->hpMax;
     }
     
+    /**
+     * Returns a list of CBehaviors to be attached to this Model
+     * @link http://www.yiiframework.com/doc/api/CBehavior
+     * @see CombatantBehavior
+     * @see SpecialnessBehavior
+     * @return array
+     */
     public function behaviors() {
-            return array("application.components.SpecialnessBehavior",
-                         "application.components.CombatantBehavior");
+        return array("application.components.SpecialnessBehavior",
+                        "application.components.CombatantBehavior");
     }
         
+    /**
+     * Factory method to get Model objects
+     * @see http://www.yiiframework.com/doc/api/CModel
+     * @param string $className
+     * @return CModel
+     */
     public static function model($className=__CLASS__) {
-            return parent::model($className);
+        return parent::model($className);
     }
 }

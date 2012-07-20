@@ -7,17 +7,33 @@ Yii::import('application.components.skills.*');
  * Resolve the skill by interfering with the battle object
  * The following holds true for all funcitons in this class:
  * hero and enemy are from the Skill user's point of view
- * @param Battle $battle
- * @param Combatant $hero
- * @param Combatant $enemy
- * ToDo: source out battle action behavior (sharable with Item model)
- * ToDo: implement non-combat skill mechanics
+ * 
+ * See BaseSkill for a list of attributes and related Models
+ * 
+ * @see SpecialnessBehavior
+ * @see CharacterModifierBehavior
+ * @package System.Models
  */
 
 class Skill extends BaseSkill {
 
+    /**
+     * Other Skills or Battleeffects can block this skill, which means that
+     * it's not executed
+     * @var bool
+     */
     public $blocked = false;
 
+    /**
+     * Resolves the Skill by calling other functions to take care of basic
+     * Skill mechanics
+     * @uses checkBlocked
+     * @uses dealDamage
+     * @uses createEffects
+     * @param Battle $battle
+     * @param CombatantBehavior $hero Model record with CombatantBehavior
+     * @param CombatantBehavior $enemy Model record with CombatantBehavior
+     */
     public function resolve($battle, $hero, $enemy) {
         if(!$this->call("checkBlocked", $battle, $hero, $enemy)) {
             return;
@@ -27,6 +43,13 @@ class Skill extends BaseSkill {
         $this->call("createEffects", $battle, $hero, $enemy);
     }
     
+    /**
+     * Checks if this Skill is blocked and if so adds a Battlemessage
+     * @param Battle $battle
+     * @param CombatantBehavior $hero Model record with CombatantBehavior
+     * @param CombatantBehavior $enemy Model record with CombatantBehavior
+     * @return bool not blocked: true, blocked: false
+     */
     public function checkBlocked($battle, $hero, $enemy) {
         if($this->blocked) {
             $battleMsg = new Battlemessage("", $this);
@@ -45,7 +68,12 @@ class Skill extends BaseSkill {
     }
     
     /**
-     * basic Battleeffect creation
+     * Basic Battleeffect creation
+     * @param Battle $battle
+     * @param CombatantBehavior $hero Model record with CombatantBehavior
+     * @param CombatantBehavior $enemy Model record with CombatantBehavior
+     * @param bool $log whether the effect creation should be looged with a 
+     * Battlemessage
      */
     public function createEffects($battle, $hero, $enemy, $log = true) {
         if($this->createEffect != null) {
@@ -69,7 +97,10 @@ class Skill extends BaseSkill {
     }
     
     /**
-     * Basic damage dealing stuff
+     * Basic damage dealing mechanics
+     * @param Battle $battle
+     * @param CombatantBehavior $hero Model record with CombatantBehavior
+     * @param CombatantBehavior $enemy Model record with CombatantBehavior
      */
     public function dealDamage($battle, $hero, $enemy) {
         if($this->dealsDamage) {
@@ -106,25 +137,52 @@ class Skill extends BaseSkill {
         }
     }
     
+    /**
+     * Basic setter
+     * @param bool $bool default true
+     * @return boolean true
+     */
     public function setBlocked($bool = true) {
         $this->blocked = $bool;
         return true;
     }
     
+    /**
+     * Basic getter
+     * msgResolved is usually used as the main message in BattleMessages
+     * @return string
+     */
     public function getMsgResolved() {
         return $this->msgResolved;
     }
+    /**
+     * There might be a different message in case the duration of an effect
+     * was increased (instead of a new effect getting in place)
+     * @uses getMsgResolved
+     * @return string
+     */
     public function getMsgIncreasedDuration() {
         return (!empty($this->effectMsgIncreasedDuration) ? 
                     $this->effectMsgIncreasedDuration :
                     $this->getMsgResolved());
     }
 
+    /**
+     * Returns a string that can be used as the ocntent of a popup for this
+     * Skill
+     * @return string
+     */
     public function getPopup() {
         return "<p>" . $this->desc . 
                ($this->costEnergy > 0 ? "<BR />&nbsp;<BR /><span class='btn btn-mini'><i class='icon-star'></i> " . $this->costEnergy . "</span>" : "") . 
                "</p>";
     }
+    
+    /**
+     * Returns an array with log details about this Skill:
+     * id, name, type, desc, popup
+     * @return array
+     */
     public function getLogDetails() {
         return array(
             'id' => $this->id,
@@ -135,6 +193,13 @@ class Skill extends BaseSkill {
         );
     }
 
+    /**
+     * Returns a list of CBehaviors to be attached to this Model
+     * @link http://www.yiiframework.com/doc/api/CBehavior
+     * @see SpecialnessBehavior
+     * @see CharacterModifierBehavior
+     * @return array
+     */
     public function behaviors() {
         return array(
             "application.components.SpecialnessBehavior",
@@ -142,6 +207,12 @@ class Skill extends BaseSkill {
         );
     }
 
+    /**
+     * Factory method to get Model objects
+     * @see http://www.yiiframework.com/doc/api/CModel
+     * @param string $className
+     * @return CModel
+     */
     public static function model($className=__CLASS__) {
             return parent::model($className);
     }
