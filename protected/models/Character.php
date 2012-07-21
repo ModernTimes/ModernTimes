@@ -608,62 +608,6 @@ class Character extends BaseCharacter {
         return $this->getCunningBuffed();
     }
     
-    /**
-     * Adjusts the stat as specified by the CalcCharacterStatEvent.
-     * Buffed = Base * ((BonusPerc+100)/100) + BonusAbs
-     * It also cleans up the result according to the options specified in $opt
-     * 
-     * @uses CalcCharacterStatEvent
-     * @uses Tools::decideBetweenTwoNumbers
-     * 
-     * @param float $base
-     * @param CalcCharacterStatEvent $event
-     * @param array $opt 
-     * - string resultType enum(int|floor), default int
-     * - string lastOperation enum(floor|round|ceil|random), default floor
-     * - floor min minimum value, no default value
-     * @return mixed int or float 
-     */
-    private function adjustStat($base, $event, $opt = array()) {
-        $opt = array_merge(
-            // The default options
-            array(
-                'resultType' => 'int',
-                'lastOperation' => 'floor'
-            ),
-            // The specified options
-            $opt
-        );        
-
-        $ret = $base * (($event->getBonusPerc() + 100) / 100) +
-               $event->getBonusAbs();
-        
-        if($opt['resultType'] == "int") {
-            switch($opt['lastOperation']) {
-                case "floor":
-                    $ret = floor($ret);
-                    break;
-                case "round":
-                    $ret = round($ret);
-                    break;
-                case "ceil":
-                    $ret = ceil($ret);
-                    break;
-                case "random":
-                    $ret = Yii::app()->tools->decideBetweenTwoNumbers($ret);
-                    break;
-                default:
-                    break;
-            }
-        }
-        
-        if(isset($opt['min'])) {
-            $ret = max($ret, $opt['min']);
-        }
-                
-        return $ret;
-    }
-    
 
     /**
      * OTHER STUFF
