@@ -26,51 +26,49 @@ class Character extends BaseCharacter {
      * Wrapper for gainResource
      * @see gainResource
      * @param float $amount
-     * @param string $from enum(battle|encounter|quest|autosell) 
+     * @param string $source enum(other|battle|encounter|quest|autosell) 
      */
-    public function gainCash($amount = 0, $from = '') {
+    public function gainCash($amount = 0, $source = '') {
         $this->gainResource('cash', $amount, $from);
     }
     /**
      * Wrapper for gainResource
      * @see gainResource
      * @param float $amount
-     * @param string $from enum(battle|encounter|quest|autosell) 
+     * @param string $source enum(other|battle|encounter|quest|autosell) 
      */
-    public function gainFavours($amount = 0, $from = '') {
+    public function gainFavours($amount = 0, $source = '') {
         $this->gainResource('favours', $amount, $from);
     }
     /**
      * Wrapper for gainResource
      * @see gainResource
      * @param float $amount
-     * @param string $from enum(battle|encounter|quest|autosell) 
+     * @param string $source enum(other|battle|encounter|quest|autosell) 
      */
-    public function gainKudos($amount = 0, $from = '') {
+    public function gainKudos($amount = 0, $source = '') {
         $this->gainResource('kudos', $amount, $from);
     }
     /**
-     * Gives resources to the character (or take them away)
-     * Before it actually does, it raises a gainingResource event, to which
+     * Gives resources to the character (or takes them away)
+     * Before it actually does, it raises a GainingResource event, to which
      * other code elements can react, especially Model records with
      * CharacterModifierBehavior.
-     * @todo define other sources (trade, whatever)
-     * @uses CalcCharacterStatEvent
-     * @uses adjustStat
+     * @uses GainStatEvent
      * @param string $resource enum(cash|favours|kudos)
      * @param float $amount
-     * @param string $from enum(battle|encounter|quest|autosell) 
+     * @param string $source enum(other|battle|encounter|quest|autosell) 
      * Allows event handlers to react to gainStuff events only in case the
      * resources come from a certain source
      */ 
-    private function gainResource($resource, $amount, $from) {
-        $event = new CalcCharacterStatEvent($this, array(
+    private function gainResource($resource, $amount, $source) {
+        $event = new GainStatEvent($this, array(
             'amount' => $amount,
-            'from'   => $from
+            'source'   => $source
         ));
         call_user_func(array($this, "onGaining" . ucfirst($resource)), $event);
 
-        $amount = $this->adjustStat($amount, $event);
+        $amount = max(0, floor($event->adjustStat($amount)));
         
         call_user_func(array($this, "increase" . ucfirst($resource)), $amount);
     }
@@ -119,12 +117,11 @@ class Character extends BaseCharacter {
      * CalcDropItemBonus event, which is then modified by everything that
      * affects this stat, especially Model records with
      * CharacterModifierBehavior.
-     * @uses CalcCharacterStatEvent
-     * @uses onCalcDropItemBonus
+     * @uses CollectBonusEvent
      * @return float bonus in percentage points
      */ 
     public function getDropItemPerc() {
-        $event = new CalcCharacterStatEvent($this);
+        $event = new CollectBonusEvent($this);
         $this->onCalcDropItemBonus($event);
         return $event->getBonusPerc();
     }
@@ -307,26 +304,24 @@ class Character extends BaseCharacter {
     }
     /**
      * Gives substats to the character (or take them away)
-     * Before it actually does, it raises a gainingSubstat event, to which
+     * Before it actually does, it raises a GainingStatEvent, to which
      * other code elements can react, especially Model records with
      * CharacterModifierBehavior.
-     * @todo define other sources (trade, whatever)
-     * @uses CalcCharacterStatEvent
-     * @uses adjustStat
+     * @uses GainStatEvent
      * @param string $substat enum(xp|robustness|cunning|willpower)
      * @param float $amount
-     * @param string $from enum(battle|encounter|quest|autosell) 
+     * @param string $source enum(other|battle|encounter|quest|autosell) 
      * Allows event handlers to react to gainingStuff events only in case the
      * substat come from a certain source
      */ 
-    private function gainSubstat($substat, $amount, $from) {
-        $event = new CalcCharacterStatEvent($this, array(
+    private function gainSubstat($substat, $amount, $source) {
+        $event = new GainStatEvent($this, array(
             'amount' => $amount,
-            'from'   => $from
+            'source'   => $source
         ));
         call_user_func(array($this, "onGaining" . ucfirst($substat)), $event);
         
-        $amount = $this->adjustStat($amount, $event);
+        $amount = max(0, floor($event->adjustStat($amount)));
         
         call_user_func(array($this, "increase" . ucfirst($substat)), $amount);
     }
@@ -444,22 +439,20 @@ class Character extends BaseCharacter {
     /**
      * Returns the Character's buffed $stat (resoluteness, cunning, willpower)
      * In order to determine bonuses to the stat, it raises a 
-     * CalcCharacterStat event, to which other code elements can react, 
+     * CalcStat event, to which other code elements can react, 
      * especially Model records with CharacterModifierBehavior.
-     * @uses CalcCharacterStatEvent
-     * @uses adjustStat
+     * @uses CollectBonusEvent
      * @param string $stat enum(robustness|cunning|willpower)
      * @return int
      */ 
     private function getStatBuffed($stat) {
-        $event = new CalcCharacterStatEvent($this);
+        $event = new CollectBonusEvent($this);
         call_user_func(array($this, "onCalc" . ucfirst($stat)), $event);
         
         $base = call_user_func(array($this, "get" . ucfirst($stat) . "Base"));
-        return $this->adjustStat($base, $event, array(
-            // Character stats are at least 0
-            'min' => 0
-        ));
+        $buffed = floor($event->adjustStat($base));
+        
+        return max(0, $buffed);
     }
     
     /**
@@ -489,18 +482,17 @@ class Character extends BaseCharacter {
      * In order to determine hp bonuses, it raises a CalcHp
      * event, to which other code elements can react, especially Model records 
      * with CharacterModifierBehavior.
-     * @uses CalcCharacterStatEvent
+     * @uses CollectBonusEvent
      * @uses adjustStat
      * @return int
      */ 
     public function getHpMax() {
-        $event = new CalcCharacterStatEvent($this);
+        $event = new CollectBonusEvent($this);
         call_user_func(array($this, "onCalcHp"), $event);
 
         $base = $this->getResolutenessBuffed() + 3;
-        $buffed = $this->adjustStat($base, $event, array(
-            'min' => 1
-        ));
+        $buffed = max(1, $event->adjustStat($base));
+
         if($this->getClassType() == 'resoluteness') {
             $buffed = floor($buffed * 1.5);
         }
@@ -508,21 +500,19 @@ class Character extends BaseCharacter {
     }
     /**
      * Returns the Character's buffed maximum energy value
-     * In order to determine energy bonuses, it raises a CalcHp
+     * In order to determine energy bonuses, it raises a CalcEnergy
      * event, to which other code elements can react, especially Model records 
      * with CharacterModifierBehavior.
-     * @uses CalcCharacterStatEvent
-     * @uses adjustStat
+     * @uses CollectBonusEvent
      * @return int
      */ 
     public function getEnergyMax() {
-        $event = new CalcCharacterStatEvent($this);
+        $event = new CollectBonusEvent($this);
         call_user_func(array($this, "onCalcEnergy"), $event);
 
         $base = $this->getWillpowerBuffed() + 3;
-        $buffed = $this->adjustStat($base, $event, array(
-            'min' => 1
-        ));
+        $buffed = max(1, $event->adjustStat($base));
+
         if($this->getClassType() == 'willpower') {
             $buffed = floor($buffed * 1.5);
         }
@@ -803,35 +793,35 @@ class Character extends BaseCharacter {
 
     /**
      * Event raiser
-     * @param CalcCharacterStatEvent $event 
+     * @param CEvent $event 
      */
     public function onCalcHp($event) {
         $this->raiseEvent("onCalcHp", $event);
     }
     /**
      * Event raiser
-     * @param CalcCharacterStatEvent $event 
+     * @param CEvent $event 
      */
     public function onCalcEnergy($event) {
         $this->raiseEvent("onCalcEnergy", $event);
     }
     /**
      * Event raiser
-     * @param CalcCharacterStatEvent $event 
+     * @param CEvent $event 
      */
     public function onCalcResoluteness($event) {
         $this->raiseEvent("onCalcResoluteness", $event);
     }
     /**
      * Event raiser
-     * @param CalcCharacterStatEvent $event 
+     * @param CEvent $event 
      */
     public function onCalcWillpower($event) {
         $this->raiseEvent("onCalcWillpower", $event);
     }
     /**
      * Event raiser
-     * @param CalcCharacterStatEvent $event 
+     * @param CEvent $event 
      */
     public function onCalcCunning($event) {
         $this->raiseEvent("onCalcCunning", $event);
@@ -839,49 +829,49 @@ class Character extends BaseCharacter {
 
     /**
      * Event raiser
-     * @param CalcCharacterStatEvent $event 
+     * @param CEvent $event 
      */
     public function onGainingCash($event) {
         $this->raiseEvent("onGainingCash", $event);
     }
     /**
      * Event raiser
-     * @param CalcCharacterStatEvent $event 
+     * @param CEvent $event 
      */
     public function onGainingFavours($event) {
         $this->raiseEvent("onGainingFavours", $event);
     }
     /**
      * Event raiser
-     * @param CalcCharacterStatEvent $event 
+     * @param CEvent $event 
      */
     public function onGainingKudos($event) {
         $this->raiseEvent("onGainingKudos", $event);
     }
     /**
      * Event raiser
-     * @param CalcCharacterStatEvent $event 
+     * @param CEvent $event 
      */
     public function onGainingXp($event) {
         $this->raiseEvent("onGainingXp", $event);
     }
     /**
      * Event raiser
-     * @param CalcCharacterStatEvent $event 
+     * @param CEvent $event 
      */
     public function onGainingResoluteness($event) {
         $this->raiseEvent("onGainingResoluteness", $event);
     }
     /**
      * Event raiser
-     * @param CalcCharacterStatEvent $event 
+     * @param CEvent $event 
      */
     public function onGainingWillpower($event) {
         $this->raiseEvent("onGainingWillpower", $event);
     }
     /**
      * Event raiser
-     * @param CalcCharacterStatEvent $event 
+     * @param CEvent $event 
      */
     public function onGainingCunning($event) {
         $this->raiseEvent("onGainingCunning", $event);
@@ -889,7 +879,7 @@ class Character extends BaseCharacter {
 
     /**
      * Event raiser
-     * @param CalcCharacterStatEvent $event 
+     * @param CEvent $event
      */
     public function onCalcDropItemBonus($event) {
         $this->raiseEvent("onCalcDropItemBonus", $event);

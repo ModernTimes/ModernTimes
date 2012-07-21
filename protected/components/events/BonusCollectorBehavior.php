@@ -12,7 +12,7 @@
  * 
  * statAdjusted = (stat * (bonusPerc+100)/100) + bonusAbs
  * 
- * @package Events
+ * @package Events.Behaviors
  */
 
 class BonusCollectorBehavior extends CBehavior {
@@ -110,7 +110,7 @@ class BonusCollectorBehavior extends CBehavior {
      * @param float $base
      * @return mixed int or float 
      */
-    public function adjustStat($base) {
+    public function adjustStat($base = 0) {
         return $base * (($this->getBonusPerc() + 100) / 100) +
                $this->getBonusAbs();
     }
