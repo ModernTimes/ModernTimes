@@ -123,15 +123,14 @@ class Character extends BaseCharacter {
      * CalcDropItemBonus event, which is then modified by everything that
      * affects this stat, especially Model records with
      * CharacterModifierBehavior.
+     * @uses CalcCharacterStatEvent
+     * @uses onCalcDropItemBonus
      * @return float bonus in percentage points
      */ 
     public function getDropItemPerc() {
-        $bonusPerc = 0;
-
-        $event = new CEvent(null, array('bonusPerc' => &$bonusPerc));
+        $event = new CalcCharacterStatEvent($this);
         $this->onCalcDropItemBonus($event);
-
-        return $bonusPerc;
+        return $event->getBonusPerc();
     }
     
     /**
@@ -899,7 +898,7 @@ class Character extends BaseCharacter {
 
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param CalcCharacterStatEvent $event 
      */
     public function onCalcDropItemBonus($event) {
         $this->raiseEvent("onCalcDropItemBonus", $event);

@@ -174,10 +174,10 @@ class Charactermodifier extends BaseCharactermodifier {
     /**
      * Basic event handler
      * Adds bonusPerc according to the Model record's attributes
-     * @param CEvent $event
+     * @param CalcCharacterStatEvent $event
      */
     public function reactToOnCalcDropItemBonus($event) {
-        $event->params['bonusPerc'] += $this->dropItemPerc;
+        $event->increaseBonusPerc($this->dropItemPerc);
     }
     
     
