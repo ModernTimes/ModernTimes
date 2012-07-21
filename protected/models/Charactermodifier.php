@@ -85,20 +85,20 @@ class Charactermodifier extends BaseCharactermodifier {
     /**
      * Basic event handler
      * Adds bonusAbs und bonusPerc according to the Model record's attributes
-     * @param CEvent $event 
+     * @param CalcCharacterStatEvent $event 
      */
     public function reactToOnCalcHp($event) { 
-        $event->params['bonusAbs'] += $this->hp;
-        $event->params['bonusPerc'] += $this->hpPerc;
+        $event->increaseBonusAbs($this->hp);
+        $event->increaseBonusPerc($this->hpPerc);
     }
     /**
      * Basic event handler
      * Adds bonusAbs und bonusPerc according to the Model record's attributes
-     * @param CEvent $event 
+     * @param CalcCharacterStatEvent $event 
      */
     public function reactToOnCalcEnergy($event) { 
-        $event->params['bonusAbs'] += $this->energy;
-        $event->params['bonusPerc'] += $this->energyPerc;
+        $event->increaseBonusAbs($this->energy);
+        $event->increaseBonusPerc($this->energyPerc);
     }
     /**
      * Basic event handler

@@ -492,49 +492,43 @@ class Character extends BaseCharacter {
     
     /**
      * Returns the Character's buffed maximum hp value
-     * Buffed = Base * BonusPerc(entage based) + BonusAbs(olute)
-     * In order to determine BonusPerc and BonusAbs, it raises a CalcHp
+     * In order to determine hp bonuses, it raises a CalcHp
      * event, to which other code elements can react, especially Model records 
      * with CharacterModifierBehavior.
+     * @uses CalcCharacterStatEvent
+     * @uses adjustStat
      * @return int
      */ 
     public function getHpMax() {
-        $bonusAbs = 0;
-        $bonusPerc = 0;
-
-        $event = new CEvent(null, array('bonusAbs' => &$bonusAbs,
-                                        'bonusPerc' => &$bonusPerc));
+        $event = new CalcCharacterStatEvent($this);
         call_user_func(array($this, "onCalcHp"), $event);
 
-        $ret = (($this->getResolutenessBuffed() + 3) * (($bonusPerc + 100) / 100)
-                    + $bonusAbs)
-               * ($this->getClassType() == 'resoluteness' ? 1.5 : 1);
-        $ret = max(floor($ret), 0);
-                
-        return $ret;
+        $base = $this->getResolutenessBuffed() + 3;
+        $buffed = $this->adjustStat($base, $event);
+        if($this->getClassType() == 'resoluteness') {
+            $buffed = floor($buffed * 1.5);
+        }
+        return $buffed;
     }
     /**
      * Returns the Character's buffed maximum energy value
-     * Buffed = Base * BonusPerc(entage based) + BonusAbs(olute)
-     * In order to determine BonusPerc and BonusAbs, it raises a CalcHp
+     * In order to determine energy bonuses, it raises a CalcHp
      * event, to which other code elements can react, especially Model records 
      * with CharacterModifierBehavior.
+     * @uses CalcCharacterStatEvent
+     * @uses adjustStat
      * @return int
      */ 
     public function getEnergyMax() {
-        $bonusAbs = 0;
-        $bonusPerc = 0;
-
-        $event = new CEvent(null, array('bonusAbs' => &$bonusAbs,
-                                        'bonusPerc' => &$bonusPerc));
+        $event = new CalcCharacterStatEvent($this);
         call_user_func(array($this, "onCalcEnergy"), $event);
 
-        $ret = (($this->getWillpowerBuffed() + 3) * (($bonusPerc + 100) / 100)
-                    + $bonusAbs)
-               * ($this->getClassType() == 'willpower' ? 1.5 : 1);
-        $ret = max(floor($ret), 0);
-                
-        return $ret;
+        $base = $this->getWillpowerBuffed() + 3;
+        $buffed = $this->adjustStat($base, $event);
+        if($this->getClassType() == 'willpower') {
+            $buffed = floor($buffed * 1.5);
+        }
+        return $buffed;
     }
     
     /**
@@ -812,14 +806,14 @@ class Character extends BaseCharacter {
 
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param CalcCharacterStatEvent $event 
      */
     public function onCalcHp($event) {
         $this->raiseEvent("onCalcHp", $event);
     }
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param CalcCharacterStatEvent $event 
      */
     public function onCalcEnergy($event) {
         $this->raiseEvent("onCalcEnergy", $event);
