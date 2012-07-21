@@ -33,16 +33,30 @@ class CalcCharacterStatEvent extends CEvent {
     /**
      * Constructor
      * @param Character $sender
-     * @param float $bonusAbs default = 0
-     * @param float $bonusPerc default = 0
+     * @oaram array $params
+     * - float bonusAbs default = 0
+     * - float bonusPerc default = 0
      */
-    public function __construct($sender = null, $bonusAbs = 0, $bonusPerc = null) {
-        if(is_a($sender, "Character")) {
-            parent::__construct($sender);
-        }
+    public function __construct($sender = null, $params = array()) {
+        $params = array_merge(
+            // The default options
+            array(
+                'bonusAbs' => 0,
+                'bonusPerc' => 0,
+            ),
+            // The specified options
+            $params
+        );
         
-        $this->_bonusAbs = $bonusAbs;
-        $this->_bonusPerc = $bonusPerc;
+        $this->_bonusAbs = $params['bonusAbs'];
+        $this->_bonusPerc = $params['bonusPerc'];
+        unset($params['bonusAbs'], $params['bonusPerc']);
+
+        if(is_a($sender, "Character")) {
+            parent::__construct($sender, $params);
+        } else {
+            parent::__construct(null, $params);
+        }
     }
     
     /**

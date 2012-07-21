@@ -11,6 +11,7 @@ Yii::import('application.models._base.BaseCharacter');
  * 
  * @see CombatantBehavior
  * @see CharacterModifierBehavior
+ * @uses CalcCharacterStatEvent
  * @link http://www.yiiframework.com/extension/attributesbackupbehavior/
  * @package Character
  */
@@ -54,6 +55,8 @@ class Character extends BaseCharacter {
      * other code elements can react, especially Model records with
      * CharacterModifierBehavior.
      * @todo define other sources (trade, whatever)
+     * @uses CalcCharacterStatEvent
+     * @uses adjustStat
      * @param string $resource enum(cash|favours|kudos)
      * @param float $amount
      * @param string $from enum(battle|encounter|quest|autosell) 
@@ -61,20 +64,13 @@ class Character extends BaseCharacter {
      * resources come from a certain source
      */ 
     private function gainResource($resource, $amount, $from) {
-        $bonusAbs = 0;
-        $bonusPerc = 1;
-        
-        // Note that amount is read-only
-        $event = new CModelEvent($this, array('bonusAbs'  => &$bonusAbs,
-                                              'bonusPerc' => &$bonusPerc,
-                                              'amount' => $amount,
-                                              'from'   => $from));
+        $event = new CalcCharacterStatEvent($this, array(
+            'amount' => $amount,
+            'from'   => $from
+        ));
         call_user_func(array($this, "onGaining" . ucfirst($resource)), $event);
-        
-        $amount = floor(
-                    $amount * (($bonusPerc + 100) / 100) +
-                    $bonusAbs
-                  );
+
+        $amount = $this->adjustStat($amount, $event);
         
         call_user_func(array($this, "increase" . ucfirst($resource)), $amount);
     }
@@ -222,7 +218,7 @@ class Character extends BaseCharacter {
         }
         
         $hpDifference = ($this->hp - $hpBefore);
-        if(hpDifference > 0) {
+        if($hpDifference > 0) {
             EUserFlash::setSuccessMessage($hpDifference, 'gainHp');
         }
         return $hpDifference;
@@ -315,6 +311,8 @@ class Character extends BaseCharacter {
      * other code elements can react, especially Model records with
      * CharacterModifierBehavior.
      * @todo define other sources (trade, whatever)
+     * @uses CalcCharacterStatEvent
+     * @uses adjustStat
      * @param string $substat enum(xp|robustness|cunning|willpower)
      * @param float $amount
      * @param string $from enum(battle|encounter|quest|autosell) 
@@ -322,20 +320,13 @@ class Character extends BaseCharacter {
      * substat come from a certain source
      */ 
     private function gainSubstat($substat, $amount, $from) {
-        $bonusAbs = 0;
-        $bonusPerc = 1;
-        
-        // Note that amount is read-only
-        $event = new CModelEvent($this, array('bonusAbs'  => &$bonusAbs,
-                                              'bonusPerc' => &$bonusPerc,
-                                              'amount' => $amount,
-                                              'from'   => $from));
+        $event = new CalcCharacterStatEvent($this, array(
+            'amount' => $amount,
+            'from'   => $from
+        ));
         call_user_func(array($this, "onGaining" . ucfirst($substat)), $event);
         
-        $amount = floor(
-                    $amount * (($bonusPerc + 100) / 100) +
-                    $bonusAbs
-                  );
+        $amount = $this->adjustStat($amount, $event);
         
         call_user_func(array($this, "increase" . ucfirst($substat)), $amount);
     }
@@ -465,7 +456,10 @@ class Character extends BaseCharacter {
         call_user_func(array($this, "onCalc" . ucfirst($stat)), $event);
         
         $base = call_user_func(array($this, "get" . ucfirst($stat) . "Base"));
-        return $this->adjustStat($base, $event);
+        return $this->adjustStat($base, $event, array(
+            // Character stats are at least 0
+            'min' => 0
+        ));
     }
     
     /**
@@ -504,7 +498,9 @@ class Character extends BaseCharacter {
         call_user_func(array($this, "onCalcHp"), $event);
 
         $base = $this->getResolutenessBuffed() + 3;
-        $buffed = $this->adjustStat($base, $event);
+        $buffed = $this->adjustStat($base, $event, array(
+            'min' => 1
+        ));
         if($this->getClassType() == 'resoluteness') {
             $buffed = floor($buffed * 1.5);
         }
@@ -524,7 +520,9 @@ class Character extends BaseCharacter {
         call_user_func(array($this, "onCalcEnergy"), $event);
 
         $base = $this->getWillpowerBuffed() + 3;
-        $buffed = $this->adjustStat($base, $event);
+        $buffed = $this->adjustStat($base, $event, array(
+            'min' => 1
+        ));
         if($this->getClassType() == 'willpower') {
             $buffed = floor($buffed * 1.5);
         }
@@ -633,7 +631,7 @@ class Character extends BaseCharacter {
      * @param array $opt 
      * - string resultType enum(int|floor), default int
      * - string lastOperation enum(floor|round|ceil|random), default floor
-     * - floor min minimum value, default 0
+     * - floor min minimum value, no default value
      * @return mixed int or float 
      */
     private function adjustStat($base, $event, $opt = array()) {
@@ -641,8 +639,7 @@ class Character extends BaseCharacter {
             // The default options
             array(
                 'resultType' => 'int',
-                'lastOperation' => 'floor',
-                'min' => 0
+                'lastOperation' => 'floor'
             ),
             // The specified options
             $opt
@@ -842,49 +839,49 @@ class Character extends BaseCharacter {
 
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param CalcCharacterStatEvent $event 
      */
     public function onGainingCash($event) {
         $this->raiseEvent("onGainingCash", $event);
     }
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param CalcCharacterStatEvent $event 
      */
     public function onGainingFavours($event) {
         $this->raiseEvent("onGainingFavours", $event);
     }
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param CalcCharacterStatEvent $event 
      */
     public function onGainingKudos($event) {
         $this->raiseEvent("onGainingKudos", $event);
     }
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param CalcCharacterStatEvent $event 
      */
     public function onGainingXp($event) {
         $this->raiseEvent("onGainingXp", $event);
     }
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param CalcCharacterStatEvent $event 
      */
     public function onGainingResoluteness($event) {
         $this->raiseEvent("onGainingResoluteness", $event);
     }
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param CalcCharacterStatEvent $event 
      */
     public function onGainingWillpower($event) {
         $this->raiseEvent("onGainingWillpower", $event);
     }
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param CalcCharacterStatEvent $event 
      */
     public function onGainingCunning($event) {
         $this->raiseEvent("onGainingCunning", $event);
