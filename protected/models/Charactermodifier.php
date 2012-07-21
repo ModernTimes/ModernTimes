@@ -103,29 +103,29 @@ class Charactermodifier extends BaseCharactermodifier {
     /**
      * Basic event handler
      * Adds bonusAbs und bonusPerc according to the Model record's attributes
-     * @param CEvent $event 
+     * @param CalcCharacterStatEvent $event 
      */
     public function reactToOnCalcResoluteness($event) { 
-        $event->params['bonusAbs'] += $this->resoluteness;
-        $event->params['bonusPerc'] += $this->resolutenessPerc;
+        $event->increaseBonusAbs($this->resoluteness);
+        $event->increaseBonusPerc($this->resolutenessPerc);
     }
     /**
      * Basic event handler
      * Adds bonusAbs und bonusPerc according to the Model record's attributes
-     * @param CEvent $event 
+     * @param CalcCharacterStatEvent $event 
      */
     public function reactToOnCalcWillpower($event) { 
-        $event->params['bonusAbs'] += $this->willpower;
-        $event->params['bonusPerc'] += $this->willpowerPerc;
+        $event->increaseBonusAbs($this->willpower);
+        $event->increaseBonusPerc($this->willpowerPerc);
     }
     /**
      * Basic event handler
      * Adds bonusAbs und bonusPerc according to the Model record's attributes
-     * @param CEvent $event 
+     * @param CalcCharacterStatEvent $event 
      */
     public function reactToOnCalcCunning($event) { 
-        $event->params['bonusAbs'] += $this->cunning;
-        $event->params['bonusPerc'] += $this->cunningPerc;
+        $event->increaseBonusAbs($this->cunning);
+        $event->increaseBonusPerc($this->cunningPerc);
     }    
 
     /**

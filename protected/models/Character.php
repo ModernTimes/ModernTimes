@@ -453,30 +453,20 @@ class Character extends BaseCharacter {
 
     /**
      * Returns the Character's buffed $stat (resoluteness, cunning, willpower)
-     * Buffed = Base * BonusPerc(entage based) + BonusAbs(olute)
-     * In order to determine BonusPerc and BonusAbs, it raises a CalcStat 
-     * event, to which other code elements can react, especially Model records 
-     * with CharacterModifierBehavior.
+     * In order to determine bonuses to the stat, it raises a 
+     * CalcCharacterStat event, to which other code elements can react, 
+     * especially Model records with CharacterModifierBehavior.
+     * @uses CalcCharacterStatEvent
+     * @uses adjustStat
      * @param string $stat enum(robustness|cunning|willpower)
      * @return int
      */ 
     private function getStatBuffed($stat) {
-        $bonusAbs = 0;
-        $bonusPerc = 0;
-
-        // CEvents don't need a sender object
-        $event = new CEvent(null, array('bonusAbs' => &$bonusAbs,
-                                        'bonusPerc' => &$bonusPerc));
+        $event = new CalcCharacterStatEvent($this);
         call_user_func(array($this, "onCalc" . ucfirst($stat)), $event);
-
-        $ret = call_user_func(array($this, "get" . ucfirst($stat) . "Base")) *
-                    (($bonusPerc + 100) / 100) +
-               $bonusAbs;
-        //floor
-        // make sure that stats don't fall below 0 (e.g. by having bonusPerc = -120)
-        $ret = max(floor($ret), 0);
-                
-        return $ret;
+        
+        $base = call_user_func(array($this, "get" . ucfirst($stat) . "Base"));
+        return $this->adjustStat($base, $event);
     }
     
     /**
@@ -637,6 +627,63 @@ class Character extends BaseCharacter {
         return $this->getCunningBuffed();
     }
     
+    /**
+     * Adjusts the stat as specified by the CalcCharacterStatEvent.
+     * Buffed = Base * ((BonusPerc+100)/100) + BonusAbs
+     * It also cleans up the result according to the options specified in $opt
+     * 
+     * @uses CalcCharacterStatEvent
+     * @uses Tools::decideBetweenTwoNumbers
+     * 
+     * @param float $base
+     * @param CalcCharacterStatEvent $event
+     * @param array $opt 
+     * - string resultType enum(int|floor), default int
+     * - string lastOperation enum(floor|round|ceil|random), default floor
+     * - floor min minimum value, default 0
+     * @return mixed int or float 
+     */
+    private function adjustStat($base, $event, $opt = array()) {
+        $opt = array_merge(
+            // The default options
+            array(
+                'resultType' => 'int',
+                'lastOperation' => 'floor',
+                'min' => 0
+            ),
+            // The specified options
+            $opt
+        );        
+
+        $ret = $base * (($event->getBonusPerc() + 100) / 100) +
+               $event->getBonusAbs();
+        
+        if($opt['resultType'] == "int") {
+            switch($opt['lastOperation']) {
+                case "floor":
+                    $ret = floor($ret);
+                    break;
+                case "round":
+                    $ret = round($ret);
+                    break;
+                case "ceil":
+                    $ret = ceil($ret);
+                    break;
+                case "random":
+                    $ret = Yii::app()->tools->decideBetweenTwoNumbers($ret);
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        if(isset($opt['min'])) {
+            $ret = max($ret, $opt['min']);
+        }
+                
+        return $ret;
+    }
+    
 
     /**
      * OTHER STUFF
@@ -780,21 +827,21 @@ class Character extends BaseCharacter {
     }
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param CalcCharacterStatEvent $event 
      */
     public function onCalcResoluteness($event) {
         $this->raiseEvent("onCalcResoluteness", $event);
     }
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param CalcCharacterStatEvent $event 
      */
     public function onCalcWillpower($event) {
         $this->raiseEvent("onCalcWillpower", $event);
     }
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param CalcCharacterStatEvent $event 
      */
     public function onCalcCunning($event) {
         $this->raiseEvent("onCalcCunning", $event);
