@@ -34,6 +34,7 @@ class BattleActionAction extends BattleAction {
             return;
         }
         
+        // @todo add hasSkill function to Character
         foreach($character->characterSkills as $characterSkill) {
             if($characterSkill->skill->skillType == "combat" &&
                $characterSkill->skill->id == $skillID) {
@@ -50,7 +51,7 @@ class BattleActionAction extends BattleAction {
             }
         }
         
-        // ToDo: repeat for Items
+        // @todo repeat for Items
 
         if(!isset($playerAction)) {
             EUserFlash::setErrorMessage("It seems as if your last battle action was invalid.", 'validate');
