@@ -9,6 +9,9 @@ Yii::import('application.components.battleEffects.*');
  * See BaseBattle for a list of attributes and related Models
  *
  * @todo implememnt battle phases in State pattern?
+ * @fixme AttributesbackupBehavior is flawed; no update via $this->save() after
+ * objectState is set by save-method. Workaround: use update().
+ * 
  * @link http://www.yiiframework.com/extension/attributesbackupbehavior/
  * @uses BattleeffectList
  * @package Battle
@@ -570,7 +573,7 @@ class Battle extends BaseBattle {
     public function saveObjectState() {
         $this->objectState = base64_encode(serialize($this));
         $this->isNewRecord = false;
-        $this->save();
+        $this->update();
         $this->reconstructCombatants();
     }
     
