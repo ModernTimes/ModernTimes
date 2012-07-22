@@ -2,29 +2,17 @@
 
 /**
  * Notifier + BonusCollector
- * Battle action is about to deal damage
- * 
+ * Informs that the Combatant is about to take damage
+ * @todo Enforce the sender to have CombatantBehavior
+ *
  * @uses BonusCollectorBehavior
  * @uses DamageStorageBehavior
  * @package Events
  */
 
-class BattleActionDamageEvent extends BattleActionEvent {
-
-    /**
-     * Calls parent constructor
-     * @param Battle $sender 
-     * @param mixed $hero null or CModel with CombatantBehavior
-     * Combatant from whose perspective the event takes place
-     * @param mixed $enemy null or CModel with CombatantBehavior
-     * Enemy of the combatant from whose perspective the event takes place
-     * @param float $damage The base amount of damage (before adjustments)
-     * @param string $damageType enum(normal|special)
-     * @param array $params default empty
-     */
-    public function __construct($sender, $hero, $enemy, $action, 
-                $damage = 0, $damageType = "normal", $params = array()) {
-        
+class CombatantTakeDamageEvent extends CEvent {
+    
+    public function __construct($sender, $damage = 0, $damageType = "normal", $params = array()) {
         $params = array_merge(
             // The default options
             array(
@@ -50,7 +38,7 @@ class BattleActionDamageEvent extends BattleActionEvent {
                 $damageType
         );
 
-        parent::__construct($sender, $hero, $enemy, $action, $params);
+        parent::__construct($sender, $params);
     }
     
     /**

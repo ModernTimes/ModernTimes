@@ -3,7 +3,7 @@
 /**
  * Basic BattleEvent 
  * Enforces the sender to be either null or a Battle
- * 
+ * Keeps $hero and $enemy as properties
  * 
  * @package Events
  */

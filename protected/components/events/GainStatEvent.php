@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Simple CEvent with BonusCollectorBehavior. Also handles $amount of stat to be
- * gained, and the source of this fortunate event
+ * Notifier + BonusCollector
+ * Handles $amount of stat to be gained, and the source of this fortunate event
  *  * 
  * @uses BonusCollectorBehavior
  * @package Events 

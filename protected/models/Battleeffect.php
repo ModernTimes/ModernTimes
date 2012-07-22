@@ -272,14 +272,14 @@ class Battleeffect extends BaseBattleeffect {
      * Empty event handler. Only there to have a fallback function if
      * a SpecialnessBehavior class does not provide it.
      * "Override" and extend by SpecialnessBehavior classes as necessary
-     * @param CEvent $event 
+     * @param CombatantTakeDamageEvent $event 
      */
     public function reactToOnBeforeTakingDamage($event) { }
     /**
      * Empty event handler. Only there to have a fallback function if
      * a SpecialnessBehavior class does not provide it.
      * "Override" and extend by SpecialnessBehavior classes as necessary
-     * @param CEvent $event 
+     * @param CombatantTakenDamageEvent $event 
      */
     public function reactToOnAfterTakingDamage($event) { }
 

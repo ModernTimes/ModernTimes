@@ -1,15 +1,14 @@
 <?php
 
 /**
- * Notifier + BonusCollector
- * Battle action is about to deal damage
- * 
- * @uses BonusCollectorBehavior
+ * Notifier
+ * Informs that the battle action has dealt damage
+ *
  * @uses DamageStorageBehavior
  * @package Events
  */
 
-class BattleActionDamageEvent extends BattleActionEvent {
+class BattleActionDamageDealtEvent extends BattleActionEvent {
 
     /**
      * Calls parent constructor
@@ -25,25 +24,8 @@ class BattleActionDamageEvent extends BattleActionEvent {
     public function __construct($sender, $hero, $enemy, $action, 
                 $damage = 0, $damageType = "normal", $params = array()) {
         
-        $params = array_merge(
-            // The default options
-            array(
-                'bonusAbs' => 0,
-                'bonusPerc' => 0,
-            ),
-            // The specified options
-            $params
-        );
-        
         $this->attachBehaviors($this->behaviors());
 
-        // BonusCollector part
-        $this->asa("BonusCollector")->init(
-                $params['bonusAbs'], 
-                $params['bonusPerc']
-        );
-        unset($params['bonusAbs'], $params['bonusPerc']);
-        
         // DamageStorage part
         $this->asa("DamageStorage")->init(
                 $damage,
@@ -60,7 +42,6 @@ class BattleActionDamageEvent extends BattleActionEvent {
      */
     public function behaviors() {
         return array(
-            "BonusCollector" => "application.components.events.behaviors.BonusCollectorBehavior",
             "DamageStorage" => "application.components.events.behaviors.DamageStorageBehavior"
         );
     }

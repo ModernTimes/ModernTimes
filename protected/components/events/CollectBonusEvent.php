@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * BonusCollector
  * Simple CEvent with BonusCollectorBehavior
  * 
  * @uses BonusCollectorBehavior
