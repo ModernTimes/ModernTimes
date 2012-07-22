@@ -7,7 +7,7 @@
 	<title>Class BattleMonsterAction | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?3025928408"></script>
+	<script type="text/javascript" src="elementlist.js?277009506"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -69,6 +69,11 @@
 				<li><a href="package-Character.html">Character<span></span></a>
 						<ul>
 				<li><a href="package-Character.Relations.html">Relations</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Events.html">Events<span></span></a>
+						<ul>
+				<li><a href="package-Events.Behaviors.html">Behaviors</a>
 						</li>
 							</ul></li>
 				<li><a href="package-Items.html">Items</a>
@@ -162,8 +167,8 @@ CAction
 
 				<b>See:</b>
 				<code><code><a href="class-Battle.html">Battle</a></code></code><br />
-				<b>See:</b>
-				<code><code><a href="class-MischiefAction.html">MischiefAction</a></code></code><br />
+				<b>Used by:</b>
+				<code><code><a href="class-MischiefAction.html">MischiefAction</a></code></code> <br />
 		<b>Located at</b> <a href="source-class-BattleMonsterAction.html#4" title="Go to source code">protected/controllers/actions/BattleMonsterAction.php</a><br />
 	</div>
 
@@ -181,19 +186,19 @@ CAction
 
 			<td class="name"><div>
 			<a class="anchor" href="#_run">#</a>
-			<code><a href="source-class-BattleMonsterAction.html#27" title="Go to source code">run</a>( )</code>
+			<code><a href="source-class-BattleMonsterAction.html#19" title="Go to source code">run</a>( )</code>
 
 			<div class="description short">
 				
-<p>Initializes the Battle record, starts the battle, and renders the battle
-view</p>
+<p>Initializes the Battle record, starts the battle, spends a turn, and renders
+the battle view</p>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>Initializes the Battle record, starts the battle, and renders the battle
-view</p>
+<p>Initializes the Battle record, starts the battle, spends a turn, and renders
+the battle view</p>
 
 
 
@@ -222,7 +227,7 @@ view</p>
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-BattleMonsterAction.html#14" title="Go to source code"><var>$monsterID</var></a>
+					<a href="source-class-BattleMonsterAction.html#13" title="Go to source code"><var>$monsterID</var></a>
 			</td>
 			<td class="value"><code></code></td>
 			<td class="description"><div>
@@ -237,38 +242,6 @@ view</p>
 				<div class="description detailed hidden">
 					
 <p>ID of the Monster record that the character has to fight</p>
-
-
-						<h4>See</h4>
-						<div class="list">
-								<code><code><a href="class-Monster.html">Monster</a></code></code><br />
-						</div>
-				</div>
-			</div></td>
-		</tr>
-		<tr data-order="params" id="$params">
-
-			<td class="attributes"><code>
-				public 
-				array
-			</code></td>
-
-			<td class="name">
-					<a href="source-class-BattleMonsterAction.html#21" title="Go to source code"><var>$params</var></a>
-			</td>
-			<td class="value"><code></code></td>
-			<td class="description"><div>
-				<a href="#$params" class="anchor">#</a>
-
-				<div class="description short">
-					
-<p>No usage so far</p>
-
-				</div>
-
-				<div class="description detailed hidden">
-					
-<p>No usage so far</p>
 
 
 				</div>

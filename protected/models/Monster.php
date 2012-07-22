@@ -8,8 +8,8 @@ Yii::import('application.components.monsters.*');
  * 
  * See BaseMonster for a list of attributes and related Models
  * 
- * @see CombatantBehavior
- * @see SpecialnessBehavior
+ * @uses CombatantBehavior
+ * @uses SpecialnessBehavior
  * @package Battle
  */
 
@@ -23,6 +23,7 @@ class Monster extends BaseMonster {
 
     /**
      * Future AI can refer to the current battle state
+     * @todo ask for Lottery as parameter to enable dependency injection
      * @uses Lottery
      * @param Battle $battle
      * @return Skill
@@ -139,8 +140,6 @@ class Monster extends BaseMonster {
     /**
      * Returns a list of CBehaviors to be attached to this Model
      * @link http://www.yiiframework.com/doc/api/CBehavior
-     * @see CombatantBehavior
-     * @see SpecialnessBehavior
      * @return array
      */
     public function behaviors() {
@@ -150,7 +149,7 @@ class Monster extends BaseMonster {
         
     /**
      * Factory method to get Model objects
-     * @see http://www.yiiframework.com/doc/api/CModel
+     * @link http://www.yiiframework.com/doc/api/CModel
      * @param string $className
      * @return CModel
      */

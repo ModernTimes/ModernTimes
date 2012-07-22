@@ -7,7 +7,7 @@
 	<title>Class Battle | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?3025928408"></script>
+	<script type="text/javascript" src="elementlist.js?277009506"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -69,6 +69,11 @@
 				<li><a href="package-Character.html">Character<span></span></a>
 						<ul>
 				<li><a href="package-Character.Relations.html">Relations</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Events.html">Events<span></span></a>
+						<ul>
+				<li><a href="package-Events.Behaviors.html">Behaviors</a>
 						</li>
 							</ul></li>
 				<li><a href="package-Items.html">Items</a>
@@ -171,6 +176,11 @@ GxActiveRecord
 				<a href="http://www.yiiframework.com/extension/attributesbackupbehavior/">http://www.yiiframework.com/extension/attributesbackupbehavior/</a><br />
 				<b>Todo:</b>
 				implememnt battle phases in State pattern?<br />
+				<b>Todo:</b>
+				is this class overloaded with responsibilities? How to split it up?<br />
+				<b>Fixme:</b>
+				AttributesbackupBehavior is flawed; no update via $this-&gt;save() after
+objectState is set by save-method. Workaround: use update().<br />
 		<b>Located at</b> <a href="source-class-Battle.html#7" title="Go to source code">protected/models/Battle.php</a><br />
 	</div>
 
@@ -188,7 +198,7 @@ GxActiveRecord
 
 			<td class="name"><div>
 			<a class="anchor" href="#_start">#</a>
-			<code><a href="source-class-Battle.html#63" title="Go to source code">start</a>( )</code>
+			<code><a href="source-class-Battle.html#67" title="Go to source code">start</a>( )</code>
 
 			<div class="description short">
 				
@@ -227,7 +237,7 @@ database</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_stop">#</a>
-			<code><a href="source-class-Battle.html#110" title="Go to source code">stop</a>( )</code>
+			<code><a href="source-class-Battle.html#114" title="Go to source code">stop</a>( )</code>
 
 			<div class="description short">
 				
@@ -262,7 +272,7 @@ cleaning up</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_playerAction">#</a>
-			<code><a href="source-class-Battle.html#168" title="Go to source code">playerAction</a>( <span>mixed <var>$playerAction</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Battle.html#172" title="Go to source code">playerAction</a>( <span>mixed <var>$playerAction</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -288,10 +298,13 @@ a Monster model directly</p>
 
 
 
-					<h4>See</h4>
+					<h4>Uses</h4>
 					<div class="list">
-							<code><code><a href="class-BattleMonsterAction.html">BattleMonsterAction</a></code></code><br />
-							<code><code><a href="class-Battle.html#_">Battle::calculateRound()</a></code></code><br />
+							<code><code><a href="class-Battle.html#_">Battle::calculateRound()</a></code></code> <br />
+					</div>
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-BattleActionAction.html#_">BattleActionAction::run()</a></code></code> <br />
 					</div>
 
 
@@ -309,11 +322,11 @@ a Monster model directly</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_calculateRound">#</a>
-			<code><a href="source-class-Battle.html#203" title="Go to source code">calculateRound</a>( )</code>
+			<code><a href="source-class-Battle.html#206" title="Go to source code">calculateRound</a>( )</code>
 
 			<div class="description short">
 				
-<ol>
+<ul>
 	<li>resolve block actions</li>
 
 	<li>resolve delayed effects</li>
@@ -323,13 +336,13 @@ a Monster model directly</p>
 	<li>resolve offensive actions</li>
 
 	<li>create new effects</li>
-</ol>
+</ul>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<ol>
+<ul>
 	<li>resolve block actions</li>
 
 	<li>resolve delayed effects</li>
@@ -339,13 +352,26 @@ a Monster model directly</p>
 	<li>resolve offensive actions</li>
 
 	<li>create new effects</li>
-</ol>
+</ul>
 
 
 
 
 
 
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-Battle.html#_">Battle::onBeforeRound()</a></code></code><br>with BattleEvent<br />
+							<code><code><a href="class-Battle.html#_">Battle::onAfterRound()</a></code></code><br>with BattleEvent<br />
+							<code><code><a href="class-Battle.html#_">Battle::onBeforeAction()</a></code></code><br>with BattleActionEvent<br />
+							<code><code><a href="class-Battle.html#_">Battle::onAfterAction()</a></code></code><br>with BattleActionEvent<br />
+							<code><code><a href="class-BattleEvent.html">BattleEvent</a></code></code> <br />
+							<code><code><a href="class-BattleActionEvent.html">BattleActionEvent</a></code></code> <br />
+					</div>
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Battle.html#_">Battle::playerAction()</a></code></code> <br />
+					</div>
 
 
 			</div>
@@ -362,17 +388,17 @@ a Monster model directly</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_addEffect">#</a>
-			<code><a href="source-class-Battle.html#283" title="Go to source code">addEffect</a>( <span><code><a href="class-Battleeffect.html">Battleeffect</a></code> <var>$Effect</var></span> )</code>
+			<code><a href="source-class-Battle.html#295" title="Go to source code">addEffect</a>( <span><code><a href="class-Battleeffect.html">Battleeffect</a></code> <var>$Effect</var></span> )</code>
 
 			<div class="description short">
 				
-<p>Adds a Battleeffect to the battle</p>
+<p>Adds a Battleeffect to $this-&gt;battleeffects</p>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>Adds a Battleeffect to the battle</p>
+<p>Adds a Battleeffect to $this-&gt;battleeffects</p>
 
 
 
@@ -405,7 +431,7 @@ a Monster model directly</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_increaseEffectDuration">#</a>
-			<code><a href="source-class-Battle.html#294" title="Go to source code">increaseEffectDuration</a>( <span><code><a href="class-Battleeffect.html">Battleeffect</a></code> <var>$Effect</var></span>, <span>boolean <var>$sameHero</var> = <span class="php-keyword1">true</span></span> )</code>
+			<code><a href="source-class-Battle.html#306" title="Go to source code">increaseEffectDuration</a>( <span><code><a href="class-Battleeffect.html">Battleeffect</a></code> <var>$Effect</var></span>, <span>boolean <var>$sameHero</var> = <span class="php-keyword1">true</span></span> )</code>
 
 			<div class="description short">
 				
@@ -447,7 +473,7 @@ active Battleeffects, and if $Effect is not a permanent effect</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_combatantHasEffects">#</a>
-			<code><a href="source-class-Battle.html#310" title="Go to source code">combatantHasEffects</a>( <span>string <var>$combatantString</var></span> )</code>
+			<code><a href="source-class-Battle.html#322" title="Go to source code">combatantHasEffects</a>( <span>string <var>$combatantString</var></span> )</code>
 
 			<div class="description short">
 				
@@ -493,7 +519,7 @@ active Battleeffects, and if $Effect is not a permanent effect</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onBeforeRound">#</a>
-			<code><a href="source-class-Battle.html#331" title="Go to source code">onBeforeRound</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Battle.html#343" title="Go to source code">onBeforeRound</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -515,6 +541,10 @@ active Battleeffects, and if $Effect is not a permanent effect</p>
 
 
 
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Battle.html#_">Battle::calculateRound()</a></code></code><br>with BattleEvent<br />
+					</div>
 
 
 			</div>
@@ -531,7 +561,7 @@ active Battleeffects, and if $Effect is not a permanent effect</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onAfterRound">#</a>
-			<code><a href="source-class-Battle.html#338" title="Go to source code">onAfterRound</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Battle.html#350" title="Go to source code">onAfterRound</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -553,6 +583,10 @@ active Battleeffects, and if $Effect is not a permanent effect</p>
 
 
 
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Battle.html#_">Battle::calculateRound()</a></code></code><br>with BattleEvent<br />
+					</div>
 
 
 			</div>
@@ -569,7 +603,7 @@ active Battleeffects, and if $Effect is not a permanent effect</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onBeforeAction">#</a>
-			<code><a href="source-class-Battle.html#345" title="Go to source code">onBeforeAction</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Battle.html#357" title="Go to source code">onBeforeAction</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -591,6 +625,10 @@ active Battleeffects, and if $Effect is not a permanent effect</p>
 
 
 
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Battle.html#_">Battle::calculateRound()</a></code></code><br>with BattleActionEvent<br />
+					</div>
 
 
 			</div>
@@ -607,7 +645,7 @@ active Battleeffects, and if $Effect is not a permanent effect</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onAfterAction">#</a>
-			<code><a href="source-class-Battle.html#352" title="Go to source code">onAfterAction</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Battle.html#364" title="Go to source code">onAfterAction</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -629,6 +667,10 @@ active Battleeffects, and if $Effect is not a permanent effect</p>
 
 
 
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Battle.html#_">Battle::calculateRound()</a></code></code><br>with BattleActionEvent<br />
+					</div>
 
 
 			</div>
@@ -645,7 +687,7 @@ active Battleeffects, and if $Effect is not a permanent effect</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onBeforeDealingDamage">#</a>
-			<code><a href="source-class-Battle.html#359" title="Go to source code">onBeforeDealingDamage</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Battle.html#371" title="Go to source code">onBeforeDealingDamage</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -683,7 +725,7 @@ active Battleeffects, and if $Effect is not a permanent effect</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onAfterDealingDamage">#</a>
-			<code><a href="source-class-Battle.html#366" title="Go to source code">onAfterDealingDamage</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Battle.html#378" title="Go to source code">onAfterDealingDamage</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -721,7 +763,7 @@ active Battleeffects, and if $Effect is not a permanent effect</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onBeforeTakingDamage">#</a>
-			<code><a href="source-class-Battle.html#373" title="Go to source code">onBeforeTakingDamage</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Battle.html#385" title="Go to source code">onBeforeTakingDamage</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -759,7 +801,7 @@ active Battleeffects, and if $Effect is not a permanent effect</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onAfterTakingDamage">#</a>
-			<code><a href="source-class-Battle.html#380" title="Go to source code">onAfterTakingDamage</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Battle.html#392" title="Go to source code">onAfterTakingDamage</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -797,7 +839,7 @@ active Battleeffects, and if $Effect is not a permanent effect</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_detachAllEventHandlers">#</a>
-			<code><a href="source-class-Battle.html#388" title="Go to source code">detachAllEventHandlers</a>( <span><code><a href="class-Battleeffect.html">Battleeffect</a></code> <var>$effect</var></span> )</code>
+			<code><a href="source-class-Battle.html#400" title="Go to source code">detachAllEventHandlers</a>( <span><code><a href="class-Battleeffect.html">Battleeffect</a></code> <var>$effect</var></span> )</code>
 
 			<div class="description short">
 				
@@ -835,7 +877,7 @@ active Battleeffects, and if $Effect is not a permanent effect</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_log">#</a>
-			<code><a href="source-class-Battle.html#406" title="Go to source code">log</a>( <span><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code> <var>$combatant</var></span>, <span>Battlemessage <var>$battleMsg</var></span>, <span>integer <var>$round</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Battle.html#418" title="Go to source code">log</a>( <span><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code> <var>$combatant</var></span>, <span>Battlemessage <var>$battleMsg</var></span>, <span>integer <var>$round</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -877,7 +919,7 @@ active Battleeffects, and if $Effect is not a permanent effect</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getLogs">#</a>
-			<code><a href="source-class-Battle.html#428" title="Go to source code">getLogs</a>( <span>mixed <var>$rounds</var> = <span class="php-quote">&quot;all&quot;</span></span> )</code>
+			<code><a href="source-class-Battle.html#440" title="Go to source code">getLogs</a>( <span>mixed <var>$rounds</var> = <span class="php-quote">&quot;all&quot;</span></span> )</code>
 
 			<div class="description short">
 				
@@ -928,7 +970,7 @@ active Battleeffects, and if $Effect is not a permanent effect</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getHero">#</a>
-			<code><a href="source-class-Battle.html#454" title="Go to source code">getHero</a>( )</code>
+			<code><a href="source-class-Battle.html#466" title="Go to source code">getHero</a>( )</code>
 
 			<div class="description short">
 				
@@ -965,7 +1007,7 @@ active Battleeffects, and if $Effect is not a permanent effect</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getEnemy">#</a>
-			<code><a href="source-class-Battle.html#465" title="Go to source code">getEnemy</a>( )</code>
+			<code><a href="source-class-Battle.html#477" title="Go to source code">getEnemy</a>( )</code>
 
 			<div class="description short">
 				
@@ -1002,7 +1044,7 @@ active Battleeffects, and if $Effect is not a permanent effect</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getHeroString">#</a>
-			<code><a href="source-class-Battle.html#477" title="Go to source code">getHeroString</a>( )</code>
+			<code><a href="source-class-Battle.html#489" title="Go to source code">getHeroString</a>( )</code>
 
 			<div class="description short">
 				
@@ -1041,7 +1083,7 @@ view)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getEnemyString">#</a>
-			<code><a href="source-class-Battle.html#489" title="Go to source code">getEnemyString</a>( )</code>
+			<code><a href="source-class-Battle.html#501" title="Go to source code">getEnemyString</a>( )</code>
 
 			<div class="description short">
 				
@@ -1080,7 +1122,7 @@ view)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getWinner">#</a>
-			<code><a href="source-class-Battle.html#501" title="Go to source code">getWinner</a>( )</code>
+			<code><a href="source-class-Battle.html#513" title="Go to source code">getWinner</a>( )</code>
 
 			<div class="description short">
 				
@@ -1117,7 +1159,7 @@ view)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getLoser">#</a>
-			<code><a href="source-class-Battle.html#514" title="Go to source code">getLoser</a>( )</code>
+			<code><a href="source-class-Battle.html#526" title="Go to source code">getLoser</a>( )</code>
 
 			<div class="description short">
 				
@@ -1154,7 +1196,7 @@ view)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_isUserWinner">#</a>
-			<code><a href="source-class-Battle.html#528" title="Go to source code">isUserWinner</a>( )</code>
+			<code><a href="source-class-Battle.html#540" title="Go to source code">isUserWinner</a>( )</code>
 
 			<div class="description short">
 				
@@ -1191,7 +1233,7 @@ view)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getCombatantString">#</a>
-			<code><a href="source-class-Battle.html#539" title="Go to source code">getCombatantString</a>( <span><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code> <var>$obj</var></span> )</code>
+			<code><a href="source-class-Battle.html#551" title="Go to source code">getCombatantString</a>( <span><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code> <var>$obj</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1233,7 +1275,7 @@ view)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_nextRound">#</a>
-			<code><a href="source-class-Battle.html#554" title="Go to source code">nextRound</a>( <span>boolean <var>$nextRound</var> = <span class="php-keyword1">true</span></span> )</code>
+			<code><a href="source-class-Battle.html#566" title="Go to source code">nextRound</a>( <span>boolean <var>$nextRound</var> = <span class="php-keyword1">true</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1271,7 +1313,7 @@ view)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_saveObjectState">#</a>
-			<code><a href="source-class-Battle.html#562" title="Go to source code">saveObjectState</a>( )</code>
+			<code><a href="source-class-Battle.html#574" title="Go to source code">saveObjectState</a>( )</code>
 
 			<div class="description short">
 				
@@ -1294,12 +1336,9 @@ DB</p>
 
 
 
-					<h4>See</h4>
-					<div class="list">
-							<code><code><a href="class-Battle.html#_">Battle::__sleep()</a></code></code><br />
-					</div>
 					<h4>Uses</h4>
 					<div class="list">
+							<code><code><a href="class-Battle.html#_">Battle::__sleep()</a></code></code> <br />
 							reconstructCombatants<br />
 					</div>
 
@@ -1318,7 +1357,7 @@ DB</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#___sleep">#</a>
-			<code><a href="source-class-Battle.html#577" title="Go to source code">__sleep</a>( )</code>
+			<code><a href="source-class-Battle.html#589" title="Go to source code">__sleep</a>( )</code>
 
 			<div class="description short">
 				
@@ -1341,6 +1380,10 @@ inactive Battleeffects</p>
 					</div>
 
 
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Battle.html#_">Battle::saveObjectState()</a></code></code> <br />
+					</div>
 
 
 			</div>
@@ -1357,7 +1400,7 @@ inactive Battleeffects</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reconstructBattle">#</a>
-			<code><a href="source-class-Battle.html#608" title="Go to source code">reconstructBattle</a>( <span>integer <var>$battleID</var></span> )</code>
+			<code><a href="source-class-Battle.html#620" title="Go to source code">reconstructBattle</a>( <span>integer <var>$battleID</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1409,7 +1452,7 @@ attribute objectState</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_behaviors">#</a>
-			<code><a href="source-class-Battle.html#644" title="Go to source code">behaviors</a>( )</code>
+			<code><a href="source-class-Battle.html#656" title="Go to source code">behaviors</a>( )</code>
 
 			<div class="description short">
 				
@@ -1451,7 +1494,7 @@ attribute objectState</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_model">#</a>
-			<code><a href="source-class-Battle.html#656" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
+			<code><a href="source-class-Battle.html#668" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
 
 			<div class="description short">
 				
@@ -1477,10 +1520,9 @@ attribute objectState</p>
 					</div>
 
 
-					<h4>See</h4>
+					<h4>Link</h4>
 					<div class="list">
-							<a
-href="http://www.yiiframework.com/doc/api/CModel">http://www.yiiframework.com/doc/api/CModel</a><br />
+							<a href="http://www.yiiframework.com/doc/api/CModel">http://www.yiiframework.com/doc/api/CModel</a><br />
 					</div>
 
 					<h4>Overrides</h4>
@@ -1517,7 +1559,7 @@ href="http://www.yiiframework.com/doc/api/CModel">http://www.yiiframework.com/do
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Battle.html#19" title="Go to source code"><var>$combatantA</var></a>
+					<a href="source-class-Battle.html#23" title="Go to source code"><var>$combatantA</var></a>
 			</td>
 			<td class="value"><code></code></td>
 			<td class="description"><div>
@@ -1550,7 +1592,7 @@ Monster)</p>
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Battle.html#25" title="Go to source code"><var>$combatantB</var></a>
+					<a href="source-class-Battle.html#29" title="Go to source code"><var>$combatantB</var></a>
 			</td>
 			<td class="value"><code></code></td>
 			<td class="description"><div>
@@ -1583,7 +1625,7 @@ Monster)</p>
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Battle.html#32" title="Go to source code"><var>$round</var></a>
+					<a href="source-class-Battle.html#36" title="Go to source code"><var>$round</var></a>
 			</td>
 			<td class="value"><code><span class="php-num">0</span></code></td>
 			<td class="description"><div>
@@ -1611,7 +1653,7 @@ Monster)</p>
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Battle.html#37" title="Go to source code"><var>$combatantAAction</var></a>
+					<a href="source-class-Battle.html#41" title="Go to source code"><var>$combatantAAction</var></a>
 			</td>
 			<td class="value"><code></code></td>
 			<td class="description"><div>
@@ -1639,7 +1681,7 @@ Monster)</p>
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Battle.html#41" title="Go to source code"><var>$combatantBAction</var></a>
+					<a href="source-class-Battle.html#45" title="Go to source code"><var>$combatantBAction</var></a>
 			</td>
 			<td class="value"><code></code></td>
 			<td class="description"><div>
@@ -1667,7 +1709,7 @@ Monster)</p>
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Battle.html#46" title="Go to source code"><var>$battleeffects</var></a>
+					<a href="source-class-Battle.html#50" title="Go to source code"><var>$battleeffects</var></a>
 			</td>
 			<td class="value"><code></code></td>
 			<td class="description"><div>

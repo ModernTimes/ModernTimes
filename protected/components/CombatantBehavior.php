@@ -4,8 +4,6 @@
  * Gets attached to Character and Monster models 
  * to take care of certain battle-related tasks
  * 
- * @see Character
- * @see Monster
  * @package Battle
  */
 
@@ -14,29 +12,38 @@ class CombatantBehavior extends CModelBehavior {
     /**
      * returns how much damage the combatant actually suffered after damage 
      * reduction effects
+     * @uses onBeforeTakingDamage
+     * @uses onAfterTakingDamage
+     * @uses CombatantTakeDamageEvent
+     * @uses CombatnatTakenDamageEvent
      * @param int $damage, how much damage the combatant is to take
      * @param string $damageType enum(normal|special)
      * @return int 
      */
     public function takeDamage($damage, $damageType) {
-        $event = new CModelEvent($this, array('damage' => &$damage,
-                                              'damageType' => &$damageType));
+        // TakeDamageEvent, collect bonuses
+        $event = new CombatantTakeDamageEvent($this, $damage, $damageType);
         $this->onBeforeTakingDamage($event);
+        
+        $damageAdjusted = floor($event->adjustStat($damage));
         
         /**
          * Calculate damage reduction for normal damage
          * (cunningBuffed for characters, defense attribute for monsters)
          */
         if($damageType == "normal") {
-            $damage -= $this->owner->getDefense();
+            $defense = $this->owner->getDefense();
+            $damageAdjusted -= $defense;
         }
         
-        $damage = max(floor($damage), 0);
-        $this->owner->decreaseHp($damage);
+        $damageAdjusted = max($damageAdjusted, 0);
+        $this->owner->decreaseHp($damageAdjusted);
 
+        // takeN damage event, notification only
+        $event = new CombatantTakenDamageEvent($this, $damageAdjusted, $damageType);
         $this->onAfterTakingDamage($event);
         
-        return $damage;
+        return $damageAdjusted;
     }
     
     /**

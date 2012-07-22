@@ -9,6 +9,10 @@ Yii::import('application.components.battleEffects.*');
  * See BaseBattle for a list of attributes and related Models
  *
  * @todo implememnt battle phases in State pattern?
+ * @todo is this class overloaded with responsibilities? How to split it up?
+ * @fixme AttributesbackupBehavior is flawed; no update via $this->save() after
+ * objectState is set by save-method. Workaround: use update().
+ * 
  * @link http://www.yiiframework.com/extension/attributesbackupbehavior/
  * @uses BattleeffectList
  * @package Battle
@@ -170,8 +174,7 @@ class Battle extends BaseBattle {
      * calculateRound if that is so.
      * Validity of $playerAction is checked by controller or is provided by
      * a Monster model directly
-     * @see BattleMonsterAction
-     * @see calculateRound
+     * @uses calculateRound
      * @param mixed Skill or Item record
      */
     public function playerAction($playerAction = null) {
@@ -201,17 +204,24 @@ class Battle extends BaseBattle {
     }
     
     /**
-     * 1. resolve block actions
-     * 2. resolve delayed effects
-     * 3. resolve defensive actions
-     * 4. resolve offensive actions
-     * 5. create new effects
+     * - resolve block actions
+     * - resolve delayed effects
+     * - resolve defensive actions
+     * - resolve offensive actions
+     * - create new effects
+     * 
+     * @uses onBeforeRound with BattleEvent
+     * @uses onAfterRound with BattleEvent
+     * @uses onBeforeAction with BattleActionEvent
+     * @uses onAfterAction with BattleActionEvent
+     * @uses BattleEvent
+     * @uses BattleActionEvent
      */
     public function calculateRound() {
         Yii::trace("calculateRound");
 
         $this->nextRound();
-        $this->onBeforeRound(new CEvent($this));
+        $this->onBeforeRound(new BattleEvent($this));
 
         /**
          * Resolve actions
@@ -239,17 +249,19 @@ class Battle extends BaseBattle {
         $second = ($first == "combatantA" ? "combatantB" : "combatantA");
         
         // First action
-        $event = new CModelEvent($this, array('hero' => $this->{$first},
-                                            'enemy' => $this->{$second},
-                                            'action' => $this->{$first . "Action"}));
+        $event = new BattleActionEvent($this, 
+                $this->{$first}, $this->{$second},
+                $this->{$first . "Action"}
+        );
         $this->onBeforeAction($event);
         $this->{$first . "Action"}->call("resolve", $this, $this->{$first}, $this->{$second});
         $this->onAfterAction($event);
         
         // Second action
-        $event = new CModelEvent($this, array('hero' => $this->{$second},
-                                            'enemy' => $this->{$first},
-                                            'action' => $this->{$second . "Action"}));
+        $event = new BattleActionEvent($this, 
+                $this->{$second}, $this->{$first}, 
+                $this->{$second . "Action"}
+        );
         $this->onBeforeAction($event);
         $this->{$second . "Action"}->call("resolve", $this, $this->{$second}, $this->{$first});
         $this->onAfterAction($event);
@@ -265,7 +277,7 @@ class Battle extends BaseBattle {
         if($this->combatantA->hp <= 0 || $this->combatantB->hp <= 0) {
             $this->stop();
         } else {
-            $this->onAfterRound(new CEvent($this));
+            $this->onAfterRound(new BattleEvent($this));
 
             if($this->type == "pvp") {
                 $this->combatantA->save();
@@ -281,7 +293,7 @@ class Battle extends BaseBattle {
      */
     
     /**
-     * Adds a Battleeffect to the battle
+     * Adds a Battleeffect to $this->battleeffects
      * @see Battleeffect
      * @see BattleeffectList
      * @param Battleeffect $effect 
@@ -564,13 +576,13 @@ class Battle extends BaseBattle {
      * serialize invokes __sleep, which sets $this->combatantA and B to null
      * reconstructCombatants reconstructs the Combatants. That way, the
      * complex Combatant objects do not use up space in the DB
-     * @see __sleep
+     * @uses __sleep
      * @uses reconstructCombatants
      */
     public function saveObjectState() {
         $this->objectState = base64_encode(serialize($this));
         $this->isNewRecord = false;
-        $this->save();
+        $this->update();
         $this->reconstructCombatants();
     }
     
@@ -655,7 +667,7 @@ class Battle extends BaseBattle {
     
     /**
      * Factory method to get Model objects
-     * @see http://www.yiiframework.com/doc/api/CModel
+     * @link http://www.yiiframework.com/doc/api/CModel
      * @param string $className
      * @return CModel
      */

@@ -6,12 +6,21 @@ Yii::import('application.models._base.BaseCharactermodifier');
  * Data basis for Charactermodifier behavior for items, skills, etc.
  * Adds a couple of standard event listeners to stat calculation events in 
  * the Character model.
+ *
+ * implemented so far:
+ * - dropCash/Favours/Kudos Abs/Perc
+ * - dropItem Perc
+ * @todo gainXp/Resoluteness/Willpower/Cunning Abs/Perc
+ *
+ * If you add more event handlers, don't forget to add a line to
+ * detachFromCharacter()
+ * 
  * Can be "overridden" by specialness behavior classes for items, skills, etc.
  * 
  * See BaseCharactermodifier for a list of attributes and related Models
  * 
- * @see CharacterModifierBehavior
- * @see SpecialnessBehavior
+ * @uses CharacterModifierBehavior
+ * @uses SpecialnessBehavior
  * @package Character
  */
 
@@ -20,14 +29,6 @@ class Charactermodifier extends BaseCharactermodifier {
     /**
      * Attach this class's event handlers to the Character's events
      * 
-     * implemented so far:
-     * - dropCash/Favours/Kudos Abs/Perc
-     * - dropItem Perc
-     * - gainXp/Resoluteness/Willpower/Cunning Abs/Perc
-     *
-     * If you add more event handlers, don't forget to add a line to
-     * detachFromCharacter()
-     *
      * "$component->onXXX = y" is the same as "$component->onXXX->add(y)"
      * 
      * @param Character $Character
@@ -85,105 +86,105 @@ class Charactermodifier extends BaseCharactermodifier {
     /**
      * Basic event handler
      * Adds bonusAbs und bonusPerc according to the Model record's attributes
-     * @param CEvent $event 
+     * @param CEvent $event with BonusCollectorBehavior
      */
     public function reactToOnCalcHp($event) { 
-        $event->params['bonusAbs'] += $this->hp;
-        $event->params['bonusPerc'] += $this->hpPerc;
+        $event->increaseBonusAbs($this->hp);
+        $event->increaseBonusPerc($this->hpPerc);
     }
     /**
      * Basic event handler
      * Adds bonusAbs und bonusPerc according to the Model record's attributes
-     * @param CEvent $event 
+     * @param CEvent $event with BonusCollectorBehavior
      */
     public function reactToOnCalcEnergy($event) { 
-        $event->params['bonusAbs'] += $this->energy;
-        $event->params['bonusPerc'] += $this->energyPerc;
+        $event->increaseBonusAbs($this->energy);
+        $event->increaseBonusPerc($this->energyPerc);
     }
     /**
      * Basic event handler
      * Adds bonusAbs und bonusPerc according to the Model record's attributes
-     * @param CEvent $event 
+     * @param CEvent $event with BonusCollectorBehavior
      */
     public function reactToOnCalcResoluteness($event) { 
-        $event->params['bonusAbs'] += $this->resoluteness;
-        $event->params['bonusPerc'] += $this->resolutenessPerc;
+        $event->increaseBonusAbs($this->resoluteness);
+        $event->increaseBonusPerc($this->resolutenessPerc);
     }
     /**
      * Basic event handler
      * Adds bonusAbs und bonusPerc according to the Model record's attributes
-     * @param CEvent $event 
+     * @param CEvent $event with BonusCollectorBehavior
      */
     public function reactToOnCalcWillpower($event) { 
-        $event->params['bonusAbs'] += $this->willpower;
-        $event->params['bonusPerc'] += $this->willpowerPerc;
+        $event->increaseBonusAbs($this->willpower);
+        $event->increaseBonusPerc($this->willpowerPerc);
     }
     /**
      * Basic event handler
      * Adds bonusAbs und bonusPerc according to the Model record's attributes
-     * @param CEvent $event 
+     * @param CEvent $event with BonusCollectorBehavior
      */
     public function reactToOnCalcCunning($event) { 
-        $event->params['bonusAbs'] += $this->cunning;
-        $event->params['bonusPerc'] += $this->cunningPerc;
+        $event->increaseBonusAbs($this->cunning);
+        $event->increaseBonusPerc($this->cunningPerc);
     }    
 
     /**
      * Basic event handler
      * Adds bonusAbs und bonusPerc according to the Model record's attributes
      * Only reacts to gains from battles
-     * @param CEvent $event
-     * @param array $acceptFrom list of scenarios in which the event observer
+     * @param GainStatEvent $event with BonusCollectorBehavior
+     * @param array $acceptedSources list of scenarios in which the event observer
      * should do its work
      */
-    public function reactToOnGainingCash($event, $acceptFrom = array('battle')) {
-        if(in_array($event->params['from'], $acceptFrom)) {
-            $event->params['bonusAbs'] += $this->dropCash;
-            $event->params['bonusPerc'] += $this->dropCashPerc;
+    public function reactToOnGainingCash($event, $acceptedSources = array('battle')) {
+        if(in_array($event->params['from'], $acceptedSources)) {
+            $event->increaseBonusAbs($this->dropCash);
+            $event->increaseBonusPerc($this->dropCashPerc);
         }
     }
     /**
      * Basic event handler
      * Adds bonusAbs und bonusPerc according to the Model record's attributes
      * Only reacts to gains from battles
-     * @param CEvent $event
-     * @param array $acceptFrom list of scenarios in which the event observer
+     * @param GainStatEvent $event with BonusCollectorBehavior
+     * @param array $acceptedSources list of scenarios in which the event observer
      * should do its work
      */
-    public function reactToOnGainingFavours($event, $acceptFrom = array('battle')) {
-        if(in_array($event->params['from'], $acceptFrom)) {
-            $event->params['bonusAbs'] += $this->dropFavours;
-            $event->params['bonusPerc'] += $this->dropFavoursPerc;
+    public function reactToOnGainingFavours($event, $acceptedSources = array('battle')) {
+        if(in_array($event->params['from'], $acceptedSources)) {
+            $event->increaseBonusAbs($this->dropFavours);
+            $event->increaseBonusPerc($this->dropFavoursPerc);
         }
     }
     /**
      * Basic event handler
      * Adds bonusAbs und bonusPerc according to the Model record's attributes
      * Only reacts to gains from battles
-     * @param CEvent $event
-     * @param array $acceptFrom list of scenarios in which the event observer
+     * @param GainStatEvent $event with BonusCollectorBehavior
+     * @param array $acceptedSources list of scenarios in which the event observer
      * should do its work
      */
-    public function reactToOnGainingKudos($event, $acceptFrom = array('battle')) {
-        if(in_array($event->params['from'], $acceptFrom)) {
-            $event->params['bonusAbs'] += $this->dropKudos;
-            $event->params['bonusPerc'] += $this->dropKudosPerc;
+    public function reactToOnGainingKudos($event, $acceptedSources = array('battle')) {
+        if(in_array($event->params['from'], $acceptedSources)) {
+            $event->increaseBonusAbs($this->dropKudos);
+            $event->increaseBonusPerc($this->dropKudosPerc);
         }
     }
     
     /**
      * Basic event handler
      * Adds bonusPerc according to the Model record's attributes
-     * @param CEvent $event
+     * @param CEvent $event with BonusCollectorBehavior
      */
     public function reactToOnCalcDropItemBonus($event) {
-        $event->params['bonusPerc'] += $this->dropItemPerc;
+        $event->increaseBonusPerc($this->dropItemPerc);
     }
     
     
     /**
      * Factory method to get Model objects
-     * @see http://www.yiiframework.com/doc/api/CModel
+     * @link http://www.yiiframework.com/doc/api/CModel
      * @param string $className
      * @return CModel
      */

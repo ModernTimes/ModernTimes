@@ -64,7 +64,7 @@ class CharacterEquipments extends BaseCharacterEquipments {
     
     /**
      * Factory method to get Model objects
-     * @see http://www.yiiframework.com/doc/api/CModel
+     * @link http://www.yiiframework.com/doc/api/CModel
      * @param string $className
      * @return CModel
      */

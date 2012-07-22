@@ -10,8 +10,8 @@ Yii::import('application.components.skills.*');
  * 
  * See BaseSkill for a list of attributes and related Models
  * 
- * @see SpecialnessBehavior
- * @see CharacterModifierBehavior
+ * @uses SpecialnessBehavior
+ * @uses CharacterModifierBehavior
  * @package System.Models
  */
 
@@ -101,6 +101,10 @@ class Skill extends BaseSkill {
      * @param Battle $battle
      * @param CombatantBehavior $hero Model record with CombatantBehavior
      * @param CombatantBehavior $enemy Model record with CombatantBehavior
+     * @uses onBeforeDealingDamage
+     * @uses onAfterDealingDamage
+     * @uses BattleActionDamageEvent
+     * @uses BattleActionDamageDealtEvent
      */
     public function dealDamage($battle, $hero, $enemy) {
         if($this->dealsDamage) {
@@ -113,26 +117,23 @@ class Skill extends BaseSkill {
                 $damage += $this->damageAttackFactor * $hero->getSpecialAttack();
             }
 
-            // Give Battleeffects an opportunity to react
-            $event = new CModelEvent($this, array('battle' => $battle,
-                                                'hero' => $hero,
-                                                'enemy' => $enemy,
-                                                'damage' => &$damage,
-                                                'damageType' => &$damageType));
+            // Bonus collection
+            $event = new BattleActionDamageEvent($battle, $hero, $enemy, $this, 
+                    $damage, $damageType);
             $battle->onBeforeDealingDamage($event);
 
-            $damageDone = $enemy->takeDamage($damage, $damageType);
+            $damageAdjusted = max(0, floor($event->adjustStat($damage)));
+            $damageDone = $enemy->takeDamage($damageAdjusted, $damageType);
 
             $battleMsg = new Battlemessage(sprintf($this->call("getMsgResolved"), $hero->name), $this);
             $battleMsg->setResult("damage", $damageDone, $damageType);
             $battle->log($hero, $battleMsg);
             
-            // Give Battleeffects an opportunity to react
-            $event = new CModelEvent($this, array('battle' => $battle,
-                                                'hero' => $hero,
-                                                'enemy' => $enemy,
-                                                'damageDone' => $damageDone,
-                                                'damageType' => $damageType));
+            // Notification only
+            $event = new BattleActionDamageDealtEvent($battle, 
+                    $hero, $enemy, $this, 
+                    $damageDone, $damageType
+            );
             $battle->onAfterDealingDamage($event);
         }
     }
@@ -196,8 +197,6 @@ class Skill extends BaseSkill {
     /**
      * Returns a list of CBehaviors to be attached to this Model
      * @link http://www.yiiframework.com/doc/api/CBehavior
-     * @see SpecialnessBehavior
-     * @see CharacterModifierBehavior
      * @return array
      */
     public function behaviors() {
@@ -209,7 +208,7 @@ class Skill extends BaseSkill {
 
     /**
      * Factory method to get Model objects
-     * @see http://www.yiiframework.com/doc/api/CModel
+     * @link http://www.yiiframework.com/doc/api/CModel
      * @param string $className
      * @return CModel
      */

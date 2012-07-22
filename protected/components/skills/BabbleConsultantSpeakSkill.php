@@ -8,7 +8,6 @@
  * 
  * $this->owner is a Skill
  * 
- * @see Skill
  * @package Battle.Skills
  */
 
@@ -28,6 +27,7 @@ class BabbleConsultantSpeakSkill extends BabbleSkillType {
     /**
      * Returns a string that can be used as the message in a BattleMessage
      * @see BattleMessage
+     * @uses BabbleSkillType->getBabbleBullshit
      * @return string
      */
     public function getMsgResolved() {

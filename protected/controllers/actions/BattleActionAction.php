@@ -13,6 +13,7 @@ class BattleActionAction extends BattleAction {
     /**
      * Checks if the battle action is legitimate and renders the battle view
      * @todo syntax checks for skillID and itemID
+     * @uses Battle->playerAction
      * @param string $skillID treated as int, only string because of $GET
      * @param string $itemID treated as int, only string because of $GET
      */
@@ -34,6 +35,7 @@ class BattleActionAction extends BattleAction {
             return;
         }
         
+        // @todo add hasSkill function to Character
         foreach($character->characterSkills as $characterSkill) {
             if($characterSkill->skill->skillType == "combat" &&
                $characterSkill->skill->id == $skillID) {
@@ -50,7 +52,7 @@ class BattleActionAction extends BattleAction {
             }
         }
         
-        // ToDo: repeat for Items
+        // @todo repeat for Items
 
         if(!isset($playerAction)) {
             EUserFlash::setErrorMessage("It seems as if your last battle action was invalid.", 'validate');

@@ -8,7 +8,7 @@
 	<title>File protected/controllers/GameController.php | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?3025928408"></script>
+	<script type="text/javascript" src="elementlist.js?277009506"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -73,6 +73,11 @@
 				<li><a href="package-Character.Relations.html">Relations</a>
 						</li>
 							</ul></li>
+				<li><a href="package-Events.html">Events<span></span></a>
+						<ul>
+				<li><a href="package-Events.Behaviors.html">Behaviors</a>
+						</li>
+							</ul></li>
 				<li><a href="package-Items.html">Items</a>
 						</li>
 				<li><a href="package-Site.html">Site<span></span></a>
@@ -133,7 +138,7 @@
 </span><a href="#6" id="6" class="l">  6 </a><span class="php-comment"> * - Takes care of initializing CharacterData
 </span><a href="#7" id="7" class="l">  7 </a><span class="php-comment"> * - Cleans up after game actions are done
 </span><a href="#8" id="8" class="l">  8 </a><span class="php-comment"> * 
-</span><a href="#9" id="9" class="l">  9 </a><span class="php-comment"> * @see CharacterData
+</span><a href="#9" id="9" class="l">  9 </a><span class="php-comment"> * @uses CharacterData
 </span><a href="#10" id="10" class="l"> 10 </a><span class="php-comment"> * @package Actions 
 </span><a href="#11" id="11" class="l"> 11 </a><span class="php-comment"> */</span>
 <a href="#12" id="12" class="l"> 12 </a>
@@ -285,7 +290,7 @@
 <a href="#158" id="158" class="l">158 </a>    <span class="php-comment">/**
 </span><a href="#159" id="159" class="l">159 </a><span class="php-comment">     * Initializes CharacterData. If there is no active Character record,
 </span><a href="#160" id="160" class="l">160 </a><span class="php-comment">     * CharacterData will redirect to character/create action automatically
-</span><a href="#161" id="161" class="l">161 </a><span class="php-comment">     * @see CharacterData
+</span><a href="#161" id="161" class="l">161 </a><span class="php-comment">     * @uses CharacterData
 </span><a href="#162" id="162" class="l">162 </a><span class="php-comment">     * @param CFilterChain $c 
 </span><a href="#163" id="163" class="l">163 </a><span class="php-comment">     */</span>
 <a href="#164" id="164" class="l">164 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> filterInitCharacterDataComponent(<span class="php-var">$c</span>) {
@@ -296,7 +301,7 @@
 <a href="#169" id="169" class="l">169 </a>    <span class="php-comment">/**
 </span><a href="#170" id="170" class="l">170 </a><span class="php-comment">     * Makes sure that the user does not cheat their way out of an
 </span><a href="#171" id="171" class="l">171 </a><span class="php-comment">     * ongoing battle
-</span><a href="#172" id="172" class="l">172 </a><span class="php-comment">     * @see Battle
+</span><a href="#172" id="172" class="l">172 </a><span class="php-comment">     * @uses CharacterData
 </span><a href="#173" id="173" class="l">173 </a><span class="php-comment">     * @param CFilterChain $c 
 </span><a href="#174" id="174" class="l">174 </a><span class="php-comment">     */</span>
 <a href="#175" id="175" class="l">175 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> filterNoOngoingBattle(<span class="php-var">$c</span>) {
@@ -312,7 +317,7 @@
 <a href="#185" id="185" class="l">185 </a>    <span class="php-comment">/**
 </span><a href="#186" id="186" class="l">186 </a><span class="php-comment">     * Makes sure that the user does not cheat their way out of an
 </span><a href="#187" id="187" class="l">187 </a><span class="php-comment">     * ongoing Encounter path
-</span><a href="#188" id="188" class="l">188 </a><span class="php-comment">     * @see Encounter
+</span><a href="#188" id="188" class="l">188 </a><span class="php-comment">     * @uses CharacterData
 </span><a href="#189" id="189" class="l">189 </a><span class="php-comment">     * @param CFilterChain $c 
 </span><a href="#190" id="190" class="l">190 </a><span class="php-comment">     */</span>
 <a href="#191" id="191" class="l">191 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> filterNoOngoingEncounter(<span class="php-var">$c</span>) {

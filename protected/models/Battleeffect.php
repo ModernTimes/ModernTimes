@@ -11,7 +11,7 @@ Yii::import('application.models._base.BaseBattleeffect');
  * See BaseBattleeffect for a list of attributes and related Models
  * 
  * @todo add more basic effect mechanics
- * @see SpecialnessBehavior
+ * @uses SpecialnessBehavior
  * @package Battle
  */
 
@@ -177,7 +177,6 @@ class Battleeffect extends BaseBattleeffect {
      * $battle->onAfterDealingDamage = array($this, 'reactToOnAfterDealingDamage');
      * $battle->onBeforeTakingDamage = array($this, 'reactToOnBeforeTakingDamage');
      * $battle->onAfterTakingDamage = array($this, 'reactToOnAfterTakingDamage');
-     * @see SpecialnessBehavior
      * @param Battle $battle
      */
     public function attachToBattle($battle) {
@@ -222,7 +221,7 @@ class Battleeffect extends BaseBattleeffect {
         if($this->blocks &&
            $this->active &&
            $event->sender->getCombatantString($event->params['hero']) == $this->heroString &&
-           !$event->params['action']->blocked) {
+           !$event->action->blocked) {
             
             if($this->blockChance != 1) {
                 $rand = mt_rand(0,100);
@@ -231,18 +230,18 @@ class Battleeffect extends BaseBattleeffect {
                 }
             }
             
-            if($event->params['action']->call("setBlocked")) {
+            if($event->action->call("setBlocked")) {
                 $this->blockNumberOfBlocks --;
                 $this->charges --;
                 
-                $battleMsg = new Battlemessage(sprintf($this->msgBlock, $event->params['hero']->name, $event->params['action']->name));
-                $event->sender->log($event->params['hero'], $battleMsg);
+                $battleMsg = new Battlemessage(sprintf($this->msgBlock, $event->hero->name, $event->action->name));
+                $event->sender->log($event->hero, $battleMsg);
                         
                 if($this->blockNumberOfBlocks == 0) {
                     $this->active = false;
 
-                    $battleMsg = new Battlemessage(sprintf($this->msgExpire, $event->params['hero']->name));
-                    $event->sender->log($event->params['hero'], $battleMsg);
+                    $battleMsg = new Battlemessage(sprintf($this->msgExpire, $event->hero->name));
+                    $event->sender->log($event->hero, $battleMsg);
                 }
             }
         }
@@ -259,7 +258,7 @@ class Battleeffect extends BaseBattleeffect {
      * Empty event handler. Only there to have a fallback function if
      * a SpecialnessBehavior class does not provide it.
      * "Override" and extend by SpecialnessBehavior classes as necessary
-     * @param CEvent $event 
+     * @param BattleActionDamageEvent $event 
      */
     public function reactToOnBeforeDealingDamage($event) { }
     /**
@@ -273,21 +272,20 @@ class Battleeffect extends BaseBattleeffect {
      * Empty event handler. Only there to have a fallback function if
      * a SpecialnessBehavior class does not provide it.
      * "Override" and extend by SpecialnessBehavior classes as necessary
-     * @param CEvent $event 
+     * @param CombatantTakeDamageEvent $event 
      */
     public function reactToOnBeforeTakingDamage($event) { }
     /**
      * Empty event handler. Only there to have a fallback function if
      * a SpecialnessBehavior class does not provide it.
      * "Override" and extend by SpecialnessBehavior classes as necessary
-     * @param CEvent $event 
+     * @param CombatantTakenDamageEvent $event 
      */
     public function reactToOnAfterTakingDamage($event) { }
 
     /**
      * Returns a list of CBehaviors to be attached to this Model
      * @link http://www.yiiframework.com/doc/api/CBehavior
-     * @see SpecialnessBehavior
      * @return array
      */
     public function behaviors() {
@@ -295,7 +293,7 @@ class Battleeffect extends BaseBattleeffect {
     }
     /**
      * Factory method to get Model objects
-     * @see http://www.yiiframework.com/doc/api/CModel
+     * @link http://www.yiiframework.com/doc/api/CModel
      * @param string $className
      * @return CModel
      */

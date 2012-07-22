@@ -46,49 +46,52 @@ class BabbleComboEffect extends CBehavior {
     /**
      * Increase the damage of skills with subtype babbling
      * Damage increase depends on $this->owner->charges
-     * @param CEvent $Event sender is a Skill
+     * @param BattleActionDamageEvent $Event sender is a Skill
      * @return void
      */
     public function reactToOnBeforeDealingDamage($Event) {
         if($this->owner->active &&
-                $Event->params['battle']->getCombatantString($Event->params['hero']) == $this->owner->heroString &&
-                $Event->sender->subType == "babbling") {
+                $Event->sender->getCombatantString($Event->hero) == $this->owner->heroString &&
+                $Event->action->subType == "babbling") {
             
-            $Event->params['damage'] = $Event->params['damage'] * 
-                                       pow(self::BabbleComboEffect_base, $this->owner->charges);
+            $Event->increaseBonusPerc(
+                    pow(self::BabbleComboEffect_base, $this->owner->charges) 
+                    // increaseBonusPerc needs percentage points
+                    * 100 - 100
+            );
         }
     }
 
     /**
      * Disable BabbleComboEffect if hero uses a non-babbling skill
      * Increase charges by 1 if hero uses another babbling skill
-     * @param CEvent $Event sender is a Battle record
+     * @param BattleActionEvent $Event sender is a Battle record
      * @return void
      */
     public function reactToOnAfterAction($event) {
-        if($event->sender->getCombatantString($event->params['hero']) == $this->owner->heroString) {
-            if ($event->params['action']->actionType == "personal" &&
-                $event->params['action']->subType != "babbling") {
+        if($event->sender->getCombatantString($event->hero) == $this->owner->heroString) {
+            if ($event->action->actionType == "personal" &&
+                $event->action->subType != "babbling") {
             
                     $this->owner->active = false;
 
-                    $battleMsg = new Battlemessage($event->params['hero'] . " loses " . Yii::app()->tools->getPossessivePronoun($event->params['hero']) . " babble momentum");
-                    $event->sender->log($event->params['hero'], $battleMsg);
+                    $battleMsg = new Battlemessage($event->hero . " loses " . Yii::app()->tools->getPossessivePronoun($event->hero) . " babble momentum");
+                    $event->sender->log($event->hero, $battleMsg);
             }
             
             // Increase charges if hero uses another babbling skill
-            if ($event->params['action']->actionType == "personal" &&
-                $event->params['action']->subType == "babbling") {
+            if ($event->action->actionType == "personal" &&
+                $event->action->subType == "babbling") {
                 
                 $this->owner->charges++;
 
-                $battleMsg = new Battlemessage("", $event->params['action']);
+                $battleMsg = new Battlemessage("", $event->action);
                 if($this->owner->charges == 1) {
-                    $battleMsg->msg = $event->params['hero']->name . " builds up some babble momentum";
-                    $event->sender->log($event->params['hero'], $battleMsg);
+                    $battleMsg->msg = $event->hero->name . " builds up some babble momentum";
+                    $event->sender->log($event->hero, $battleMsg);
                 } else {
-                    // $battleMsg->msg = $event->params['hero']->name . " increases " . Yii::app()->tools->getPossessivePronoun($event->params['hero']) . " babble momentum";
-                    // $event->sender->log($event->params['hero'], $battleMsg);
+                    // $battleMsg->msg = $event->hero->name . " increases " . Yii::app()->tools->getPossessivePronoun($event->hero) . " babble momentum";
+                    // $event->sender->log($event->hero, $battleMsg);
                 }
             }
         }

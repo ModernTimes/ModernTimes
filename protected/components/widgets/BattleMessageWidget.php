@@ -3,7 +3,7 @@
 /**
  * Displays a BattleMessage
  * 
- * @see BattleMessage
+ * @uses BattleMessage
  * @package Widgets
  */
 

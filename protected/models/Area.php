@@ -10,7 +10,7 @@ Yii::import('application.components.areas.*');
  * 
  * See BaseArea for a list of attributes and related Models
  *
- * @see SpecialnessBehavior
+ * @uses SpecialnessBehavior
  * @package System.Models
  */
 
@@ -21,6 +21,10 @@ class Area extends BaseArea {
      * 'type'   => 'encounter' OR 'monster'
      * 'id'     => encounterID OR monsterID
      * 'params' => array to pass on to BattleMonsterAction/EncounterAction
+     * @todo turn Episodes into a component
+     * @todo ask for a Lottery object to make dependency injection possible
+     * @todo once combat or encounter is decided, call new generateEpisode
+     * or generateCombat methods, for easier testing
      * @uses Lottery
      * @return array
      */
@@ -58,7 +62,6 @@ class Area extends BaseArea {
     /**
      * Returns a list of CBehaviors to be attached to this Model
      * @link http://www.yiiframework.com/doc/api/CBehavior
-     * @see SpecialnessBehavior
      * @return array
      */
     public function behaviors() {
@@ -67,7 +70,7 @@ class Area extends BaseArea {
 
     /**
      * Factory method to get Model objects
-     * @see http://www.yiiframework.com/doc/api/CModel
+     * @link http://www.yiiframework.com/doc/api/CModel
      * @param string $className
      * @return CModel
      */

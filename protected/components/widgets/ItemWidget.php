@@ -5,7 +5,7 @@
  * adds additional links like "equip" or "unequip", depending on the
  * context in which the item is to be displayed
  * 
- * @see Item
+ * @uses Item
  * @package Widgets
  */
 

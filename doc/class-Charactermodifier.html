@@ -7,7 +7,7 @@
 	<title>Class Charactermodifier | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?3025928408"></script>
+	<script type="text/javascript" src="elementlist.js?277009506"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -71,6 +71,11 @@
 				<li><a href="package-Character.Relations.html">Relations</a>
 						</li>
 							</ul></li>
+				<li><a href="package-Events.html">Events<span></span></a>
+						<ul>
+				<li><a href="package-Events.Behaviors.html">Behaviors</a>
+						</li>
+							</ul></li>
 				<li><a href="package-Items.html">Items</a>
 						</li>
 				<li><a href="package-Site.html">Site<span></span></a>
@@ -125,10 +130,15 @@
 	
 <p>Data basis for Charactermodifier behavior for items, skills, etc. Adds a
 couple of standard event listeners to stat calculation events in the Character
-model. Can be "overridden" by specialness behavior classes for items, skills,
-etc.</p>
+model.</p>
 
-<p>See BaseCharactermodifier for a list of attributes and related Models</p>
+<p>implemented so far:</p>
+
+<ul>
+	<li>dropCash/Favours/Kudos Abs/Perc</li>
+
+	<li>dropItem Perc</li>
+</ul>
 
 	</div>
 
@@ -166,10 +176,25 @@ GxActiveRecord
 		
 		<b>Package:</b> <a href="package-Character.html">Character</a><br />
 
-				<b>See:</b>
-				<code><code><a href="class-CharacterModifierBehavior.html">CharacterModifierBehavior</a></code></code><br />
-				<b>See:</b>
-				<code><code><a href="class-SpecialnessBehavior.html">SpecialnessBehavior</a></code></code><br />
+				<b>Uses:</b>
+				<code><code><a href="class-CharacterModifierBehavior.html">CharacterModifierBehavior</a></code></code> <br />
+				<b>Uses:</b>
+				<code><code><a href="class-SpecialnessBehavior.html">SpecialnessBehavior</a></code></code> <br />
+				<b>Used by:</b>
+				<code><code><a href="class-CharacterModifierBehavior.html">CharacterModifierBehavior</a></code></code> <br />
+				<b>Used by:</b>
+				<code><code><a href="class-CharacterModifierBehavior.html#_">CharacterModifierBehavior::attachToCharacter()</a></code></code> <br />
+				<b>Used by:</b>
+				<code><code><a href="class-CharacterModifierBehavior.html#_">CharacterModifierBehavior::detachFromCharacter()</a></code></code> <br />
+				<b>Used by:</b>
+				<code><code><a href="class-Effect.html">Effect</a></code></code> <br />
+				<b>Used by:</b>
+				<code><code><a href="class-Encounter.html">Encounter</a></code></code> <br />
+				<b>Todo:</b>
+				gainXp/Resoluteness/Willpower/Cunning Abs/Perc If you add more event handlers,
+don't forget to add a line to detachFromCharacter() Can be "overridden" by
+specialness behavior classes for items, skills, etc. See BaseCharactermodifier
+for a list of attributes and related Models<br />
 		<b>Located at</b> <a href="source-class-Charactermodifier.html#6" title="Go to source code">protected/models/Charactermodifier.php</a><br />
 	</div>
 
@@ -187,7 +212,7 @@ GxActiveRecord
 
 			<td class="name"><div>
 			<a class="anchor" href="#_attachToCharacter">#</a>
-			<code><a href="source-class-Charactermodifier.html#20" title="Go to source code">attachToCharacter</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$Character</var></span> )</code>
+			<code><a href="source-class-Charactermodifier.html#29" title="Go to source code">attachToCharacter</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$Character</var></span> )</code>
 
 			<div class="description short">
 				
@@ -198,19 +223,6 @@ GxActiveRecord
 			<div class="description detailed hidden">
 				
 <p>Attach this class's event handlers to the Character's events</p>
-
-<p>implemented so far:</p>
-
-<ul>
-	<li>dropCash/Favours/Kudos Abs/Perc</li>
-
-	<li>dropItem Perc</li>
-
-	<li>gainXp/Resoluteness/Willpower/Cunning Abs/Perc</li>
-</ul>
-
-<p>If you add more event handlers, don't forget to add a line to
-detachFromCharacter()</p>
 
 <p>"$component-&gt;onXXX = y" is the same as
 "$component-&gt;onXXX-&gt;add(y)"</p>
@@ -241,7 +253,7 @@ detachFromCharacter()</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_detachFromCharacter">#</a>
-			<code><a href="source-class-Charactermodifier.html#65" title="Go to source code">detachFromCharacter</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$Character</var></span> )</code>
+			<code><a href="source-class-Charactermodifier.html#66" title="Go to source code">detachFromCharacter</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$Character</var></span> )</code>
 
 			<div class="description short">
 				
@@ -279,7 +291,7 @@ detachFromCharacter()</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnCalcHp">#</a>
-			<code><a href="source-class-Charactermodifier.html#85" title="Go to source code">reactToOnCalcHp</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Charactermodifier.html#86" title="Go to source code">reactToOnCalcHp</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -298,7 +310,7 @@ record's attributes</p>
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
 					</dl></div>
 
 
@@ -319,7 +331,7 @@ record's attributes</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnCalcEnergy">#</a>
-			<code><a href="source-class-Charactermodifier.html#94" title="Go to source code">reactToOnCalcEnergy</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Charactermodifier.html#95" title="Go to source code">reactToOnCalcEnergy</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -338,7 +350,7 @@ record's attributes</p>
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
 					</dl></div>
 
 
@@ -359,7 +371,7 @@ record's attributes</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnCalcResoluteness">#</a>
-			<code><a href="source-class-Charactermodifier.html#103" title="Go to source code">reactToOnCalcResoluteness</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Charactermodifier.html#104" title="Go to source code">reactToOnCalcResoluteness</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -378,7 +390,7 @@ record's attributes</p>
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
 					</dl></div>
 
 
@@ -399,7 +411,7 @@ record's attributes</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnCalcWillpower">#</a>
-			<code><a href="source-class-Charactermodifier.html#112" title="Go to source code">reactToOnCalcWillpower</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Charactermodifier.html#113" title="Go to source code">reactToOnCalcWillpower</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -418,7 +430,7 @@ record's attributes</p>
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
 					</dl></div>
 
 
@@ -439,7 +451,7 @@ record's attributes</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnCalcCunning">#</a>
-			<code><a href="source-class-Charactermodifier.html#121" title="Go to source code">reactToOnCalcCunning</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Charactermodifier.html#122" title="Go to source code">reactToOnCalcCunning</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -458,7 +470,7 @@ record's attributes</p>
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
 					</dl></div>
 
 
@@ -479,7 +491,7 @@ record's attributes</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnGainingCash">#</a>
-			<code><a href="source-class-Charactermodifier.html#131" title="Go to source code">reactToOnGainingCash</a>( <span>CEvent <var>$event</var></span>, <span>array <var>$acceptFrom</var> = <span class="php-keyword1">array</span>(<span class="php-quote">'battle'</span>)</span> )</code>
+			<code><a href="source-class-Charactermodifier.html#132" title="Go to source code">reactToOnGainingCash</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span>, <span>array <var>$acceptedSources</var> = <span class="php-keyword1">array</span>(<span class="php-quote">'battle'</span>)</span> )</code>
 
 			<div class="description short">
 				
@@ -498,8 +510,8 @@ record's attributes Only reacts to gains from battles</p>
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
-						<dt><var>$acceptFrom</var></dt>
+						<dd><code><code><a href="class-GainStatEvent.html">GainStatEvent</a></code></code><br> with BonusCollectorBehavior</dd>
+						<dt><var>$acceptedSources</var></dt>
 						<dd><code>array</code><br> list of scenarios in which the event observer should do its work</dd>
 					</dl></div>
 
@@ -521,7 +533,7 @@ record's attributes Only reacts to gains from battles</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnGainingFavours">#</a>
-			<code><a href="source-class-Charactermodifier.html#145" title="Go to source code">reactToOnGainingFavours</a>( <span>CEvent <var>$event</var></span>, <span>array <var>$acceptFrom</var> = <span class="php-keyword1">array</span>(<span class="php-quote">'battle'</span>)</span> )</code>
+			<code><a href="source-class-Charactermodifier.html#146" title="Go to source code">reactToOnGainingFavours</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span>, <span>array <var>$acceptedSources</var> = <span class="php-keyword1">array</span>(<span class="php-quote">'battle'</span>)</span> )</code>
 
 			<div class="description short">
 				
@@ -540,8 +552,8 @@ record's attributes Only reacts to gains from battles</p>
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
-						<dt><var>$acceptFrom</var></dt>
+						<dd><code><code><a href="class-GainStatEvent.html">GainStatEvent</a></code></code><br> with BonusCollectorBehavior</dd>
+						<dt><var>$acceptedSources</var></dt>
 						<dd><code>array</code><br> list of scenarios in which the event observer should do its work</dd>
 					</dl></div>
 
@@ -563,7 +575,7 @@ record's attributes Only reacts to gains from battles</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnGainingKudos">#</a>
-			<code><a href="source-class-Charactermodifier.html#159" title="Go to source code">reactToOnGainingKudos</a>( <span>CEvent <var>$event</var></span>, <span>array <var>$acceptFrom</var> = <span class="php-keyword1">array</span>(<span class="php-quote">'battle'</span>)</span> )</code>
+			<code><a href="source-class-Charactermodifier.html#160" title="Go to source code">reactToOnGainingKudos</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span>, <span>array <var>$acceptedSources</var> = <span class="php-keyword1">array</span>(<span class="php-quote">'battle'</span>)</span> )</code>
 
 			<div class="description short">
 				
@@ -582,8 +594,8 @@ record's attributes Only reacts to gains from battles</p>
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
-						<dt><var>$acceptFrom</var></dt>
+						<dd><code><code><a href="class-GainStatEvent.html">GainStatEvent</a></code></code><br> with BonusCollectorBehavior</dd>
+						<dt><var>$acceptedSources</var></dt>
 						<dd><code>array</code><br> list of scenarios in which the event observer should do its work</dd>
 					</dl></div>
 
@@ -605,7 +617,7 @@ record's attributes Only reacts to gains from battles</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnCalcDropItemBonus">#</a>
-			<code><a href="source-class-Charactermodifier.html#174" title="Go to source code">reactToOnCalcDropItemBonus</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Charactermodifier.html#175" title="Go to source code">reactToOnCalcDropItemBonus</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -624,7 +636,7 @@ attributes</p>
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
 					</dl></div>
 
 
@@ -645,7 +657,7 @@ attributes</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_model">#</a>
-			<code><a href="source-class-Charactermodifier.html#184" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
+			<code><a href="source-class-Charactermodifier.html#185" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
 
 			<div class="description short">
 				
@@ -671,10 +683,9 @@ attributes</p>
 					</div>
 
 
-					<h4>See</h4>
+					<h4>Link</h4>
 					<div class="list">
-							<a
-href="http://www.yiiframework.com/doc/api/CModel">http://www.yiiframework.com/doc/api/CModel</a><br />
+							<a href="http://www.yiiframework.com/doc/api/CModel">http://www.yiiframework.com/doc/api/CModel</a><br />
 					</div>
 
 					<h4>Overrides</h4>

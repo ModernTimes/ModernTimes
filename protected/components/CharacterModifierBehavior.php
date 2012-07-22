@@ -5,10 +5,7 @@
  * Makes it possible to call Model->attachTo() instead of 
  * Model->charactermodifier->attachTo(), which is better readable
  * 
- * @see Charactermodifier
- * @see Effect
- * @see Item
- * @see Skill
+ * @uses Charactermodifier
  * @package Character
  */
 
@@ -16,7 +13,7 @@ class CharacterModifierBehavior extends CBehavior {
     
     /**
      * Attaches the Charactermodifier record of $this->owner to a Character
-     * @see Charactermodifier
+     * @uses Charactermodifier
      * @param Character $Character
      * @return void
      */
@@ -29,7 +26,7 @@ class CharacterModifierBehavior extends CBehavior {
 
     /**
      * Detaches the Charactermodifier record of $this->owner from a Character
-     * @see Charactermodifier
+     * @uses Charactermodifier
      * @param Character $Character 
      * @return void
      */

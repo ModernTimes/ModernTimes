@@ -13,6 +13,8 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+                'application.components.events.*',
+                'application.components.events.behaviors.*',
                 'application.components.widgets.*',
                 'application.controllers.actions.*',
                 'application.controllers.actions.inventory.*',
@@ -97,10 +99,10 @@ return array(
 
                     'enableProfiling' => true,
                     // Set to false in deployment
-                    // 'enableParamLogging' => true,
+                    'enableParamLogging' => true,
 
                     // Increase in deployment to reduce number of SQL queries drastically
-                    'schemaCachingDuration' => 0,
+                    'schemaCachingDuration' => 300,
             ),
 
             /*

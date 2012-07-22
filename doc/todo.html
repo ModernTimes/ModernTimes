@@ -7,7 +7,7 @@
 	<title>Todo | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?3025928408"></script>
+	<script type="text/javascript" src="elementlist.js?277009506"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -67,6 +67,11 @@
 				<li><a href="package-Character.html">Character<span></span></a>
 						<ul>
 				<li><a href="package-Character.Relations.html">Relations</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Events.html">Events<span></span></a>
+						<ul>
+				<li><a href="package-Events.Behaviors.html">Behaviors</a>
 						</li>
 							</ul></li>
 				<li><a href="package-Items.html">Items</a>
@@ -130,11 +135,16 @@
 				<li><a href="class-Battle.html">Battle</a></li>
 				<li><a href="class-BattleAction.html">BattleAction</a></li>
 				<li><a href="class-BattleActionAction.html">BattleActionAction</a></li>
+				<li><a href="class-BattleActionDamageDealtEvent.html">BattleActionDamageDealtEvent</a></li>
+				<li><a href="class-BattleActionDamageEvent.html">BattleActionDamageEvent</a></li>
+				<li><a href="class-BattleActionEvent.html">BattleActionEvent</a></li>
 				<li><a href="class-Battleeffect.html">Battleeffect</a></li>
 				<li><a href="class-BattleeffectList.html">BattleeffectList</a></li>
+				<li><a href="class-BattleEvent.html">BattleEvent</a></li>
 				<li><a href="class-BattleMessage.html">BattleMessage</a></li>
 				<li><a href="class-BattleMessageWidget.html">BattleMessageWidget</a></li>
 				<li><a href="class-BattleMonsterAction.html">BattleMonsterAction</a></li>
+				<li><a href="class-BonusCollectorBehavior.html">BonusCollectorBehavior</a></li>
 				<li><a href="class-Character.html">Character</a></li>
 				<li><a href="class-CharacterData.html">CharacterData</a></li>
 				<li><a href="class-CharacterEffects.html">CharacterEffects</a></li>
@@ -146,9 +156,13 @@
 				<li><a href="class-CharacterSkills.html">CharacterSkills</a></li>
 				<li><a href="class-CharacterSkillsets.html">CharacterSkillsets</a></li>
 				<li><a href="class-CharacterStatsWidget.html">CharacterStatsWidget</a></li>
+				<li><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></li>
 				<li><a href="class-CombatantBehavior.html">CombatantBehavior</a></li>
+				<li><a href="class-CombatantTakeDamageEvent.html">CombatantTakeDamageEvent</a></li>
+				<li><a href="class-CombatantTakenDamageEvent.html">CombatantTakenDamageEvent</a></li>
 				<li><a href="class-ContactForm.html">ContactForm</a></li>
 				<li><a href="class-Controller.html">Controller</a></li>
+				<li><a href="class-DamageStorageBehavior.html">DamageStorageBehavior</a></li>
 				<li><a href="class-Effect.html">Effect</a></li>
 				<li><a href="class-Encounter.html">Encounter</a></li>
 				<li><a href="class-EncounterAction.html">EncounterAction</a></li>
@@ -156,6 +170,7 @@
 				<li><a href="class-EncounterItems.html">EncounterItems</a></li>
 				<li><a href="class-EquipAction.html">EquipAction</a></li>
 				<li><a href="class-EquipmentWidget.html">EquipmentWidget</a></li>
+				<li><a href="class-GainStatEvent.html">GainStatEvent</a></li>
 				<li><a href="class-GameController.html">GameController</a></li>
 				<li><a href="class-InventoryAction.html">InventoryAction</a></li>
 				<li><a href="class-Item.html">Item</a></li>
@@ -206,8 +221,9 @@ href="https://github.com/ModernTimes/ModernTimes/issues/7">https://github.com/Mo
 <!-- by Texy2! --></td>
 	</tr>
 	<tr>
-		<td class="name" rowspan="1"><a href="class-Battle.html">Battle</a></td>
-		<td>implememnt battle phases in State pattern?</td>
+		<td class="name" rowspan="2"><a href="class-Battle.html">Battle</a></td>
+		<td>implememnt battle phases in State pattern?</td></tr><tr>
+		<td>is this class overloaded with responsibilities? How to split it up?</td>
 	</tr>
 	<tr>
 		<td class="name" rowspan="1"><a href="class-BattleActionAction.html">BattleActionAction</a></td>
@@ -216,6 +232,21 @@ href="https://github.com/ModernTimes/ModernTimes/issues/7">https://github.com/Mo
 	<tr>
 		<td class="name" rowspan="1"><a href="class-Battleeffect.html">Battleeffect</a></td>
 		<td>add more basic effect mechanics</td>
+	</tr>
+	<tr>
+		<td class="name" rowspan="1"><a href="class-Charactermodifier.html">Charactermodifier</a></td>
+		<td>gainXp/Resoluteness/Willpower/Cunning Abs/Perc If you add more event handlers,
+don't forget to add a line to detachFromCharacter() Can be "overridden" by
+specialness behavior classes for items, skills, etc. See BaseCharactermodifier
+for a list of attributes and related Models</td>
+	</tr>
+	<tr>
+		<td class="name" rowspan="1"><a href="class-CombatantTakeDamageEvent.html">CombatantTakeDamageEvent</a></td>
+		<td>Enforce the sender to have CombatantBehavior</td>
+	</tr>
+	<tr>
+		<td class="name" rowspan="1"><a href="class-CombatantTakenDamageEvent.html">CombatantTakenDamageEvent</a></td>
+		<td>Enforce the sender to have CombatantBehavior</td>
 	</tr>
 	<tr>
 		<td class="name" rowspan="1"><a href="class-EquipAction.html">EquipAction</a></td>
@@ -241,6 +272,14 @@ implemented.</td>
 
 	<h2>Methods summary</h2>
 	<table class="summary table table-bordered table-striped" id="methods">
+	<tr>
+		<td class="name" rowspan="3"><a href="class-Area.html">Area</a></td>
+		<td class="name" rowspan="3"><code><a href="class-Area.html#_">generateEpisode()</a></code></td>
+		<td>turn Episodes into a component</td></tr><tr>
+		<td>ask for a Lottery object to make dependency injection possible</td></tr><tr>
+		<td>once combat or encounter is decided, call new generateEpisode or generateCombat
+methods, for easier testing</td>
+	</tr>
 	<tr>
 		<td class="name" rowspan="1"><a href="class-Battle.html">Battle</a></td>
 		<td class="name" rowspan="1"><code><a href="class-Battle.html#_">combatantHasEffects()</a></code></td>
@@ -333,8 +372,9 @@ smaller __parent-methods?</td>
 		<td>syntax checks</td>
 	</tr>
 	<tr>
-		<td class="name" rowspan="1"><a href="class-Monster.html">Monster</a></td>
-		<td class="name" rowspan="1"><code><a href="class-Monster.html#_">act()</a></code></td>
+		<td class="name" rowspan="2"><a href="class-Monster.html">Monster</a></td>
+		<td class="name" rowspan="2"><code><a href="class-Monster.html#_">act()</a></code></td>
+		<td>ask for Lottery as parameter to enable dependency injection</td></tr><tr>
 		<td>check if the skill can actually be used</td>
 	</tr>
 	<tr>
@@ -349,9 +389,10 @@ smaller __parent-methods?</td>
 		<td>Do some checking for classname, is_child_of CBehavior, etc.</td>
 	</tr>
 	<tr>
-		<td class="name" rowspan="1"><a href="class-Tools.html">Tools</a></td>
-		<td class="name" rowspan="1"><code><a href="class-Tools.html#_">addEffect()</a></code></td>
-		<td>Make it possible to add effects to other characters</td>
+		<td class="name" rowspan="2"><a href="class-Tools.html">Tools</a></td>
+		<td class="name" rowspan="2"><code><a href="class-Tools.html#_">addEffect()</a></code></td>
+		<td>Make it possible to add effects to other characters</td></tr><tr>
+		<td>Ask for Character record in parameters. Also makes dependency injection possible</td>
 	</tr>
 	</table>
 

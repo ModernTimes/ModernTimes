@@ -7,7 +7,7 @@
 	<title>Class Battleeffect | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?3025928408"></script>
+	<script type="text/javascript" src="elementlist.js?277009506"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -69,6 +69,11 @@
 				<li><a href="package-Character.html">Character<span></span></a>
 						<ul>
 				<li><a href="package-Character.Relations.html">Relations</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Events.html">Events<span></span></a>
+						<ul>
+				<li><a href="package-Events.Behaviors.html">Behaviors</a>
 						</li>
 							</ul></li>
 				<li><a href="package-Items.html">Items</a>
@@ -172,8 +177,8 @@ GxActiveRecord
 		
 		<b>Package:</b> <a href="package-Battle.html">Battle</a><br />
 
-				<b>See:</b>
-				<code><code><a href="class-SpecialnessBehavior.html">SpecialnessBehavior</a></code></code><br />
+				<b>Uses:</b>
+				<code><code><a href="class-SpecialnessBehavior.html">SpecialnessBehavior</a></code></code> <br />
 				<b>Todo:</b>
 				add more basic effect mechanics<br />
 		<b>Located at</b> <a href="source-class-Battleeffect.html#6" title="Go to source code">protected/models/Battleeffect.php</a><br />
@@ -421,10 +426,6 @@ Includes id, name, buff, desc, and popup</p>
 
 
 
-					<h4>See</h4>
-					<div class="list">
-							<code><code><a href="class-SpecialnessBehavior.html">SpecialnessBehavior</a></code></code><br />
-					</div>
 					<h4>Todo</h4>
 					<div class="list">
 							Add more event handlers once Battleeffects can handle more stuff "Override" by
@@ -452,7 +453,7 @@ array($this, 'reactToOnBeforeAction'); $battle-&gt;onAfterAction = array($this,
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnBeforeRound">#</a>
-			<code><a href="source-class-Battleeffect.html#190" title="Go to source code">reactToOnBeforeRound</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Battleeffect.html#189" title="Go to source code">reactToOnBeforeRound</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -494,7 +495,7 @@ SpecialnessBehavior classes as necessary</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnAfterRound">#</a>
-			<code><a href="source-class-Battleeffect.html#198" title="Go to source code">reactToOnAfterRound</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Battleeffect.html#197" title="Go to source code">reactToOnAfterRound</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -538,7 +539,7 @@ classes as necessary</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnBeforeAction">#</a>
-			<code><a href="source-class-Battleeffect.html#215" title="Go to source code">reactToOnBeforeAction</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Battleeffect.html#214" title="Go to source code">reactToOnBeforeAction</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -582,7 +583,7 @@ extend by SpecialnessBehavior classes as necessary</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnAfterAction">#</a>
-			<code><a href="source-class-Battleeffect.html#251" title="Go to source code">reactToOnAfterAction</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Battleeffect.html#250" title="Go to source code">reactToOnAfterAction</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -624,7 +625,7 @@ SpecialnessBehavior classes as necessary</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnBeforeDealingDamage">#</a>
-			<code><a href="source-class-Battleeffect.html#258" title="Go to source code">reactToOnBeforeDealingDamage</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Battleeffect.html#257" title="Go to source code">reactToOnBeforeDealingDamage</a>( <span><code><a href="class-BattleActionDamageEvent.html">BattleActionDamageEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -645,7 +646,7 @@ SpecialnessBehavior classes as necessary</p>
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
+						<dd><code><code><a href="class-BattleActionDamageEvent.html">BattleActionDamageEvent</a></code></code></dd>
 					</dl></div>
 
 
@@ -666,7 +667,7 @@ SpecialnessBehavior classes as necessary</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnAfterDealingDamage">#</a>
-			<code><a href="source-class-Battleeffect.html#265" title="Go to source code">reactToOnAfterDealingDamage</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Battleeffect.html#264" title="Go to source code">reactToOnAfterDealingDamage</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -708,7 +709,7 @@ SpecialnessBehavior classes as necessary</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnBeforeTakingDamage">#</a>
-			<code><a href="source-class-Battleeffect.html#272" title="Go to source code">reactToOnBeforeTakingDamage</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Battleeffect.html#271" title="Go to source code">reactToOnBeforeTakingDamage</a>( <span><code><a href="class-CombatantTakeDamageEvent.html">CombatantTakeDamageEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -729,7 +730,7 @@ SpecialnessBehavior classes as necessary</p>
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
+						<dd><code><code><a href="class-CombatantTakeDamageEvent.html">CombatantTakeDamageEvent</a></code></code></dd>
 					</dl></div>
 
 
@@ -750,7 +751,7 @@ SpecialnessBehavior classes as necessary</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnAfterTakingDamage">#</a>
-			<code><a href="source-class-Battleeffect.html#279" title="Go to source code">reactToOnAfterTakingDamage</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Battleeffect.html#278" title="Go to source code">reactToOnAfterTakingDamage</a>( <span><code><a href="class-CombatantTakenDamageEvent.html">CombatantTakenDamageEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -771,7 +772,7 @@ SpecialnessBehavior classes as necessary</p>
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
+						<dd><code><code><a href="class-CombatantTakenDamageEvent.html">CombatantTakenDamageEvent</a></code></code></dd>
 					</dl></div>
 
 
@@ -792,7 +793,7 @@ SpecialnessBehavior classes as necessary</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_behaviors">#</a>
-			<code><a href="source-class-Battleeffect.html#287" title="Go to source code">behaviors</a>( )</code>
+			<code><a href="source-class-Battleeffect.html#286" title="Go to source code">behaviors</a>( )</code>
 
 			<div class="description short">
 				
@@ -813,10 +814,6 @@ SpecialnessBehavior classes as necessary</p>
 					</div>
 
 
-					<h4>See</h4>
-					<div class="list">
-							<code><code><a href="class-SpecialnessBehavior.html">SpecialnessBehavior</a></code></code><br />
-					</div>
 					<h4>Link</h4>
 					<div class="list">
 							<a href="http://www.yiiframework.com/doc/api/CBehavior">http://www.yiiframework.com/doc/api/CBehavior</a><br />
@@ -837,7 +834,7 @@ SpecialnessBehavior classes as necessary</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_model">#</a>
-			<code><a href="source-class-Battleeffect.html#296" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
+			<code><a href="source-class-Battleeffect.html#294" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
 
 			<div class="description short">
 				
@@ -863,10 +860,9 @@ SpecialnessBehavior classes as necessary</p>
 					</div>
 
 
-					<h4>See</h4>
+					<h4>Link</h4>
 					<div class="list">
-							<a
-href="http://www.yiiframework.com/doc/api/CModel">http://www.yiiframework.com/doc/api/CModel</a><br />
+							<a href="http://www.yiiframework.com/doc/api/CModel">http://www.yiiframework.com/doc/api/CModel</a><br />
 					</div>
 
 					<h4>Overrides</h4>
