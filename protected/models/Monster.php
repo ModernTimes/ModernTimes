@@ -23,6 +23,7 @@ class Monster extends BaseMonster {
 
     /**
      * Future AI can refer to the current battle state
+     * @todo ask for Lottery as parameter to enable dependency injection
      * @uses Lottery
      * @param Battle $battle
      * @return Skill

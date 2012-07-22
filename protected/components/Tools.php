@@ -49,6 +49,8 @@ class Tools extends CApplicationComponent {
     /**
      * Adds an effect to the active character
      * @todo Make it possible to add effects to other characters
+     * @todo Ask for Character record in parameters. Also makes dependency
+     * injection possible
      * @param mixed $effect Effect|int|string Effect model or its PK or its name
      * @param int $turns number of turns for which the effect is to be active
      *                   0 means that it is only used during the current battle
