@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="1.3.0">
+	<file name="D:\Homepages\ModernTimes\protected\components\events\BattleActionDamageDealtEvent.php">
+		<error severity="error" line="24" message="Missing documentation of parameter BattleActionDamageDealtEvent::__construct()($params)" source="ApiGen.Documentation.Documentation"/>
+	</file>
+	<file name="D:\Homepages\ModernTimes\protected\components\events\BattleActionDamageEvent.php">
+		<error severity="error" line="25" message="Missing documentation of parameter BattleActionDamageEvent::__construct()($params)" source="ApiGen.Documentation.Documentation"/>
+	</file>
+	<file name="D:\Homepages\ModernTimes\protected\components\events\CollectBonusEvent.php">
+		<error severity="error" line="20" message="Missing documentation of parameter CollectBonusEvent::__construct()($params)" source="ApiGen.Documentation.Documentation"/>
+	</file>
+	<file name="D:\Homepages\ModernTimes\protected\components\events\CombatantTakeDamageEvent.php">
+		<error severity="error" line="15" message="Missing documentation of method CombatantTakeDamageEvent::__construct()" source="ApiGen.Documentation.Documentation"/>
+	</file>
+	<file name="D:\Homepages\ModernTimes\protected\components\events\CombatantTakenDamageEvent.php">
+		<error severity="error" line="14" message="Missing documentation of method CombatantTakenDamageEvent::__construct()" source="ApiGen.Documentation.Documentation"/>
+	</file>
+	<file name="D:\Homepages\ModernTimes\protected\components\events\GainStatEvent.php">
+		<error severity="error" line="34" message="Missing documentation of parameter GainStatEvent::__construct()($params)" source="ApiGen.Documentation.Documentation"/>
+	</file>
 	<file name="D:\Homepages\ModernTimes\protected\models\ContactForm.php">
 		<error severity="error" line="12" message="Missing documentation of property ContactForm::$name" source="ApiGen.Documentation.Documentation"/>
 		<error severity="error" line="13" message="Missing documentation of property ContactForm::$email" source="ApiGen.Documentation.Documentation"/>

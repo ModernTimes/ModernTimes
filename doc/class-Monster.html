@@ -7,7 +7,7 @@
 	<title>Class Monster | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?3025928408"></script>
+	<script type="text/javascript" src="elementlist.js?277009506"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -69,6 +69,11 @@
 				<li><a href="package-Character.html">Character<span></span></a>
 						<ul>
 				<li><a href="package-Character.Relations.html">Relations</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Events.html">Events<span></span></a>
+						<ul>
+				<li><a href="package-Events.Behaviors.html">Behaviors</a>
 						</li>
 							</ul></li>
 				<li><a href="package-Items.html">Items</a>
@@ -165,10 +170,10 @@ GxActiveRecord
 		
 		<b>Package:</b> <a href="package-Battle.html">Battle</a><br />
 
-				<b>See:</b>
-				<code><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code></code><br />
-				<b>See:</b>
-				<code><code><a href="class-SpecialnessBehavior.html">SpecialnessBehavior</a></code></code><br />
+				<b>Uses:</b>
+				<code><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code></code> <br />
+				<b>Uses:</b>
+				<code><code><a href="class-SpecialnessBehavior.html">SpecialnessBehavior</a></code></code> <br />
 		<b>Located at</b> <a href="source-class-Monster.html#7" title="Go to source code">protected/models/Monster.php</a><br />
 	</div>
 
@@ -218,6 +223,7 @@ GxActiveRecord
 					</div>
 					<h4>Todo</h4>
 					<div class="list">
+							ask for Lottery as parameter to enable dependency injection<br />
 							check if the skill can actually be used<br />
 					</div>
 
@@ -236,7 +242,7 @@ GxActiveRecord
 
 			<td class="name"><div>
 			<a class="anchor" href="#_dropItems">#</a>
-			<code><a href="source-class-Monster.html#44" title="Go to source code">dropItems</a>( <span>integer <var>$dropItemPerc</var> = <span class="php-num">0</span></span> )</code>
+			<code><a href="source-class-Monster.html#45" title="Go to source code">dropItems</a>( <span>integer <var>$dropItemPerc</var> = <span class="php-num">0</span></span> )</code>
 
 			<div class="description short">
 				
@@ -280,7 +286,7 @@ dropItemPerc are percentage point increasers/decreasers as usual</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_decreaseHp">#</a>
-			<code><a href="source-class-Monster.html#62" title="Go to source code">decreaseHp</a>( <span>integer <var>$damage</var></span> )</code>
+			<code><a href="source-class-Monster.html#63" title="Go to source code">decreaseHp</a>( <span>integer <var>$damage</var></span> )</code>
 
 			<div class="description short">
 				
@@ -318,7 +324,7 @@ dropItemPerc are percentage point increasers/decreasers as usual</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getReadyForBattle">#</a>
-			<code><a href="source-class-Monster.html#73" title="Go to source code">getReadyForBattle</a>( )</code>
+			<code><a href="source-class-Monster.html#74" title="Go to source code">getReadyForBattle</a>( )</code>
 
 			<div class="description short">
 				
@@ -351,7 +357,7 @@ dropItemPerc are percentage point increasers/decreasers as usual</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_createFirstRoundCombatMessage">#</a>
-			<code><a href="source-class-Monster.html#81" title="Go to source code">createFirstRoundCombatMessage</a>( )</code>
+			<code><a href="source-class-Monster.html#82" title="Go to source code">createFirstRoundCombatMessage</a>( )</code>
 
 			<div class="description short">
 				
@@ -393,7 +399,7 @@ dropItemPerc are percentage point increasers/decreasers as usual</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getTitle">#</a>
-			<code><a href="source-class-Monster.html#101" title="Go to source code">getTitle</a>( )</code>
+			<code><a href="source-class-Monster.html#102" title="Go to source code">getTitle</a>( )</code>
 
 			<div class="description short">
 				
@@ -432,7 +438,7 @@ string, but can be changed by specialness behavior class</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getNormalAttack">#</a>
-			<code><a href="source-class-Monster.html#110" title="Go to source code">getNormalAttack</a>( )</code>
+			<code><a href="source-class-Monster.html#111" title="Go to source code">getNormalAttack</a>( )</code>
 
 			<div class="description short">
 				
@@ -469,7 +475,7 @@ string, but can be changed by specialness behavior class</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getSpecialAttack">#</a>
-			<code><a href="source-class-Monster.html#117" title="Go to source code">getSpecialAttack</a>( )</code>
+			<code><a href="source-class-Monster.html#118" title="Go to source code">getSpecialAttack</a>( )</code>
 
 			<div class="description short">
 				
@@ -506,7 +512,7 @@ string, but can be changed by specialness behavior class</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getDefense">#</a>
-			<code><a href="source-class-Monster.html#124" title="Go to source code">getDefense</a>( )</code>
+			<code><a href="source-class-Monster.html#125" title="Go to source code">getDefense</a>( )</code>
 
 			<div class="description short">
 				
@@ -543,7 +549,7 @@ string, but can be changed by specialness behavior class</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getHpMax">#</a>
-			<code><a href="source-class-Monster.html#131" title="Go to source code">getHpMax</a>( )</code>
+			<code><a href="source-class-Monster.html#132" title="Go to source code">getHpMax</a>( )</code>
 
 			<div class="description short">
 				
@@ -580,7 +586,7 @@ string, but can be changed by specialness behavior class</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_behaviors">#</a>
-			<code><a href="source-class-Monster.html#139" title="Go to source code">behaviors</a>( )</code>
+			<code><a href="source-class-Monster.html#140" title="Go to source code">behaviors</a>( )</code>
 
 			<div class="description short">
 				
@@ -601,11 +607,6 @@ string, but can be changed by specialness behavior class</p>
 					</div>
 
 
-					<h4>See</h4>
-					<div class="list">
-							<code><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code></code><br />
-							<code><code><a href="class-SpecialnessBehavior.html">SpecialnessBehavior</a></code></code><br />
-					</div>
 					<h4>Link</h4>
 					<div class="list">
 							<a href="http://www.yiiframework.com/doc/api/CBehavior">http://www.yiiframework.com/doc/api/CBehavior</a><br />
@@ -626,7 +627,7 @@ string, but can be changed by specialness behavior class</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_model">#</a>
-			<code><a href="source-class-Monster.html#151" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
+			<code><a href="source-class-Monster.html#150" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
 
 			<div class="description short">
 				
@@ -652,10 +653,9 @@ string, but can be changed by specialness behavior class</p>
 					</div>
 
 
-					<h4>See</h4>
+					<h4>Link</h4>
 					<div class="list">
-							<a
-href="http://www.yiiframework.com/doc/api/CModel">http://www.yiiframework.com/doc/api/CModel</a><br />
+							<a href="http://www.yiiframework.com/doc/api/CModel">http://www.yiiframework.com/doc/api/CModel</a><br />
 					</div>
 
 					<h4>Overrides</h4>
