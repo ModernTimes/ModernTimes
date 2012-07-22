@@ -29,7 +29,7 @@ class Character extends BaseCharacter {
      * @param string $source enum(other|battle|encounter|quest|autosell) 
      */
     public function gainCash($amount = 0, $source = '') {
-        $this->gainResource('cash', $amount, $from);
+        $this->gainResource('cash', $amount, $source);
     }
     /**
      * Wrapper for gainResource
@@ -38,7 +38,7 @@ class Character extends BaseCharacter {
      * @param string $source enum(other|battle|encounter|quest|autosell) 
      */
     public function gainFavours($amount = 0, $source = '') {
-        $this->gainResource('favours', $amount, $from);
+        $this->gainResource('favours', $amount, $source);
     }
     /**
      * Wrapper for gainResource
@@ -47,7 +47,7 @@ class Character extends BaseCharacter {
      * @param string $source enum(other|battle|encounter|quest|autosell) 
      */
     public function gainKudos($amount = 0, $source = '') {
-        $this->gainResource('kudos', $amount, $from);
+        $this->gainResource('kudos', $amount, $source);
     }
     /**
      * Gives resources to the character (or takes them away)
