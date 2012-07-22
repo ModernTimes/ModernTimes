@@ -32,17 +32,18 @@ class CombatantBehavior extends CModelBehavior {
          * (cunningBuffed for characters, defense attribute for monsters)
          */
         if($damageType == "normal") {
-            $damageAdjusted -= $this->owner->getDefense();
+            $defense = $this->owner->getDefense();
+            $damageAdjusted -= $defense;
         }
         
-        $damageAdjusted = max($damage, 0);
+        $damageAdjusted = max($damageAdjusted, 0);
         $this->owner->decreaseHp($damageAdjusted);
 
         // takeN damage event, notification only
         $event = new CombatantTakenDamageEvent($this, $damageAdjusted, $damageType);
         $this->onAfterTakingDamage($event);
         
-        return $damage;
+        return $damageAdjusted;
     }
     
     /**
