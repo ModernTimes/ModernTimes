@@ -101,6 +101,9 @@ class Skill extends BaseSkill {
      * @param Battle $battle
      * @param CombatantBehavior $hero Model record with CombatantBehavior
      * @param CombatantBehavior $enemy Model record with CombatantBehavior
+     * @uses onBeforeDealingDamage
+     * @uses onAfterDealingDamage
+     * @uses BattleDamageEvent
      */
     public function dealDamage($battle, $hero, $enemy) {
         if($this->dealsDamage) {
@@ -114,14 +117,12 @@ class Skill extends BaseSkill {
             }
 
             // Give Battleeffects an opportunity to react
-            $event = new CModelEvent($this, array('battle' => $battle,
-                                                'hero' => $hero,
-                                                'enemy' => $enemy,
-                                                'damage' => &$damage,
-                                                'damageType' => &$damageType));
+            $event = new BattleActionDamageEvent($battle, $hero, $enemy, $this, 
+                    $damage, $damageType);
             $battle->onBeforeDealingDamage($event);
 
-            $damageDone = $enemy->takeDamage($damage, $damageType);
+            $damageAdjusted = max(0, floor($event->adjustStat($damage)));
+            $damageDone = $enemy->takeDamage($damageAdjusted, $damageType);
 
             $battleMsg = new Battlemessage(sprintf($this->call("getMsgResolved"), $hero->name), $this);
             $battleMsg->setResult("damage", $damageDone, $damageType);

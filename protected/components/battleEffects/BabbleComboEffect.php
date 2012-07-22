@@ -46,16 +46,19 @@ class BabbleComboEffect extends CBehavior {
     /**
      * Increase the damage of skills with subtype babbling
      * Damage increase depends on $this->owner->charges
-     * @param CEvent $Event sender is a Skill
+     * @param BattleActionDamageEvent $Event sender is a Skill
      * @return void
      */
     public function reactToOnBeforeDealingDamage($Event) {
         if($this->owner->active &&
-                $Event->params['battle']->getCombatantString($Event->params['hero']) == $this->owner->heroString &&
-                $Event->sender->subType == "babbling") {
+                $Event->sender->getCombatantString($Event->hero) == $this->owner->heroString &&
+                $Event->action->subType == "babbling") {
             
-            $Event->params['damage'] = $Event->params['damage'] * 
-                                       pow(self::BabbleComboEffect_base, $this->owner->charges);
+            $Event->increaseBonusPerc(
+                    pow(self::BabbleComboEffect_base, $this->owner->charges) 
+                    // increaseBonusPerc needs percentage points
+                    * 100 - 100
+            );
         }
     }
 
