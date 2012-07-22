@@ -59,7 +59,7 @@ class GainStatEvent extends CEvent {
             case "encounter":
             case "quest":
             case "autosell":
-                $this->_source = $param['source'];
+                $this->_source = $params['source'];
                 break;
             default:
                 $this->_source = "other";
