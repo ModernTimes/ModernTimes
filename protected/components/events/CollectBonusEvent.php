@@ -44,7 +44,7 @@ class CollectBonusEvent extends CEvent {
      */
     public function behaviors() {
         return array(
-            "BonusCollector" => "application.components.events.BonusCollectorBehavior"
+            "BonusCollector" => "application.components.events.behaviors.BonusCollectorBehavior"
         );
     }
 }

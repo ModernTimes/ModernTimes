@@ -3,24 +3,12 @@
 /**
  * 
  * @uses BonusCollectorBehavior
- * @package Events 
+ * @uses DamageStorageBehavior
+ * @package Events
  */
 
 class BattleActionDamageEvent extends BattleActionEvent {
 
-    /**
-     * The base amount of damage (before adjustments). Cannot be altered by
-     * event handlers.
-     * @param float 
-     */
-    private $_damageAmount;
-    
-    /**
-     * The damage type. Cannot be altered by event handlers.
-     * @var string enum(normal|special)
-     */
-    private $_damageType;
-    
     /**
      * Calls parent constructor
      * @param Battle $sender 
@@ -45,37 +33,24 @@ class BattleActionDamageEvent extends BattleActionEvent {
             $params
         );
         
-        // BonusCollector part
         $this->attachBehaviors($this->behaviors());
+
+        // BonusCollector part
         $this->asa("BonusCollector")->init(
                 $params['bonusAbs'], 
                 $params['bonusPerc']
         );
         unset($params['bonusAbs'], $params['bonusPerc']);
         
-        // GainStat part
-        $this->_damageAmount = $damage;
-        $this->_damageType = $damageType;
+        // DamageStorage part
+        $this->asa("DamageStorage")->init(
+                $damage,
+                $damageType
+        );
 
         parent::__construct($sender, $hero, $enemy, $action, $params);
     }
     
-    /**
-     * Basic getter
-     * @return float
-     */
-    public function getDamageAmount() {
-        return $this->_damageAmount;
-    }
-    
-    /**
-     * Basic gettter
-     * @return string enum(normal|special)
-     */
-    public function getDamageType() {
-        return $this->_damageType;
-    }
-
     /**
      * Returns a list of CBehaviors to be attached to this component
      * @link http://www.yiiframework.com/doc/api/CBehavior
@@ -83,7 +58,8 @@ class BattleActionDamageEvent extends BattleActionEvent {
      */
     public function behaviors() {
         return array(
-            "BonusCollector" => "application.components.events.BonusCollectorBehavior"
+            "BonusCollector" => "application.components.events.behaviors.BonusCollectorBehavior",
+            "DamageStorage" => "application.components.events.behaviors.DamageStorageBehavior"
         );
     }
 }

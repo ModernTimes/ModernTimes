@@ -14,6 +14,7 @@ return array(
 		'application.models.*',
 		'application.components.*',
                 'application.components.events.*',
+                'application.components.events.behaviors.*',
                 'application.components.widgets.*',
                 'application.controllers.actions.*',
                 'application.controllers.actions.inventory.*',
