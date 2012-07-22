@@ -116,7 +116,7 @@ class EquipAction extends CAction {
                         $this->controller->afterAction($this);
 
                         $transaction->commit();
-                        EUserFlash::setMessage("You equipped " . $CharacterItem->item->name);
+                        EUserFlash::setMessage("You equipped your " . lcfirst($CharacterItem->item->name));
 
                     } catch(Exception $e) {
                         $transaction->rollback();

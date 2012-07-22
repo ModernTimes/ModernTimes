@@ -6,7 +6,7 @@
             </a>
         </div>
         <?php /* add "in" as class to open on default */ ?>
-        <div id="collapseEquipment" class="accordion-body collapse">
+        <div id="collapseEquipment" class="accordion-body collapse in">
             <div class="accordion-inner">
                 <?php $this->widget('EquipmentWidget'); ?>
             </div>
@@ -21,6 +21,7 @@
 <BR />
 <p><b>Inventory</b><BR /></p>
 
+<!--
 <ul class="nav nav-tabs" id="inventoryTab">
   <li class="active"><a href="#inventoryAll" data-toggle="tab">All</a></li>
   <li><a href="#inventoryWeapons" data-toggle="tab">Weapons</a></li>
@@ -30,7 +31,7 @@
 
 <div class="tab-content">
   <div class="tab-pane active" id="inventoryAll">
-
+-->
     <?php
     $this->widget('zii.widgets.CListView', array(
         'dataProvider' => $itemDataProvider,
@@ -40,6 +41,7 @@
     ));
     ?>
 
+<!--
   </div>
   <div class="tab-pane" id="inventoryWeapons">no filtering yet
       
@@ -75,3 +77,4 @@
     })
     */
 </script>
+-->

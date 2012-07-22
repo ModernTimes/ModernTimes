@@ -37,13 +37,4 @@ class CharacterModifierBehavior extends CBehavior {
         }
     }
     
-    /**
-     * Returns a string that can be used as the content of a popup
-     * for $this->owner
-     * @todo Actually add data from $this->owner->charactermodifier
-     * @return string
-     */
-    public function getPopup() { 
-        return $this->owner->desc; 
-    }
 }
