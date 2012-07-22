@@ -66,7 +66,7 @@ class BabbleComboEffect extends CBehavior {
      * @return void
      */
     public function reactToOnAfterAction($event) {
-        if($event->sender->getCombatantString($event->params['hero']) == $this->owner->heroString) {
+        if($event->sender->getCombatantString($event->hero) == $this->owner->heroString) {
             if ($event->action->actionType == "personal" &&
                 $event->action->subType != "babbling") {
             
