@@ -8,9 +8,9 @@ Yii::import('application.models._base.BaseEncounter');
  * 
  * See BaseEncounter for a list of attributes and related Models
  * 
- * @see SpecialnessBehavior
- * @see CharacterModifierBehavior
- * @see Charactermodifier
+ * @uses SpecialnessBehavior
+ * @uses CharacterModifierBehavior
+ * @uses Charactermodifier
  * @package System.Models
  */
 
@@ -90,7 +90,6 @@ class Encounter extends BaseEncounter {
     /**
      * Returns a list of CBehaviors to be attached to this Model
      * @link http://www.yiiframework.com/doc/api/CBehavior
-     * @see SpecialnessBehavior
      * @return array
      */
     public function behaviors() {
@@ -100,7 +99,7 @@ class Encounter extends BaseEncounter {
     
     /**
      * Factory method to get Model objects
-     * @see http://www.yiiframework.com/doc/api/CModel
+     * @link http://www.yiiframework.com/doc/api/CModel
      * @param string $className
      * @return CModel
      */

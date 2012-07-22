@@ -3,14 +3,14 @@
 Yii::import('application.models._base.BaseCharacter');
 
 /**
- * Provides nice getter, setter, and "gainer" methods 
+ * Provides getter, setter, and "gainer" methods.
  * Getter and "gainer" methods raise events which allow other code thingies to 
- * hook into the respective calculations
+ * hook into the respective calculations.
  * 
  * See BaseCharacter for a list of attributes and related Models
  * 
- * @see CombatantBehavior
- * @see CharacterModifierBehavior
+ * @uses CombatantBehavior
+ * @uses CharacterModifierBehavior
  * @uses CalcCharacterStatEvent
  * @link http://www.yiiframework.com/extension/attributesbackupbehavior/
  * @package Character
@@ -24,7 +24,7 @@ class Character extends BaseCharacter {
     
     /**
      * Wrapper for gainResource
-     * @see gainResource
+     * @uses gainResource
      * @param float $amount
      * @param string $source enum(other|battle|encounter|quest|autosell) 
      */
@@ -33,7 +33,7 @@ class Character extends BaseCharacter {
     }
     /**
      * Wrapper for gainResource
-     * @see gainResource
+     * @uses gainResource
      * @param float $amount
      * @param string $source enum(other|battle|encounter|quest|autosell) 
      */
@@ -42,7 +42,7 @@ class Character extends BaseCharacter {
     }
     /**
      * Wrapper for gainResource
-     * @see gainResource
+     * @uses gainResource
      * @param float $amount
      * @param string $source enum(other|battle|encounter|quest|autosell) 
      */
@@ -75,7 +75,7 @@ class Character extends BaseCharacter {
     
     /**
      * Wrapper for increaseResource
-     * @see increaseResource
+     * @uses increaseResource
      * @param float $amount
      */
     public function increaseCash($amount = 0) {
@@ -83,7 +83,7 @@ class Character extends BaseCharacter {
     }
     /**
      * Wrapper for increaseResource
-     * @see increaseResource
+     * @uses increaseResource
      * @param float $amount
      */
     public function increaseFavours($amount = 0) {
@@ -91,7 +91,7 @@ class Character extends BaseCharacter {
     }
     /**
      * Wrapper for increaseResource
-     * @see increaseResource
+     * @uses increaseResource
      * @param float $amount
      */
     public function increaseKudos($amount = 0) {
@@ -128,7 +128,7 @@ class Character extends BaseCharacter {
     
     /**
      * Wrapper for gainItem. Allows handling of multiple Items.
-     * @see gainItem
+     * @uses gainItem
      * @param array $items several Items
      */
     public function gainItems($items) {
@@ -177,7 +177,7 @@ class Character extends BaseCharacter {
 
     /**
      * Wrapper for changeHp
-     * @see changeHp
+     * @uses changeHp
      * @param int $amount
      * @return int how the hp actually changed
      */
@@ -186,7 +186,7 @@ class Character extends BaseCharacter {
     }
     /**
      * Wrapper for changeHp
-     * @see changeHp
+     * @uses changeHp
      * @param int $amount 
      * @return int how the hp actually changed
      */
@@ -223,7 +223,7 @@ class Character extends BaseCharacter {
     
     /**
      * Wrapper for changeEnergy
-     * @see changeEnergy
+     * @uses changeEnergy
      * @param int $amount 
      * @return int how the energy actually changed
      */
@@ -232,7 +232,7 @@ class Character extends BaseCharacter {
     }
     /**
      * Wrapper for changeEnergy
-     * @see changeEnergy
+     * @uses changeEnergy
      * @param int $amount 
      * @return int how the energy actually changed
      */
@@ -268,7 +268,7 @@ class Character extends BaseCharacter {
     
     /**
      * Wrapper for gainSubstat
-     * @see gainSubstat
+     * @uses gainSubstat
      * @param float $amount
      * @param string $from enum(battle|encounter|quest|autosell) 
      */
@@ -277,7 +277,7 @@ class Character extends BaseCharacter {
     }
     /**
      * Wrapper for gainSubstat
-     * @see gainSubstat
+     * @uses gainSubstat
      * @param float $amount
      * @param string $from enum(battle|encounter|quest|autosell) 
      */
@@ -286,7 +286,7 @@ class Character extends BaseCharacter {
     }
     /**
      * Wrapper for gainSubstat
-     * @see gainSubstat
+     * @uses gainSubstat
      * @param float $amount
      * @param string $from enum(battle|encounter|quest|autosell) 
      */
@@ -295,7 +295,7 @@ class Character extends BaseCharacter {
     }
     /**
      * Wrapper for gainSubstat
-     * @see gainSubstat
+     * @uses gainSubstat
      * @param float $amount
      * @param string $from enum(battle|encounter|quest|autosell) 
      */
@@ -329,9 +329,9 @@ class Character extends BaseCharacter {
     /**
      * Divides xp gains among the three substats, depending on the Character
      * class
-     * @see increaseResoluteness
-     * @see increaseWillpower
-     * @see increaseCunning
+     * @uses increaseResoluteness
+     * @uses increaseWillpower
+     * @uses increaseCunning
      * @param float $xp 
      */
     public function increaseXp($xp) {
@@ -347,7 +347,7 @@ class Character extends BaseCharacter {
     
     /**
      * Wrapper for increaseSubstat
-     * @see increaseSubstat
+     * @uses increaseSubstat
      * @param float $amount
      * @param bool $generateMsg
      */
@@ -356,7 +356,7 @@ class Character extends BaseCharacter {
     }
     /**
      * Wrapper for increaseSubstat
-     * @see increaseSubstat
+     * @uses increaseSubstat
      * @param float $amount
      * @param bool $generateMsg
      */
@@ -365,7 +365,7 @@ class Character extends BaseCharacter {
     }
     /**
      * Wrapper for increaseSubstat
-     * @see increaseSubstat
+     * @uses increaseSubstat
      * @param float $amount
      * @param bool $generateMsg
      */
@@ -379,7 +379,7 @@ class Character extends BaseCharacter {
      * If $generateMsg: also generates an EUserFlash message to inform the user 
      * about this fortunate turn of events.
      * This is more of a setter method and does not raise any events.
-     * @see Tools->decideBetweenTwoNumbers
+     * @uses Tools->decideBetweenTwoNumbers
      * @param string $stat enum(resoluteness|cunning|willpower)
      * @param bool $generateMsg
      */
@@ -413,7 +413,7 @@ class Character extends BaseCharacter {
     
     /**
      * Wrapper for getStatBuffed
-     * @see getStatBuffed
+     * @uses getStatBuffed
      * @return int
      */
     public function getResolutenessBuffed() {
@@ -421,7 +421,7 @@ class Character extends BaseCharacter {
     }
     /**
      * Wrapper for getStatBuffed
-     * @see getStatBuffed
+     * @uses getStatBuffed
      * @return int
      */
     public function getWillpowerBuffed() {
@@ -429,7 +429,7 @@ class Character extends BaseCharacter {
     }
     /**
      * Wrapper for getStatBuffed
-     * @see getStatBuffed
+     * @uses getStatBuffed
      * @return int
      */
     public function getCunningBuffed() {
@@ -549,9 +549,9 @@ class Character extends BaseCharacter {
     /**
      * Wrapper for getResolutenessBase, getCunningBase, or getWillpowerBase,
      * depending on the Character's class's main stat
-     * @see getResolutenessBase
-     * @see getCunningBase
-     * @see getWillpowerBase
+     * @uses getResolutenessBase
+     * @uses getCunningBase
+     * @uses getWillpowerBase
      * @return int
      */
     public function getMainstatBase() {
@@ -560,9 +560,9 @@ class Character extends BaseCharacter {
     /**
      * Wrapper for getResolutenessBuffed, getCunningBuffed, or 
      * getWillpowerBuffed, depending on the Character's class's main stat
-     * @see getResolutenessBuffed
-     * @see getCunningBuffed
-     * @see getWillpowerBuffed
+     * @uses getResolutenessBuffed
+     * @uses getCunningBuffed
+     * @uses getWillpowerBuffed
      * @return int
      */
     public function getMainstatBuffed() {
@@ -571,9 +571,9 @@ class Character extends BaseCharacter {
     /**
      * Wrapper for getResolutenessSub, getCunningSub, or getWillpowerSub,
      * depending on the Character's class's main stat
-     * @see getResolutenessSub
-     * @see getCunningSub
-     * @see getWillpowerSub
+     * @uses getResolutenessSub
+     * @uses getCunningSub
+     * @uses getWillpowerSub
      * @return int
      */
     public function getMainstatSub() {
@@ -659,7 +659,7 @@ class Character extends BaseCharacter {
     }
     /**
      * Adds a CharacterEffects record to the Character record
-     * @see CharacterEffects
+     * @uses CharacterEffects
      * @param CharacterEffects $characterEffect 
      */
     public function addEffect($characterEffect) {
@@ -863,7 +863,6 @@ class Character extends BaseCharacter {
     /**
      * Returns a list of CBehaviors to be attached to this Model
      * @link http://www.yiiframework.com/doc/api/CBehavior
-     * @see CombatantBehavior
      * @link http://www.yiiframework.com/extension/attributesbackupbehavior/
      * @return array
      */
@@ -877,7 +876,7 @@ class Character extends BaseCharacter {
 
     /**
      * Factory method to get Model objects
-     * @see http://www.yiiframework.com/doc/api/CModel
+     * @link http://www.yiiframework.com/doc/api/CModel
      * @param string $className
      * @return CModel
      */

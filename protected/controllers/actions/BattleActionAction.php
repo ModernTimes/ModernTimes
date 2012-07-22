@@ -13,6 +13,7 @@ class BattleActionAction extends BattleAction {
     /**
      * Checks if the battle action is legitimate and renders the battle view
      * @todo syntax checks for skillID and itemID
+     * @uses Battle->playerAction
      * @param string $skillID treated as int, only string because of $GET
      * @param string $itemID treated as int, only string because of $GET
      */

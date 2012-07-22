@@ -4,8 +4,6 @@
  * Gets attached to Character and Monster models 
  * to take care of certain battle-related tasks
  * 
- * @see Character
- * @see Monster
  * @package Battle
  */
 

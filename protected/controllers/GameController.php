@@ -6,7 +6,7 @@
  * - Takes care of initializing CharacterData
  * - Cleans up after game actions are done
  * 
- * @see CharacterData
+ * @uses CharacterData
  * @package Actions 
  */
 
@@ -158,7 +158,7 @@ class GameController extends Controller {
     /**
      * Initializes CharacterData. If there is no active Character record,
      * CharacterData will redirect to character/create action automatically
-     * @see CharacterData
+     * @uses CharacterData
      * @param CFilterChain $c 
      */
     public function filterInitCharacterDataComponent($c) {
@@ -169,7 +169,7 @@ class GameController extends Controller {
     /**
      * Makes sure that the user does not cheat their way out of an
      * ongoing battle
-     * @see Battle
+     * @uses CharacterData
      * @param CFilterChain $c 
      */
     public function filterNoOngoingBattle($c) {
@@ -185,7 +185,7 @@ class GameController extends Controller {
     /**
      * Makes sure that the user does not cheat their way out of an
      * ongoing Encounter path
-     * @see Encounter
+     * @uses CharacterData
      * @param CFilterChain $c 
      */
     public function filterNoOngoingEncounter($c) {

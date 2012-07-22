@@ -10,8 +10,8 @@ Yii::import('application.components.skills.*');
  * 
  * See BaseSkill for a list of attributes and related Models
  * 
- * @see SpecialnessBehavior
- * @see CharacterModifierBehavior
+ * @uses SpecialnessBehavior
+ * @uses CharacterModifierBehavior
  * @package System.Models
  */
 
@@ -196,8 +196,6 @@ class Skill extends BaseSkill {
     /**
      * Returns a list of CBehaviors to be attached to this Model
      * @link http://www.yiiframework.com/doc/api/CBehavior
-     * @see SpecialnessBehavior
-     * @see CharacterModifierBehavior
      * @return array
      */
     public function behaviors() {
@@ -209,7 +207,7 @@ class Skill extends BaseSkill {
 
     /**
      * Factory method to get Model objects
-     * @see http://www.yiiframework.com/doc/api/CModel
+     * @link http://www.yiiframework.com/doc/api/CModel
      * @param string $className
      * @return CModel
      */

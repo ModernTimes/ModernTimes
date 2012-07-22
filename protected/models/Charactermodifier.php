@@ -19,8 +19,8 @@ Yii::import('application.models._base.BaseCharactermodifier');
  * 
  * See BaseCharactermodifier for a list of attributes and related Models
  * 
- * @see CharacterModifierBehavior
- * @see SpecialnessBehavior
+ * @uses CharacterModifierBehavior
+ * @uses SpecialnessBehavior
  * @package Character
  */
 
@@ -184,7 +184,7 @@ class Charactermodifier extends BaseCharactermodifier {
     
     /**
      * Factory method to get Model objects
-     * @see http://www.yiiframework.com/doc/api/CModel
+     * @link http://www.yiiframework.com/doc/api/CModel
      * @param string $className
      * @return CModel
      */

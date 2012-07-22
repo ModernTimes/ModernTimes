@@ -5,7 +5,7 @@
  * 
  * @todo check item requirements
  * 
- * @see UnequipAction
+ * @uses UnequipAction
  * @package Actions.inventory
  */
 

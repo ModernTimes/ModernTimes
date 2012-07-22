@@ -14,8 +14,7 @@
  * Character model's calculations of basic character stats, like getMaxHp, 
  * getRobustness, getLevel, etc.
  * 
- * @see Character
- * @see GameController
+ * @uses Character
  * @link http://www.yiiframework.com/doc/api/1.1/CApplicationComponent
  * @package Character
  */

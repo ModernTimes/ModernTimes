@@ -4,8 +4,7 @@
  * Cannot be called by user directly, so callFromWithinApplication has to be
  * set true before run() can be executed
  * 
- * @see MischiefAction
- * @see Encounter
+ * @uses Encounter
  * @package Actions
  */
 

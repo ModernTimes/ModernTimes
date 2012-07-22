@@ -6,8 +6,7 @@
  * 
  * $this->owner is an Item record
  * 
- * @see Item
- * @see SpecialnessBehavior
+ * @uses SpecialnessBehavior
  * @package Items
  */
 

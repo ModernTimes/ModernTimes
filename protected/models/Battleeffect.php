@@ -11,7 +11,7 @@ Yii::import('application.models._base.BaseBattleeffect');
  * See BaseBattleeffect for a list of attributes and related Models
  * 
  * @todo add more basic effect mechanics
- * @see SpecialnessBehavior
+ * @uses SpecialnessBehavior
  * @package Battle
  */
 
@@ -177,7 +177,6 @@ class Battleeffect extends BaseBattleeffect {
      * $battle->onAfterDealingDamage = array($this, 'reactToOnAfterDealingDamage');
      * $battle->onBeforeTakingDamage = array($this, 'reactToOnBeforeTakingDamage');
      * $battle->onAfterTakingDamage = array($this, 'reactToOnAfterTakingDamage');
-     * @see SpecialnessBehavior
      * @param Battle $battle
      */
     public function attachToBattle($battle) {
@@ -287,7 +286,6 @@ class Battleeffect extends BaseBattleeffect {
     /**
      * Returns a list of CBehaviors to be attached to this Model
      * @link http://www.yiiframework.com/doc/api/CBehavior
-     * @see SpecialnessBehavior
      * @return array
      */
     public function behaviors() {
@@ -295,7 +293,7 @@ class Battleeffect extends BaseBattleeffect {
     }
     /**
      * Factory method to get Model objects
-     * @see http://www.yiiframework.com/doc/api/CModel
+     * @link http://www.yiiframework.com/doc/api/CModel
      * @param string $className
      * @return CModel
      */

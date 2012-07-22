@@ -9,6 +9,7 @@ Yii::import('application.components.battleEffects.*');
  * See BaseBattle for a list of attributes and related Models
  *
  * @todo implememnt battle phases in State pattern?
+ * @todo is this class overloaded with responsibilities? How to split it up?
  * @fixme AttributesbackupBehavior is flawed; no update via $this->save() after
  * objectState is set by save-method. Workaround: use update().
  * 
@@ -173,8 +174,7 @@ class Battle extends BaseBattle {
      * calculateRound if that is so.
      * Validity of $playerAction is checked by controller or is provided by
      * a Monster model directly
-     * @see BattleMonsterAction
-     * @see calculateRound
+     * @uses calculateRound
      * @param mixed Skill or Item record
      */
     public function playerAction($playerAction = null) {
@@ -284,7 +284,7 @@ class Battle extends BaseBattle {
      */
     
     /**
-     * Adds a Battleeffect to the battle
+     * Adds a Battleeffect to $this->battleeffects
      * @see Battleeffect
      * @see BattleeffectList
      * @param Battleeffect $effect 
@@ -567,7 +567,7 @@ class Battle extends BaseBattle {
      * serialize invokes __sleep, which sets $this->combatantA and B to null
      * reconstructCombatants reconstructs the Combatants. That way, the
      * complex Combatant objects do not use up space in the DB
-     * @see __sleep
+     * @uses __sleep
      * @uses reconstructCombatants
      */
     public function saveObjectState() {
@@ -658,7 +658,7 @@ class Battle extends BaseBattle {
     
     /**
      * Factory method to get Model objects
-     * @see http://www.yiiframework.com/doc/api/CModel
+     * @link http://www.yiiframework.com/doc/api/CModel
      * @param string $className
      * @return CModel
      */

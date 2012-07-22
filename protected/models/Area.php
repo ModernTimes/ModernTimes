@@ -10,7 +10,7 @@ Yii::import('application.components.areas.*');
  * 
  * See BaseArea for a list of attributes and related Models
  *
- * @see SpecialnessBehavior
+ * @uses SpecialnessBehavior
  * @package System.Models
  */
 
@@ -62,7 +62,6 @@ class Area extends BaseArea {
     /**
      * Returns a list of CBehaviors to be attached to this Model
      * @link http://www.yiiframework.com/doc/api/CBehavior
-     * @see SpecialnessBehavior
      * @return array
      */
     public function behaviors() {
@@ -71,7 +70,7 @@ class Area extends BaseArea {
 
     /**
      * Factory method to get Model objects
-     * @see http://www.yiiframework.com/doc/api/CModel
+     * @link http://www.yiiframework.com/doc/api/CModel
      * @param string $className
      * @return CModel
      */

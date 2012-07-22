@@ -37,8 +37,6 @@ class Lottery extends CComponent {
      * The AR objects have to represent HAS-MANY-relationships, and they must
      * have an attribute representing the number of lots that each element gets
      * in the lottery.
-     * @see AreaEncounters
-     * @see MonsterItems
      * @param string $lotColumn the column name of the AR objects that holds
      * the number of lots that each object is to receive in the lottery
      */

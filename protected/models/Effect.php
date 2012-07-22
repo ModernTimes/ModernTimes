@@ -9,9 +9,9 @@ Yii::import('application.components.effects.*');
  * 
  * See BaseEffect for a list of attributes and related Models
  * 
- * @see SpecialnessBehavior
- * @see CharacterModifierBehavior
- * @see Charactermodifier
+ * @uses SpecialnessBehavior
+ * @uses CharacterModifierBehavior
+ * @uses Charactermodifier
  * @package System.Models
  */
 
@@ -20,8 +20,6 @@ class Effect extends BaseEffect {
     /**
      * Returns a list of CBehaviors to be attached to this Model
      * @link http://www.yiiframework.com/doc/api/CBehavior
-     * @see SpecialnessBehavior
-     * @see CharacterModifierBehavior
      * @return array
      */
     public function behaviors() {
@@ -33,7 +31,7 @@ class Effect extends BaseEffect {
 
     /**
      * Factory method to get Model objects
-     * @see http://www.yiiframework.com/doc/api/CModel
+     * @link http://www.yiiframework.com/doc/api/CModel
      * @param string $className
      * @return CModel
      */

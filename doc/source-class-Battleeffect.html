@@ -134,7 +134,7 @@
 </span><a href="#11" id="11" class="l"> 11 </a><span class="php-comment"> * See BaseBattleeffect for a list of attributes and related Models
 </span><a href="#12" id="12" class="l"> 12 </a><span class="php-comment"> * 
 </span><a href="#13" id="13" class="l"> 13 </a><span class="php-comment"> * @todo add more basic effect mechanics
-</span><a href="#14" id="14" class="l"> 14 </a><span class="php-comment"> * @see SpecialnessBehavior
+</span><a href="#14" id="14" class="l"> 14 </a><span class="php-comment"> * @uses SpecialnessBehavior
 </span><a href="#15" id="15" class="l"> 15 </a><span class="php-comment"> * @package Battle
 </span><a href="#16" id="16" class="l"> 16 </a><span class="php-comment"> */</span>
 <a href="#17" id="17" class="l"> 17 </a>
@@ -300,7 +300,7 @@
 </span><a href="#177" id="177" class="l">177 </a><span class="php-comment">     * $battle-&gt;onAfterDealingDamage = array($this, 'reactToOnAfterDealingDamage');
 </span><a href="#178" id="178" class="l">178 </a><span class="php-comment">     * $battle-&gt;onBeforeTakingDamage = array($this, 'reactToOnBeforeTakingDamage');
 </span><a href="#179" id="179" class="l">179 </a><span class="php-comment">     * $battle-&gt;onAfterTakingDamage = array($this, 'reactToOnAfterTakingDamage');
-</span><a href="#180" id="180" class="l">180 </a><span class="php-comment">     * @see SpecialnessBehavior
+</span><a href="#180" id="180" class="l">180 </a><span class="php-comment">     * @uses SpecialnessBehavior
 </span><a href="#181" id="181" class="l">181 </a><span class="php-comment">     * @param Battle $battle
 </span><a href="#182" id="182" class="l">182 </a><span class="php-comment">     */</span>
 <a href="#183" id="183" class="l">183 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> attachToBattle(<span class="php-var">$battle</span>) {
@@ -410,7 +410,7 @@
 <a href="#287" id="287" class="l">287 </a>    <span class="php-comment">/**
 </span><a href="#288" id="288" class="l">288 </a><span class="php-comment">     * Returns a list of CBehaviors to be attached to this Model
 </span><a href="#289" id="289" class="l">289 </a><span class="php-comment">     * @link http://www.yiiframework.com/doc/api/CBehavior
-</span><a href="#290" id="290" class="l">290 </a><span class="php-comment">     * @see SpecialnessBehavior
+</span><a href="#290" id="290" class="l">290 </a><span class="php-comment">     * @uses SpecialnessBehavior
 </span><a href="#291" id="291" class="l">291 </a><span class="php-comment">     * @return array
 </span><a href="#292" id="292" class="l">292 </a><span class="php-comment">     */</span>
 <a href="#293" id="293" class="l">293 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> behaviors() {
@@ -418,7 +418,7 @@
 <a href="#295" id="295" class="l">295 </a>    }
 <a href="#296" id="296" class="l">296 </a>    <span class="php-comment">/**
 </span><a href="#297" id="297" class="l">297 </a><span class="php-comment">     * Factory method to get Model objects
-</span><a href="#298" id="298" class="l">298 </a><span class="php-comment">     * @see http://www.yiiframework.com/doc/api/CModel
+</span><a href="#298" id="298" class="l">298 </a><span class="php-comment">     * @link http://www.yiiframework.com/doc/api/CModel
 </span><a href="#299" id="299" class="l">299 </a><span class="php-comment">     * @param string $className
 </span><a href="#300" id="300" class="l">300 </a><span class="php-comment">     * @return CModel
 </span><a href="#301" id="301" class="l">301 </a><span class="php-comment">     */</span>

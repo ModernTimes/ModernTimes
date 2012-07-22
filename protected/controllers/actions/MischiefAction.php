@@ -4,8 +4,8 @@
  * an encounter or to start a battle against a monster
  * 
  * @uses Area
- * @see BattleMonsterAction
- * @see EncounterAction
+ * @uses BattleMonsterAction
+ * @uses EncounterAction
  * @package Actions
  */
 
