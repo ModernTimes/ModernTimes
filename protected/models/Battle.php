@@ -204,17 +204,24 @@ class Battle extends BaseBattle {
     }
     
     /**
-     * 1. resolve block actions
-     * 2. resolve delayed effects
-     * 3. resolve defensive actions
-     * 4. resolve offensive actions
-     * 5. create new effects
+     * - resolve block actions
+     * - resolve delayed effects
+     * - resolve defensive actions
+     * - resolve offensive actions
+     * - create new effects
+     * 
+     * @uses onBeforeRound with BattleEvent
+     * @uses onAfterRound with BattleEvent
+     * @uses onBeforeAction with BattleActionEvent
+     * @uses onAfterAction with BattleActionEvent
+     * @uses BattleEvent
+     * @uses BattleActionEvent
      */
     public function calculateRound() {
         Yii::trace("calculateRound");
 
         $this->nextRound();
-        $this->onBeforeRound(new CEvent($this));
+        $this->onBeforeRound(new BattleEvent($this));
 
         /**
          * Resolve actions
@@ -242,17 +249,19 @@ class Battle extends BaseBattle {
         $second = ($first == "combatantA" ? "combatantB" : "combatantA");
         
         // First action
-        $event = new CModelEvent($this, array('hero' => $this->{$first},
-                                            'enemy' => $this->{$second},
-                                            'action' => $this->{$first . "Action"}));
+        $event = new BattleActionEvent($this, 
+                $this->{$first}, $this->{$second},
+                $this->{$first . "Action"}
+        );
         $this->onBeforeAction($event);
         $this->{$first . "Action"}->call("resolve", $this, $this->{$first}, $this->{$second});
         $this->onAfterAction($event);
         
         // Second action
-        $event = new CModelEvent($this, array('hero' => $this->{$second},
-                                            'enemy' => $this->{$first},
-                                            'action' => $this->{$second . "Action"}));
+        $event = new BattleActionEvent($this, 
+                $this->{$second}, $this->{$first}, 
+                $this->{$second . "Action"}
+        );
         $this->onBeforeAction($event);
         $this->{$second . "Action"}->call("resolve", $this, $this->{$second}, $this->{$first});
         $this->onAfterAction($event);
@@ -268,7 +277,7 @@ class Battle extends BaseBattle {
         if($this->combatantA->hp <= 0 || $this->combatantB->hp <= 0) {
             $this->stop();
         } else {
-            $this->onAfterRound(new CEvent($this));
+            $this->onAfterRound(new BattleEvent($this));
 
             if($this->type == "pvp") {
                 $this->combatantA->save();

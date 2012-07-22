@@ -221,7 +221,7 @@ class Battleeffect extends BaseBattleeffect {
         if($this->blocks &&
            $this->active &&
            $event->sender->getCombatantString($event->params['hero']) == $this->heroString &&
-           !$event->params['action']->blocked) {
+           !$event->action->blocked) {
             
             if($this->blockChance != 1) {
                 $rand = mt_rand(0,100);
@@ -230,18 +230,18 @@ class Battleeffect extends BaseBattleeffect {
                 }
             }
             
-            if($event->params['action']->call("setBlocked")) {
+            if($event->action->call("setBlocked")) {
                 $this->blockNumberOfBlocks --;
                 $this->charges --;
                 
-                $battleMsg = new Battlemessage(sprintf($this->msgBlock, $event->params['hero']->name, $event->params['action']->name));
-                $event->sender->log($event->params['hero'], $battleMsg);
+                $battleMsg = new Battlemessage(sprintf($this->msgBlock, $event->hero->name, $event->action->name));
+                $event->sender->log($event->hero, $battleMsg);
                         
                 if($this->blockNumberOfBlocks == 0) {
                     $this->active = false;
 
-                    $battleMsg = new Battlemessage(sprintf($this->msgExpire, $event->params['hero']->name));
-                    $event->sender->log($event->params['hero'], $battleMsg);
+                    $battleMsg = new Battlemessage(sprintf($this->msgExpire, $event->hero->name));
+                    $event->sender->log($event->hero, $battleMsg);
                 }
             }
         }
