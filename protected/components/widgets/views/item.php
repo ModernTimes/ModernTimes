@@ -3,7 +3,7 @@
  * Used by ItemWidget
  */
 ?>
-<div class="thumbnail" style="max-width: 100px; max-height: 100px; min-width: 50px; min-height: 50px; display: inline-block;">
+<div class="thumbnail" style="width: 50px; height: 50px; display: inline-block; vertical-align:top">
 
     <?php
     if(!empty($this->item)) {
@@ -16,7 +16,20 @@
          */
         $popup = $this->item->call('getPopup');
         if(empty($popup)) {
-            $popup = "<p>" . $this->item->desc . "</p>";
+            $popup = "<p>" . $this->item->desc . "</p><BR /><P>";
+            switch($this->item->type) {
+                case "weapon":
+                    $popup .= "Weapon";
+                    break;
+                case "offhand":
+                    $popup .= "Offhand";
+                    break;
+                case "accessory":
+                    $popup .= "Accessory";
+                    break;
+                default:
+                    break;
+            }
             if($this->item->charactermodifier->hp > 0) {
                 $popup .= "<BR />+" . $this->item->charactermodifier->hp . " HP";
             }
@@ -50,6 +63,7 @@
             if($this->item->charactermodifier->dropItemPerc > 0) {
                 $popup .= "<BR />+" . $this->item->charactermodifier->dropItemPerc. "% chance to find items";
             }
+            $popup .= "</p>";
             
         }
         

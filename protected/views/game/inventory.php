@@ -1,11 +1,10 @@
-<div class="accordion" id="inventoryAccordion">
+<?php /* <div class="accordion" id="inventoryAccordion">
     <div class="accordion-group">
         <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#inventoryAccordion" href="#collapseEquipment">
                 Equipment
             </a>
         </div>
-        <?php /* add "in" as class to open on default */ ?>
         <div id="collapseEquipment" class="accordion-body collapse in">
             <div class="accordion-inner">
                 <?php $this->widget('EquipmentWidget'); ?>
@@ -18,51 +17,47 @@
     // $(".collapse").collapse();
 </script>
 
-<BR />
-<p><b>Inventory</b><BR /></p>
-
-<!--
+<BR />  */ ?>
 <ul class="nav nav-tabs" id="inventoryTab">
-  <li class="active"><a href="#inventoryAll" data-toggle="tab">All</a></li>
-  <li><a href="#inventoryWeapons" data-toggle="tab">Weapons</a></li>
-  <li><a href="#inventoryAccessories" data-toggle="tab">Accessories</a></li>
+  <li class="active"><a href="#inventoryEquipment" data-toggle="tab">Equipment</a></li>
   <li><a href="#inventoryMisc" data-toggle="tab">Misc</a></li>
 </ul>
 
 <div class="tab-content">
-  <div class="tab-pane active" id="inventoryAll">
--->
-    <?php
-    $this->widget('zii.widgets.CListView', array(
-        'dataProvider' => $itemDataProvider,
-        'itemView' => '_item',
-        'template' => "{items}",
-        'separator' => '<BR />',
-    ));
-    ?>
+    <div class="tab-pane active" id="inventoryEquipment">
+        <p><b>Equipment</b><BR /></p>
+        <?php $this->widget('EquipmentWidget'); ?>
+      
+        <p>&nbsp;</p><p><b>Inventory</b><BR /></p>
 
-<!--
-  </div>
-  <div class="tab-pane" id="inventoryWeapons">no filtering yet
-      
-    <?php
-    /*
-    $criteria = new CDbCriteria(array(
-        'condition' => "`item`.type = 'weapon'"
-    ));
-    $itemDataProvider->setCriteria($criteria);
-    $itemDataProvider->getData(true);
-    $this->widget('zii.widgets.CListView', array(
-        'dataProvider' => $itemDataProvider,
-        'itemView' => '_item',
-        'template' => "{items}"
-    ));
-    */ 
-    ?>
-      
-  </div>
-  <div class="tab-pane" id="inventoryAccessories">no filtering yet</div>
-  <div class="tab-pane" id="inventoryMisc">no filtering yet</div>
+        <?php
+        // @todo only equippable stuff
+        $this->widget('zii.widgets.CListView', array(
+            'dataProvider' => $itemDataProvider,
+            'itemView' => '_item',
+            'template' => "{items}",
+            'separator' => '<BR />'
+        ));
+        ?>
+    </div>
+    <div class="tab-pane" id="inventoryMisc">no filtering yet
+
+        <?php
+        /*
+        $criteria = new CDbCriteria(array(
+            'condition' => "`item`.type = 'weapon'"
+        ));
+        $itemDataProvider->setCriteria($criteria);
+        $itemDataProvider->getData(true);
+        $this->widget('zii.widgets.CListView', array(
+            'dataProvider' => $itemDataProvider,
+            'itemView' => '_item',
+            'template' => "{items}"
+        ));
+        */ 
+        ?>
+
+    </div>
 </div>
 
 <script>
@@ -77,4 +72,3 @@
     })
     */
 </script>
--->

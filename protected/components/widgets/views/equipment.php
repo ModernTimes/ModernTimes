@@ -1,10 +1,15 @@
+<div style="display:inline-block; vertical-align: top; margin-right: 20px">Weapon:<BR />
 <?php
-
 $this->widget('ItemWidget', array(
     "context" => "equipment",
     "equipmentSlot" => "weapon",
     "item" => (!empty($this->equipment->weapon0) ? $this->equipment->weapon0 : null)
 )); 
+?>
+</div>
+
+<div style="display: inline-block; vertical-align:top">Accessories:<BR />
+<?php
 $this->widget('ItemWidget', array(
     "context" => "equipment",
     "equipmentSlot" => "accessoryA",
@@ -21,3 +26,4 @@ $this->widget('ItemWidget', array(
     "item" => (!empty($this->equipment->accessoryC0) ? $this->equipment->accessoryC0 : null)
 )); 
 ?>
+</div>

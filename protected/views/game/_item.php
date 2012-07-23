@@ -1,7 +1,7 @@
 <?php 
 /**
  * Partial view
- * Used by CListView widget in inventory.php
+ * Used by CListView widget invoked by inventory.php
  */ 
 
 $this->widget('ItemWidget', array(
