@@ -16,55 +16,57 @@
          */
         $popup = $this->item->call('getPopup');
         if(empty($popup)) {
-            $popup = "<p>" . $this->item->desc . "</p><BR /><P>";
-            switch($this->item->type) {
-                case "weapon":
-                    $popup .= "Weapon";
-                    break;
-                case "offhand":
-                    $popup .= "Offhand";
-                    break;
-                case "accessory":
-                    $popup .= "Accessory";
-                    break;
-                default:
-                    break;
+            $popup = "<p>" . $this->item->desc . "</p>";
+            if(!empty($this->item->charactermodifier)) {
+                $popup .= "<BR /><P>";
+                switch($this->item->type) {
+                    case "weapon":
+                        $popup .= "Weapon";
+                        break;
+                    case "offhand":
+                        $popup .= "Offhand";
+                        break;
+                    case "accessory":
+                        $popup .= "Accessory";
+                        break;
+                    default:
+                        break;
+                }
+                if($this->item->charactermodifier->hp > 0) {
+                    $popup .= "<BR />+" . $this->item->charactermodifier->hp . " HP";
+                }
+                if($this->item->charactermodifier->hpPerc != 0) {
+                    $popup .= "<BR />" . $this->item->charactermodifier->hpPerc . "% HP";
+                }
+                if($this->item->charactermodifier->energy > 0) {
+                    $popup .= "<BR />+" . $this->item->charactermodifier->energy . " Energy";
+                }
+                if($this->item->charactermodifier->energyPerc != 0) {
+                    $popup .= "<BR />" . $this->item->charactermodifier->energyPerc . "% Energy";
+                }
+                if($this->item->charactermodifier->resoluteness > 0) {
+                    $popup .= "<BR />+" . $this->item->charactermodifier->resoluteness . " Resoluteness";
+                }
+                if($this->item->charactermodifier->resolutenessPerc != 0) {
+                    $popup .= "<BR />" . $this->item->charactermodifier->resolutenessPerc . "% more resolute";
+                }
+                if($this->item->charactermodifier->cunning > 0) {
+                    $popup .= "<BR />+" . $this->item->charactermodifier->cunning . " Cunning";
+                }
+                if($this->item->charactermodifier->cunningPerc != 0) {
+                    $popup .= "<BR />" . $this->item->charactermodifier->cunningPerc . "% more cunning";
+                }
+                if($this->item->charactermodifier->willpower > 0) {
+                    $popup .= "<BR />+" . $this->item->charactermodifier->willpower. " Willpower";
+                }
+                if($this->item->charactermodifier->willpowerPerc != 0) {
+                    $popup .= "<BR />" . $this->item->charactermodifier->willpowerPerc . "% more willpowery";
+                }
+                if($this->item->charactermodifier->dropItemPerc > 0) {
+                    $popup .= "<BR />+" . $this->item->charactermodifier->dropItemPerc. "% chance to find items";
+                }
+                $popup .= "</p>";
             }
-            if($this->item->charactermodifier->hp > 0) {
-                $popup .= "<BR />+" . $this->item->charactermodifier->hp . " HP";
-            }
-            if($this->item->charactermodifier->hpPerc != 0) {
-                $popup .= "<BR />" . $this->item->charactermodifier->hpPerc . "% HP";
-            }
-            if($this->item->charactermodifier->energy > 0) {
-                $popup .= "<BR />+" . $this->item->charactermodifier->energy . " Energy";
-            }
-            if($this->item->charactermodifier->energyPerc != 0) {
-                $popup .= "<BR />" . $this->item->charactermodifier->energyPerc . "% Energy";
-            }
-            if($this->item->charactermodifier->resoluteness > 0) {
-                $popup .= "<BR />+" . $this->item->charactermodifier->resoluteness . " Resoluteness";
-            }
-            if($this->item->charactermodifier->resolutenessPerc != 0) {
-                $popup .= "<BR />" . $this->item->charactermodifier->resolutenessPerc . "% more resolute";
-            }
-            if($this->item->charactermodifier->cunning > 0) {
-                $popup .= "<BR />+" . $this->item->charactermodifier->cunning . " Cunning";
-            }
-            if($this->item->charactermodifier->cunningPerc != 0) {
-                $popup .= "<BR />" . $this->item->charactermodifier->cunningPerc . "% more cunning";
-            }
-            if($this->item->charactermodifier->willpower > 0) {
-                $popup .= "<BR />+" . $this->item->charactermodifier->willpower. " Willpower";
-            }
-            if($this->item->charactermodifier->willpowerPerc != 0) {
-                $popup .= "<BR />" . $this->item->charactermodifier->willpowerPerc . "% more willpowery";
-            }
-            if($this->item->charactermodifier->dropItemPerc > 0) {
-                $popup .= "<BR />+" . $this->item->charactermodifier->dropItemPerc. "% chance to find items";
-            }
-            $popup .= "</p>";
-            
         }
         
         echo CHtml::link($this->item->name, "#", array(
@@ -74,7 +76,7 @@
             'rel'=>'popover'));
 
         if($this->context == "inventory") {
-            echo " (" . $this->n . ")";
+            echo " <span style='font-size:0.8em'>(" . $this->n . ")</span>";
         }
         echo "<BR />";
         switch($this->context) {
