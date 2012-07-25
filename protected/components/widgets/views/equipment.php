@@ -8,6 +8,16 @@ $this->widget('ItemWidget', array(
 ?>
 </div>
 
+<div style="display:inline-block; vertical-align: top; margin-right: 20px">Offhand:<BR />
+<?php
+$this->widget('ItemWidget', array(
+    "context" => "equipment",
+    "equipmentSlot" => "offhand",
+    "item" => (!empty($this->equipment->offhand0) ? $this->equipment->offhand0 : null)
+)); 
+?>
+</div>
+
 <div style="display: inline-block; vertical-align:top">Accessories:<BR />
 <?php
 $this->widget('ItemWidget', array(
