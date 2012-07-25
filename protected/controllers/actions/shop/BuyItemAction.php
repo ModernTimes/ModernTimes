@@ -49,7 +49,13 @@ class BuyItemAction extends CAction {
         // Does the Shop exist?
         $Shop = Shop::model()->with(array(
             'shopItems' => array(
-                'with' => 'item'
+                'with' => array(
+                    'item' => array(
+                        'with' => array(
+                            'charactermodifier'
+                        )
+                    )
+                )
             )
         ))->findByPk($shopID);
         if(!is_a($Shop, "Shop")) {
@@ -97,7 +103,8 @@ class BuyItemAction extends CAction {
             $Character->decreaseCash($ShopItem->cash * $n);
             $Character->decreaseFavours($ShopItem->favours * $n);
             $Character->decreaseKudos($ShopItem->kudos * $n);
-            $Character->save();
+            $Character->update();
+            $transaction->commit();
        } catch(Exception $e) {
             $transaction->rollback();
             EUserFlash::setErrorMessage("Weird database shit happened.");

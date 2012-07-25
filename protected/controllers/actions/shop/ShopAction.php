@@ -23,7 +23,14 @@ class ShopAction extends CAction {
         } else {
             $Shop = Shop::model()->with(array(
                 'shopItems' => array(
-                    'with' => 'item'
+                    'with' => array(
+                        'item' => array(
+                            'with' => array(
+                                'charactermodifier',
+                                'useEffect'
+                            )
+                        )
+                    )
                  )
             ))->findByPk($shopID);
             
