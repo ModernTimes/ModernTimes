@@ -90,9 +90,8 @@
          action: { id: "mischief",
                    name: "Do mischief here",
                    turn: true,
-                   params: {
-                       areaID: 1,
-                   } },
+                   params: { } 
+                 },
         },
         {name:"Home, sweet home",
          markerType:"home",
@@ -118,7 +117,6 @@
                    name: "Talk to him",
                    turn: false,
                    params: {shopID: 1} },
-         params: {areaID: 1}
         },
         {name:"McBooz&Bain Consulting Group",
          markerType:"quest",
@@ -131,7 +129,6 @@
                    name: "Go in",
                    turn: false,
                    params: {} },
-         params: {areaID: 1}
         },
     ];
     
