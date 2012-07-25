@@ -70,11 +70,13 @@ class CharacterData extends CApplicationComponent {
      * active character for the current user
      * @todo Find a way to add the "available = 1" conditions again, without
      *       causing any errors
+     * @todo put the static model() call into the Character model
+     * @todo put the attach stuff things intot he Character model
+     * That way, we can load and initialize other characters, too
      * @return void
      */
     public function load() {
         $this->_model = Character::model()->with(array(
-            // Care: The giix Model generator adds a "0" after the item slot names, for whatever reason
             // Care: Current Yii version does not yet automatically alias recurring table names in with-calls. Use alias!
             'characterEquipments'=>array(
                 'with' => array(
@@ -125,7 +127,7 @@ class CharacterData extends CApplicationComponent {
         // d($this->_model);
         
         // If no active character can be found: redirect
-        // ToDo: Fix character/create
+        // @todo Change to character/create
         if(!is_a($this->_model, "Character")) {
             Yii::app()->controller->redirect(array('site/index'));
             // Yii::app()->controller->redirect(array('character/create'));

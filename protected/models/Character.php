@@ -617,12 +617,18 @@ class Character extends BaseCharacter {
      * Lazy loading of inventory items associated with the Character 
      */
     public function loadItems() {
+        // d($this->characterItems);
         if(empty($this->characterItems)) {
-            // d("EMPTY characterItems");
-            $characterItems = CharacterItems::model()->with(array('item'))->findAll(
+            $characterItems = CharacterItems::model()->with(array(
+                'item' => array(
+                    'with' => array(
+                        'effect', 'charactermodifier'
+                    )
+                )
+            ))->findAll(
                 't.characterID=:characterID', 
                 array(':characterID'=>$this->id));
-            // d($characterItems);
+            // dd($characterItems);
             $this->characterItems = $characterItems;
         }
     }

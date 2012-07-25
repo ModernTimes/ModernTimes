@@ -30,6 +30,8 @@ class Tools extends CApplicationComponent {
     /**
      * decreases the number of available turns by 1
      * reduces the duration of active effects by 1
+     * @todo ask for Character record in parameters to make dependency injection
+     * and spending turns on other characters possible
      */
     function spendTurn () {
         $character = CD();
