@@ -6,7 +6,7 @@
  * @todo check item requirements
  * 
  * @uses UnequipAction
- * @package Actions.inventory
+ * @package Actions.Inventory
  */
 
 class EquipAction extends CAction {

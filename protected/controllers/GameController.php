@@ -49,6 +49,7 @@ class GameController extends Controller {
             'rest'             => 'application.controllers.actions.RestAction',
             
             'shop'             => 'application.controllers.actions.shop.ShopAction',
+            'buyItem'          => 'application.controllers.actions.shop.BuyItemAction',
 
             /**
              * To test new features without having to mess around with actual

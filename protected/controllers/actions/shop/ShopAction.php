@@ -3,7 +3,7 @@
  * Displays shops and their stock
  * 
  * @uses shop.php view file
- * @package Actions
+ * @package Actions.Shopping
  */
 
 class ShopAction extends CAction {

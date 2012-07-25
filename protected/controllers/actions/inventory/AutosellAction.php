@@ -4,7 +4,7 @@
  * Gives the character cash, favours, and kudos according to the Item's
  * autosell values
  * 
- * @package Actions.inventory
+ * @package Actions.Inventory
  */
 
 class AutosellAction extends CAction {

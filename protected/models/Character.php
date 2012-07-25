@@ -74,40 +74,64 @@ class Character extends BaseCharacter {
     }
     
     /**
-     * Wrapper for increaseResource
-     * @uses increaseResource
+     * Wrapper for changeResource
+     * @uses changeResource
      * @param float $amount
      */
     public function increaseCash($amount = 0) {
-        $this->increaseResource('cash', $amount);
+        $this->changeResource('cash', $amount);
     }
     /**
-     * Wrapper for increaseResource
-     * @uses increaseResource
+     * Wrapper for changeResource
+     * @uses changeResource
      * @param float $amount
      */
     public function increaseFavours($amount = 0) {
-        $this->increaseResource('favours', $amount);
+        $this->changeResource('favours', $amount);
     }
     /**
-     * Wrapper for increaseResource
-     * @uses increaseResource
+     * Wrapper for changeResource
+     * @uses changeResource
      * @param float $amount
      */
     public function increaseKudos($amount = 0) {
-        $this->increaseResource('kudos', $amount);
+        $this->changeResource('kudos', $amount);
     }
     /**
-     * Increases the indicated resource by $amount (which can be negative)
+     * Wrapper for changeResource
+     * @uses changeResource
+     * @param float $amount
+     */
+    public function decreaseCash($amount = 0) {
+        $this->changeResource('cash', -$amount);
+    }
+    /**
+     * Wrapper for changeResource
+     * @uses changeResource
+     * @param float $amount
+     */
+    public function decreaseFavours($amount = 0) {
+        $this->changeResource('favours', -$amount);
+    }
+    /**
+     * Wrapper for changeResource
+     * @uses changeResource
+     * @param float $amount
+     */
+    public function decreaseKudos($amount = 0) {
+        $this->changeResource('kudos', -$amount);
+    }
+    /**
+     * Changes the indicated resource by $amount (which can be negative)
      * Also generates an EUserFlash message to inform the user about this
      * fortunate turn of events.
      * This is more of a setter method and does not raise any events.
      * @param string $resource enum(cash|favours|kudos)
      * @param type int
      */
-    private function increaseResource($resource, $amount) {
+    private function changeResource($resource, $amount) {
+        $this->{$resource} += (int) $amount;
         if($amount > 0) {
-            $this->{$resource} += (int) $amount;
             EUserFlash::setSuccessMessage((int) $amount . " " . ucfirst($resource), 'gainResource gain' . ucfirst($resource));
         }
     }
@@ -141,13 +165,14 @@ class Character extends BaseCharacter {
     /**
      * Adds an item to the character's inventory
      * @param Item $item 
+     * @param int $n how many Items of the indicated kind?
      * @return bool success?
      */
-    public function gainItem($item) {
+    public function gainItem($item, $n = 1) {
         // d($item);
 
         if(!is_a($item, "Item")) {
-            // ToDo: nice exception
+            // @todo nice exception
             return false;
         }
        
@@ -156,7 +181,7 @@ class Character extends BaseCharacter {
         $added = false;
         foreach($this->characterItems as $characterItem) {
             if($characterItem->item->id == $item->id) {
-                $characterItem->n ++;
+                $characterItem->n = $characterItem->n + $n;
                 $characterItem->save();
                 $added = true;
             }
@@ -165,13 +190,13 @@ class Character extends BaseCharacter {
             $CharacterItem = new CharacterItems;
             $CharacterItem->characterID = $this->id;
             $CharacterItem->itemID = $item->id;
-            $CharacterItem->n = 1;
+            $CharacterItem->n = $n;
             $CharacterItem->save();
             $characterItems = $this->characterItems;
             $characterItems[] = $CharacterItem;
         }
         
-        EUserFlash::setSuccessMessage("You got <b>" . $item->name . "</b>", 'gainItem id:' . $item->id);
+        EUserFlash::setSuccessMessage("You got " . $n . " <b>" . $item->name . "</b>", 'gainItem id:' . $item->id);
         return true;
     }
 
