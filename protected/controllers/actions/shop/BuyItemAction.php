@@ -91,12 +91,18 @@ class BuyItemAction extends CAction {
          * BEWARE: ACTUAL BUSINESS LOGIC 
          */
         
-        $Character->gainItem($ShopItem->item, $n);
-        $Character->decreaseCash($ShopItem->cash * $n);
-        $Character->decreaseFavours($ShopItem->favours * $n);
-        $Character->decreaseKudos($ShopItem->kudos * $n);
-        $Character->save();
-        
+        $transaction = Yii::app()->tools->getTransaction();
+        try {
+            $Character->gainItem($ShopItem->item, $n);
+            $Character->decreaseCash($ShopItem->cash * $n);
+            $Character->decreaseFavours($ShopItem->favours * $n);
+            $Character->decreaseKudos($ShopItem->kudos * $n);
+            $Character->save();
+       } catch(Exception $e) {
+            $transaction->rollback();
+            EUserFlash::setErrorMessage("Weird database shit happened.");
+        }
+                
         $this->controller->render("shop", array(
             "Shop" => $Shop,
         ));
