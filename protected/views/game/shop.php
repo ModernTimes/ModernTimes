@@ -10,7 +10,8 @@
     <p style="margin-bottom: 1.6em"><?php echo $Shop->call('getDesc'); ?></p>
 
     <center><table border="0" cellpadding="10">
-    <?php foreach($Shop->shopItems as $ShopItem) {
+    <?php $StockItems = $Shop->call('getStock');
+    foreach($StockItems as $ShopItem) {
         echo "<tr><td>";
             $this->widget("ItemWidget", array(
                 "item" => $ShopItem->item
