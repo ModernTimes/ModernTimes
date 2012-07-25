@@ -20,7 +20,13 @@ class Item extends BaseItem {
      * @param Character $Character 
      */
     public function resolveUsage($Character) {
+        $Character->changeHp($this->useHp);
+        $Character->changeEnergy($this->useEnergy);
         
+        // Effect
+        if(is_a($this->useEffect, "Effect")) {
+            Yii::app()->tools->addEffect($Character, $this->useEffect, $this->useEffectDuration);
+        }
     }
     
     

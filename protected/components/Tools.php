@@ -50,9 +50,8 @@ class Tools extends CApplicationComponent {
     
     /**
      * Adds an effect to the active character
-     * @todo Make it possible to add effects to other characters
-     * @todo Ask for Character record in parameters. Also makes dependency
-     * injection possible
+     * @param Character $Character Character record that the effect is to be
+     * added to
      * @param mixed $effect Effect|int|string Effect model or its PK or its name
      * @param int $turns number of turns for which the effect is to be active
      *                   0 means that it is only used during the current battle
@@ -60,17 +59,14 @@ class Tools extends CApplicationComponent {
      * param bool 'addTurns', whether to increase the number of turns when the 
      *                         effect is already in place instead of adding a 
      *                         second effect of the same kind. Default is true.
-     * param int 'characterID', PK of the character that the effect is to be
-     *                           attached to
      * 
      * @return boolean whether or not the effect was added
      */
-    function addEffect($effect, $turns = 0, $options = array()) {
+    function addEffect($Character, $Effect, $turns = 0, $options = array()) {
         $options = array_merge(
             // The default options
             array(
-                'addTurns' => true,
-                'characterID' => CD()->id,
+                'addTurns' => true
             ),
             // The specified options
             $options
@@ -83,23 +79,19 @@ class Tools extends CApplicationComponent {
             return false;
         }
         
-        if(is_int($effect)) {
-            $effectModel = Effect::model()->findByPk($effect);
-        } elseif (is_string($effect)) {
-            $effectModel = Effect::model()->find("name = '" . $effect . "'");
-        } elseif (is_a($effect, "Effect")) {
-            $effectModel = $effect;
+        if(is_int($Effect)) {
+            $Effect = Effect::model()->findByPk($Effect);
+        } elseif (is_string($Effect)) {
+            $Effect = Effect::model()->find("name = '" . $Effect . "'");
         }
-        if(!is_a($effectModel, "Effect")) {
+        if(!is_a($Effect, "Effect")) {
             return false;
         }
         
-        $character = CD();
-        
-        if ($character->hasEffect($effectModel)) {
+        if ($Character->hasEffect($Effect)) {
             if($options['addTurns']) {
                 // returns CharacterEffects model, not Effect model
-                $effectInPlace = $character->getEffect($effectModel);
+                $effectInPlace = $Character->getEffect($Effect);
                 $effectInPlace->increaseDuration($turns);
                 if ($effectInPlace->save()) {
                     Yii::trace("Effect already in place, increased turns by " . $turns);
@@ -111,15 +103,15 @@ class Tools extends CApplicationComponent {
                 Yii::trace("Effect already in place, nothing to do here");
             }
         } else {
-            $characterEffect = new CharacterEffects();
-            $characterEffect->characterID = $character->id;
-            $characterEffect->effectID = $effectModel->id;
-            $characterEffect->effect = $effectModel;
-            $characterEffect->turns = $turns;
+            $CharacterEffect = new CharacterEffects();
+            $CharacterEffect->characterID = $Character->id;
+            $CharacterEffect->effectID = $Effect->id;
+            $CharacterEffect->effect = $Effect;
+            $CharacterEffect->turns = $turns;
             
-            if ($characterEffect->save()) {
-                $character->addEffect($characterEffect);
-                Yii::trace("Added effect '" . $effectModel->name . "' for " . $turns . " turns");
+            if ($CharacterEffect->save()) {
+                $Character->addEffect($CharacterEffect);
+                Yii::trace("Added effect '" . $Effect->name . "' for " . $turns . " turns");
                 return true;
             } else {
                 return false;

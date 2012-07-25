@@ -48,9 +48,11 @@ class UseItemAction extends CAction {
                         $CharacterItem->save();
                     }
                     
-                    
-                    // Usage logic
-                    
+                    /**
+                     * Actual usage logic is delegated to the Item (or its
+                     * SpecialnessBehavior class)
+                     */
+                    $CharacterItem->item->call("resolveUsage", $Character);
 
                     // Don't forget to trigger the character data updates before the redirect
                     $this->controller->afterAction($this);

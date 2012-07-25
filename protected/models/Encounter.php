@@ -45,7 +45,7 @@ class Encounter extends BaseEncounter {
         // Effect
         if(is_a($this->effect, "Effect")) {
             // Add the effect after the action is spent, to prevent its duration being decreased by 1 immediately
-            Yii::app()->tools->addEffect($this->effect, $this->effectDuration);
+            Yii::app()->tools->addEffect($character, $this->effect, $this->effectDuration);
         }
 
         /**
