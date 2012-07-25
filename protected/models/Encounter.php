@@ -20,6 +20,8 @@ class Encounter extends BaseEncounter {
      * Resolves an Encounter
      * @todo split into smaller parts, so that specialnessBehavior classes can 
      * call these smaller __parent-methods?
+     * @todo ask for Character record in parameters to enable dependency 
+     * injection
      */
     public function run() {
         $character = CD();
@@ -58,7 +60,7 @@ class Encounter extends BaseEncounter {
     }
         
     /** 
-     * Checks if the Encounter leadds to further Encounters, i.e. if
+     * Checks if the Encounter leads to further Encounters, i.e. if
      * the Encounter path of this Encounter is not yet finished
      * If there are two or more encounters originating from an encounter,
      * the actual path is usually based on the player's choice. It can also be

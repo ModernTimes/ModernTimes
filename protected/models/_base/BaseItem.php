@@ -23,9 +23,15 @@
  * - integer useEffectID
  * - integer useEffectDuration
  *
+ * - CharacterEquipments characterEquipments
+ * - CharacterEquipments characterEquipments1
+ * - CharacterEquipments characterEquipments2
+ * - CharacterEquipments characterEquipments3
+ * - CharacterEquipments characterEquipments4
  * - CharacterItems characterItems
  * - EncounterItems encounterItems
  * - Charactermodifier charactermodifier
+ * - Effect useEffect
  * - MonsterItems monsterItems
  * - Recipe recipes
  * - Recipe recipes1
@@ -101,9 +107,15 @@ abstract class BaseItem extends GxActiveRecord {
 	 */
 	public function relations() {
 		return array(
+			'characterEquipments' => array(self::HAS_MANY, 'CharacterEquipments', 'accessoryC'),
+			'characterEquipments1' => array(self::HAS_MANY, 'CharacterEquipments', 'weapon'),
+			'characterEquipments2' => array(self::HAS_MANY, 'CharacterEquipments', 'offhand'),
+			'characterEquipments3' => array(self::HAS_MANY, 'CharacterEquipments', 'accessoryA'),
+			'characterEquipments4' => array(self::HAS_MANY, 'CharacterEquipments', 'accessoryB'),
 			'characterItems' => array(self::HAS_MANY, 'CharacterItems', 'itemID'),
 			'encounterItems' => array(self::HAS_MANY, 'EncounterItems', 'itemID'),
 			'charactermodifier' => array(self::BELONGS_TO, 'Charactermodifier', 'charactermodifierID'),
+			'useEffect' => array(self::BELONGS_TO, 'Effect', 'useEffectID'),
 			'monsterItems' => array(self::HAS_MANY, 'MonsterItems', 'itemID'),
 			'recipes' => array(self::HAS_MANY, 'Recipe', 'itemResultID'),
 			'recipes1' => array(self::HAS_MANY, 'Recipe', 'item1ID'),
@@ -143,11 +155,17 @@ abstract class BaseItem extends GxActiveRecord {
 			'autosellKudos' => Yii::t('app', 'Autosell Kudos'),
 			'useHp' => Yii::t('app', 'Use Hp'),
 			'useEnergy' => Yii::t('app', 'Use Energy'),
-			'useEffectID' => Yii::t('app', 'Use Effect'),
+			'useEffectID' => null,
 			'useEffectDuration' => Yii::t('app', 'Use Effect Duration'),
+			'characterEquipments' => null,
+			'characterEquipments1' => null,
+			'characterEquipments2' => null,
+			'characterEquipments3' => null,
+			'characterEquipments4' => null,
 			'characterItems' => null,
 			'encounterItems' => null,
 			'charactermodifier' => null,
+			'useEffect' => null,
 			'monsterItems' => null,
 			'recipes' => null,
 			'recipes1' => null,

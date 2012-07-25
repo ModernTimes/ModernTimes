@@ -16,6 +16,15 @@ Yii::import('application.components.items.*');
 class Item extends BaseItem {
 
     /**
+     * Resolves basic usage mechanics on a given Character
+     * @param Character $Character 
+     */
+    public function resolveUsage($Character) {
+        
+    }
+    
+    
+    /**
      * Returns an empty string, indicating that the default view files should
      * be used to generate the content for the popup of this item.
      * "Override" by SpecialnessBehavior classes if you want non-standard

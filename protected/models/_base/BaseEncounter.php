@@ -20,6 +20,7 @@
  * - integer effectDuration
  *
  * - AreaEncounters areaEncounters
+ * - Effect effect
  * - EncounterItems encounterItems
  * <br>
  * <p>This is the model base class for the table "{{encounter}}".
@@ -91,6 +92,7 @@ abstract class BaseEncounter extends GxActiveRecord {
 	public function relations() {
 		return array(
 			'areaEncounters' => array(self::HAS_MANY, 'AreaEncounters', 'encounterID'),
+			'effect' => array(self::BELONGS_TO, 'Effect', 'effectID'),
 			'encounterItems' => array(self::HAS_MANY, 'EncounterItems', 'encounterID'),
 		);
 	}
@@ -123,9 +125,10 @@ abstract class BaseEncounter extends GxActiveRecord {
 			'gainResoluteness' => Yii::t('app', 'Gain Resoluteness'),
 			'gainWilpower' => Yii::t('app', 'Gain Wilpower'),
 			'gainCunning' => Yii::t('app', 'Gain Cunning'),
-			'effectID' => Yii::t('app', 'Effect'),
+			'effectID' => null,
 			'effectDuration' => Yii::t('app', 'Effect Duration'),
 			'areaEncounters' => null,
+			'effect' => null,
 			'encounterItems' => null,
 		);
 	}
