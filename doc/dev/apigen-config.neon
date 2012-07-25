@@ -2,7 +2,7 @@
 
 source: ../../
 destination: ../
-wipeout: yes
+wipeout: no
 templateConfig: ../template/config.neon
 
 # useful when doc is to be uploaded

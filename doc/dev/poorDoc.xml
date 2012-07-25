@@ -18,6 +18,9 @@
 	<file name="D:\Homepages\ModernTimes\protected\components\events\GainStatEvent.php">
 		<error severity="error" line="34" message="Missing documentation of parameter GainStatEvent::__construct()($params)" source="ApiGen.Documentation.Documentation"/>
 	</file>
+	<file name="D:\Homepages\ModernTimes\protected\controllers\actions\shop\ShopAction.php">
+		<error severity="error" line="14" message="Missing documentation of parameter ShopAction::run()($shopID)" source="ApiGen.Documentation.Documentation"/>
+	</file>
 	<file name="D:\Homepages\ModernTimes\protected\models\ContactForm.php">
 		<error severity="error" line="12" message="Missing documentation of property ContactForm::$name" source="ApiGen.Documentation.Documentation"/>
 		<error severity="error" line="13" message="Missing documentation of property ContactForm::$email" source="ApiGen.Documentation.Documentation"/>
