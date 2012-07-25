@@ -80,16 +80,12 @@
 <?php // Active effects
 if(count($this->character->characterEffects) > 0) { ?>
     <BR />
-    <table width="90%" style="margin-top: 30px">
-        <?php foreach ($this->character->characterEffects as $characterEffect) {
-             echo "<tr><td><a class='btn btn-info btn-mini' href='#' rel='popover'" . 
-                              "title=\"" . CHtml::encode($characterEffect->effect->name) . "\"" . 
-                              "data-content=\"" . CHtml::encode($characterEffect->effect->desc) . "\">Effect</a> &nbsp;" . 
-                                $characterEffect->effect->name . "</a></td>
-                        <td>" . $characterEffect->turns . "</td>
-                  </tr>";
-        } ?>
-    </table>
+    <?php foreach ($this->character->characterEffects as $characterEffect) {
+        // d($characterEffect);
+        $this->widget("EffectWidget", 
+                array("effect" => $characterEffect->effect,
+                      "turns" => $characterEffect->turns));
+    } ?>
 <?php } ?>
 
 <?php /* ?>

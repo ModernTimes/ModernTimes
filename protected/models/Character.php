@@ -661,6 +661,8 @@ class Character extends BaseCharacter {
     }
     /**
      * Adds a CharacterEffects record to the Character record
+     * @todo Flash message only if the Character record represents the current
+     * user's character
      * @uses CharacterEffects
      * @param CharacterEffects $characterEffect 
      */

@@ -18,6 +18,17 @@ Yii::import('application.components.effects.*');
 class Effect extends BaseEffect {
 
     /**
+     * Returns an empty string, indicating that the default view files should
+     * be used to generate the content for the popup of this effect.
+     * "Override" by SpecialnessBehavior classes if you want non-standard
+     * popup content
+     * @return string
+     */
+    public function getPopup() {
+        return "";
+    }
+    
+    /**
      * Returns a list of CBehaviors to be attached to this Model
      * @link http://www.yiiframework.com/doc/api/CBehavior
      * @return array
