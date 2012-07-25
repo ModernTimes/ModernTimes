@@ -44,6 +44,7 @@ class GameController extends Controller {
             'autosell'         => 'application.controllers.actions.inventory.AutosellAction',
             'equip'            => 'application.controllers.actions.inventory.EquipAction',
             'unequip'          => 'application.controllers.actions.inventory.UnequipAction',
+            'useItem'          => 'application.controllers.actions.inventory.UseItemAction',
             
             'rest'             => 'application.controllers.actions.RestAction',
             
