@@ -53,9 +53,8 @@ class UseItemAction extends CAction {
                      * SpecialnessBehavior class)
                      */
                     $CharacterItem->item->call("resolveUsage", $Character);
-
-                    // Don't forget to trigger the character data updates before the redirect
-                    $this->controller->afterAction($this);
+                    
+                    $Character->save();
 
                     $transaction->commit();
                     EUserFlash::setMessage("You used 1 " . $CharacterItem->item->name);
