@@ -56,7 +56,9 @@
 			<ul>
 				<li><a href="package-Actions.html">Actions<span></span></a>
 						<ul>
-				<li><a href="package-Actions.inventory.html">inventory</a>
+				<li><a href="package-Actions.Inventory.html">Inventory</a>
+						</li>
+				<li><a href="package-Actions.Shopping.html">Shopping</a>
 						</li>
 							</ul></li>
 				<li><a href="package-Battle.html">Battle<span></span></a>
@@ -109,6 +111,7 @@
 				<li class="active"><a href="class-Encounter.html">Encounter</a></li>
 				<li><a href="class-Item.html">Item</a></li>
 				<li><a href="class-Recipe.html">Recipe</a></li>
+				<li><a href="class-Shop.html">Shop</a></li>
 				<li><a href="class-Skill.html">Skill</a></li>
 			</ul>
 
@@ -217,6 +220,7 @@ GxActiveRecord
 					<div class="list">
 							split into smaller parts, so that specialnessBehavior classes can call these
 smaller __parent-methods?<br />
+							ask for Character record in parameters to enable dependency injection<br />
 					</div>
 
 
@@ -234,11 +238,11 @@ smaller __parent-methods?<br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#_isChoiceEncounter">#</a>
-			<code><a href="source-class-Encounter.html#60" title="Go to source code">isChoiceEncounter</a>( )</code>
+			<code><a href="source-class-Encounter.html#62" title="Go to source code">isChoiceEncounter</a>( )</code>
 
 			<div class="description short">
 				
-<p>Checks if the Encounter leadds to further Encounters, i.e. if the Encounter
+<p>Checks if the Encounter leads to further Encounters, i.e. if the Encounter
 path of this Encounter is not yet finished If there are two or more encounters
 originating from an encounter, the actual path is usually based on the player's
 choice. It can also be based on some kind of algorithm, though.</p>
@@ -247,7 +251,7 @@ choice. It can also be based on some kind of algorithm, though.</p>
 
 			<div class="description detailed hidden">
 				
-<p>Checks if the Encounter leadds to further Encounters, i.e. if the Encounter
+<p>Checks if the Encounter leads to further Encounters, i.e. if the Encounter
 path of this Encounter is not yet finished If there are two or more encounters
 originating from an encounter, the actual path is usually based on the player's
 choice. It can also be based on some kind of algorithm, though.</p>
@@ -281,7 +285,7 @@ choice. It can also be based on some kind of algorithm, though.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_dropItems">#</a>
-			<code><a href="source-class-Encounter.html#73" title="Go to source code">dropItems</a>( )</code>
+			<code><a href="source-class-Encounter.html#75" title="Go to source code">dropItems</a>( )</code>
 
 			<div class="description short">
 				
@@ -322,7 +326,7 @@ choice. It can also be based on some kind of algorithm, though.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_behaviors">#</a>
-			<code><a href="source-class-Encounter.html#90" title="Go to source code">behaviors</a>( )</code>
+			<code><a href="source-class-Encounter.html#92" title="Go to source code">behaviors</a>( )</code>
 
 			<div class="description short">
 				
@@ -363,7 +367,7 @@ choice. It can also be based on some kind of algorithm, though.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_model">#</a>
-			<code><a href="source-class-Encounter.html#100" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
+			<code><a href="source-class-Encounter.html#102" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
 
 			<div class="description short">
 				

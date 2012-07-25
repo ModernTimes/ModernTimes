@@ -11,7 +11,7 @@ if(count(Yii::app()->user->getFlashes(false)) > 0) { ?>
             <div class="" style="margin: 0px; padding: 3px; background-color: none; text-align: center">
 
             <?php if (strstr($key, "gainItem")) { 
-                // ToDo: well, this one is obvious
+                // @todo use actual itemID
                 if(TRUE || file_exists(Yii::app()->getBaseUrl() . "/images/items/1.png")) {
                     echo CHtml::image(Yii::app()->getBaseUrl() . "/images/items/1.png", "Item", array(
                         'width' => 36,

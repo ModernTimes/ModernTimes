@@ -2,7 +2,7 @@
 /**
  * Retrieves item data and renders the inventory screen
  * 
- * @package Actions.inventory
+ * @package Actions.Inventory
  */
 
 class InventoryAction extends CAction {

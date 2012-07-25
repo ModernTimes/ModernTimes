@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 20. Jul 2012 um 17:39
+-- Erstellungszeit: 25. Jul 2012 um 18:44
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `mt_battle` (
   KEY `combatantBID` (`combatantBID`),
   KEY `state` (`state`),
   KEY `winnerID` (`winnerID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 -- --------------------------------------------------------
 
@@ -195,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `mt_charactermodifier` (
   `dropKudosPerc` smallint(6) NOT NULL DEFAULT '0',
   `dropItemPerc` smallint(6) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -212,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_effects` (
   KEY `characterID` (`characterID`),
   KEY `effectID` (`effectID`),
   KEY `turns` (`turns`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_effects`:
@@ -301,7 +301,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_items` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `itemID` (`itemID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_items`:
@@ -412,7 +412,7 @@ CREATE TABLE IF NOT EXISTS `mt_effect` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `charactermodifierID` (`charactermodifierID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_effect`:
@@ -443,8 +443,15 @@ CREATE TABLE IF NOT EXISTS `mt_encounter` (
   `effectID` int(11) DEFAULT NULL,
   `effectDuration` smallint(6) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
+  UNIQUE KEY `name` (`name`),
+  KEY `effectID` (`effectID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- RELATIONEN DER TABELLE `mt_encounter`:
+--   `effectID`
+--       `mt_effect` -> `id`
+--
 
 -- --------------------------------------------------------
 
@@ -504,7 +511,7 @@ CREATE TABLE IF NOT EXISTS `mt_item` (
   `name` varchar(100) NOT NULL,
   `specialClass` varchar(50) NOT NULL,
   `charactermodifierID` int(11) DEFAULT NULL,
-  `type` enum('weapon','offhand','accessory') NOT NULL DEFAULT 'weapon',
+  `type` enum('usable','combat','weapon','offhand','accessory','quest','misc') NOT NULL DEFAULT 'usable',
   `usable` tinyint(1) NOT NULL DEFAULT '0',
   `tradable` tinyint(1) NOT NULL DEFAULT '1',
   `desc` text NOT NULL,
@@ -519,16 +526,19 @@ CREATE TABLE IF NOT EXISTS `mt_item` (
   `useEnergy` int(11) NOT NULL DEFAULT '0',
   `useEffectID` int(11) DEFAULT NULL,
   `useEffectDuration` int(11) NOT NULL DEFAULT '0',
+  `useMsg` tinytext NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `charactermodifierID` (`charactermodifierID`),
   KEY `useEffectID` (`useEffectID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_item`:
 --   `charactermodifierID`
 --       `mt_charactermodifier` -> `id`
+--   `useEffectID`
+--       `mt_effect` -> `id`
 --
 
 -- --------------------------------------------------------
@@ -630,6 +640,47 @@ CREATE TABLE IF NOT EXISTS `mt_recipe` (
 --       `mt_item` -> `id`
 --   `item2ID`
 --       `mt_item` -> `id`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `mt_shop`
+--
+
+CREATE TABLE IF NOT EXISTS `mt_shop` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `specialClass` varchar(50) NOT NULL,
+  `desc` tinytext NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `mt_shop_items`
+--
+
+CREATE TABLE IF NOT EXISTS `mt_shop_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `shopID` int(11) NOT NULL,
+  `itemID` int(11) NOT NULL,
+  `cash` smallint(6) NOT NULL DEFAULT '0',
+  `favours` smallint(6) NOT NULL DEFAULT '0',
+  `kudos` smallint(6) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `shopID` (`shopID`),
+  KEY `itemID` (`itemID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- RELATIONEN DER TABELLE `mt_shop_items`:
+--   `itemID`
+--       `mt_item` -> `id`
+--   `shopID`
+--       `mt_shop` -> `id`
 --
 
 -- --------------------------------------------------------
@@ -827,6 +878,12 @@ ALTER TABLE `mt_effect`
   ADD CONSTRAINT `mt_effect_ibfk_1` FOREIGN KEY (`charactermodifierID`) REFERENCES `mt_charactermodifier` (`id`) ON UPDATE CASCADE;
 
 --
+-- Constraints der Tabelle `mt_encounter`
+--
+ALTER TABLE `mt_encounter`
+  ADD CONSTRAINT `mt_encounter_ibfk_1` FOREIGN KEY (`effectID`) REFERENCES `mt_effect` (`id`) ON UPDATE CASCADE;
+
+--
 -- Constraints der Tabelle `mt_encounter_encounters`
 --
 ALTER TABLE `mt_encounter_encounters`
@@ -844,7 +901,8 @@ ALTER TABLE `mt_encounter_items`
 -- Constraints der Tabelle `mt_item`
 --
 ALTER TABLE `mt_item`
-  ADD CONSTRAINT `mt_item_ibfk_1` FOREIGN KEY (`charactermodifierID`) REFERENCES `mt_charactermodifier` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `mt_item_ibfk_1` FOREIGN KEY (`charactermodifierID`) REFERENCES `mt_charactermodifier` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `mt_item_ibfk_2` FOREIGN KEY (`useEffectID`) REFERENCES `mt_effect` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `mt_monster_items`
@@ -867,6 +925,13 @@ ALTER TABLE `mt_recipe`
   ADD CONSTRAINT `mt_recipe_ibfk_3` FOREIGN KEY (`itemResultID`) REFERENCES `mt_item` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `mt_recipe_ibfk_1` FOREIGN KEY (`item1ID`) REFERENCES `mt_item` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `mt_recipe_ibfk_2` FOREIGN KEY (`item2ID`) REFERENCES `mt_item` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints der Tabelle `mt_shop_items`
+--
+ALTER TABLE `mt_shop_items`
+  ADD CONSTRAINT `mt_shop_items_ibfk_2` FOREIGN KEY (`itemID`) REFERENCES `mt_item` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `mt_shop_items_ibfk_1` FOREIGN KEY (`shopID`) REFERENCES `mt_shop` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `mt_skill`

@@ -56,7 +56,9 @@
 			<ul>
 				<li><a href="package-Actions.html">Actions<span></span></a>
 						<ul>
-				<li><a href="package-Actions.inventory.html">inventory</a>
+				<li><a href="package-Actions.Inventory.html">Inventory</a>
+						</li>
+				<li><a href="package-Actions.Shopping.html">Shopping</a>
 						</li>
 							</ul></li>
 				<li><a href="package-Battle.html">Battle<span></span></a>
@@ -109,6 +111,7 @@
 				<li><a href="class-Encounter.html">Encounter</a></li>
 				<li><a href="class-Item.html">Item</a></li>
 				<li><a href="class-Recipe.html">Recipe</a></li>
+				<li><a href="class-Shop.html">Shop</a></li>
 				<li><a href="class-Skill.html">Skill</a></li>
 			</ul>
 
@@ -177,12 +180,55 @@ GxActiveRecord
 				<code><code><a href="class-CharacterModifierBehavior.html">CharacterModifierBehavior</a></code></code> <br />
 				<b>Uses:</b>
 				<code><code><a href="class-Charactermodifier.html">Charactermodifier</a></code></code> <br />
+				<b>Used by:</b>
+				<code><code><a href="class-EffectWidget.html">EffectWidget</a></code></code> <br />
 		<b>Located at</b> <a href="source-class-Effect.html#7" title="Go to source code">protected/models/Effect.php</a><br />
 	</div>
 
 
 		<h2>Methods summary</h2>
 		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="getPopup" id="_getPopup">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getPopup">#</a>
+			<code><a href="source-class-Effect.html#20" title="Go to source code">getPopup</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns an empty string, indicating that the default view files should be
+used to generate the content for the popup of this effect. "Override" by
+SpecialnessBehavior classes if you want non-standard popup content</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns an empty string, indicating that the default view files should be
+used to generate the content for the popup of this effect. "Override" by
+SpecialnessBehavior classes if you want non-standard popup content</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>string</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="behaviors" id="_behaviors">
 
 			<td class="attributes"><code>
@@ -194,7 +240,7 @@ GxActiveRecord
 
 			<td class="name"><div>
 			<a class="anchor" href="#_behaviors">#</a>
-			<code><a href="source-class-Effect.html#20" title="Go to source code">behaviors</a>( )</code>
+			<code><a href="source-class-Effect.html#31" title="Go to source code">behaviors</a>( )</code>
 
 			<div class="description short">
 				
@@ -235,7 +281,7 @@ GxActiveRecord
 
 			<td class="name"><div>
 			<a class="anchor" href="#_model">#</a>
-			<code><a href="source-class-Effect.html#32" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
+			<code><a href="source-class-Effect.html#43" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
 
 			<div class="description short">
 				

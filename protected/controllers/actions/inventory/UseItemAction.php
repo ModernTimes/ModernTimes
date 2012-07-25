@@ -2,7 +2,7 @@
 /**
  * Uses a usable Item
  * 
- * @package Actions.inventory
+ * @package Actions.Inventory
  */
 
 class UseItemAction extends CAction {

@@ -90,9 +90,8 @@
          action: { id: "mischief",
                    name: "Do mischief here",
                    turn: true,
-                   params: {
-                       areaID: 1,
-                   } },
+                   params: { } 
+                 },
         },
         {name:"Home, sweet home",
          markerType:"home",
@@ -114,11 +113,10 @@
                 pitch: -6.76,
                 zoom: 3 },
          desc: "You see Pablo jr. sitting on his usual bench at St James's park. You wonder what he might have in his little suitcase today.",
-         action: { id: "pablo",
+         action: { id: "shop",
                    name: "Talk to him",
                    turn: false,
-                   params: {} },
-         params: {areaID: 1}
+                   params: {shopID: 1} },
         },
         {name:"McBooz&Bain Consulting Group",
          markerType:"quest",
@@ -131,7 +129,6 @@
                    name: "Go in",
                    turn: false,
                    params: {} },
-         params: {areaID: 1}
         },
     ];
     

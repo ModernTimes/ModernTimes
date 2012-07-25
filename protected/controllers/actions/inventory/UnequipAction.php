@@ -2,7 +2,7 @@
 /**
  * Unequips an equipped item and puts it back into the inventory
  * 
- * @package Actions.inventory
+ * @package Actions.Inventory
  */
 
 class UnequipAction extends CAction {

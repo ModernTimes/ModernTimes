@@ -56,7 +56,9 @@
 			<ul>
 				<li><a href="package-Actions.html">Actions<span></span></a>
 						<ul>
-				<li><a href="package-Actions.inventory.html">inventory</a>
+				<li><a href="package-Actions.Inventory.html">Inventory</a>
+						</li>
+				<li><a href="package-Actions.Shopping.html">Shopping</a>
 						</li>
 							</ul></li>
 				<li><a href="package-Battle.html">Battle<span></span></a>
@@ -126,6 +128,8 @@
 				<li><a href="class-BaseMonsterItems.html">BaseMonsterItems</a></li>
 				<li><a href="class-BaseMonsterSkills.html">BaseMonsterSkills</a></li>
 				<li><a href="class-BaseRecipe.html">BaseRecipe</a></li>
+				<li><a href="class-BaseShop.html">BaseShop</a></li>
+				<li><a href="class-BaseShopItems.html">BaseShopItems</a></li>
 				<li><a href="class-BaseSkill.html">BaseSkill</a></li>
 			</ul>
 
@@ -188,11 +192,23 @@
 
 	<li>integer useEffectDuration</li>
 
+	<li>CharacterEquipments characterEquipments</li>
+
+	<li>CharacterEquipments characterEquipments1</li>
+
+	<li>CharacterEquipments characterEquipments2</li>
+
+	<li>CharacterEquipments characterEquipments3</li>
+
+	<li>CharacterEquipments characterEquipments4</li>
+
 	<li>CharacterItems characterItems</li>
 
 	<li>EncounterItems encounterItems</li>
 
 	<li>Charactermodifier charactermodifier</li>
+
+	<li>Effect useEffect</li>
 
 	<li>MonsterItems monsterItems</li>
 
@@ -262,7 +278,7 @@ GxActiveRecord
 
 			<td class="name"><div>
 			<a class="anchor" href="#_model">#</a>
-			<code><a href="source-class-BaseItem.html#44" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
+			<code><a href="source-class-BaseItem.html#50" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
 
 			<div class="description short">
 				
@@ -308,7 +324,7 @@ GxActiveRecord
 
 			<td class="name"><div>
 			<a class="anchor" href="#_tableName">#</a>
-			<code><a href="source-class-BaseItem.html#54" title="Go to source code">tableName</a>( )</code>
+			<code><a href="source-class-BaseItem.html#60" title="Go to source code">tableName</a>( )</code>
 
 			<div class="description short">
 				
@@ -345,7 +361,7 @@ GxActiveRecord
 
 			<td class="name"><div>
 			<a class="anchor" href="#_label">#</a>
-			<code><a href="source-class-BaseItem.html#62" title="Go to source code">label</a>( <span>integer <var>$n</var> = <span class="php-num">1</span></span> )</code>
+			<code><a href="source-class-BaseItem.html#68" title="Go to source code">label</a>( <span>integer <var>$n</var> = <span class="php-num">1</span></span> )</code>
 
 			<div class="description short">
 				
@@ -387,7 +403,7 @@ GxActiveRecord
 
 			<td class="name"><div>
 			<a class="anchor" href="#_representingColumn">#</a>
-			<code><a href="source-class-BaseItem.html#71" title="Go to source code">representingColumn</a>( )</code>
+			<code><a href="source-class-BaseItem.html#77" title="Go to source code">representingColumn</a>( )</code>
 
 			<div class="description short">
 				
@@ -426,7 +442,7 @@ though</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_rules">#</a>
-			<code><a href="source-class-BaseItem.html#80" title="Go to source code">rules</a>( )</code>
+			<code><a href="source-class-BaseItem.html#86" title="Go to source code">rules</a>( )</code>
 
 			<div class="description short">
 				
@@ -463,7 +479,7 @@ though</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_relations">#</a>
-			<code><a href="source-class-BaseItem.html#97" title="Go to source code">relations</a>( )</code>
+			<code><a href="source-class-BaseItem.html#103" title="Go to source code">relations</a>( )</code>
 
 			<div class="description short">
 				
@@ -502,7 +518,7 @@ array(BELONGS_TO|HAS_MANY, foreign Model, foreign attribute (key))</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_pivotModels">#</a>
-			<code><a href="source-class-BaseItem.html#114" title="Go to source code">pivotModels</a>( )</code>
+			<code><a href="source-class-BaseItem.html#126" title="Go to source code">pivotModels</a>( )</code>
 
 			<div class="description short">
 				
@@ -539,7 +555,7 @@ array(BELONGS_TO|HAS_MANY, foreign Model, foreign attribute (key))</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_attributeLabels">#</a>
-			<code><a href="source-class-BaseItem.html#123" title="Go to source code">attributeLabels</a>( )</code>
+			<code><a href="source-class-BaseItem.html#135" title="Go to source code">attributeLabels</a>( )</code>
 
 			<div class="description short">
 				
@@ -576,7 +592,7 @@ array(BELONGS_TO|HAS_MANY, foreign Model, foreign attribute (key))</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_search">#</a>
-			<code><a href="source-class-BaseItem.html#158" title="Go to source code">search</a>( )</code>
+			<code><a href="source-class-BaseItem.html#176" title="Go to source code">search</a>( )</code>
 
 			<div class="description short">
 				

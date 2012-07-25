@@ -18,6 +18,7 @@ return array(
                 'application.components.widgets.*',
                 'application.controllers.actions.*',
                 'application.controllers.actions.inventory.*',
+                'application.controllers.actions.shop.*',
 
                 'ext.giix-components.*', // giix components
                 'ext.wr.*', // WithRelated-Behavior
