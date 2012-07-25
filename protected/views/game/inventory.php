@@ -1,3 +1,8 @@
+<?php /**
+ * @uses EquipmentWidget
+ * @uses ItemGroupWidget
+ */ 
+?>
 <?php /* <div class="accordion" id="inventoryAccordion">
     <div class="accordion-group">
         <div class="accordion-heading">
@@ -20,7 +25,10 @@
 <BR />  */ ?>
 <ul class="nav nav-tabs" id="inventoryTab">
   <li class="active"><a href="#inventoryEquipment" data-toggle="tab">Equipment</a></li>
-  <li><a href="#inventoryMisc" data-toggle="tab">Misc</a></li>
+  <li><a href="#inventoryUsable" data-toggle="tab">Usable</a></li>
+  <li><a href="#inventoryCombat" data-toggle="tab">Combat</a></li>
+  <li><a href="#inventoryQuest" data-toggle="tab">Quest</a></li>
+  <li><a href="#inventoryMisc" data-toggle="tab">Other stuff</a></li>
 </ul>
 
 <div class="tab-content">
@@ -28,35 +36,50 @@
         <p><b>Equipment</b><BR /></p>
         <?php $this->widget('EquipmentWidget'); ?>
       
-        <p>&nbsp;</p><p><b>Inventory</b><BR /></p>
+        <p>&nbsp;</p><p><b>Weapons</b><BR /></p>
 
-        <?php
-        // @todo only equippable stuff
-        $this->widget('zii.widgets.CListView', array(
-            'dataProvider' => $itemDataProvider,
-            'itemView' => '_item',
-            'template' => "{items}",
-            'separator' => '<BR />'
-        ));
-        ?>
+        <?php $this->widget('ItemGroupWidget', array(
+            'CharacterItems' => $CharacterItems,
+            'itemType' => 'weapon'
+        )); ?>
+
+        <p>&nbsp;</p><p><b>Offhand</b><BR /></p>
+
+        <?php $this->widget('ItemGroupWidget', array(
+            'CharacterItems' => $CharacterItems,
+            'itemType' => 'offhand'
+        )); ?>
+
+        <p>&nbsp;</p><p><b>Accessories</b><BR /></p>
+
+        <?php $this->widget('ItemGroupWidget', array(
+            'CharacterItems' => $CharacterItems,
+            'itemType' => 'accessory'
+        )); ?>
     </div>
-    <div class="tab-pane" id="inventoryMisc">no filtering yet
-
-        <?php
-        /*
-        $criteria = new CDbCriteria(array(
-            'condition' => "`item`.type = 'weapon'"
-        ));
-        $itemDataProvider->setCriteria($criteria);
-        $itemDataProvider->getData(true);
-        $this->widget('zii.widgets.CListView', array(
-            'dataProvider' => $itemDataProvider,
-            'itemView' => '_item',
-            'template' => "{items}"
-        ));
-        */ 
-        ?>
-
+    <div class="tab-pane" id="inventoryUsable">
+        <?php $this->widget('ItemGroupWidget', array(
+            'CharacterItems' => $CharacterItems,
+            'itemType' => 'usable'
+        )); ?>
+    </div>
+    <div class="tab-pane" id="inventoryCombat">
+        <?php $this->widget('ItemGroupWidget', array(
+            'CharacterItems' => $CharacterItems,
+            'itemType' => 'combat'
+        )); ?>
+    </div>
+    <div class="tab-pane" id="inventoryQuest">
+        <?php $this->widget('ItemGroupWidget', array(
+            'CharacterItems' => $CharacterItems,
+            'itemType' => 'quest'
+        )); ?>
+    </div>
+    <div class="tab-pane" id="inventoryMisc">
+        <?php $this->widget('ItemGroupWidget', array(
+            'CharacterItems' => $CharacterItems,
+            'itemType' => 'misc'
+        )); ?>
     </div>
 </div>
 

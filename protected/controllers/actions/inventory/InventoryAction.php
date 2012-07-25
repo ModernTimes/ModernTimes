@@ -12,15 +12,10 @@ class InventoryAction extends CAction {
      */
     public function run() {
         $character = CD();
-        
-        $itemDataProvider = new CActiveDataProvider(
-            CharacterItems::model()->with(
-                    'item'
-            )
-        );
+        $character->loadItems();
 
         $this->controller->render("inventory", array(
-            'itemDataProvider' => $itemDataProvider,
+            'CharacterItems' => $character->characterItems,
         ));
     }
 }

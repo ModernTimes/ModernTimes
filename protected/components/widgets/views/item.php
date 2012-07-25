@@ -16,22 +16,30 @@
          */
         $popup = $this->item->call('getPopup');
         if(empty($popup)) {
-            $popup = "<p>" . $this->item->desc . "</p>";
+            $popup = "<p>" . $this->item->desc . "</p><BR /><P>";
+            switch($this->item->type) {
+                case "usable":
+                    $popup .= "Usable";
+                    break;
+                case "weapon":
+                    $popup .= "Weapon";
+                    break;
+                case "offhand":
+                    $popup .= "Offhand";
+                    break;
+                case "accessory":
+                    $popup .= "Accessory";
+                    break;
+                case "quest":
+                    $popup .= "Quest items";
+                    break;
+                case "misc":
+                    $popup .= "Other stuff";
+                    break;
+                default:
+                    break;
+            }
             if(!empty($this->item->charactermodifier)) {
-                $popup .= "<BR /><P>";
-                switch($this->item->type) {
-                    case "weapon":
-                        $popup .= "Weapon";
-                        break;
-                    case "offhand":
-                        $popup .= "Offhand";
-                        break;
-                    case "accessory":
-                        $popup .= "Accessory";
-                        break;
-                    default:
-                        break;
-                }
                 if($this->item->charactermodifier->hp > 0) {
                     $popup .= "<BR />+" . $this->item->charactermodifier->hp . " HP";
                 }
@@ -86,8 +94,14 @@
                 break;
             case "inventory":
                 echo "<span style='font-size:0.8em'>";
-                echo "<a href='./equip?itemID=" . $this->item->id . "'>equip</a> - "
-                    . "<a href='./autosell?itemID=" . $this->item->id . "'>get rid of</a></span>";
+                if($this->item->type == 'usable') {
+                    echo "<a href='./useItem?itemID=" . $this->item->id . "'>use</a> - ";
+                }
+                if($this->item->type == 'weapon' || $this->item->type == 'offhand' || $this->item->type == 'accessory') {
+                    echo "<a href='./equip?itemID=" . $this->item->id . "'>equip</a> - ";
+                }
+                echo "<a href='./autosell?itemID=" . $this->item->id . "'>sell</a>";
+                echo "</span>";
                 break;
             default:
                 break;
