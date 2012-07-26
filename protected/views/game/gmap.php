@@ -90,7 +90,7 @@
          action: { id: "mischief",
                    name: "Do mischief here",
                    turn: true,
-                   params: { } 
+                   params: { areaID: 1 } 
                  },
         },
         {name:"Home, sweet home",
