@@ -10,6 +10,7 @@ Yii::import('application.components.items.*');
  * 
  * @uses SpecialnessBehavior
  * @uses CharacterModifierBehavior
+ * @uses RequirementCheckerBehavior
  * @package System.Models
  */
 
@@ -49,6 +50,7 @@ class Item extends BaseItem {
     public function behaviors() {
         return array("application.components.SpecialnessBehavior",
                      "application.components.CharacterModifierBehavior",
+                     "application.components.RequirementCheckerBehavior",
                );
     }
     
