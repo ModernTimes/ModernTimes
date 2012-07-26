@@ -6,6 +6,7 @@
  * @todo change onCalcHp with something more quest-like
  * 
  * $this->owner is a Quest record
+ * $this->owner->CharacterQuest is a CharacterQuest record
  * 
  * @uses SpecialnessBehavior
  * @package Quests
@@ -13,6 +14,21 @@
 
 class TestQuest extends CBehavior {
 
+    /**
+     * Initialize the Quest
+     * @param Character $Character
+     * @param CharacterQuest $CharacterQuest 
+     */
+    public function initialize($Character, $CharacterQuest) {
+        // Call "parent" method
+        $this->owner->initialize($Character, $CharacterQuest);
+        
+        if(empty($this->owner->params['counter'])) {
+            $this->owner->params['counter'] = 0;
+            $this->owner->saveParams();
+        }
+    }
+    
     /**
      * Attaches custom event handlers to a Character
      * @param Character $Character 
@@ -28,6 +44,7 @@ class TestQuest extends CBehavior {
      * @return void
      */
     public function reactToOnCalcHp($event) { 
-        // $event->params['bonusAbs'] += 235;
+        $this->owner->params['counter'] ++;
+        $this->owner->saveParams();
     }
 }

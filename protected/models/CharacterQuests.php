@@ -6,6 +6,8 @@ Yii::import('application.models._base.BaseCharacterQuests');
  * Basic HAS_MANY association model
  * What is the status of all quests for a given character?
  * 
+ * Is pretty much telecontrolled by Quest
+ * 
  * See BaseCharacterQuests for a list of attributes and related Models
  * 
  * @see Character

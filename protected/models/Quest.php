@@ -14,10 +14,81 @@ Yii::import('application.components.quests.*');
  * See BaseQuest for a list of attributes and related Models
  * 
  * @uses SpecialnessBehavior
+ * @uses CharacterQuests
  * package System.Models 
  */
 
 class Quest extends BaseQuest {
+    
+    /**
+     * Link to a CharacterQuest record, which can be used to
+     * change the state of a quest for a Character
+     * @var CharacterQuest 
+     */
+    public $CharacterQuest;
+    
+    /**
+     * Additional params to manage the Quest
+     * @var array
+     */
+    public $params = array();
+    
+    /**
+     * Initializes the quest, i.e. hooks into Character's events, sets a link
+     * to a CharacterQuests record, and loads its params based on that record
+     * @param Character $Character
+     * @param CharacterQuests $CharacterQuest 
+     */
+    public function initialize($Character, $CharacterQuest) {
+        $this->call('attachToCharacter', $Character);
+        $this->CharacterQuest = $CharacterQuest;
+        $this->loadParams();
+    }
+    
+    /**
+     * Sets the current state of the quest
+     * @todo raise events
+     * @uses CharacterQuests
+     * @param string $state enum(available|ongoing|completed|rejected|failed)
+     * @param bool $update default true
+     */
+    public function setState($state, $update = true) {
+        switch($state) {
+            case "available":
+            case "ongoing":
+            case "completed":
+            case "rejected":
+            case "failed":
+                $this->CharacterQuest->state = $state;
+                if($update) {
+                    $this->CharacterQuest->update();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    
+    /**
+     * Saves the serialized param attribute to CharacterQuest record
+     * @uses CharacterQuests
+     * @param bool $update default true
+     */
+    public function saveParams($update = true) {
+        $this->CharacterQuest->params = serialize($this->params);
+        if($update) {
+            $this->CharacterQuest->update();
+        }
+    }
+    
+    /**
+     * Sets $this->params according to $this->CharacterQuest->params 
+     * @uses CharacterQuests
+     */
+    public function loadParams() {
+        $this->params = unserialize($this->CharacterQuest->params);
+    }
+    
     
     /**
      * Quasi-abstract; "override" by SpecialnessBehavior classes.
@@ -34,7 +105,7 @@ class Quest extends BaseQuest {
      * @param Character $Character
      */
     public function detachFromCharacter($Character) { }    
-    
+
     /**
      * Quasi-abstract; "override" by SpecialnessBehavior classes.
      * @todo get rid of this particular handler; it's not quest-like

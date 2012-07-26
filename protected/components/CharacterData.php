@@ -161,9 +161,12 @@ class CharacterData extends CApplicationComponent {
         foreach($this->_model->characterSkills as $characterSkill) {
             $characterSkill->skill->call("attachToCharacter", $this->_model);
         }
-        // Attach quest event handlers to Character events
+        /**
+         * Initialize quests, i.e. hook into Character's events, set a link
+         * to a CharacterQuests record, and load params based on that record 
+         */
         foreach($this->_model->characterQuests as $characterQuest) {
-            $characterQuest->quest->call("attachToCharacter", $this->_model);
+            $characterQuest->quest->call("initialize", $this->_model, $characterQuest);
         }
         
         PQPLogRoute::logMemory($this, "Completely loaded character data model");
