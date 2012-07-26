@@ -69,7 +69,7 @@ class CharacterData extends CApplicationComponent {
      * - Redirects to character creation action in case it doesn't find an 
      * active character for the current user
      * @todo Find a way to add the "available = 1" conditions again, without
-     *       causing any errors
+     *       causing any errors. Update: so far, so good. Continue monitoring.
      * @todo put the static model() call into the Character model
      * @todo put the attach stuff things intot he Character model
      * That way, we can load and initialize other characters, too
@@ -77,28 +77,37 @@ class CharacterData extends CApplicationComponent {
      */
     public function load() {
         $this->_model = Character::model()->with(array(
-            // Care: Current Yii version does not yet automatically alias recurring table names in with-calls. Use alias!
+            /**
+             * Care: Current Yii version does not yet automatically alias 
+             * recurring table names in with-calls. So we have to do it
+             * ourselves.
+             */
             'characterEquipments'=>array(
                 'with' => array(
                     'weapon0' => array('with' => array(
+                        'requirement' => array('alias' => 'weaponRequirement'),
                         'charactermodifier' => array('alias' => 'weaponCharactermodifier'))),
                     'offhand0' => array('with' => array(
+                        'requirement' => array('alias' => 'offhandRequirement'),
                         'charactermodifier' => array('alias' => 'offhandCharactermodifier'))),
                     'accessoryA0' => array('with' => array(
+                        'requirement' => array('alias' => 'accessoryARequirement'),
                         'charactermodifier' => array('alias' => 'accessoryACharactermodifier'))),
                     'accessoryB0' => array('with' => array(
+                        'requirement' => array('alias' => 'accessoryBRequirement'),
                         'charactermodifier' => array('alias' => 'accessoryBCharactermodifier'))),
                     'accessoryC0' => array('with' => array(
+                        'requirement' => array('alias' => 'accessoryCRequirement'),
                         'charactermodifier' => array('alias' => 'accessoryCCharactermodifier'))),
                 ),
-                // 'condition'=>"`characterEquipments`.`active`=1"
+                'condition'=>"`characterEquipments`.`active`=1"
             ),
             'characterFamiliars'=>array(
                 // 'condition'=>"`characterFamiliars`.`active`=1"
             ),
             // ToDo: with slot1, slot2, ...
             'characterSkillsets'=>array(
-                // 'condition'=>"`characterSkillsets`.`active`=1"
+                'condition'=>"`characterSkillsets`.`active`=1"
             ),
 	    // 'characterItems' => array('with' => array('item')),
             'characterSkills' => array(

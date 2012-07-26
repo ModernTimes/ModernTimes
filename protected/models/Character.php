@@ -645,7 +645,9 @@ class Character extends BaseCharacter {
         $characterItems = CharacterItems::model()->with(array(
             'item' => array(
                 'with' => array(
-                    'useEffect', 'charactermodifier'
+                    'requirement',
+                    'useEffect', 
+                    'charactermodifier'
                 )
             )
         ))->findAll(
