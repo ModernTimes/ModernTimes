@@ -46,6 +46,25 @@ class Quest extends BaseQuest {
     }
     
     /**
+     * Basic version; "override" if necessary
+     * Returns a string representation of the status of this Quest
+     * (from the Character's point of view)
+     * @uses getDescStatus
+     * @return string
+     */
+    public function getDesc() {
+        return "<p>" . $this->desc . "<BR />" . $this->call('getDescStatus') . "</p>";
+    }
+    /**
+     * Quasi-abstract; "override" by SpecialnessBehavior classes.
+     * Returns a string representation of what is going on right now with
+     * regard to this Quest (from the Character's point of view)
+     * 
+     * @return string empty
+     */
+    public function getDescStatus() { return ""; }
+    
+    /**
      * Sets the current state of the quest
      * @todo raise events
      * @uses CharacterQuests

@@ -30,6 +30,16 @@ class TestQuest extends CBehavior {
     }
     
     /**
+     * Returns a string representation of what is going on right now with
+     * regard to this Quest (from the Character's point of view)
+     * @return string empty
+     */
+    public function getDescStatus() {
+        return "onCalcHp events since this nonsense started: " . 
+               $this->owner->params['counter'];
+    }
+    
+    /**
      * Attaches custom event handlers to a Character
      * @param Character $Character 
      * @return void
