@@ -20,6 +20,7 @@ $this->breadcrumbs=array(
 <ul>
     <li>Google Maps Icons: http://mapicons.nicolasmollet.com</li>
     <li>Political characters: http://www.iconshock.com/</li>
-    <li>Some of the avatar graphics: www.aha-soft.com</li>
-    <li>The socks icon: http://www.artvex.com</li>
+    <li>Some of the avatar graphics: http://www.aha-soft.com</li>
+    <li>Shirt icons: Gordon Irving (http://qwertykkk.deviantart.com/)</li>
+    <li>Red trolley suitcase: http://177icons.com</li>
 </ul>
