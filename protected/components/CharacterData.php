@@ -130,6 +130,11 @@ class CharacterData extends CApplicationComponent {
                     )
                 )
             ),
+            'characterQuests' => array(
+                'with' => array(
+                    'quest'
+                )
+            ),
         ))->find('t.userID=:userID AND t.active=1', 
                  array(':userID'=>Yii::app()->user->id));
 
@@ -148,13 +153,17 @@ class CharacterData extends CApplicationComponent {
             $equipment->attachToCharacter($this->_model);
         }
         
-        // Attach effects
+        // Attach effects's event handlers
         foreach($this->_model->characterEffects as $characterEffect) {
             $characterEffect->effect->call("attachToCharacter", $this->_model);
         }
-        // Attach passive skill effects
+        // Attach passive skill's charactermodifier's event handlers
         foreach($this->_model->characterSkills as $characterSkill) {
             $characterSkill->skill->call("attachToCharacter", $this->_model);
+        }
+        // Attach quest event handlers to Character events
+        foreach($this->_model->characterQuests as $characterQuest) {
+            $characterQuest->quest->call("attachToCharacter", $this->_model);
         }
         
         PQPLogRoute::logMemory($this, "Completely loaded character data model");

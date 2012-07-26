@@ -28,6 +28,7 @@
  * - CharacterEquipments characterEquipments
  * - CharacterFamiliars characterFamiliars
  * - CharacterItems characterItems
+ * - CharacterQuests characterQuests
  * - CharacterSkills characterSkills
  * - CharacterSkillsets characterSkillsets
  * <br>
@@ -105,6 +106,7 @@ abstract class BaseCharacter extends GxActiveRecord {
 			'characterEquipments' => array(self::HAS_MANY, 'CharacterEquipments', 'characterID'),
 			'characterFamiliars' => array(self::HAS_MANY, 'CharacterFamiliars', 'characterID'),
 			'characterItems' => array(self::HAS_MANY, 'CharacterItems', 'characterID'),
+			'characterQuests' => array(self::HAS_MANY, 'CharacterQuests', 'characterID'),
 			'characterSkills' => array(self::HAS_MANY, 'CharacterSkills', 'characterID'),
 			'characterSkillsets' => array(self::HAS_MANY, 'CharacterSkillsets', 'characterID'),
 		);
@@ -149,6 +151,7 @@ abstract class BaseCharacter extends GxActiveRecord {
 			'characterEquipments' => null,
 			'characterFamiliars' => null,
 			'characterItems' => null,
+			'characterQuests' => null,
 			'characterSkills' => null,
 			'characterSkillsets' => null,
 		);
