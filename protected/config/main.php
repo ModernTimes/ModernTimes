@@ -15,6 +15,7 @@ return array(
 		'application.components.*',
                 'application.components.events.*',
                 'application.components.events.behaviors.*',
+		'application.components.quests.*',
                 'application.components.widgets.*',
                 'application.controllers.actions.*',
                 'application.controllers.actions.battle.*',
