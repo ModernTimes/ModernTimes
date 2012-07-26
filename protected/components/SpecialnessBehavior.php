@@ -67,9 +67,11 @@ class SpecialnessBehavior extends CBehavior {
     public function initSpecialness() {
         if($this->isSpecial() && $this->owner->asa("special") === null) {
             $this->owner->attachbehavior('special', new $this->owner->specialClass);
-
-            Yii::trace("attached special behavior class " . $this->owner->specialClass . " to " . get_class($this->owner) . (isset($this->owner->name) 
-                    ? " (" . $this->owner->name . ") " : ""));
+            /**
+            Yii::trace("attached special behavior class " . $this->owner->specialClass . 
+                    " to " . get_class($this->owner) . 
+                    (isset($this->owner->name) ? " (" . $this->owner->name . ") " : ""));
+            */
         }
     }
     
