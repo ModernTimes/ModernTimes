@@ -6,8 +6,10 @@
  * - integer id
  * - string name
  * - string specialClass
+ * - integer requirementID
  * - string desc
  *
+ * - Requirement requirement
  * - ShopItems shopItems
  * <br>
  * <p>This is the model base class for the table "{{shop}}".
@@ -63,9 +65,11 @@ abstract class BaseShop extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('name, specialClass, desc', 'required'),
+			array('requirementID', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			array('specialClass', 'length', 'max'=>50),
-			array('id, name, specialClass, desc', 'safe', 'on'=>'search'),
+			array('requirementID', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, name, specialClass, requirementID, desc', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -76,6 +80,7 @@ abstract class BaseShop extends GxActiveRecord {
 	 */
 	public function relations() {
 		return array(
+			'requirement' => array(self::BELONGS_TO, 'Requirement', 'requirementID'),
 			'shopItems' => array(self::HAS_MANY, 'ShopItems', 'shopID'),
 		);
 	}
@@ -98,7 +103,9 @@ abstract class BaseShop extends GxActiveRecord {
 			'id' => Yii::t('app', 'ID'),
 			'name' => Yii::t('app', 'Name'),
 			'specialClass' => Yii::t('app', 'Special Class'),
+			'requirementID' => null,
 			'desc' => Yii::t('app', 'Desc'),
+			'requirement' => null,
 			'shopItems' => null,
 		);
 	}
@@ -115,6 +122,7 @@ abstract class BaseShop extends GxActiveRecord {
 		$criteria->compare('id', $this->id);
 		$criteria->compare('name', $this->name, true);
 		$criteria->compare('specialClass', $this->specialClass, true);
+		$criteria->compare('requirementID', $this->requirementID);
 		$criteria->compare('desc', $this->desc, true);
 
 		return new CActiveDataProvider($this, array(

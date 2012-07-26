@@ -10,6 +10,7 @@ Yii::import('application.components.shops.*');
  * See BaseShop for a list of attributes and related Models
  * 
  * @uses SpecialnessBehavior
+ * @uses RequirementCheckerBehavior
  * @package System.Models
  */
 
@@ -32,23 +33,13 @@ class Shop extends BaseShop {
     }
     
     /**
-     * Just returns true, but can be "overridden" by SpecialnessBehavior
-     * classes.
-     * Has to generate a EUSerFlashMessage in case it returns false
-     * @param Character $Character
-     * @return boolean true
-     */
-    public function meetsRequirements($Character) {
-        return true;
-    }
-    
-    /**
      * Returns a list of CBehaviors to be attached to this Model
      * @link http://www.yiiframework.com/doc/api/CBehavior
      * @return array
      */
     public function behaviors() {
-        return array("application.components.SpecialnessBehavior");
+        return array("application.components.SpecialnessBehavior",
+                     "application.components.RequirementCheckerBehavior");
     }
     
     /**

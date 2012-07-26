@@ -58,7 +58,7 @@ class EquipAction extends CAction {
                      * Check: Does the Character fulfill the requirements
                      * for equipping that item? 
                      */
-                    if(!$Item->meetsRequirements($Character)) {
+                    if(!$Item->call("meetsRequirements", $Character)) {
                         // meetsRequirements generates more specific messages
                         // EUserFlash::setErrorMessage("You cannot equip that.");
                     } else {

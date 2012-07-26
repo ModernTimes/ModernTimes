@@ -41,7 +41,7 @@ class ShopAction extends CAction {
                 $Character = CD();
                 
                 if(!$Shop->call("meetsRequirements", $Character)) {
-                    // Shop is responsible for generating a flash message
+                    // RequirementCheckerBehavior generates messages
                     $this->controller->redirect(array('index'));
                 } else {
                     

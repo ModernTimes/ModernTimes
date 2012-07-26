@@ -80,7 +80,7 @@ class BuyItemAction extends CAction {
         // Is the Character allowed to enter that shop?
         $Character = CD();
         if(!$Shop->call("meetsRequirements", $Character)) {
-            // Shop is responsible for generating a flash message
+            // RequirementCheckerBehavior generates messages
             $this->controller->redirect(array('index'));
         }
         
