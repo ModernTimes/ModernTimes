@@ -22,4 +22,18 @@ class CharactermodifierWidget extends CWidget {
     public function run() {
         $this->render("charactermodifier");
     }
+    
+    /**
+     * Returns a HTML prefix depending on $number
+     * Used by charactermodifier.php view file
+     * @param float $number
+     * @return string 
+     */
+    public function getColorPrefix($number) {
+        if($number > 0) {
+            return "<span style='color: green'>+";
+        } else {
+            return "<span style='color: red'>";
+        }
+    }    
 }
