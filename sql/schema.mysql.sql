@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 26. Jul 2012 um 12:01
+-- Erstellungszeit: 26. Jul 2012 um 14:31
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -32,7 +32,6 @@ CREATE TABLE IF NOT EXISTS `mt_area` (
   `specialClass` varchar(50) NOT NULL,
   `requirementID` int(11) DEFAULT NULL,
   `combatProb` decimal(7,6) NOT NULL DEFAULT '0.000000',
-  `reqMainstat` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `requirementID` (`requirementID`)
@@ -121,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `mt_battle` (
   KEY `combatantBID` (`combatantBID`),
   KEY `state` (`state`),
   KEY `winnerID` (`winnerID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
 -- --------------------------------------------------------
 
@@ -317,7 +316,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_items` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `itemID` (`itemID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_items`:
@@ -667,12 +666,14 @@ CREATE TABLE IF NOT EXISTS `mt_recipe` (
 CREATE TABLE IF NOT EXISTS `mt_requirement` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `class` enum('none','resoluteness','willpower','cunning','consultant','banker') NOT NULL DEFAULT 'none',
+  `sex` enum('none','male','female') NOT NULL DEFAULT 'none',
+  `level` smallint(4) unsigned NOT NULL DEFAULT '0',
   `mainstat` smallint(5) unsigned NOT NULL DEFAULT '0',
   `resoluteness` smallint(5) unsigned NOT NULL DEFAULT '0',
   `willpower` smallint(5) unsigned NOT NULL DEFAULT '0',
   `cunning` smallint(5) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
@@ -690,6 +691,12 @@ CREATE TABLE IF NOT EXISTS `mt_shop` (
   UNIQUE KEY `name` (`name`),
   KEY `requirementID` (`requirementID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- RELATIONEN DER TABELLE `mt_shop`:
+--   `requirementID`
+--       `mt_requirement` -> `id`
+--
 
 -- --------------------------------------------------------
 
@@ -970,6 +977,12 @@ ALTER TABLE `mt_recipe`
   ADD CONSTRAINT `mt_recipe_ibfk_3` FOREIGN KEY (`itemResultID`) REFERENCES `mt_item` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `mt_recipe_ibfk_1` FOREIGN KEY (`item1ID`) REFERENCES `mt_item` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `mt_recipe_ibfk_2` FOREIGN KEY (`item2ID`) REFERENCES `mt_item` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints der Tabelle `mt_shop`
+--
+ALTER TABLE `mt_shop`
+  ADD CONSTRAINT `mt_shop_ibfk_1` FOREIGN KEY (`requirementID`) REFERENCES `mt_requirement` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `mt_shop_items`

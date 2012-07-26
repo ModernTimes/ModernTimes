@@ -8,6 +8,9 @@ if(!empty($this->Requirement)) {
     if($this->Requirement->class != "none") {
         echo "Only for " . $this->Requirement->class . "s<BR />";
     }
+    if($this->Requirement->sex != "none") {
+        echo "Only for " . $this->Requirement->sex . " characters<BR />";
+    }
     if($this->Requirement->level > 0) {
         echo "Requires level " . $this->Requirement->level . "<BR />";
     }

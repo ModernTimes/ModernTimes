@@ -52,6 +52,19 @@ class RequirementCheckerBehavior extends CModelBehavior {
             default:
                 break;
         }
+        switch($Requirement->sex) {
+            case "male":
+            case "female":
+                if($Character->sex != $Requirement->sex) {
+                    if($generateMessages) {
+                        EUserFlash::setErrorMessage("Only for " . $Requirement->sex . " characters");
+                    }
+                    return false;
+                }
+                break;
+            default:
+                break;
+        }
         
         if($Requirement->level > 0) {
             if($Character->getLevel() < $Requirement->level) {
