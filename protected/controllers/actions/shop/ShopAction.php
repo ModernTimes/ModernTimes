@@ -26,12 +26,14 @@ class ShopAction extends CAction {
                     'with' => array(
                         'item' => array(
                             'with' => array(
+                                'requirement' => array('alias' => "itemRequirement"),
                                 'charactermodifier',
                                 'useEffect'
                             )
                         )
                     )
-                 )
+                 ),
+                'requirement' => array('alias' => "shopRequirement")
             ))->findByPk($shopID);
             
             if(!is_a($Shop, "Shop")) {
