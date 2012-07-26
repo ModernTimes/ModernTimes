@@ -865,6 +865,7 @@ class Character extends BaseCharacter {
     /**
      * Returns an array indicating the relative importance of character stats
      * for all the Character classes
+     * @todo make static
      * @return array
      */
     public function getClassAttributes() {

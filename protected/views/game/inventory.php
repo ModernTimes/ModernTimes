@@ -33,10 +33,10 @@
 
 <div class="tab-content">
     <div class="tab-pane active" id="inventoryEquipment">
-        <p><b>Equipment</b><BR /></p>
         <?php $this->widget('EquipmentWidget'); ?>
+        <hr>
       
-        <p>&nbsp;</p><p><b>Weapons</b><BR /></p>
+        <p><b>Weapons</b><BR /></p>
 
         <?php $this->widget('ItemGroupWidget', array(
             'CharacterItems' => $CharacterItems,

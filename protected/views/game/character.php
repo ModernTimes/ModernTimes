@@ -14,3 +14,7 @@
             <td style="text-align: center"><?php echo $character->getCunningBuffed(); ?></td><td></td><td style="text-align: center">(<?php echo $character->getCunningBase(); ?>)</td></tr>
         </tbody>
     </table>
+
+<hr>
+<?php $this->widget('EquipmentWidget'); ?>
+<hr>
