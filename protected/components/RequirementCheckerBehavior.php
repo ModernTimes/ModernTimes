@@ -16,7 +16,14 @@
 
 class RequirementCheckerBehavior extends CModelBehavior {
     
-    function meetsRequirements($Character) {
+    /**
+     * Checks whether a Character fulfills the requirements specified by the
+     * owner's Requirement model.
+     * @param Character $Character
+     * @param bool $generateMessages
+     * @return boolean 
+     */
+    function meetsRequirements($Character, $generateMessages = true) {
         $Requirement = $this->owner->requirement;
         if(!is_a($Requirement, "Requirement")) {
             return true;
@@ -26,7 +33,9 @@ class RequirementCheckerBehavior extends CModelBehavior {
             case "banker":
             case "consultant":
                 if($Character->class != $Requirement->class) {
-                    EUserFlash::setErrorMessage("Only " . $Requirement->class . "s can do that");
+                    if($generateMessages) {
+                        EUserFlash::setErrorMessage("Only " . $Requirement->class . "s can do that");
+                    }
                     return false;
                 }
                 break;
@@ -34,7 +43,9 @@ class RequirementCheckerBehavior extends CModelBehavior {
             case "willpower":
             case "cunning":
                 if($Character->getClassType() != $Requirement->class) {
-                    EUserFlash::setErrorMessage(ucfirst($Character->class) . "s can't do that");
+                    if($generateMessages) {
+                        EUserFlash::setErrorMessage(ucfirst($Character->class) . "s can't do that");
+                    }
                     return false;
                 }
                 break;
@@ -44,31 +55,41 @@ class RequirementCheckerBehavior extends CModelBehavior {
         
         if($Requirement->level > 0) {
             if($Character->getLevel() < $Requirement->level) {
-                EUserFlash::setErrorMessage("You need to be level " . $Requirement->level . " to do that");
+                if($generateMessages) {
+                    EUserFlash::setErrorMessage("You need to be level " . $Requirement->level . " to do that");
+                }
                 return false;
             }
         }
         if($Requirement->resoluteness > 0) {
             if($Character->getResolutenessBuffed() < $Requirement->resoluteness) {
-                EUserFlash::setErrorMessage("You need to have " . $Requirement->resoluteness . " resoluteness to do that");
+                if($generateMessages) {
+                    EUserFlash::setErrorMessage("You need to have " . $Requirement->resoluteness . " resoluteness to do that");
+                }
                 return false;
             }
         }
         if($Requirement->willpower > 0) {
             if($Character->getWillpowerBuffed() < $Requirement->willpower) {
-                EUserFlash::setErrorMessage("You need to have " . $Requirement->willpower . " willpower to do that");
+                if($generateMessages) {
+                    EUserFlash::setErrorMessage("You need to have " . $Requirement->willpower . " willpower to do that");
+                }
                 return false;
             }
         }
         if($Requirement->cunning > 0) {
             if($Character->getCunningBuffed() < $Requirement->cunning) {
-                EUserFlash::setErrorMessage("You need to have " . $Requirement->cunning . " cunning to do that");
+                if($generateMessages) {
+                    EUserFlash::setErrorMessage("You need to have " . $Requirement->cunning . " cunning to do that");
+                }
                 return false;
             }
         }
         if($Requirement->mainstat > 0) {
             if($Character->getMainstatBuffed() < $Requirement->mainstat) {
-                EUserFlash::setErrorMessage("You need to have " . $Requirement->mainstat . " " . $Character->getClassType() . " to do that");
+                if($generateMessages) {
+                    EUserFlash::setErrorMessage("You need to have " . $Requirement->mainstat . " " . $Character->getClassType() . " to do that");
+                }
                 return false;
             }
         }
