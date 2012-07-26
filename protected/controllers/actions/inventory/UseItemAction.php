@@ -2,6 +2,7 @@
 /**
  * Uses a usable Item
  * 
+ * @uses InventoryAction
  * @package Actions.Inventory
  */
 

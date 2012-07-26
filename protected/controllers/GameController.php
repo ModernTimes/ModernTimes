@@ -36,8 +36,8 @@ class GameController extends Controller {
             'map'              => 'application.controllers.actions.MapAction',
 
             'mischief'         => 'application.controllers.actions.MischiefAction',
-            'battleMonster'    => 'application.controllers.actions.BattleMonsterAction',
-            'battleAction'     => 'application.controllers.actions.BattleActionAction',
+            'battleMonster'    => 'application.controllers.actions.battle.BattleMonsterAction',
+            'battleAction'     => 'application.controllers.actions.battle.BattleActionAction',
             'encounter'        => 'application.controllers.actions.EncounterAction',
             
             'inventory'        => 'application.controllers.actions.inventory.InventoryAction',

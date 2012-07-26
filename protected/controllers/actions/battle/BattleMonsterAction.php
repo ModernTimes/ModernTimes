@@ -5,7 +5,7 @@
  * Cannot be called by user directly
  * 
  * @see Battle
- * @package Actions
+ * @package Actions.Battle
  */
 
 class BattleMonsterAction extends CAction {

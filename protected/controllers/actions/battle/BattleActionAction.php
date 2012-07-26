@@ -5,7 +5,7 @@
  * either by using a Skill or an Item
  * @todo implement item actions
  * 
- * @package Actions
+ * @package Actions.Battle
  */
 
 class BattleActionAction extends BattleAction {

@@ -3,7 +3,7 @@
 /**
  * Provides a render function that other battle-related action classes can use
  * 
- * @package Actions
+ * @package Actions.Battle
  */
 
 class BattleAction extends CAction {
