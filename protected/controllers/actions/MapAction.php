@@ -23,6 +23,15 @@ class MapAction extends CAction {
         // Will be used in some view files and redirect commands
         Yii::app()->session['lastMapPosition'] = array();
 
-        $this->controller->render("gmap");
+        $Character = CD();
+        $Markers = Marker::model()->with(array(
+            'requirement'
+        ))->findAll();
+                
+        $this->controller->render("gmap", array(
+            'Markers' => $Markers,
+            'Character' => $Character
+        ));
+        // d($Markers);
     }
 }

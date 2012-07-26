@@ -79,7 +79,35 @@
         streetview,
         currentPlace = null;
 
-    var areas = [
+    var areas = [<?php foreach($Markers as $Marker) {
+        if($Marker->meetsRequirements($Character, false)) {
+            echo "{name:\"" . $Marker->name . "\",
+                  markerType:\"" . $Marker->type . "\",
+                  lat:" . $Marker->lat . ", lng:" . $Marker->lng . ",
+                  pov: { heading: " . $Marker->povHeading . ",
+                         pitch: " . $Marker->povPitch . ",
+                         zoom: " . $Marker->povZoom . " },
+                  desc: \"" . $Marker->desc . "\",
+                  action: { id: \"" . $Marker->actionID . "\",
+                            name: \"" . $Marker->actionName . "\",
+                            turn: " . ($Marker->actionTurn ? "true" : "false") . ",
+                            params: { ";
+            $params = unserialize($Marker->actionParams);
+            if(is_array($params)) {
+                foreach($params as $key => $value) {
+                    echo $key . ": " . (is_string($value) ? "\"" : "") . 
+                            $value . 
+                            (is_string($value) ? "\"" : "") . 
+                            ", ";
+                }
+            }
+            echo " }, 
+                }, 
+            },";
+        }
+    } ?>];
+    
+    <?php /*
         {name:"Undisclosed insurance company",
          markerType:"mischief",
          lat:51.513622, lng:-0.081483,
@@ -130,7 +158,7 @@
                    turn: false,
                    params: {} },
         },
-    ];
+    ]; */ ?>
     
     $(function() {
         $('#map').gmap3({
