@@ -11,6 +11,7 @@ Yii::import('application.components.areas.*');
  * See BaseArea for a list of attributes and related Models
  *
  * @uses SpecialnessBehavior
+ * @uses RequirementCheckerBehavior
  * @package System.Models
  */
 
@@ -65,7 +66,8 @@ class Area extends BaseArea {
      * @return array
      */
     public function behaviors() {
-        return array("application.components.SpecialnessBehavior");
+        return array("application.components.SpecialnessBehavior",
+                     "application.components.RequirementCheckerBehavior");
     }
 
     /**
