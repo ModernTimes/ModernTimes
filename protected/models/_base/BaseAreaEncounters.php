@@ -6,10 +6,12 @@
  * - integer id
  * - integer areaID
  * - integer encounterID
+ * - integer requirementID
  * - string prob
  *
- * - Encounter encounter
+ * - Requirement requirement
  * - Area area
+ * - Encounter encounter
  * - EncounterEncounters encounterEncounters
  * - EncounterEncounters encounterEncounters1
  * <br>
@@ -66,10 +68,10 @@ abstract class BaseAreaEncounters extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('areaID, encounterID', 'required'),
-			array('areaID, encounterID', 'numerical', 'integerOnly'=>true),
+			array('areaID, encounterID, requirementID', 'numerical', 'integerOnly'=>true),
 			array('prob', 'length', 'max'=>7),
-			array('prob', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, areaID, encounterID, prob', 'safe', 'on'=>'search'),
+			array('requirementID, prob', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, areaID, encounterID, requirementID, prob', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -80,8 +82,9 @@ abstract class BaseAreaEncounters extends GxActiveRecord {
 	 */
 	public function relations() {
 		return array(
-			'encounter' => array(self::BELONGS_TO, 'Encounter', 'encounterID'),
+			'requirement' => array(self::BELONGS_TO, 'Requirement', 'requirementID'),
 			'area' => array(self::BELONGS_TO, 'Area', 'areaID'),
+			'encounter' => array(self::BELONGS_TO, 'Encounter', 'encounterID'),
 			'encounterEncounters' => array(self::HAS_MANY, 'EncounterEncounters', 'toEncounterID'),
 			'encounterEncounters1' => array(self::HAS_MANY, 'EncounterEncounters', 'fromEncounterID'),
 		);
@@ -105,9 +108,11 @@ abstract class BaseAreaEncounters extends GxActiveRecord {
 			'id' => Yii::t('app', 'ID'),
 			'areaID' => null,
 			'encounterID' => null,
+			'requirementID' => null,
 			'prob' => Yii::t('app', 'Prob'),
-			'encounter' => null,
+			'requirement' => null,
 			'area' => null,
+			'encounter' => null,
 			'encounterEncounters' => null,
 			'encounterEncounters1' => null,
 		);
@@ -125,6 +130,7 @@ abstract class BaseAreaEncounters extends GxActiveRecord {
 		$criteria->compare('id', $this->id);
 		$criteria->compare('areaID', $this->areaID);
 		$criteria->compare('encounterID', $this->encounterID);
+		$criteria->compare('requirementID', $this->requirementID);
 		$criteria->compare('prob', $this->prob, true);
 
 		return new CActiveDataProvider($this, array(

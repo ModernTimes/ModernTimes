@@ -6,9 +6,11 @@
  * - integer id
  * - string name
  * - string specialClass
+ * - integer requirementID
  * - string combatProb
  * - integer reqMainstat
  *
+ * - Requirement requirement
  * - AreaEncounters areaEncounters
  * - AreaMonsters areaMonsters
  * <br>
@@ -65,12 +67,12 @@ abstract class BaseArea extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('name, specialClass', 'required'),
-			array('reqMainstat', 'numerical', 'integerOnly'=>true),
+			array('requirementID, reqMainstat', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			array('specialClass', 'length', 'max'=>50),
 			array('combatProb', 'length', 'max'=>7),
-			array('combatProb, reqMainstat', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, name, specialClass, combatProb, reqMainstat', 'safe', 'on'=>'search'),
+			array('requirementID, combatProb, reqMainstat', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, name, specialClass, requirementID, combatProb, reqMainstat', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -81,6 +83,7 @@ abstract class BaseArea extends GxActiveRecord {
 	 */
 	public function relations() {
 		return array(
+			'requirement' => array(self::BELONGS_TO, 'Requirement', 'requirementID'),
 			'areaEncounters' => array(self::HAS_MANY, 'AreaEncounters', 'areaID'),
 			'areaMonsters' => array(self::HAS_MANY, 'AreaMonsters', 'areaID'),
 		);
@@ -104,8 +107,10 @@ abstract class BaseArea extends GxActiveRecord {
 			'id' => Yii::t('app', 'ID'),
 			'name' => Yii::t('app', 'Name'),
 			'specialClass' => Yii::t('app', 'Special Class'),
+			'requirementID' => null,
 			'combatProb' => Yii::t('app', 'Combat Prob'),
 			'reqMainstat' => Yii::t('app', 'Req Mainstat'),
+			'requirement' => null,
 			'areaEncounters' => null,
 			'areaMonsters' => null,
 		);
@@ -123,6 +128,7 @@ abstract class BaseArea extends GxActiveRecord {
 		$criteria->compare('id', $this->id);
 		$criteria->compare('name', $this->name, true);
 		$criteria->compare('specialClass', $this->specialClass, true);
+		$criteria->compare('requirementID', $this->requirementID);
 		$criteria->compare('combatProb', $this->combatProb, true);
 		$criteria->compare('reqMainstat', $this->reqMainstat);
 
