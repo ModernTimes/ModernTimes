@@ -66,7 +66,7 @@ class Character extends BaseCharacter {
             'amount' => $amount,
             'source'   => $source
         ));
-        call_user_func(array($this, "onGaining" . ucfirst($resource)), $event);
+        call_user_func(array($this, "onGain" . ucfirst($resource)), $event);
 
         $amount = max(0, floor($event->adjustStat($amount)));
         
@@ -344,7 +344,7 @@ class Character extends BaseCharacter {
             'amount' => $amount,
             'source'   => $source
         ));
-        call_user_func(array($this, "onGaining" . ucfirst($substat)), $event);
+        call_user_func(array($this, "onGain" . ucfirst($substat)), $event);
         
         $amount = max(0, floor($event->adjustStat($amount)));
         
@@ -688,6 +688,8 @@ class Character extends BaseCharacter {
     }
     /**
      * Adds a CharacterEffects record to the Character record
+     * @uses onAddEffect
+     * @uses GainEffectEvent
      * @todo Flash message only if the Character record represents the current
      * user's character
      * @uses CharacterEffects
@@ -702,6 +704,10 @@ class Character extends BaseCharacter {
         $charEffects[] = $characterEffect;
         $this->characterEffects = $charEffects;
         $characterEffect->effect->attachToCharacter($this);
+        
+        $event = new GainEffectEvent($this, $characterEffect);
+        $this->onGainEffect($event);
+        
         EUserFlash::setNoticeMessage($characterEffect->effect->name, "<b>" . $characterEffect->effect->name . "</b> (for the next " . $characterEffect->turns . " encounters)", 'effect');
     }
     
@@ -806,50 +812,58 @@ class Character extends BaseCharacter {
      * Event raiser
      * @param CEvent $event 
      */
-    public function onGainingCash($event) {
-        $this->raiseEvent("onGainingCash", $event);
+    public function onGainCash($event) {
+        $this->raiseEvent("onGainCash", $event);
     }
     /**
      * Event raiser
      * @param CEvent $event 
      */
-    public function onGainingFavours($event) {
-        $this->raiseEvent("onGainingFavours", $event);
+    public function onGainFavours($event) {
+        $this->raiseEvent("onGainFavours", $event);
     }
     /**
      * Event raiser
      * @param CEvent $event 
      */
-    public function onGainingKudos($event) {
-        $this->raiseEvent("onGainingKudos", $event);
+    public function onGainKudos($event) {
+        $this->raiseEvent("onGainKudos", $event);
     }
     /**
      * Event raiser
      * @param CEvent $event 
      */
-    public function onGainingXp($event) {
-        $this->raiseEvent("onGainingXp", $event);
+    public function onGainXp($event) {
+        $this->raiseEvent("onGainXp", $event);
     }
     /**
      * Event raiser
      * @param CEvent $event 
      */
-    public function onGainingResoluteness($event) {
-        $this->raiseEvent("onGainingResoluteness", $event);
+    public function onGainResoluteness($event) {
+        $this->raiseEvent("onGainResoluteness", $event);
     }
     /**
      * Event raiser
      * @param CEvent $event 
      */
-    public function onGainingWillpower($event) {
-        $this->raiseEvent("onGainingWillpower", $event);
+    public function onGainWillpower($event) {
+        $this->raiseEvent("onGainWillpower", $event);
     }
     /**
      * Event raiser
      * @param CEvent $event 
      */
-    public function onGainingCunning($event) {
-        $this->raiseEvent("onGainingCunning", $event);
+    public function onGainCunning($event) {
+        $this->raiseEvent("onGainCunning", $event);
+    }
+
+    /**
+     * Event raiser
+     * @param CEvent $event 
+     */
+    public function onGainEffect($event) {
+        $this->raiseEvent("onGainEffect", $event);
     }
 
     /**

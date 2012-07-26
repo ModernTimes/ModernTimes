@@ -50,13 +50,13 @@ class Charactermodifier extends BaseCharactermodifier {
             $Character->onCalcCunning = array($this, 'reactToOnCalcCunning');
         }
         if($this->dropCash != 0 || $this->dropCashPerc != 0) {
-            $Character->onGainingCash = array($this, 'reactToOnGainingCash');
+            $Character->onGainCash = array($this, 'reactToonGainCash');
         }
         if($this->dropFavours != 0 || $this->dropFavoursPerc != 0) {
-            $Character->onGainingFavours = array($this, 'reactToOnGainingFavours');
+            $Character->onGainFavours = array($this, 'reactToonGainFavours');
         }
         if($this->dropKudos != 0 || $this->dropKudosPerc != 0) {
-            $Character->onGainingKudos = array($this, 'reactToOnGainingKudos');
+            $Character->onGainKudos = array($this, 'reactToonGainKudos');
         }
         if($this->dropItemPerc != 0) {
             $Character->onCalcDropItemBonus = array($this, 'reactToOnCalcDropItemBonus');
@@ -76,9 +76,9 @@ class Charactermodifier extends BaseCharactermodifier {
         $Character->detachEventHandler("onCalcWillpower", array($this, 'reactToOnCalcWillpower'));
         $Character->detachEventHandler("onCalcCunning", array($this, 'reactToOnCalcCunning'));
 
-        $Character->detachEventHandler("onGainingCash", array($this, 'reactToOnGainingCash'));
-        $Character->detachEventHandler("onGainingFavours", array($this, 'reactToOnGainingFavours'));
-        $Character->detachEventHandler("onGainingKudos", array($this, 'reactToOnGainingKudos'));
+        $Character->detachEventHandler("onGainCash", array($this, 'reactToonGainCash'));
+        $Character->detachEventHandler("onGainFavours", array($this, 'reactToonGainFavours'));
+        $Character->detachEventHandler("onGainKudos", array($this, 'reactToonGainKudos'));
         
         $Character->detachEventHandler("onCalcDropItemBonus", array($this, 'reactToOnCalcDropItemBonus'));
     }    
@@ -137,7 +137,7 @@ class Charactermodifier extends BaseCharactermodifier {
      * @param array $acceptedSources list of scenarios in which the event observer
      * should do its work
      */
-    public function reactToOnGainingCash($event, $acceptedSources = array('battle')) {
+    public function reactToonGainCash($event, $acceptedSources = array('battle')) {
         if(in_array($event->params['from'], $acceptedSources)) {
             $event->increaseBonusAbs($this->dropCash);
             $event->increaseBonusPerc($this->dropCashPerc);
@@ -151,7 +151,7 @@ class Charactermodifier extends BaseCharactermodifier {
      * @param array $acceptedSources list of scenarios in which the event observer
      * should do its work
      */
-    public function reactToOnGainingFavours($event, $acceptedSources = array('battle')) {
+    public function reactToonGainFavours($event, $acceptedSources = array('battle')) {
         if(in_array($event->params['from'], $acceptedSources)) {
             $event->increaseBonusAbs($this->dropFavours);
             $event->increaseBonusPerc($this->dropFavoursPerc);
@@ -165,7 +165,7 @@ class Charactermodifier extends BaseCharactermodifier {
      * @param array $acceptedSources list of scenarios in which the event observer
      * should do its work
      */
-    public function reactToOnGainingKudos($event, $acceptedSources = array('battle')) {
+    public function reactToonGainKudos($event, $acceptedSources = array('battle')) {
         if(in_array($event->params['from'], $acceptedSources)) {
             $event->increaseBonusAbs($this->dropKudos);
             $event->increaseBonusPerc($this->dropKudosPerc);

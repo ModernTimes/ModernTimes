@@ -53,7 +53,7 @@ class Quest extends BaseQuest {
      * @return string
      */
     public function getDesc() {
-        return "<p>" . $this->desc . "<BR />" . $this->call('getDescStatus') . "</p>";
+        return "" . $this->desc . "<BR />" . $this->call('getDescStatus') . "";
     }
     /**
      * Quasi-abstract; "override" by SpecialnessBehavior classes.

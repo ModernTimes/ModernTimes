@@ -194,7 +194,7 @@
 <a href="#66" id="66" class="l"> 66 </a>            <span class="php-quote">'amount'</span> =&gt; <span class="php-var">$amount</span>,
 <a href="#67" id="67" class="l"> 67 </a>            <span class="php-quote">'source'</span>   =&gt; <span class="php-var">$source</span>
 <a href="#68" id="68" class="l"> 68 </a>        ));
-<a href="#69" id="69" class="l"> 69 </a>        <span class="php-keyword2">call_user_func</span>(<span class="php-keyword1">array</span>(<span class="php-var">$this</span>, <span class="php-quote">&quot;onGaining&quot;</span> . <span class="php-keyword2">ucfirst</span>(<span class="php-var">$resource</span>)), <span class="php-var">$event</span>);
+<a href="#69" id="69" class="l"> 69 </a>        <span class="php-keyword2">call_user_func</span>(<span class="php-keyword1">array</span>(<span class="php-var">$this</span>, <span class="php-quote">&quot;onGain&quot;</span> . <span class="php-keyword2">ucfirst</span>(<span class="php-var">$resource</span>)), <span class="php-var">$event</span>);
 <a href="#70" id="70" class="l"> 70 </a>
 <a href="#71" id="71" class="l"> 71 </a>        <span class="php-var">$amount</span> = <span class="php-keyword2">max</span>(<span class="php-num">0</span>, <span class="php-keyword2">floor</span>(<span class="php-var">$event</span>-&gt;adjustStat(<span class="php-var">$amount</span>)));
 <a href="#72" id="72" class="l"> 72 </a>        
@@ -472,7 +472,7 @@
 <a href="#344" id="344" class="l">344 </a>            <span class="php-quote">'amount'</span> =&gt; <span class="php-var">$amount</span>,
 <a href="#345" id="345" class="l">345 </a>            <span class="php-quote">'source'</span>   =&gt; <span class="php-var">$source</span>
 <a href="#346" id="346" class="l">346 </a>        ));
-<a href="#347" id="347" class="l">347 </a>        <span class="php-keyword2">call_user_func</span>(<span class="php-keyword1">array</span>(<span class="php-var">$this</span>, <span class="php-quote">&quot;onGaining&quot;</span> . <span class="php-keyword2">ucfirst</span>(<span class="php-var">$substat</span>)), <span class="php-var">$event</span>);
+<a href="#347" id="347" class="l">347 </a>        <span class="php-keyword2">call_user_func</span>(<span class="php-keyword1">array</span>(<span class="php-var">$this</span>, <span class="php-quote">&quot;onGain&quot;</span> . <span class="php-keyword2">ucfirst</span>(<span class="php-var">$substat</span>)), <span class="php-var">$event</span>);
 <a href="#348" id="348" class="l">348 </a>        
 <a href="#349" id="349" class="l">349 </a>        <span class="php-var">$amount</span> = <span class="php-keyword2">max</span>(<span class="php-num">0</span>, <span class="php-keyword2">floor</span>(<span class="php-var">$event</span>-&gt;adjustStat(<span class="php-var">$amount</span>)));
 <a href="#350" id="350" class="l">350 </a>        
@@ -932,50 +932,50 @@
 </span><a href="#804" id="804" class="l">804 </a><span class="php-comment">     * Event raiser
 </span><a href="#805" id="805" class="l">805 </a><span class="php-comment">     * @param CEvent $event 
 </span><a href="#806" id="806" class="l">806 </a><span class="php-comment">     */</span>
-<a href="#807" id="807" class="l">807 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> onGainingCash(<span class="php-var">$event</span>) {
-<a href="#808" id="808" class="l">808 </a>        <span class="php-var">$this</span>-&gt;raiseEvent(<span class="php-quote">&quot;onGainingCash&quot;</span>, <span class="php-var">$event</span>);
+<a href="#807" id="807" class="l">807 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> onGainCash(<span class="php-var">$event</span>) {
+<a href="#808" id="808" class="l">808 </a>        <span class="php-var">$this</span>-&gt;raiseEvent(<span class="php-quote">&quot;onGainCash&quot;</span>, <span class="php-var">$event</span>);
 <a href="#809" id="809" class="l">809 </a>    }
 <a href="#810" id="810" class="l">810 </a>    <span class="php-comment">/**
 </span><a href="#811" id="811" class="l">811 </a><span class="php-comment">     * Event raiser
 </span><a href="#812" id="812" class="l">812 </a><span class="php-comment">     * @param CEvent $event 
 </span><a href="#813" id="813" class="l">813 </a><span class="php-comment">     */</span>
-<a href="#814" id="814" class="l">814 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> onGainingFavours(<span class="php-var">$event</span>) {
-<a href="#815" id="815" class="l">815 </a>        <span class="php-var">$this</span>-&gt;raiseEvent(<span class="php-quote">&quot;onGainingFavours&quot;</span>, <span class="php-var">$event</span>);
+<a href="#814" id="814" class="l">814 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> onGainFavours(<span class="php-var">$event</span>) {
+<a href="#815" id="815" class="l">815 </a>        <span class="php-var">$this</span>-&gt;raiseEvent(<span class="php-quote">&quot;onGainFavours&quot;</span>, <span class="php-var">$event</span>);
 <a href="#816" id="816" class="l">816 </a>    }
 <a href="#817" id="817" class="l">817 </a>    <span class="php-comment">/**
 </span><a href="#818" id="818" class="l">818 </a><span class="php-comment">     * Event raiser
 </span><a href="#819" id="819" class="l">819 </a><span class="php-comment">     * @param CEvent $event 
 </span><a href="#820" id="820" class="l">820 </a><span class="php-comment">     */</span>
-<a href="#821" id="821" class="l">821 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> onGainingKudos(<span class="php-var">$event</span>) {
-<a href="#822" id="822" class="l">822 </a>        <span class="php-var">$this</span>-&gt;raiseEvent(<span class="php-quote">&quot;onGainingKudos&quot;</span>, <span class="php-var">$event</span>);
+<a href="#821" id="821" class="l">821 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> onGainKudos(<span class="php-var">$event</span>) {
+<a href="#822" id="822" class="l">822 </a>        <span class="php-var">$this</span>-&gt;raiseEvent(<span class="php-quote">&quot;onGainKudos&quot;</span>, <span class="php-var">$event</span>);
 <a href="#823" id="823" class="l">823 </a>    }
 <a href="#824" id="824" class="l">824 </a>    <span class="php-comment">/**
 </span><a href="#825" id="825" class="l">825 </a><span class="php-comment">     * Event raiser
 </span><a href="#826" id="826" class="l">826 </a><span class="php-comment">     * @param CEvent $event 
 </span><a href="#827" id="827" class="l">827 </a><span class="php-comment">     */</span>
-<a href="#828" id="828" class="l">828 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> onGainingXp(<span class="php-var">$event</span>) {
-<a href="#829" id="829" class="l">829 </a>        <span class="php-var">$this</span>-&gt;raiseEvent(<span class="php-quote">&quot;onGainingXp&quot;</span>, <span class="php-var">$event</span>);
+<a href="#828" id="828" class="l">828 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> onGainXp(<span class="php-var">$event</span>) {
+<a href="#829" id="829" class="l">829 </a>        <span class="php-var">$this</span>-&gt;raiseEvent(<span class="php-quote">&quot;onGainXp&quot;</span>, <span class="php-var">$event</span>);
 <a href="#830" id="830" class="l">830 </a>    }
 <a href="#831" id="831" class="l">831 </a>    <span class="php-comment">/**
 </span><a href="#832" id="832" class="l">832 </a><span class="php-comment">     * Event raiser
 </span><a href="#833" id="833" class="l">833 </a><span class="php-comment">     * @param CEvent $event 
 </span><a href="#834" id="834" class="l">834 </a><span class="php-comment">     */</span>
-<a href="#835" id="835" class="l">835 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> onGainingResoluteness(<span class="php-var">$event</span>) {
-<a href="#836" id="836" class="l">836 </a>        <span class="php-var">$this</span>-&gt;raiseEvent(<span class="php-quote">&quot;onGainingResoluteness&quot;</span>, <span class="php-var">$event</span>);
+<a href="#835" id="835" class="l">835 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> onGainResoluteness(<span class="php-var">$event</span>) {
+<a href="#836" id="836" class="l">836 </a>        <span class="php-var">$this</span>-&gt;raiseEvent(<span class="php-quote">&quot;onGainResoluteness&quot;</span>, <span class="php-var">$event</span>);
 <a href="#837" id="837" class="l">837 </a>    }
 <a href="#838" id="838" class="l">838 </a>    <span class="php-comment">/**
 </span><a href="#839" id="839" class="l">839 </a><span class="php-comment">     * Event raiser
 </span><a href="#840" id="840" class="l">840 </a><span class="php-comment">     * @param CEvent $event 
 </span><a href="#841" id="841" class="l">841 </a><span class="php-comment">     */</span>
-<a href="#842" id="842" class="l">842 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> onGainingWillpower(<span class="php-var">$event</span>) {
-<a href="#843" id="843" class="l">843 </a>        <span class="php-var">$this</span>-&gt;raiseEvent(<span class="php-quote">&quot;onGainingWillpower&quot;</span>, <span class="php-var">$event</span>);
+<a href="#842" id="842" class="l">842 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> onGainWillpower(<span class="php-var">$event</span>) {
+<a href="#843" id="843" class="l">843 </a>        <span class="php-var">$this</span>-&gt;raiseEvent(<span class="php-quote">&quot;onGainWillpower&quot;</span>, <span class="php-var">$event</span>);
 <a href="#844" id="844" class="l">844 </a>    }
 <a href="#845" id="845" class="l">845 </a>    <span class="php-comment">/**
 </span><a href="#846" id="846" class="l">846 </a><span class="php-comment">     * Event raiser
 </span><a href="#847" id="847" class="l">847 </a><span class="php-comment">     * @param CEvent $event 
 </span><a href="#848" id="848" class="l">848 </a><span class="php-comment">     */</span>
-<a href="#849" id="849" class="l">849 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> onGainingCunning(<span class="php-var">$event</span>) {
-<a href="#850" id="850" class="l">850 </a>        <span class="php-var">$this</span>-&gt;raiseEvent(<span class="php-quote">&quot;onGainingCunning&quot;</span>, <span class="php-var">$event</span>);
+<a href="#849" id="849" class="l">849 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> onGainCunning(<span class="php-var">$event</span>) {
+<a href="#850" id="850" class="l">850 </a>        <span class="php-var">$this</span>-&gt;raiseEvent(<span class="php-quote">&quot;onGainCunning&quot;</span>, <span class="php-var">$event</span>);
 <a href="#851" id="851" class="l">851 </a>    }
 <a href="#852" id="852" class="l">852 </a>
 <a href="#853" id="853" class="l">853 </a>    <span class="php-comment">/**

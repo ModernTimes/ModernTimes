@@ -10,6 +10,7 @@
 
     <?php foreach($CharacterQuests as $CharacterQuest) {
         echo "<p style=\"margin-bottom: 1.6em\">" . 
+             "(" . ucfirst($CharacterQuest->state) . ") " .
              $CharacterQuest->quest->call('getDesc') . 
              "</p>";
     } ?>

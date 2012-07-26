@@ -9,6 +9,7 @@
  * $this->owner->CharacterQuest is a CharacterQuest record
  * 
  * @uses SpecialnessBehavior
+ * @uses CharacterQuests
  * @package Quests
  */
 
