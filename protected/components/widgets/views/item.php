@@ -2,6 +2,7 @@
 /**
  * Used by ItemWidget
  * @uses CharactermodifierWidget
+ * @uses RequirementWidget
  */
 ?>
 <div style="width: 50px; display: inline-block; vertical-align: top; margin-right: 20px">
@@ -20,6 +21,12 @@ if(!empty($this->item)) {
             $popup .= "<BR />"; 
             $popup .= $this->widget('CharactermodifierWidget', 
                     array("Charactermodifier" => $this->item->charactermodifier), 
+                    true);
+        }
+        if(!empty($this->item->requirement)) {
+            $popup .= "<BR />"; 
+            $popup .= $this->widget('RequirementWidget', 
+                    array("Requirement" => $this->item->requirement), 
                     true);
         }
     }
