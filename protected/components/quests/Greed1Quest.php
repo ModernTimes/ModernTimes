@@ -4,8 +4,6 @@
  * Mammon waits until the Character collects 2.000 cash, 
  * which completes the quest.
  * 
- * @todo Change state, trigger messages, etc.
- * 
  * This Quest is added for new Characters (state = unavailable).
  * 
  * Upon completion, the Character can summon Mammon.
@@ -18,29 +16,26 @@
 class Greed1Quest extends CBehavior {
 
     /**
-     * Initialize the Quest
-     * @param Character $Character
-     * @param CharacterQuest $CharacterQuest 
+     * How much cash the Character has to collect in order to complete the quest
+     * @const int 
      */
-    public function initialize($Character, $CharacterQuest) {
-        // Call "parent" method
-        $this->owner->initialize($Character, $CharacterQuest);
-        
-        if(empty($this->owner->params)) {
-            $this->owner->params['cashCollected'] = 0;
-            $this->owner->saveParams();
-        }
-    }
+    const cashToCollect = 2000;
     
     /**
-     * Returns a string representation of what is going on right now with
-     * regard to this Quest (from the Character's point of view)
-     * @return string empty
+     * Encounter record id of Mommon saying hello the first time
+     * @const int 
      */
-    public function getDescStatus() {
-        return "";
+    const mommonCallsEncounterID = 2;
+
+    /**
+     * Set the initial parameters for the Quest.
+     * In this case: a counter
+     */
+    public function setInitialParams() {
+            $this->owner->params['cashCollected'] = 0;
+            $this->owner->saveParams();
     }
-    
+
     /**
      * Attaches custom event handlers to a Character
      * @param Character $Character 
@@ -58,7 +53,26 @@ class Greed1Quest extends CBehavior {
     public function reactToOnGainCash($event) { 
         if($event->getAmount() > 0) {
             $this->owner->params['cashCollected'] += $event->getAmount();
-            $this->owner->saveParams();
+            if($this->owner->params['cashCollected'] >= self::cashToCollect) {
+                $this->owner->setState("completed");
+            } else {
+                $this->owner->saveParams();
+            }
         }
+    }
+    
+    /**
+     * Adds the "Mommon says hello" encounter to the encounter queue
+     * @param QuestChangeStateEvent $event 
+     */
+    public function reactToOnCompleted($event) {
+        $CharacterEncounter = new CharacterEncounters();
+        $CharacterEncounter->characterID = $this->owner->CharacterQuest->characterID;
+        $CharacterEncounter->encounterID = self::mommonCallsEncounterID;
+        $CharacterEncounter->delay = 0;
+        $CharacterEncounter->save();
+        
+        // Reset params and update CharacterQuest record
+        $this->owner->reactToOnCompleted($event);
     }
 }
