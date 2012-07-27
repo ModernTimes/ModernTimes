@@ -50,7 +50,7 @@ class UseItemAction extends CAction {
                     }
                     
                     /**
-                     * Actual usage logic is delegated to the Item (or its
+                      *Actual usage logic is delegated to the Item (or its
                      * SpecialnessBehavior class)
                      */
                     $CharacterItem->item->call("resolveUsage", $Character);
