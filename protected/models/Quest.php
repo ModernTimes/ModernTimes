@@ -21,6 +21,12 @@ Yii::import('application.components.quests.*');
 class Quest extends BaseQuest {
     
     /**
+     * Link to the Character record which this Quest belongs to
+     * @var Character
+     */
+    public $Character;
+
+    /**
      * Link to a CharacterQuest record, which can be used to
      * change the state of a quest for a Character
      * @var CharacterQuest 
@@ -34,16 +40,45 @@ class Quest extends BaseQuest {
     public $params = array();
     
     /**
-     * Initializes the quest, i.e. hooks into Character's events, sets a link
-     * to a CharacterQuests record, and loads its params based on that record
+     * Initializes the quest:
+     * - Hooks into Character's events
+     * - Sets links to a Character and the CharacterQuests record
+     * - Loads its params (or initializes them)
+     * - Hooks its own reactToOnX to its onX
+     * Is only called if CharacterQuest->state is not completed or failed
+     * @uses loadParams
+     * @uses setInitialParams
+     * @uses onChangeState
+     * @uses reactToOnChangeState
+     * @uses callReactToOnChangeState
      * @param Character $Character
      * @param CharacterQuests $CharacterQuest 
      */
     public function initialize($Character, $CharacterQuest) {
-        $this->call('attachToCharacter', $Character);
+        $this->Character = $Character;
         $this->CharacterQuest = $CharacterQuest;
+        
+        $this->call('attachToCharacter', $Character);
+        
         $this->loadParams();
+        if(empty($this->params)) {
+            $this->call('setInitialParams');
+        }
+        
+        $this->onChangeState = array($this, 'callReactToOnChangeState');
+        $this->onUnavailable = array($this, 'callReactToOnUnavailable');
+        $this->onAvailable = array($this, 'callReactToOnAvailable');
+        $this->onOngoing = array($this, 'callReactToOnOngoing');
+        $this->onCompleted = array($this, 'callReactToOnCompleted');
+        $this->onRejected = array($this, 'callReactToOnRejected');
+        $this->onFailed = array($this, 'callReactToOnFailed');
     }
+    
+    /**
+     * Quasi-abstract; "override" by SpecialnessBehavior classes.
+     * Sets the initial parameters for the quest, e.g. counters, flags, etc.
+     */
+    public function setInitialParams() { }
     
     /**
      * Basic version; "override" if necessary
@@ -65,26 +100,31 @@ class Quest extends BaseQuest {
     public function getDescStatus() { return ""; }
     
     /**
-     * Sets the current state of the quest
-     * @todo raise events
+     * - Sets the current state of the quest
+     * - Updates $this->CharacterQuest if indicated
+     * - Raises an onChangeState event
      * @uses CharacterQuests
-     * @param string $state enum(available|ongoing|completed|rejected|failed)
+     * @uses QuestChangeStateEvent
+     * @uses onChangeStat
+     * @param string $state enum(unavailable|available|ongoing|completed|rejected|failed)
      * @param bool $update default true
      */
     public function setState($state, $update = true) {
-        switch($state) {
-            case "available":
-            case "ongoing":
-            case "completed":
-            case "rejected":
-            case "failed":
-                $this->CharacterQuest->state = $state;
-                if($update) {
-                    $this->CharacterQuest->update();
-                }
-                break;
-            default:
-                break;
+        $allowedStates = array("unavailable", "available", "ongoing",
+                               "completed", "rejected", "failed");
+        if(in_array($state, $allowedStates) && 
+                $state != $this->CharacterQuest->state) {
+            
+            $this->CharacterQuest->state = $state;
+            if($update) {
+                $this->CharacterQuest->update();
+            }
+
+            $event = new QuestChangeStateEvent(
+                    $this, 
+                    $this->CharacterQuest->state,
+                    $state);
+            $this->onChangeState($event);
         }
     }
     
@@ -94,7 +134,11 @@ class Quest extends BaseQuest {
      * @param bool $update default true
      */
     public function saveParams($update = true) {
-        $this->CharacterQuest->params = serialize($this->params);
+        if(!empty($this->params)) {
+            $this->CharacterQuest->params = serialize($this->params);
+        } else {
+            $this->CharacterQuest->params = "";
+        }
         if($update) {
             $this->CharacterQuest->update();
         }
@@ -126,13 +170,190 @@ class Quest extends BaseQuest {
     public function detachFromCharacter($Character) { }    
 
     /**
-     * Quasi-abstract; "override" by SpecialnessBehavior classes.
-     * @todo get rid of this particular handler; it's not quest-like
-     * @param CEvent $event with BonusCollectorBehavior
+     * Event raiser
+     * @param QuestChangeStateEvent $event 
      */
-    public function reactToOnCalcHp($event) { }    
+    public function onChangeState($event) {
+        $this->raiseEvent("onChangeState", $event);
+    }
+    /**
+     * Event raiser
+     * @param QuestChangeStateEvent $event 
+     */
+    public function onAvailable($event) {
+        $this->raiseEvent("onAvailable", $event);
+    }
+    /**
+     * Event raiser
+     * @param QuestChangeStateEvent $event 
+     */
+    public function onOngoing($event) {
+        $this->raiseEvent("onOngoing", $event);
+    }
+    /**
+     * Event raiser
+     * @param QuestChangeStateEvent $event 
+     */
+    public function onCompleted($event) {
+        $this->raiseEvent("onCompleted", $event);
+    }
+    /**
+     * Event raiser
+     * @param QuestChangeStateEvent $event 
+     */
+    public function onFailed($event) {
+        $this->raiseEvent("onFailed", $event);
+    }
+    /**
+     * Event raiser
+     * @param QuestChangeStateEvent $event 
+     */
+    public function onRejected($event) {
+        $this->raiseEvent("onRejected", $event);
+    }
+    /**
+     * Event raiser
+     * @param QuestChangeStateEvent $event 
+     */
+    public function onUnavailable($event) {
+        $this->raiseEvent("onUnavailable", $event);
+    }
     
+    /**
+     * Event handler
+     * Raises a more specific event depending on the new state
+     * @param QuestChangeStateEvent $event 
+     */
+    public function reactToOnChangeState($event) { 
+        switch($event->stateAfter) {
+            case "unavailable":
+                $this->onUnavailable($event);
+                break;
+            case "available":
+                $this->onAvailable($event);
+                break;
+            case "ongoing":
+                $this->onOngoing($event);
+                break;
+            case "completed":
+                $this->onCompleted($event);
+                break;
+            case "failed":
+                $this->onFailed($event);
+                break;
+            case "rejected":
+                $this->onRejected($event);
+                break;
+        }
+    }
+    /**
+     * Wrapper for reactToOnChangeState which makes it possible to use
+     * $this->call('reactToOnChangeState') as a callback in initialize
+     * @uses reactToOnChangeState
+     * @param QuestChangeStateEvent $event 
+     */
+    public function callReactToOnChangeState($event) {
+        $this->call('reactToOnChangeState', $event);
+    }
     
+    /**
+     * Event handler
+     * Quasi-abstract; "override" by SpecialnessBehavior classes.
+     * @param QuestChangeStateEvent $event 
+     */
+    public function reactToOnUnavailable($event) { }
+    /**
+     * Wrapper for reactToOnUnavailable which makes it possible to use
+     * $this->call('reactToOnUnavailable') as a callback in initialize
+     * @uses reactToOnUnavailable
+     * @param QuestChangeStateEvent $event 
+     */
+    public function callReactToOnUnavailable($event) {
+        $this->call('reactToOnUnavailable', $event);
+    }
+
+    /**
+     * Event handler
+     * Quasi-abstract; "override" by SpecialnessBehavior classes.
+     * @param QuestChangeStateEvent $event 
+     */
+    public function reactToOnAvailable($event) { }
+    /**
+     * Wrapper for reactToOnAvailable which makes it possible to use
+     * $this->call('reactToOnAvailable') as a callback in initialize
+     * @uses reactToOnAvailable
+     * @param QuestChangeStateEvent $event 
+     */
+    public function callReactToOnAvailable($event) {
+        $this->call('reactToOnAvailable', $event);
+    }
+    
+    /**
+     * Event handler
+     * Quasi-abstract; "override" by SpecialnessBehavior classes.
+     * @param QuestChangeStateEvent $event 
+     */
+    public function reactToOnOngoing($event) { }
+    /**
+     * Wrapper for reactToOnOngoing which makes it possible to use
+     * $this->call('reactToOnOngoing') as a callback in initialize
+     * @uses reactToOnOngoing
+     * @param QuestChangeStateEvent $event 
+     */
+    public function callReactToOnOngoing($event) {
+        $this->call('reactToOnOngoing', $event);
+    }
+    
+    /**
+     * Event handler
+     * Reset $this->params and save $this->CharacterQuest
+     * @param QuestChangeStateEvent $event 
+     */
+    public function reactToOnCompleted($event) { 
+        $this->owner->params = array();
+        $this->saveParams();
+    }
+    /**
+     * Wrapper for reactToOnCompleted which makes it possible to use
+     * $this->call('reactToOnCompleted') as a callback in initialize
+     * @uses reactToOnCompleted
+     * @param QuestChangeStateEvent $event 
+     */
+    public function callReactToOnCompleted($event) {
+        $this->call('reactToOnCompleted', $event);
+    }
+    
+    /**
+     * Event handler
+     * Quasi-abstract; "override" by SpecialnessBehavior classes.
+     * @param QuestChangeStateEvent $event 
+     */
+    public function reactToOnFailed($event) { }
+    /**
+     * Wrapper for reactToOnFailed which makes it possible to use
+     * $this->call('reactToOnFailed') as a callback in initialize
+     * @uses reactToOnFailed
+     * @param QuestChangeStateEvent $event 
+     */
+    public function callReactToOnFailed($event) {
+        $this->call('reactToOnFailed', $event);
+    }
+    
+    /**
+     * Event handler
+     * Quasi-abstract; "override" by SpecialnessBehavior classes.
+     * @param QuestChangeStateEvent $event 
+     */
+    public function reactToOnRejected($event) { }
+    /**
+     * Wrapper for reactToOnRejected which makes it possible to use
+     * $this->call('reactToOnRejected') as a callback in initialize
+     * @uses reactToOnRejected
+     * @param QuestChangeStateEvent $event 
+     */
+    public function callReactToOnRejected($event) {
+        $this->call('reactToOnRejected', $event);
+    }
     
     /**
      * Returns a list of CBehaviors to be attached to this Model
