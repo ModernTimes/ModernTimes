@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 26. Jul 2012 um 18:18
+-- Erstellungszeit: 27. Jul 2012 um 08:17
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `mt_battle` (
   KEY `combatantBID` (`combatantBID`),
   KEY `state` (`state`),
   KEY `winnerID` (`winnerID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 -- --------------------------------------------------------
 
@@ -227,7 +227,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_effects` (
   KEY `characterID` (`characterID`),
   KEY `effectID` (`effectID`),
   KEY `turns` (`turns`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_effects`:
@@ -235,6 +235,30 @@ CREATE TABLE IF NOT EXISTS `mt_character_effects` (
 --       `mt_effect` -> `id`
 --   `characterID`
 --       `mt_character` -> `id`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `mt_character_encounters`
+--
+
+CREATE TABLE IF NOT EXISTS `mt_character_encounters` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `characterID` int(11) NOT NULL,
+  `encounterID` int(11) NOT NULL,
+  `delay` smallint(6) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `characterID` (`characterID`),
+  KEY `encounterID` (`encounterID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- RELATIONEN DER TABELLE `mt_character_encounters`:
+--   `characterID`
+--       `mt_character` -> `id`
+--   `encounterID`
+--       `mt_encounter` -> `id`
 --
 
 -- --------------------------------------------------------
@@ -316,7 +340,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_items` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `itemID` (`itemID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_items`:
@@ -341,7 +365,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_quests` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `questID` (`questID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_quests`:
@@ -485,7 +509,7 @@ CREATE TABLE IF NOT EXISTS `mt_encounter` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `effectID` (`effectID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_encounter`:
@@ -697,7 +721,7 @@ CREATE TABLE IF NOT EXISTS `mt_quest` (
   `desc` tinytext NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -947,6 +971,13 @@ ALTER TABLE `mt_character`
 ALTER TABLE `mt_character_effects`
   ADD CONSTRAINT `mt_character_effects_ibfk_2` FOREIGN KEY (`effectID`) REFERENCES `mt_effect` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `mt_character_effects_ibfk_1` FOREIGN KEY (`characterID`) REFERENCES `mt_character` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints der Tabelle `mt_character_encounters`
+--
+ALTER TABLE `mt_character_encounters`
+  ADD CONSTRAINT `mt_character_encounters_ibfk_2` FOREIGN KEY (`characterID`) REFERENCES `mt_character` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `mt_character_encounters_ibfk_1` FOREIGN KEY (`encounterID`) REFERENCES `mt_encounter` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `mt_character_equipments`
