@@ -3,7 +3,6 @@
 /**
  * Demonstration class to show how quests can be customized with the
  * specialnessBehavior pattern
- * @todo change onCalcHp with something more quest-like
  * 
  * $this->owner is a Quest record
  * $this->owner->CharacterQuest is a CharacterQuest record
@@ -17,17 +16,24 @@ class TestQuest extends CBehavior {
 
     /**
      * Initialize the Quest
+     * Is only called if CharacterQuest->state is not completed or failed
+     * This one does nothing, but that might be different for other quests
+     * @use Quest->initialize
      * @param Character $Character
      * @param CharacterQuest $CharacterQuest 
      */
     public function initialize($Character, $CharacterQuest) {
         // Call "parent" method
         $this->owner->initialize($Character, $CharacterQuest);
-        
-        if(empty($this->owner->params['counter'])) {
-            $this->owner->params['counter'] = 0;
-            $this->owner->saveParams();
-        }
+    }
+    
+    /**
+     * Set the initial parameters for the Quest.
+     * In this case: a counter
+     */
+    public function setInitialParams() {
+        $this->owner->params['counter'] = 0;
+        $this->owner->saveParams();
     }
     
     /**
@@ -50,7 +56,9 @@ class TestQuest extends CBehavior {
     }
 
     /**
-     * Custum event handler. This is what makes TestQuest special
+     * Custum event handler. This is what makes TestQuest special.
+     * In this example, a quest counter is increased by 1 everytime the
+     * Character record calculates its maxHp. Boring.
      * @param CEvent $event 
      * @return void
      */
