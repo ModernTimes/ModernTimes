@@ -128,6 +128,7 @@ class CharacterData extends CApplicationComponent {
             'characterEffects'=> array(
                 'with' => array(
                     'effect' => array(
+                        'alias' => 'characterEffectsEffect',
                         'with' => array(
                             'charactermodifier' => array('alias' => 'effectCharactermodifier'),
                         )
@@ -141,7 +142,15 @@ class CharacterData extends CApplicationComponent {
             ),
             'characterEncounters' => array(
                 'with' => array(
-                    'encounter'
+                    'encounter' => array(
+                        'with' => array(
+                            'encounterEncounters', 
+                            'encounterItems', 
+                            'effect' => array(
+                                'alias' => 'characterEncountersEncounterEffect',
+                            )
+                        )
+                    )
                 )
             )
         ))->find('t.userID=:userID AND t.active=1', 
