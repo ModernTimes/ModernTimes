@@ -172,9 +172,13 @@ class CharacterData extends CApplicationComponent {
         }
         /**
          * Initialize quests, i.e. hook into Character's events, set a link
-         * to a CharacterQuests record, and load params based on that record 
+         * to a CharacterQuests record, and load params based on that record
+         * Only if $characterQuest is not done for yet!
          */
         foreach($this->_model->characterQuests as $characterQuest) {
+            if($characterQuest->state != "completed" &&
+                    $characterQuest->state != "failed")
+                
             $characterQuest->quest->call("initialize", $this->_model, $characterQuest);
         }
         
