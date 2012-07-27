@@ -26,47 +26,46 @@ class EncounterAction extends CAction {
 
     /**
      * The encounter to be ... encountered
+     * Can be set instead of encounterID to skip Model record retrieval
      * @var Encounter
      */
     public $encounter;
-    
-    // public $params;
     
     /**
      * Checks if the Encounter is legitimate and renders the encounter view 
      */
     public function run() {
+        $Character = CD();
         /**
          * Encounters can't be requested by the user directly, at least not 
          * the first step of an encounter path
          * @todo Syntax checks
          */
-        if(CD()->ongoingEncounterID == null && !$this->callFromWithinApplication) {
+        if($Character->ongoingEncounterID == null && !$this->callFromWithinApplication) {
             EUserFlash::setErrorMessage("Invalid choice", 'validate');
             $this->controller->redirect('index');
         }
         
-        if(empty($this->encounterID)) {
+        if(empty($this->encounterID) && empty($this->encounter)) {
             if(!empty($_GET['encounterID'])) {
+                // @todo syntax checks
                 $this->encounterID = (int) $_GET['encounterID'];
             } elseif (!empty(CD()->ongoingEncounterID)) {
                 $this->encounterID = CD()->ongoingEncounterID;
             }
         }
         
-        // syntax checks
-        
-        $this->encounter = Encounter::model()->with(array(
-            'effect' => array(
-                'with' => array(
-                    'charactermodifier'
-                )
-            ),
-            // ToDo: we need only one of these two. But which one?
-            'encounterEncounters',
-            'encounterEncounters1',
-            'encounterItems'
-        ))->findByPk($this->encounterID);
+        if(empty($this->encounter)) {
+            $this->encounter = Encounter::model()->with(array(
+                'effect' => array(
+                    'with' => array(
+                        'charactermodifier'
+                    )
+                ),
+                'encounterEncounters',
+                'encounterItems'
+            ))->findByPk($this->encounterID);
+        }
         
         if(!is_a($this->encounter, "Encounter")) {
             // exception
@@ -74,7 +73,7 @@ class EncounterAction extends CAction {
 
         // legitimate = can the player arrive at this encounter, given the current
         // and previous encounters?
-        if(!$this->legitimateEncounter()) {
+        if(!$this->legitimateEncounter($Character)) {
             EUserFlash::setErrorMessage("Invalid choice", 'validate');
             Yii::app()->controller->redirect(array('game/encounter', array('encounterID' => CD()->ongoingEncounterID)));
         }
@@ -83,7 +82,7 @@ class EncounterAction extends CAction {
         // Resolve the encounter
         // d($this->encounter);
         
-        $this->encounter->run();
+        $this->encounter->run($Character);
         
         $this->controller->layout = '//layouts/g_sidebar';
         $this->controller->render('encounter', array("encounter" => $this->encounter));
@@ -94,13 +93,13 @@ class EncounterAction extends CAction {
      * actually be at this point in an Encounter path
      * @return boolean 
      */
-    public function legitimateEncounter() {
+    public function legitimateEncounter($Character) {
         // No ongoing encounter = fine
-        if(CD()->ongoingEncounterID != null) {
+        if($Character->ongoingEncounterID != null) {
             // current encounter = to_id from last encounter = fine
             // encounterEncounters instead?
             foreach($this->encounter->encounterEncounters1 as $previousEncounter) {
-                if($previousEncounter->fromEncounterID == CD()->ongoingEncounterID) {
+                if($previousEncounter->fromEncounterID == $Character->ongoingEncounterID) {
                     return true;
                 }
             }

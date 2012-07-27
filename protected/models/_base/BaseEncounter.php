@@ -14,13 +14,16 @@
  * - integer gainKudos
  * - integer gainXp
  * - integer gainResoluteness
- * - integer gainWilpower
+ * - integer gainWillpower
  * - integer gainCunning
  * - integer effectID
  * - integer effectDuration
  *
  * - AreaEncounters areaEncounters
+ * - CharacterEncounters characterEncounters
  * - Effect effect
+ * - EncounterEncounters encounterEncounters
+ * - EncounterEncounters encounterEncounters1
  * - EncounterItems encounterItems
  * <br>
  * <p>This is the model base class for the table "{{encounter}}".
@@ -76,11 +79,11 @@ abstract class BaseEncounter extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('name, specialClass, msg', 'required'),
-			array('onetime, costsTurn, gainCash, gainFavours, gainKudos, gainXp, gainResoluteness, gainWilpower, gainCunning, effectID, effectDuration', 'numerical', 'integerOnly'=>true),
+			array('onetime, costsTurn, gainCash, gainFavours, gainKudos, gainXp, gainResoluteness, gainWillpower, gainCunning, effectID, effectDuration', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			array('specialClass', 'length', 'max'=>50),
-			array('onetime, costsTurn, gainCash, gainFavours, gainKudos, gainXp, gainResoluteness, gainWilpower, gainCunning, effectID, effectDuration', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, name, specialClass, onetime, msg, costsTurn, gainCash, gainFavours, gainKudos, gainXp, gainResoluteness, gainWilpower, gainCunning, effectID, effectDuration', 'safe', 'on'=>'search'),
+			array('onetime, costsTurn, gainCash, gainFavours, gainKudos, gainXp, gainResoluteness, gainWillpower, gainCunning, effectID, effectDuration', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, name, specialClass, onetime, msg, costsTurn, gainCash, gainFavours, gainKudos, gainXp, gainResoluteness, gainWillpower, gainCunning, effectID, effectDuration', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -92,7 +95,10 @@ abstract class BaseEncounter extends GxActiveRecord {
 	public function relations() {
 		return array(
 			'areaEncounters' => array(self::HAS_MANY, 'AreaEncounters', 'encounterID'),
+			'characterEncounters' => array(self::HAS_MANY, 'CharacterEncounters', 'encounterID'),
 			'effect' => array(self::BELONGS_TO, 'Effect', 'effectID'),
+			'encounterEncounters' => array(self::HAS_MANY, 'EncounterEncounters', 'toEncounterID'),
+			'encounterEncounters1' => array(self::HAS_MANY, 'EncounterEncounters', 'encounterID'),
 			'encounterItems' => array(self::HAS_MANY, 'EncounterItems', 'encounterID'),
 		);
 	}
@@ -123,12 +129,15 @@ abstract class BaseEncounter extends GxActiveRecord {
 			'gainKudos' => Yii::t('app', 'Gain Kudos'),
 			'gainXp' => Yii::t('app', 'Gain Xp'),
 			'gainResoluteness' => Yii::t('app', 'Gain Resoluteness'),
-			'gainWilpower' => Yii::t('app', 'Gain Wilpower'),
+			'gainWillpower' => Yii::t('app', 'Gain Willpower'),
 			'gainCunning' => Yii::t('app', 'Gain Cunning'),
 			'effectID' => null,
 			'effectDuration' => Yii::t('app', 'Effect Duration'),
 			'areaEncounters' => null,
+			'characterEncounters' => null,
 			'effect' => null,
+			'encounterEncounters' => null,
+			'encounterEncounters1' => null,
 			'encounterItems' => null,
 		);
 	}
@@ -153,7 +162,7 @@ abstract class BaseEncounter extends GxActiveRecord {
 		$criteria->compare('gainKudos', $this->gainKudos);
 		$criteria->compare('gainXp', $this->gainXp);
 		$criteria->compare('gainResoluteness', $this->gainResoluteness);
-		$criteria->compare('gainWilpower', $this->gainWilpower);
+		$criteria->compare('gainWillpower', $this->gainWillpower);
 		$criteria->compare('gainCunning', $this->gainCunning);
 		$criteria->compare('effectID', $this->effectID);
 		$criteria->compare('effectDuration', $this->effectDuration);

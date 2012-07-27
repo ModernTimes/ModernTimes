@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 27. Jul 2012 um 08:17
+-- Erstellungszeit: 27. Jul 2012 um 09:02
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `mt_battle` (
   KEY `combatantBID` (`combatantBID`),
   KEY `state` (`state`),
   KEY `winnerID` (`winnerID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=34 ;
 
 -- --------------------------------------------------------
 
@@ -251,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_encounters` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `encounterID` (`encounterID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_encounters`:
@@ -502,7 +502,7 @@ CREATE TABLE IF NOT EXISTS `mt_encounter` (
   `gainKudos` smallint(6) NOT NULL DEFAULT '0',
   `gainXp` smallint(6) NOT NULL DEFAULT '0',
   `gainResoluteness` smallint(6) NOT NULL DEFAULT '0',
-  `gainWilpower` smallint(6) NOT NULL DEFAULT '0',
+  `gainWillpower` smallint(6) NOT NULL DEFAULT '0',
   `gainCunning` smallint(6) NOT NULL DEFAULT '0',
   `effectID` int(11) DEFAULT NULL,
   `effectDuration` smallint(6) NOT NULL DEFAULT '0',
@@ -525,19 +525,19 @@ CREATE TABLE IF NOT EXISTS `mt_encounter` (
 
 CREATE TABLE IF NOT EXISTS `mt_encounter_encounters` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fromEncounterID` int(11) NOT NULL,
+  `encounterID` int(11) NOT NULL,
   `toEncounterID` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fromEncounterID` (`fromEncounterID`),
-  KEY `toEncounterID` (`toEncounterID`)
+  KEY `toEncounterID` (`toEncounterID`),
+  KEY `encounterID` (`encounterID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_encounter_encounters`:
 --   `toEncounterID`
---       `mt_area_encounters` -> `id`
---   `fromEncounterID`
---       `mt_area_encounters` -> `id`
+--       `mt_encounter` -> `id`
+--   `encounterID`
+--       `mt_encounter` -> `id`
 --
 
 -- --------------------------------------------------------
@@ -1049,8 +1049,8 @@ ALTER TABLE `mt_encounter`
 -- Constraints der Tabelle `mt_encounter_encounters`
 --
 ALTER TABLE `mt_encounter_encounters`
-  ADD CONSTRAINT `mt_encounter_encounters_ibfk_2` FOREIGN KEY (`toEncounterID`) REFERENCES `mt_area_encounters` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `mt_encounter_encounters_ibfk_1` FOREIGN KEY (`fromEncounterID`) REFERENCES `mt_area_encounters` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `mt_encounter_encounters_ibfk_2` FOREIGN KEY (`toEncounterID`) REFERENCES `mt_encounter` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `mt_encounter_encounters_ibfk_1` FOREIGN KEY (`encounterID`) REFERENCES `mt_encounter` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `mt_encounter_items`

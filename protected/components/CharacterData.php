@@ -105,16 +105,20 @@ class CharacterData extends CApplicationComponent {
             'characterFamiliars'=>array(
                 // 'condition'=>"`characterFamiliars`.`active`=1"
             ),
-            // ToDo: with slot1, slot2, ...
+            /**
+             * Actually, it's alright to lazy load this one. It's only relevant
+             * in battles 
+             */
+            /**
             'characterSkillsets'=>array(
                 'condition'=>"`characterSkillsets`.`active`=1"
             ),
-	    // 'characterItems' => array('with' => array('item')),
+            */
             'characterSkills' => array(
                 'with' => array(
                     'skill' => array(
                         'with' => array(
-                            'createEffect0',
+                            // 'createEffect0',
                             'charactermodifier' => array('alias' => 'skillCharactermodifier'),
                         )
                     )
@@ -135,6 +139,11 @@ class CharacterData extends CApplicationComponent {
                     'quest'
                 )
             ),
+            'characterEncounters' => array(
+                'with' => array(
+                    'encounter'
+                )
+            )
         ))->find('t.userID=:userID AND t.active=1', 
                  array(':userID'=>Yii::app()->user->id));
 
