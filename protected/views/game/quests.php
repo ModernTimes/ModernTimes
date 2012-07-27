@@ -9,10 +9,12 @@
     <h1 align="center" style="margin-bottom: 0.4em">Todo</h1>
 
     <?php foreach($CharacterQuests as $CharacterQuest) {
-        echo "<p style=\"margin-bottom: 1.6em\">" . 
-             "(" . ucfirst($CharacterQuest->state) . ") " .
-             $CharacterQuest->quest->call('getDesc') . 
-             "</p>";
+        if($CharacterQuest->visible) {
+            echo "<p style=\"margin-bottom: 1.6em\">" . 
+                "(" . ucfirst($CharacterQuest->state) . ") " .
+                $CharacterQuest->quest->call('getDesc') . 
+                "</p>";
+        }
     } ?>
     
 </div>

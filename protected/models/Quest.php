@@ -258,10 +258,15 @@ class Quest extends BaseQuest {
     
     /**
      * Event handler
-     * Quasi-abstract; "override" by SpecialnessBehavior classes.
+     * Standard reaction: set visible = 0
      * @param QuestChangeStateEvent $event 
      */
-    public function reactToOnUnavailable($event) { }
+    public function reactToOnUnavailable($event) { 
+        if($this->CharacterQuest->visible = 1) {
+            $this->CharacterQuest->visible = 0;
+            $this->CharacterQuest->update();
+        }
+    }
     /**
      * Wrapper for reactToOnUnavailable which makes it possible to use
      * $this->call('reactToOnUnavailable') as a callback in initialize
@@ -290,10 +295,15 @@ class Quest extends BaseQuest {
     
     /**
      * Event handler
-     * Quasi-abstract; "override" by SpecialnessBehavior classes.
+     * Standard reaction: set visible = 1
      * @param QuestChangeStateEvent $event 
      */
-    public function reactToOnOngoing($event) { }
+    public function reactToOnOngoing($event) { 
+        if($this->CharacterQuest->visible = 0) {
+            $this->CharacterQuest->visible = 1;
+            $this->CharacterQuest->update();
+        }
+    }
     /**
      * Wrapper for reactToOnOngoing which makes it possible to use
      * $this->call('reactToOnOngoing') as a callback in initialize
@@ -306,10 +316,11 @@ class Quest extends BaseQuest {
     
     /**
      * Event handler
-     * Reset $this->params and save $this->CharacterQuest
+     * Resets $this->params, sets visible = 1, and saves $this->CharacterQuest
      * @param QuestChangeStateEvent $event 
      */
     public function reactToOnCompleted($event) { 
+        $this->CharacterQuest->visible = 1;
         $this->owner->params = array();
         $this->saveParams();
     }

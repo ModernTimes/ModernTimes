@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 27. Jul 2012 um 09:02
+-- Erstellungszeit: 27. Jul 2012 um 13:01
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -227,7 +227,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_effects` (
   KEY `characterID` (`characterID`),
   KEY `effectID` (`effectID`),
   KEY `turns` (`turns`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_effects`:
@@ -251,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_encounters` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `encounterID` (`encounterID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_encounters`:
@@ -361,6 +361,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_quests` (
   `characterID` int(11) NOT NULL,
   `questID` int(11) NOT NULL,
   `state` enum('unavailable','available','ongoing','completed','rejected','failed') NOT NULL DEFAULT 'unavailable',
+  `visible` tinyint(1) NOT NULL DEFAULT '0',
   `params` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
@@ -369,10 +370,10 @@ CREATE TABLE IF NOT EXISTS `mt_character_quests` (
 
 --
 -- RELATIONEN DER TABELLE `mt_character_quests`:
---   `questID`
---       `mt_quest` -> `id`
 --   `characterID`
 --       `mt_character` -> `id`
+--   `questID`
+--       `mt_quest` -> `id`
 --
 
 -- --------------------------------------------------------
@@ -476,7 +477,7 @@ CREATE TABLE IF NOT EXISTS `mt_effect` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `charactermodifierID` (`charactermodifierID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_effect`:
@@ -1007,8 +1008,8 @@ ALTER TABLE `mt_character_items`
 -- Constraints der Tabelle `mt_character_quests`
 --
 ALTER TABLE `mt_character_quests`
-  ADD CONSTRAINT `mt_character_quests_ibfk_2` FOREIGN KEY (`questID`) REFERENCES `mt_quest` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `mt_character_quests_ibfk_1` FOREIGN KEY (`characterID`) REFERENCES `mt_character` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `mt_character_quests_ibfk_1` FOREIGN KEY (`characterID`) REFERENCES `mt_character` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `mt_character_quests_ibfk_2` FOREIGN KEY (`questID`) REFERENCES `mt_quest` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `mt_character_skills`
