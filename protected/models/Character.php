@@ -914,7 +914,6 @@ class Character extends BaseCharacter {
      */
     public function behaviors() {
         return array(
-            // 'withRelated'=>array('class'=>'ext.wr.WithRelatedBehavior',),
             "application.components.CombatantBehavior",
             'AttributesBackupBehavior' => 'ext.AttributesBackupBehavior',
         );

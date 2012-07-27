@@ -28,11 +28,7 @@ abstract class GxActiveRecord extends CActiveRecord {
 
 	// So that they all have it ...
         public function behaviors() {
-                return array(
-                        'withRelated'=>array(
-                                'class'=>'ext.wr.WithRelatedBehavior',
-                        ),
-                );
+                return array();
         }
 
 	/**
