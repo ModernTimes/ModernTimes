@@ -2,6 +2,7 @@
 /images/potential/
 /protected/runtime/
 /protected/extensions/gtc
+/protected/controllers/actions/TestAction.php
 
 # hidden files and other weird stuff #
 ######################

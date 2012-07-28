@@ -15,13 +15,27 @@
 	<file name="D:\Homepages\ModernTimes\protected\components\events\CombatantTakenDamageEvent.php">
 		<error severity="error" line="14" message="Missing documentation of method CombatantTakenDamageEvent::__construct()" source="ApiGen.Documentation.Documentation"/>
 	</file>
-	<file name="D:\Homepages\ModernTimes\protected\components\events\GainStatEvent.php">
-		<error severity="error" line="34" message="Missing documentation of parameter GainStatEvent::__construct()($params)" source="ApiGen.Documentation.Documentation"/>
+	<file name="D:\Homepages\ModernTimes\protected\components\quests\Gluttony1Quest.php">
+		<error severity="error" line="23" message="Missing documentation of the data type of constant Gluttony1Quest::effectsNeeded" source="ApiGen.Documentation.Documentation"/>
+		<error severity="error" line="29" message="Missing documentation of the data type of constant Gluttony1Quest::beelzebubCallsEncounterID" source="ApiGen.Documentation.Documentation"/>
+	</file>
+	<file name="D:\Homepages\ModernTimes\protected\components\quests\Greed1Quest.php">
+		<error severity="error" line="22" message="Missing documentation of the data type of constant Greed1Quest::cashToCollect" source="ApiGen.Documentation.Documentation"/>
+		<error severity="error" line="28" message="Missing documentation of the data type of constant Greed1Quest::mommonCallsEncounterID" source="ApiGen.Documentation.Documentation"/>
+	</file>
+	<file name="D:\Homepages\ModernTimes\protected\controllers\actions\EncounterAction.php">
+		<error severity="error" line="88" message="Missing documentation of parameter EncounterAction::legitimateEncounter()($Character)" source="ApiGen.Documentation.Documentation"/>
 	</file>
 	<file name="D:\Homepages\ModernTimes\protected\controllers\actions\shop\ShopAction.php">
 		<error severity="error" line="14" message="Missing documentation of parameter ShopAction::run()($shopID)" source="ApiGen.Documentation.Documentation"/>
 	</file>
-	<file name="D:\Homepages\ModernTimes\protected\models\ContactForm.php">
+	<file name="D:\Homepages\ModernTimes\protected\controllers\actions\TestAction.php">
+		<error severity="error" line="43" message="Missing documentation of method TestAction::benchmarkCharacterDataInits()" source="ApiGen.Documentation.Documentation"/>
+	</file>
+	<file name="D:\Homepages\ModernTimes\protected\models\Encounter.php">
+		<error severity="error" line="24" message="Missing documentation of parameter Encounter::run()($Character)" source="ApiGen.Documentation.Documentation"/>
+	</file>
+	<file name="D:\Homepages\ModernTimes\protected\models\forms\ContactForm.php">
 		<error severity="error" line="12" message="Missing documentation of property ContactForm::$name" source="ApiGen.Documentation.Documentation"/>
 		<error severity="error" line="13" message="Missing documentation of property ContactForm::$email" source="ApiGen.Documentation.Documentation"/>
 		<error severity="error" line="14" message="Missing documentation of property ContactForm::$subject" source="ApiGen.Documentation.Documentation"/>
@@ -30,7 +44,7 @@
 		<error severity="error" line="21" message="Missing documentation of return value of method ContactForm::rules()" source="ApiGen.Documentation.Documentation"/>
 		<error severity="error" line="38" message="Missing documentation of return value of method ContactForm::attributeLabels()" source="ApiGen.Documentation.Documentation"/>
 	</file>
-	<file name="D:\Homepages\ModernTimes\protected\models\LoginForm.php">
+	<file name="D:\Homepages\ModernTimes\protected\models\forms\LoginForm.php">
 		<error severity="error" line="12" message="Missing documentation of property LoginForm::$username" source="ApiGen.Documentation.Documentation"/>
 		<error severity="error" line="13" message="Missing documentation of property LoginForm::$password" source="ApiGen.Documentation.Documentation"/>
 		<error severity="error" line="14" message="Missing documentation of property LoginForm::$rememberMe" source="ApiGen.Documentation.Documentation"/>

@@ -7,7 +7,7 @@
 	<title>Class Encounter | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?277009506"></script>
+	<script type="text/javascript" src="elementlist.js?2322690236"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -56,6 +56,8 @@
 			<ul>
 				<li><a href="package-Actions.html">Actions<span></span></a>
 						<ul>
+				<li><a href="package-Actions.Battle.html">Battle</a>
+						</li>
 				<li><a href="package-Actions.Inventory.html">Inventory</a>
 						</li>
 				<li><a href="package-Actions.Shopping.html">Shopping</a>
@@ -79,6 +81,10 @@
 						</li>
 							</ul></li>
 				<li><a href="package-Items.html">Items</a>
+						</li>
+				<li><a href="package-None.html">None</a>
+						</li>
+				<li><a href="package-Quests.html">Quests</a>
 						</li>
 				<li><a href="package-Site.html">Site<span></span></a>
 						<ul>
@@ -110,7 +116,9 @@
 				<li><a href="class-Effect.html">Effect</a></li>
 				<li class="active"><a href="class-Encounter.html">Encounter</a></li>
 				<li><a href="class-Item.html">Item</a></li>
+				<li><a href="class-Marker.html">Marker</a></li>
 				<li><a href="class-Recipe.html">Recipe</a></li>
+				<li><a href="class-Requirement.html">Requirement</a></li>
 				<li><a href="class-Shop.html">Shop</a></li>
 				<li><a href="class-Skill.html">Skill</a></li>
 			</ul>
@@ -136,7 +144,7 @@
 <p>Handles basic encounter procedures. Can be "overridden" by
 specialnessBehavior classes</p>
 
-<p>See BaseEncounter for a list of attributes and related Models</p>
+<p>See BaseEncounter for a list of attributes and related Models.</p>
 
 	</div>
 
@@ -199,7 +207,7 @@ GxActiveRecord
 
 			<td class="name"><div>
 			<a class="anchor" href="#_run">#</a>
-			<code><a href="source-class-Encounter.html#19" title="Go to source code">run</a>( )</code>
+			<code><a href="source-class-Encounter.html#19" title="Go to source code">run</a>( <span> <var>$Character</var></span> )</code>
 
 			<div class="description short">
 				
@@ -220,7 +228,6 @@ GxActiveRecord
 					<div class="list">
 							split into smaller parts, so that specialnessBehavior classes can call these
 smaller __parent-methods?<br />
-							ask for Character record in parameters to enable dependency injection<br />
 					</div>
 
 
@@ -238,7 +245,7 @@ smaller __parent-methods?<br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#_isChoiceEncounter">#</a>
-			<code><a href="source-class-Encounter.html#62" title="Go to source code">isChoiceEncounter</a>( )</code>
+			<code><a href="source-class-Encounter.html#59" title="Go to source code">isChoiceEncounter</a>( )</code>
 
 			<div class="description short">
 				
@@ -285,7 +292,7 @@ choice. It can also be based on some kind of algorithm, though.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_dropItems">#</a>
-			<code><a href="source-class-Encounter.html#75" title="Go to source code">dropItems</a>( )</code>
+			<code><a href="source-class-Encounter.html#72" title="Go to source code">dropItems</a>( )</code>
 
 			<div class="description short">
 				
@@ -326,7 +333,7 @@ choice. It can also be based on some kind of algorithm, though.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_behaviors">#</a>
-			<code><a href="source-class-Encounter.html#92" title="Go to source code">behaviors</a>( )</code>
+			<code><a href="source-class-Encounter.html#89" title="Go to source code">behaviors</a>( )</code>
 
 			<div class="description short">
 				
@@ -356,6 +363,51 @@ choice. It can also be based on some kind of algorithm, though.</p>
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="scopes" id="_scopes">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_scopes">#</a>
+			<code><a href="source-class-Encounter.html#99" title="Go to source code">scopes</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns the declaration of named scopes. A named scope represents a query
+criteria that can be chained together with other named scopes and applied to a
+query.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns the declaration of named scopes. A named scope represents a query
+criteria that can be chained together with other named scopes and applied to a
+query.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>array</code><br>the scope definition. The array keys are scope names<br />
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="http://www.yiiframework.com/doc/api/1.1/CActiveRecord#scopes-detail">http://www.yiiframework.com/doc/api/1.1/CActiveRecord#scopes-detail</a><br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="model" id="_model">
 
 			<td class="attributes"><code>
@@ -367,7 +419,7 @@ choice. It can also be based on some kind of algorithm, though.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_model">#</a>
-			<code><a href="source-class-Encounter.html#102" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
+			<code><a href="source-class-Encounter.html#127" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
 
 			<div class="description short">
 				

@@ -7,7 +7,7 @@
 	<title>Class Tools | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?277009506"></script>
+	<script type="text/javascript" src="elementlist.js?2322690236"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -56,6 +56,8 @@
 			<ul>
 				<li><a href="package-Actions.html">Actions<span></span></a>
 						<ul>
+				<li><a href="package-Actions.Battle.html">Battle</a>
+						</li>
 				<li><a href="package-Actions.Inventory.html">Inventory</a>
 						</li>
 				<li><a href="package-Actions.Shopping.html">Shopping</a>
@@ -79,6 +81,10 @@
 						</li>
 							</ul></li>
 				<li><a href="package-Items.html">Items</a>
+						</li>
+				<li><a href="package-None.html">None</a>
+						</li>
+				<li><a href="package-Quests.html">Quests</a>
 						</li>
 				<li><a href="package-Site.html">Site<span></span></a>
 						<ul>
@@ -226,15 +232,25 @@ CApplicationComponent
 
 			<div class="description short">
 				
-<p>decreases the number of available turns by 1 reduces the duration of active
-effects by 1</p>
+<ul>
+	<li>Decreases the number of available turns by 1</li>
+
+	<li>Reduces the duration of active effects by 1</li>
+
+	<li>Reduces the delay of encounters in the encounter queue by 1</li>
+</ul>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>decreases the number of available turns by 1 reduces the duration of active
-effects by 1</p>
+<ul>
+	<li>Decreases the number of available turns by 1</li>
+
+	<li>Reduces the duration of active effects by 1</li>
+
+	<li>Reduces the delay of encounters in the encounter queue by 1</li>
+</ul>
 
 
 
@@ -262,17 +278,17 @@ turns on other characters possible<br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#_addEffect">#</a>
-			<code><a href="source-class-Tools.html#51" title="Go to source code">addEffect</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$Character</var></span>, <span>mixed <var>$Effect</var></span>, <span>integer <var>$turns</var> = <span class="php-num">0</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+			<code><a href="source-class-Tools.html#57" title="Go to source code">addEffect</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$Character</var></span>, <span>mixed <var>$Effect</var></span>, <span>integer <var>$turns</var> = <span class="php-num">0</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 			<div class="description short">
 				
-<p>Adds an effect to the active character</p>
+<p>Adds an effect to a character</p>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>Adds an effect to the active character</p>
+<p>Adds an effect to a character</p>
 
 
 
@@ -313,7 +329,7 @@ is true.</dd>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getTransaction">#</a>
-			<code><a href="source-class-Tools.html#122" title="Go to source code">getTransaction</a>( )</code>
+			<code><a href="source-class-Tools.html#128" title="Go to source code">getTransaction</a>( )</code>
 
 			<div class="description short">
 				
@@ -350,7 +366,7 @@ is true.</dd>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getPossessivePronoun">#</a>
-			<code><a href="source-class-Tools.html#134" title="Go to source code">getPossessivePronoun</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$character</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Tools.html#140" title="Go to source code">getPossessivePronoun</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$character</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -392,7 +408,7 @@ is true.</dd>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getPersonalPronoun">#</a>
-			<code><a href="source-class-Tools.html#150" title="Go to source code">getPersonalPronoun</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$character</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Tools.html#156" title="Go to source code">getPersonalPronoun</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$character</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				

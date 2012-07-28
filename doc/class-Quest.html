@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+
+	<title>Class Quest | Modern Times Documentation</title>
+
+	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
+	<script type="text/javascript" src="elementlist.js?2322690236"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">Modern Times Documentation</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="package-None.html" title="Summary of None"><span>Package</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="" />
+			<input type="hidden" name="ie" value="UTF-8" />
+			<input type="text" name="q" class="search-query" placeholder="Search" />
+		</form>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li><a href="package-Actions.html">Actions<span></span></a>
+						<ul>
+				<li><a href="package-Actions.Battle.html">Battle</a>
+						</li>
+				<li><a href="package-Actions.Inventory.html">Inventory</a>
+						</li>
+				<li><a href="package-Actions.Shopping.html">Shopping</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Battle.html">Battle<span></span></a>
+						<ul>
+				<li><a href="package-Battle.Battleeffects.html">Battleeffects</a>
+						</li>
+				<li><a href="package-Battle.Skills.html">Skills</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Character.html">Character<span></span></a>
+						<ul>
+				<li><a href="package-Character.Relations.html">Relations</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Events.html">Events<span></span></a>
+						<ul>
+				<li><a href="package-Events.Behaviors.html">Behaviors</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Items.html">Items</a>
+						</li>
+				<li class="active"><a href="package-None.html">None</a>
+						</li>
+				<li><a href="package-Quests.html">Quests</a>
+						</li>
+				<li><a href="package-Site.html">Site<span></span></a>
+						<ul>
+				<li><a href="package-Site.Forms.html">Forms</a>
+						</li>
+							</ul></li>
+				<li><a href="package-System.html">System<span></span></a>
+						<ul>
+				<li><a href="package-System.Models.html">Models<span></span></a>
+						<ul>
+				<li><a href="package-System.Models.Base.html">Base</a>
+						</li>
+				<li><a href="package-System.Models.Relations.html">Relations</a>
+						</li>
+							</ul></li>
+				<li><a href="package-System.Tools.html">Tools</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Widgets.html">Widgets</a>
+						</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-Quest.html">Quest</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class Quest</h1>
+
+
+	<div class="description">
+	
+<p>Provides some basic methods for handling quests. Has to be "overridden" by
+SpecialnessBehavior classes to do anything useful.</p>
+
+<p>Adds a couple of standard event listeners to events triggered by Character.
+If you add more event handlers, don't forget to add a line to
+detachFromCharacter().</p>
+
+<p>See BaseQuest for a list of attributes and related Models</p>
+
+	</div>
+
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+GxActiveRecord
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-BaseQuest.html"><span>BaseQuest</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>Quest</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		
+		
+
+				<b>Uses:</b>
+				<code><code><a href="class-SpecialnessBehavior.html">SpecialnessBehavior</a></code></code> <br />
+				<b>Uses:</b>
+				<code><code><a href="class-CharacterQuests.html">CharacterQuests</a></code></code> package System.Models<br />
+				<b>Used by:</b>
+				<code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code> <br />
+		<b>Located at</b> <a href="source-class-Quest.html#7" title="Go to source code">protected/models/Quest.php</a><br />
+	</div>
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="initialize" id="_initialize">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_initialize">#</a>
+			<code><a href="source-class-Quest.html#42" title="Go to source code">initialize</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$Character</var></span>, <span><code><a href="class-CharacterQuests.html">CharacterQuests</a></code> <var>$CharacterQuest</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Initializes the quest:</p>
+
+<ul>
+	<li>Hooks into Character's events</li>
+
+	<li>Sets links to a Character and the CharacterQuests record</li>
+
+	<li>Loads its params (or initializes them)</li>
+
+	<li>Hooks its own reactToOnX to its onX</li>
+</ul>
+
+<p>Is only called if CharacterQuest-&gt;state is not completed or failed</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Initializes the quest:</p>
+
+<ul>
+	<li>Hooks into Character's events</li>
+
+	<li>Sets links to a Character and the CharacterQuests record</li>
+
+	<li>Loads its params (or initializes them)</li>
+
+	<li>Hooks its own reactToOnX to its onX</li>
+</ul>
+
+<p>Is only called if CharacterQuest-&gt;state is not completed or failed</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$Character</var></dt>
+						<dd><code><code><a href="class-Character.html">Character</a></code></code></dd>
+						<dt><var>$CharacterQuest</var></dt>
+						<dd><code><code><a href="class-CharacterQuests.html">CharacterQuests</a></code></code></dd>
+					</dl></div>
+
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-Quest.html#_">Quest::loadParams()</a></code></code> <br />
+							<code><code><a href="class-Quest.html#_">Quest::setInitialParams()</a></code></code> <br />
+							<code><code><a href="class-Quest.html#_">Quest::onChangeState()</a></code></code> <br />
+							<code><code><a href="class-Quest.html#_">Quest::reactToOnChangeState()</a></code></code> <br />
+							<code><code><a href="class-Quest.html#_">Quest::callReactToOnChangeState()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setInitialParams" id="_setInitialParams">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setInitialParams">#</a>
+			<code><a href="source-class-Quest.html#77" title="Go to source code">setInitialParams</a>( )</code>
+
+			<div class="description short">
+				
+<p>Quasi-abstract; "override" by SpecialnessBehavior classes. Sets the initial
+parameters for the quest, e.g. counters, flags, etc.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Quasi-abstract; "override" by SpecialnessBehavior classes. Sets the initial
+parameters for the quest, e.g. counters, flags, etc.</p>
+
+
+
+
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Quest.html#_">Quest::initialize()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getDesc" id="_getDesc">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getDesc">#</a>
+			<code><a href="source-class-Quest.html#83" title="Go to source code">getDesc</a>( )</code>
+
+			<div class="description short">
+				
+<p>Basic version; "override" if necessary Returns a string representation of the
+status of this Quest (from the Character's point of view)</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Basic version; "override" if necessary Returns a string representation of the
+status of this Quest (from the Character's point of view)</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>string</code><br />
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-Quest.html#_">Quest::getDescStatus()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getDescStatus" id="_getDescStatus">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getDescStatus">#</a>
+			<code><a href="source-class-Quest.html#93" title="Go to source code">getDescStatus</a>( )</code>
+
+			<div class="description short">
+				
+<p>Quasi-abstract; "override" by SpecialnessBehavior classes. Returns a string
+representation of what is going on right now with regard to this Quest (from the
+Character's point of view)</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Quasi-abstract; "override" by SpecialnessBehavior classes. Returns a string
+representation of what is going on right now with regard to this Quest (from the
+Character's point of view)</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>string</code><br>empty<br />
+					</div>
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Quest.html#_">Quest::getDesc()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setState" id="_setState">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setState">#</a>
+			<code><a href="source-class-Quest.html#102" title="Go to source code">setState</a>( <span>string <var>$state</var></span>, <span>boolean <var>$update</var> = <span class="php-keyword1">true</span></span> )</code>
+
+			<div class="description short">
+				
+<ul>
+	<li>Sets the current state of the quest</li>
+
+	<li>Updates $this-&gt;CharacterQuest if indicated</li>
+
+	<li>Raises an onChangeState event</li>
+</ul>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<ul>
+	<li>Sets the current state of the quest</li>
+
+	<li>Updates $this-&gt;CharacterQuest if indicated</li>
+
+	<li>Raises an onChangeState event</li>
+</ul>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$state</var></dt>
+						<dd><code>string</code><br> enum(unavailable|available|ongoing|completed|rejected|failed)</dd>
+						<dt><var>$update</var></dt>
+						<dd><code>boolean</code><br> default true</dd>
+					</dl></div>
+
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-CharacterQuests.html">CharacterQuests</a></code></code> <br />
+							<code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code> <br />
+							onChangeStat<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="saveParams" id="_saveParams">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_saveParams">#</a>
+			<code><a href="source-class-Quest.html#131" title="Go to source code">saveParams</a>( <span>boolean <var>$update</var> = <span class="php-keyword1">true</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Saves the serialized param attribute to CharacterQuest record</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Saves the serialized param attribute to CharacterQuest record</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$update</var></dt>
+						<dd><code>boolean</code><br> default true</dd>
+					</dl></div>
+
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-CharacterQuests.html">CharacterQuests</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="loadParams" id="_loadParams">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_loadParams">#</a>
+			<code><a href="source-class-Quest.html#147" title="Go to source code">loadParams</a>( )</code>
+
+			<div class="description short">
+				
+<p>Sets $this-&gt;params according to $this-&gt;CharacterQuest-&gt;params</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Sets $this-&gt;params according to $this-&gt;CharacterQuest-&gt;params</p>
+
+
+
+
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-CharacterQuests.html">CharacterQuests</a></code></code> <br />
+					</div>
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Quest.html#_">Quest::initialize()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="attachToCharacter" id="_attachToCharacter">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_attachToCharacter">#</a>
+			<code><a href="source-class-Quest.html#156" title="Go to source code">attachToCharacter</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$Character</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Quasi-abstract; "override" by SpecialnessBehavior classes. Attach this
+class's event handlers to the Character's events</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Quasi-abstract; "override" by SpecialnessBehavior classes. Attach this
+class's event handlers to the Character's events</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$Character</var></dt>
+						<dd><code><code><a href="class-Character.html">Character</a></code></code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="detachFromCharacter" id="_detachFromCharacter">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_detachFromCharacter">#</a>
+			<code><a href="source-class-Quest.html#164" title="Go to source code">detachFromCharacter</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$Character</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Quasi-abstract; "override" by SpecialnessBehavior classes. Detach this
+class's event handlers from the Character's events</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Quasi-abstract; "override" by SpecialnessBehavior classes. Detach this
+class's event handlers from the Character's events</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$Character</var></dt>
+						<dd><code><code><a href="class-Character.html">Character</a></code></code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onChangeState" id="_onChangeState">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onChangeState">#</a>
+			<code><a href="source-class-Quest.html#172" title="Go to source code">onChangeState</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Quest.html#_">Quest::initialize()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onAvailable" id="_onAvailable">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onAvailable">#</a>
+			<code><a href="source-class-Quest.html#179" title="Go to source code">onAvailable</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onOngoing" id="_onOngoing">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onOngoing">#</a>
+			<code><a href="source-class-Quest.html#186" title="Go to source code">onOngoing</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onCompleted" id="_onCompleted">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onCompleted">#</a>
+			<code><a href="source-class-Quest.html#193" title="Go to source code">onCompleted</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onFailed" id="_onFailed">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onFailed">#</a>
+			<code><a href="source-class-Quest.html#200" title="Go to source code">onFailed</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onRejected" id="_onRejected">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onRejected">#</a>
+			<code><a href="source-class-Quest.html#207" title="Go to source code">onRejected</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onUnavailable" id="_onUnavailable">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onUnavailable">#</a>
+			<code><a href="source-class-Quest.html#214" title="Go to source code">onUnavailable</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnChangeState" id="_reactToOnChangeState">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnChangeState">#</a>
+			<code><a href="source-class-Quest.html#222" title="Go to source code">reactToOnChangeState</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event handler Raises a more specific event depending on the new state</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event handler Raises a more specific event depending on the new state</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Quest.html#_">Quest::initialize()</a></code></code> <br />
+							<code><code><a href="class-Quest.html#_">Quest::callReactToOnChangeState()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="callReactToOnChangeState" id="_callReactToOnChangeState">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_callReactToOnChangeState">#</a>
+			<code><a href="source-class-Quest.html#249" title="Go to source code">callReactToOnChangeState</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for reactToOnChangeState which makes it possible to use
+$this-&gt;call('reactToOnChangeState') as a callback in initialize</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for reactToOnChangeState which makes it possible to use
+$this-&gt;call('reactToOnChangeState') as a callback in initialize</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-Quest.html#_">Quest::reactToOnChangeState()</a></code></code> <br />
+					</div>
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Quest.html#_">Quest::initialize()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnUnavailable" id="_reactToOnUnavailable">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnUnavailable">#</a>
+			<code><a href="source-class-Quest.html#259" title="Go to source code">reactToOnUnavailable</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event handler Standard reaction: set visible = 0</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event handler Standard reaction: set visible = 0</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Quest.html#_">Quest::callReactToOnUnavailable()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="callReactToOnUnavailable" id="_callReactToOnUnavailable">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_callReactToOnUnavailable">#</a>
+			<code><a href="source-class-Quest.html#270" title="Go to source code">callReactToOnUnavailable</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for reactToOnUnavailable which makes it possible to use
+$this-&gt;call('reactToOnUnavailable') as a callback in initialize</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for reactToOnUnavailable which makes it possible to use
+$this-&gt;call('reactToOnUnavailable') as a callback in initialize</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-Quest.html#_">Quest::reactToOnUnavailable()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnAvailable" id="_reactToOnAvailable">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnAvailable">#</a>
+			<code><a href="source-class-Quest.html#280" title="Go to source code">reactToOnAvailable</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event handler Quasi-abstract; "override" by SpecialnessBehavior classes.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event handler Quasi-abstract; "override" by SpecialnessBehavior classes.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Quest.html#_">Quest::callReactToOnAvailable()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="callReactToOnAvailable" id="_callReactToOnAvailable">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_callReactToOnAvailable">#</a>
+			<code><a href="source-class-Quest.html#286" title="Go to source code">callReactToOnAvailable</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for reactToOnAvailable which makes it possible to use
+$this-&gt;call('reactToOnAvailable') as a callback in initialize</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for reactToOnAvailable which makes it possible to use
+$this-&gt;call('reactToOnAvailable') as a callback in initialize</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-Quest.html#_">Quest::reactToOnAvailable()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnOngoing" id="_reactToOnOngoing">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnOngoing">#</a>
+			<code><a href="source-class-Quest.html#296" title="Go to source code">reactToOnOngoing</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event handler Standard reaction: set visible = 1</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event handler Standard reaction: set visible = 1</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Quest.html#_">Quest::callReactToOnOngoing()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="callReactToOnOngoing" id="_callReactToOnOngoing">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_callReactToOnOngoing">#</a>
+			<code><a href="source-class-Quest.html#307" title="Go to source code">callReactToOnOngoing</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for reactToOnOngoing which makes it possible to use
+$this-&gt;call('reactToOnOngoing') as a callback in initialize</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for reactToOnOngoing which makes it possible to use
+$this-&gt;call('reactToOnOngoing') as a callback in initialize</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-Quest.html#_">Quest::reactToOnOngoing()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnCompleted" id="_reactToOnCompleted">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnCompleted">#</a>
+			<code><a href="source-class-Quest.html#317" title="Go to source code">reactToOnCompleted</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event handler Resets $this-&gt;params, sets visible = 1, and saves
+$this-&gt;CharacterQuest</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event handler Resets $this-&gt;params, sets visible = 1, and saves
+$this-&gt;CharacterQuest</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Quest.html#_">Quest::callReactToOnCompleted()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="callReactToOnCompleted" id="_callReactToOnCompleted">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_callReactToOnCompleted">#</a>
+			<code><a href="source-class-Quest.html#327" title="Go to source code">callReactToOnCompleted</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for reactToOnCompleted which makes it possible to use
+$this-&gt;call('reactToOnCompleted') as a callback in initialize</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for reactToOnCompleted which makes it possible to use
+$this-&gt;call('reactToOnCompleted') as a callback in initialize</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-Quest.html#_">Quest::reactToOnCompleted()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnFailed" id="_reactToOnFailed">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnFailed">#</a>
+			<code><a href="source-class-Quest.html#337" title="Go to source code">reactToOnFailed</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event handler Quasi-abstract; "override" by SpecialnessBehavior classes.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event handler Quasi-abstract; "override" by SpecialnessBehavior classes.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Quest.html#_">Quest::callReactToOnFailed()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="callReactToOnFailed" id="_callReactToOnFailed">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_callReactToOnFailed">#</a>
+			<code><a href="source-class-Quest.html#343" title="Go to source code">callReactToOnFailed</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for reactToOnFailed which makes it possible to use
+$this-&gt;call('reactToOnFailed') as a callback in initialize</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for reactToOnFailed which makes it possible to use
+$this-&gt;call('reactToOnFailed') as a callback in initialize</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-Quest.html#_">Quest::reactToOnFailed()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnRejected" id="_reactToOnRejected">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnRejected">#</a>
+			<code><a href="source-class-Quest.html#353" title="Go to source code">reactToOnRejected</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event handler Quasi-abstract; "override" by SpecialnessBehavior classes.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event handler Quasi-abstract; "override" by SpecialnessBehavior classes.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Quest.html#_">Quest::callReactToOnRejected()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="callReactToOnRejected" id="_callReactToOnRejected">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_callReactToOnRejected">#</a>
+			<code><a href="source-class-Quest.html#359" title="Go to source code">callReactToOnRejected</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for reactToOnRejected which makes it possible to use
+$this-&gt;call('reactToOnRejected') as a callback in initialize</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for reactToOnRejected which makes it possible to use
+$this-&gt;call('reactToOnRejected') as a callback in initialize</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-Quest.html#_">Quest::reactToOnRejected()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="behaviors" id="_behaviors">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_behaviors">#</a>
+			<code><a href="source-class-Quest.html#369" title="Go to source code">behaviors</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns a list of CBehaviors to be attached to this Model</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns a list of CBehaviors to be attached to this Model</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>array</code><br />
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="http://www.yiiframework.com/doc/api/CBehavior">http://www.yiiframework.com/doc/api/CBehavior</a><br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="model" id="_model">
+
+			<td class="attributes"><code>
+				 public static
+				CModel
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_model">#</a>
+			<code><a href="source-class-Quest.html#378" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
+
+			<div class="description short">
+				
+<p>Factory method to get Model objects</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Factory method to get Model objects</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$className</var></dt>
+						<dd><code>string</code></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>CModel</code><br />
+					</div>
+
+
+					<h4>Link</h4>
+					<div class="list">
+							<a href="http://www.yiiframework.com/doc/api/CModel">http://www.yiiframework.com/doc/api/CModel</a><br />
+					</div>
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-BaseQuest.html#_">BaseQuest::model</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+		<h3>Methods inherited from <a href="class-BaseQuest.html#methods">BaseQuest</a></h3>
+		<p class="elementList">
+			<code><a href="class-BaseQuest.html#_">attributeLabels()</a></code>, 
+			<code><a href="class-BaseQuest.html#_">label()</a></code>, 
+			<code><a href="class-BaseQuest.html#_">pivotModels()</a></code>, 
+			<code><a href="class-BaseQuest.html#_">relations()</a></code>, 
+			<code><a href="class-BaseQuest.html#_">representingColumn()</a></code>, 
+			<code><a href="class-BaseQuest.html#_">rules()</a></code>, 
+			<code><a href="class-BaseQuest.html#_">search()</a></code>, 
+			<code><a href="class-BaseQuest.html#_">tableName()</a></code>
+		</p>
+
+
+
+
+
+		<h2>Properties summary</h2>
+		<table class="summary table table-bordered table-striped" id="properties">
+		<tr data-order="Character" id="$Character">
+
+			<td class="attributes"><code>
+				public 
+				<code><a href="class-Character.html">Character</a></code>
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Quest.html#23" title="Go to source code"><var>$Character</var></a>
+			</td>
+			<td class="value"><code></code></td>
+			<td class="description"><div>
+				<a href="#$Character" class="anchor">#</a>
+
+				<div class="description short">
+					
+<p>Link to the Character record which this Quest belongs to</p>
+
+				</div>
+
+				<div class="description detailed hidden">
+					
+<p>Link to the Character record which this Quest belongs to</p>
+
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="CharacterQuest" id="$CharacterQuest">
+
+			<td class="attributes"><code>
+				public 
+				<code><a href="class-Quest.html#$CharacterQuest">Quest::<var>$CharacterQuest</var></a></code>
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Quest.html#29" title="Go to source code"><var>$CharacterQuest</var></a>
+			</td>
+			<td class="value"><code></code></td>
+			<td class="description"><div>
+				<a href="#$CharacterQuest" class="anchor">#</a>
+
+				<div class="description short">
+					
+<p>Link to a CharacterQuest record, which can be used to change the state of a
+quest for a Character</p>
+
+				</div>
+
+				<div class="description detailed hidden">
+					
+<p>Link to a CharacterQuest record, which can be used to change the state of a
+quest for a Character</p>
+
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="params" id="$params">
+
+			<td class="attributes"><code>
+				public 
+				array
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Quest.html#36" title="Go to source code"><var>$params</var></a>
+			</td>
+			<td class="value"><code><span class="php-keyword1">array</span>()</code></td>
+			<td class="description"><div>
+				<a href="#$params" class="anchor">#</a>
+
+				<div class="description short">
+					
+<p>Additional params to manage the Quest</p>
+
+				</div>
+
+				<div class="description detailed hidden">
+					
+<p>Additional params to manage the Quest</p>
+
+
+				</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		Modern Times Documentation API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</body>
+</html>

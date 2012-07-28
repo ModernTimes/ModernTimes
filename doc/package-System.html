@@ -7,7 +7,7 @@
 	<title>Package System | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?277009506"></script>
+	<script type="text/javascript" src="elementlist.js?2322690236"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -55,6 +55,8 @@
 			<ul>
 				<li><a href="package-Actions.html">Actions<span></span></a>
 						<ul>
+				<li><a href="package-Actions.Battle.html">Battle</a>
+						</li>
 				<li><a href="package-Actions.Inventory.html">Inventory</a>
 						</li>
 				<li><a href="package-Actions.Shopping.html">Shopping</a>
@@ -78,6 +80,10 @@
 						</li>
 							</ul></li>
 				<li><a href="package-Items.html">Items</a>
+						</li>
+				<li><a href="package-None.html">None</a>
+						</li>
+				<li><a href="package-Quests.html">Quests</a>
 						</li>
 				<li><a href="package-Site.html">Site<span></span></a>
 						<ul>
@@ -106,6 +112,7 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-Controller.html">Controller</a></li>
+				<li><a href="class-RequirementCheckerBehavior.html">RequirementCheckerBehavior</a></li>
 				<li><a href="class-SpecialnessBehavior.html">SpecialnessBehavior</a></li>
 			</ul>
 
@@ -141,6 +148,16 @@
 	<td class="name"><a href="class-Controller.html">Controller</a></td>
 	<td>Controller is the customized base controller class. All controller classes for
 this application should extend from this base class.</td>
+</tr>
+<tr>
+	<td class="name"><a href="class-RequirementCheckerBehavior.html">RequirementCheckerBehavior</a></td>
+	<td>Can be attached to any Model class with a requirementID attribute. Provides a
+method which checks if a Character fulfills a number of requirements as
+specified by the Requirement record indicated by the requirementiD attribute of
+the owner model record. If a model record needs to check requirements with an
+algorithm different from the basic one provided by this Behavior, we need to
+define a SpecialnessBehavior class for that record which specifies a
+meetsRequirements method.</td>
 </tr>
 <tr>
 	<td class="name"><a href="class-SpecialnessBehavior.html">SpecialnessBehavior</a></td>
