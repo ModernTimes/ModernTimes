@@ -683,23 +683,42 @@ class Character extends BaseCharacter {
     }
     
     /**
+     * Returns the CharacterQuests record that belongs to a given quest
+     * Creates a new record with state = unavailable if no
+     * CharacterQuests record is found
+     * @param mixed $quest Quest or int (ID of a Quest record)
+     * @return boolean 
+     */
+    public function getCharacterQuest($quest) {
+        if(is_numeric($quest)) {
+            $questID = $quest;
+        } else {
+            $questID = $quest->id;
+        }
+        foreach($this->characterQuests as $characterQuest) {
+            if($characterQuest->questID == $questID) {
+                return $characterQuest;
+            }
+        }
+        
+        /**
+         * If no CharacterQuests record exists for the given quest,
+         * create a new one with state = "unavailable";
+         */
+        $characterQuest = new CharacterQuests();
+        $characterQuest->characterID = $this->id;
+        $characterQuest->questID = $questID;
+        $characterQuest->state = "unavailable";
+        return $characterQuest;
+    }
+    /**
      * Checks if the character has completed a certain Quest
      * @param mixed $quest Quest or int (ID of a Quest record)
      * @return boolean 
      */
     public function hasQuestCompleted($quest) {
-        if(is_a($quest, "Quest")) {
-            $id = $quest->id;
-        } else {
-            $id = $quest;
-        }
-        foreach($this->characterQuests as $characterQuest) {
-            if($characterQuest->questID == $id &&
-               $characterQuest->state == "completed") {
-                return true;
-            }
-        }
-        return false;
+        $characterQuest = $this->getCharacterQuest($quest);
+        return ($characterQuest->state == "completed");
     }
 
     /**
@@ -708,13 +727,13 @@ class Character extends BaseCharacter {
      * @return boolean 
      */
     public function hasEffect($effect) {
-        if(is_a($effect, "Effect")) {
-            $id = $effect->id;
+        if(is_numeric($effect)) {
+            $effectID = $effect;
         } else {
-            $id = $effect;
+            $effectID = $effect->id;
         }
         foreach($this->characterEffects as $characterEffect) {
-            if($characterEffect->effectID == $id) {
+            if($characterEffect->effectID == $effectID) {
                 return true;
             }
         }

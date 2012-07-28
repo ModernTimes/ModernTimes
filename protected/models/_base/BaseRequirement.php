@@ -5,6 +5,7 @@
  *
  * - integer id
  * - integer questID
+ * - string questState
  * - string class
  * - string sex
  * - integer level
@@ -64,7 +65,7 @@ abstract class BaseRequirement extends GxActiveRecord {
 	 * @return mixed
 	 */
 	public static function representingColumn() {
-		return 'class';
+		return 'questState';
 	}
 
 	/**
@@ -74,10 +75,11 @@ abstract class BaseRequirement extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('questID, level, mainstat, resoluteness, willpower, cunning', 'numerical', 'integerOnly'=>true),
+			array('questState', 'length', 'max'=>11),
 			array('class', 'length', 'max'=>12),
 			array('sex', 'length', 'max'=>6),
-			array('questID, class, sex, level, mainstat, resoluteness, willpower, cunning', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, questID, class, sex, level, mainstat, resoluteness, willpower, cunning', 'safe', 'on'=>'search'),
+			array('questID, questState, class, sex, level, mainstat, resoluteness, willpower, cunning', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, questID, questState, class, sex, level, mainstat, resoluteness, willpower, cunning', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -115,6 +117,7 @@ abstract class BaseRequirement extends GxActiveRecord {
 		return array(
 			'id' => Yii::t('app', 'ID'),
 			'questID' => null,
+			'questState' => Yii::t('app', 'Quest State'),
 			'class' => Yii::t('app', 'Class'),
 			'sex' => Yii::t('app', 'Sex'),
 			'level' => Yii::t('app', 'Level'),
@@ -143,6 +146,7 @@ abstract class BaseRequirement extends GxActiveRecord {
 
 		$criteria->compare('id', $this->id);
 		$criteria->compare('questID', $this->questID);
+		$criteria->compare('questState', $this->questState, true);
 		$criteria->compare('class', $this->class, true);
 		$criteria->compare('sex', $this->sex, true);
 		$criteria->compare('level', $this->level);

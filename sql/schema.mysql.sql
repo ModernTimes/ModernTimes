@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 28. Jul 2012 um 18:09
+-- Erstellungszeit: 28. Jul 2012 um 19:02
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `mt_battle` (
   KEY `combatantBID` (`combatantBID`),
   KEY `state` (`state`),
   KEY `winnerID` (`winnerID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=34 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
 
 -- --------------------------------------------------------
 
@@ -764,6 +764,7 @@ CREATE TABLE IF NOT EXISTS `mt_recipe` (
 CREATE TABLE IF NOT EXISTS `mt_requirement` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `questID` int(11) DEFAULT NULL,
+  `questState` enum('unavailable','available','ongoing','completed','failed','rejected','started') NOT NULL DEFAULT 'completed',
   `class` enum('none','resoluteness','willpower','cunning','consultant','banker') NOT NULL DEFAULT 'none',
   `sex` enum('none','male','female') NOT NULL DEFAULT 'none',
   `level` smallint(4) unsigned NOT NULL DEFAULT '0',
