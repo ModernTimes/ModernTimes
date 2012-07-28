@@ -16,6 +16,29 @@
  */
 abstract class GxActiveRecord extends CActiveRecord {
 
+        /** 
+         * Can be used in defining scopes to ensure that the same
+         * alias is not used twice
+         * @var int
+         */
+        private static $_scopeCounter = 0;
+        public static function getScopeCounter() {
+            self::$_scopeCounter ++;
+            return self::$_scopeCounter;
+        }
+        
+        /**
+         * Makes sure that every Model class has a scope called
+         * "withRelated"
+         * @return array
+         */
+        public function scopes() {
+            return array(
+                'withRelated' => array()
+            );
+        }
+        
+
 	/**
 	 * @var string the separator used to separate the primary keys values in a
 	 * composite pk table. Usually a character.

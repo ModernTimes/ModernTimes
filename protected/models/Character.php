@@ -7,7 +7,7 @@ Yii::import('application.models._base.BaseCharacter');
  * Getter and "gainer" methods raise events which allow other code thingies to 
  * hook into the respective calculations.
  * 
- * See BaseCharacter for a list of attributes and related Models
+ * See BaseCharacter for a list of attributes and related Models.
  * 
  * @uses CombatantBehavior
  * @uses CharacterModifierBehavior

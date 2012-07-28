@@ -7,7 +7,7 @@ Yii::import('application.components.effects.*');
  * Right now, effects are just charactermodifiers with a certain duration in 
  * turns. They can be "overridden" by specialnessBehavior classes.
  * 
- * See BaseEffect for a list of attributes and related Models
+ * See BaseEffect for a list of attributes and related Models.
  * 
  * @uses SpecialnessBehavior
  * @uses CharacterModifierBehavior
@@ -35,9 +35,27 @@ class Effect extends BaseEffect {
      */
     public function behaviors() {
         return array("application.components.SpecialnessBehavior",
-                     'characterModifier'=>array(
-                        'class'=>"application.components.CharacterModifierBehavior")
-                     );
+                     'characterModifier'=>"application.components.CharacterModifierBehavior");
+    }
+
+    /**
+     * Returns the declaration of named scopes. A named scope represents a query
+     * criteria that can be chained together with other named scopes and applied
+     * to a query.
+     * @link http://www.yiiframework.com/doc/api/1.1/CActiveRecord#scopes-detail
+     * @return array the scope definition. The array keys are scope names
+     */
+    public function scopes() {
+        return array(
+            'withRelated' => array(
+                'with' => array(
+                    'charactermodifier' => array(
+                        'alias' => 'effectCharactermodifier' . self::getScopeCounter(),
+                        'scopes' => 'withRelated'
+                    ),
+                )
+            )
+        );
     }
 
     /**

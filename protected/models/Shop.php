@@ -7,7 +7,7 @@ Yii::import('application.components.shops.*');
  * Right now, shops just have a stock and a description. 
  * Can be "overridden" by specialnessBehavior classes.
  * 
- * See BaseShop for a list of attributes and related Models
+ * See BaseShop for a list of attributes and related Models.
  * 
  * @uses SpecialnessBehavior
  * @uses RequirementCheckerBehavior
@@ -42,6 +42,30 @@ class Shop extends BaseShop {
                      "application.components.RequirementCheckerBehavior");
     }
     
+    /**
+     * Returns the declaration of named scopes. A named scope represents a query
+     * criteria that can be chained together with other named scopes and applied
+     * to a query.
+     * @link http://www.yiiframework.com/doc/api/1.1/CActiveRecord#scopes-detail
+     * @return array the scope definition. The array keys are scope names
+     */
+    public function scopes() {
+        return array(
+            'withRelated' => array(
+                'with' => array(
+                    'requirement' => array(
+                        'alias' => 'shopRequirement' . self::getScopeCounter(),
+                        'scopes' => 'withRelated'
+                    ),
+                    'shopItems' => array(
+                        'alias' => 'shopShopItems' . self::getScopeCounter(),
+                        'scopes' => 'withRelated'
+                    ),
+                )
+            )
+        );
+    }
+
     /**
      * Factory method to get Model objects
      * @link http://www.yiiframework.com/doc/api/CModel

@@ -5,7 +5,7 @@ Yii::import('application.models._base.BaseMarker');
 /**
  * Holds information about markers that appear on the GoogleMap
  * 
- * See BaseMarker for a list of attributes and related Models
+ * See BaseMarker for a list of attributes and related Models.
  * 
  * @uses RequirementCheckerBehavior
  * @package System.Models
@@ -20,6 +20,26 @@ class Marker extends BaseMarker {
      */
     public function behaviors() {
         return array("application.components.RequirementCheckerBehavior");
+    }
+
+    /**
+     * Returns the declaration of named scopes. A named scope represents a query
+     * criteria that can be chained together with other named scopes and applied
+     * to a query.
+     * @link http://www.yiiframework.com/doc/api/1.1/CActiveRecord#scopes-detail
+     * @return array the scope definition. The array keys are scope names
+     */
+    public function scopes() {
+        return array(
+            'withRelated' => array(
+                'with' => array(
+                    'requirement' => array(
+                        'alias' => 'markerRequirement' . self::getScopeCounter(),
+                        'scopes' => 'withRelated'
+                    ),
+                )
+            )
+        );
     }
 
     /**

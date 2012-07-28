@@ -8,8 +8,8 @@ Yii::import('application.components.areas.*');
  * Can generate episodes, i.e. decide if the Character is confronted with
  * an Encounter or has to fight a monster.
  * 
- * See BaseArea for a list of attributes and related Models
- *
+ * See BaseArea for a list of attributes and related Models.
+ * 
  * @uses SpecialnessBehavior
  * @uses RequirementCheckerBehavior
  * @package System.Models
@@ -58,6 +58,30 @@ class Area extends BaseArea {
                 'params' => array(),
             );
         }
+    }
+    
+    /**
+     * Returns the declaration of named scopes. A named scope represents a query
+     * criteria that can be chained together with other named scopes and applied
+     * to a query.
+     * @link http://www.yiiframework.com/doc/api/1.1/CActiveRecord#scopes-detail
+     * @return array the scope definition. The array keys are scope names
+     */
+    public function scopes() {
+        return array(
+            'withRelated' => array(
+                'with' => array(
+                    'areaMonsters' => array(
+                        'alias' => 'areaAreaMonsters' . self::getScopeCounter(),
+                        // 'scopes' => 'withRelated'
+                    ),
+                    'areaEncounters' => array(
+                        'alias' => 'areaAreaEncounters' . self::getScopeCounter(),
+                        'scopes' => 'withRelated'
+                    ),
+                ),
+            ),
+        );
     }
 
     /**

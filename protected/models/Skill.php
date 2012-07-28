@@ -8,7 +8,7 @@ Yii::import('application.components.skills.*');
  * The following holds true for all funcitons in this class:
  * hero and enemy are from the Skill user's point of view
  * 
- * See BaseSkill for a list of attributes and related Models
+ * See BaseSkill for a list of attributes and related Models.
  * 
  * @uses SpecialnessBehavior
  * @uses CharacterModifierBehavior
@@ -203,6 +203,26 @@ class Skill extends BaseSkill {
         return array(
             "application.components.SpecialnessBehavior",
             "application.components.CharacterModifierBehavior",
+        );
+    }
+
+    /**
+     * Returns the declaration of named scopes. A named scope represents a query
+     * criteria that can be chained together with other named scopes and applied
+     * to a query.
+     * @link http://www.yiiframework.com/doc/api/1.1/CActiveRecord#scopes-detail
+     * @return array the scope definition. The array keys are scope names
+     */
+    public function scopes() {
+        return array(
+            'withRelated' => array(
+                'with' => array(
+                    'charactermodifier' => array(
+                        'alias' => 'skillCharactermodifier' . self::getScopeCounter(),
+                        'scopes' => 'withRelated'
+                    ),
+                )
+            )
         );
     }
 

@@ -6,7 +6,7 @@ Yii::import('application.models._base.BaseEncounter');
  * Handles basic encounter procedures.
  * Can be "overridden" by specialnessBehavior classes
  * 
- * See BaseEncounter for a list of attributes and related Models
+ * See BaseEncounter for a list of attributes and related Models.
  * 
  * @uses SpecialnessBehavior
  * @uses CharacterModifierBehavior
@@ -96,6 +96,34 @@ class Encounter extends BaseEncounter {
                      );
     }
     
+    /**
+     * Returns the declaration of named scopes. A named scope represents a query
+     * criteria that can be chained together with other named scopes and applied
+     * to a query.
+     * @link http://www.yiiframework.com/doc/api/1.1/CActiveRecord#scopes-detail
+     * @return array the scope definition. The array keys are scope names
+     */
+    public function scopes() {
+        return array(
+            'withRelated' => array(
+                'with' => array(
+                    'effect' => array(
+                        'alias' => 'encounterEffect' . self::getScopeCounter(),
+                        'scopes' => 'withRelated'
+                    ),
+                    'encounterEncounters' => array(
+                        'alias' => 'encounterEncounterEncounters' . self::getScopeCounter(),
+                        'scopes' => 'withRelated'
+                    ),
+                    'encounterItems' => array(
+                        'alias' => 'encounterEncounterItems' . self::getScopeCounter(),
+                        'scopes' => 'withRelated'
+                    ),
+                )
+            ),
+        );
+    }
+
     /**
      * Factory method to get Model objects
      * @link http://www.yiiframework.com/doc/api/CModel
