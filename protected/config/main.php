@@ -24,7 +24,6 @@ return array(
                 'application.controllers.actions.shop.*',
 
                 'ext.giix-components.*', // giix components
-                'ext.wr.*', // WithRelated-Behavior
                 'ext.Kint.*',
                 'ext.EUserFlash',
             
