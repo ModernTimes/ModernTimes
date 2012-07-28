@@ -78,52 +78,62 @@ class CharacterData extends CApplicationComponent {
     public function load() {
         $this->_model = Character::model()->with(array(
             /**
-             * Care: Current Yii version does not yet automatically alias 
-             * recurring table names in with-calls. So we have to do it
-             * ourselves.
-             */
+            * Care: Current Yii version does not yet automatically alias 
+            * recurring table names in with-calls. So we have to do it
+            * ourselves.
+            */
             'characterEquipments'=>array(
                 'with' => array(
-                    'weapon0' => array('with' => array(
-                        'requirement' => array('alias' => 'weaponRequirement'),
-                        'charactermodifier' => array('alias' => 'weaponCharactermodifier'))),
-                    'offhand0' => array('with' => array(
-                        'requirement' => array('alias' => 'offhandRequirement'),
-                        'charactermodifier' => array('alias' => 'offhandCharactermodifier'))),
-                    'accessoryA0' => array('with' => array(
-                        'requirement' => array('alias' => 'accessoryARequirement'),
-                        'charactermodifier' => array('alias' => 'accessoryACharactermodifier'))),
-                    'accessoryB0' => array('with' => array(
-                        'requirement' => array('alias' => 'accessoryBRequirement'),
-                        'charactermodifier' => array('alias' => 'accessoryBCharactermodifier'))),
-                    'accessoryC0' => array('with' => array(
-                        'requirement' => array('alias' => 'accessoryCRequirement'),
-                        'charactermodifier' => array('alias' => 'accessoryCCharactermodifier'))),
+                    'weapon0' => array(
+                        'select' => array("`characterEquipment`.`specialClass`", 
+                                        "`characterEquipment`.`charactermodifierID`"),
+                        'with' => array('charactermodifier' => array('alias' => 'weaponCharactermodifier'))
+                    ),
+                    'offhand0' => array(
+                        'select' => array("`characterEquipment`.`specialClass`", 
+                                        "`characterEquipment`.`charactermodifierID`"),
+                        'with' => array('charactermodifier' => array('alias' => 'offhandCharactermodifier'))
+                    ),
+                    'accessoryA0' => array(
+                        'select' => array("`characterEquipment`.`specialClass`", 
+                                        "`characterEquipment`.`charactermodifierID`"),
+                        'with' => array('charactermodifier' => array('alias' => 'accessoryACharactermodifier'))
+                    ),
+                    'accessoryB0' => array(
+                        'select' => array("`characterEquipment`.`specialClass`", 
+                                        "`characterEquipment`.`charactermodifierID`"),
+                        'with' => array('charactermodifier' => array('alias' => 'accessoryBCharactermodifier'))
+                    ),
+                    'accessoryC0' => array(
+                        'select' => array("`characterEquipment`.`specialClass`", 
+                                        "`characterEquipment`.`charactermodifierID`"),
+                        'with' => array('charactermodifier' => array('alias' => 'accessoryCCharactermodifier'))
+                    ),
                 ),
-                'condition'=>"`characterEquipments`.`active`=1"
+                // 'condition'=>"`characterEquipments`.`active`=1"
             ),
             'characterFamiliars'=>array(
                 // 'condition'=>"`characterFamiliars`.`active`=1"
             ),
-            /**
-             * Actually, it's alright to lazy load this one. It's only relevant
-             * in battles 
-             */
-            /**
-            'characterSkillsets'=>array(
-                'condition'=>"`characterSkillsets`.`active`=1"
-            ),
-            */
             'characterSkills' => array(
+                // 'select' => false,
                 'with' => array(
                     'skill' => array(
+                        'alias' => 'characterSkillsSkill',
                         'with' => array(
-                            // 'createEffect0',
                             'charactermodifier' => array('alias' => 'skillCharactermodifier'),
                         )
                     )
                 ), 
-                // 'condition' => "available = 1"
+                /**
+                    * For general purposes, only available skills are needed,
+                    * and only those which can be used outside of combat or
+                    * which have a passive charactermodifier effect
+                    * Takes much longer in tests with this condition
+                'condition' => "`characterSkills`.`available` = 1 AND
+                                (`characterSkillsSkill`.`skillType` != 'combat' OR
+                                `characterSkillsSkill`.`charactermodifierID` IS NOT NULL)"
+                */
             ),
             'characterEffects'=> array(
                 'with' => array(
@@ -137,24 +147,15 @@ class CharacterData extends CApplicationComponent {
             ),
             'characterQuests' => array(
                 'with' => array(
-                    'quest'
+                    'quest' => array(
+                        'alias' => "characterQuestsQuest",
+                        'select' => "`characterQuestsQuest`.`specialClass`"
+                    ),
                 )
             ),
-            'characterEncounters' => array(
-                'with' => array(
-                    'encounter' => array(
-                        'with' => array(
-                            'encounterEncounters', 
-                            'encounterItems', 
-                            'effect' => array(
-                                'alias' => 'characterEncountersEncounterEffect',
-                            )
-                        )
-                    )
-                )
-            )
+            'characterEncounters' => array()
         ))->find('t.userID=:userID AND t.active=1', 
-                 array(':userID'=>Yii::app()->user->id));
+                array(':userID'=>Yii::app()->user->id));
 
         // d($this->_model);
         
