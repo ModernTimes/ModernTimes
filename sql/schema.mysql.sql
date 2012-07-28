@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 27. Jul 2012 um 13:01
+-- Erstellungszeit: 28. Jul 2012 um 18:09
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -763,6 +763,7 @@ CREATE TABLE IF NOT EXISTS `mt_recipe` (
 
 CREATE TABLE IF NOT EXISTS `mt_requirement` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `questID` int(11) DEFAULT NULL,
   `class` enum('none','resoluteness','willpower','cunning','consultant','banker') NOT NULL DEFAULT 'none',
   `sex` enum('none','male','female') NOT NULL DEFAULT 'none',
   `level` smallint(4) unsigned NOT NULL DEFAULT '0',
@@ -770,8 +771,15 @@ CREATE TABLE IF NOT EXISTS `mt_requirement` (
   `resoluteness` smallint(5) unsigned NOT NULL DEFAULT '0',
   `willpower` smallint(5) unsigned NOT NULL DEFAULT '0',
   `cunning` smallint(5) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+  PRIMARY KEY (`id`),
+  KEY `questID` (`questID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- RELATIONEN DER TABELLE `mt_requirement`:
+--   `questID`
+--       `mt_quest` -> `id`
+--
 
 -- --------------------------------------------------------
 
@@ -1095,6 +1103,12 @@ ALTER TABLE `mt_recipe`
   ADD CONSTRAINT `mt_recipe_ibfk_3` FOREIGN KEY (`itemResultID`) REFERENCES `mt_item` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `mt_recipe_ibfk_1` FOREIGN KEY (`item1ID`) REFERENCES `mt_item` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `mt_recipe_ibfk_2` FOREIGN KEY (`item2ID`) REFERENCES `mt_item` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints der Tabelle `mt_requirement`
+--
+ALTER TABLE `mt_requirement`
+  ADD CONSTRAINT `mt_requirement_ibfk_1` FOREIGN KEY (`questID`) REFERENCES `mt_quest` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `mt_shop`
