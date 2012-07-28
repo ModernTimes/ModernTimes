@@ -21,9 +21,7 @@ class MapAction extends CAction {
         // Yii::app()->session['lastMapPosition'] = array();
 
         $Character = CD();
-        $Markers = Marker::model()->with(array(
-            'requirement'
-        ))->findAll();
+        $Markers = Marker::model()->withRelated()->findAll();
                 
         $this->controller->render("gmap", array(
             'Markers' => $Markers,

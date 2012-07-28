@@ -56,15 +56,7 @@ class EncounterAction extends CAction {
         }
         
         if(empty($this->encounter)) {
-            $this->encounter = Encounter::model()->with(array(
-                'effect' => array(
-                    'with' => array(
-                        'charactermodifier'
-                    )
-                ),
-                'encounterEncounters',
-                'encounterItems'
-            ))->findByPk($this->encounterID);
+            $this->encounter = Encounter::model()->withRelated()->findByPk($this->encounterID);
         }
         
         if(!is_a($this->encounter, "Encounter")) {

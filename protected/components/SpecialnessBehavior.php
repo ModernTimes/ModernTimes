@@ -27,7 +27,7 @@ class SpecialnessBehavior extends CBehavior {
         $name = func_get_arg(0);
         $parameters = array();
         
-        // ToDo: more elegant!?!
+        // @todo do this more elegantly!?
         $numArgs = func_num_args();
         for($i = 1; $i < $numArgs; $i++) {
             $parameters[] = func_get_arg($i);

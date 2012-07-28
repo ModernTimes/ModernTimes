@@ -655,6 +655,15 @@ class Character extends BaseCharacter {
             array(':characterID'=>$this->id));
         $this->characterItems = $characterItems;
     }
+    /**
+     * Lazy loading of quests (CharacterQuests) associated with the Character 
+     */
+    public function loadQuests() {
+        $characterQuests = CharacterQuests::model()->withRelated()->findAll(
+            't.characterID=:characterID', 
+            array(':characterID'=>$this->id));
+        $this->characterQuests = $characterQuests;
+    }
     
     /**
      * Generates a "get into position" combat message

@@ -11,10 +11,11 @@ class QuestsAction extends CAction {
      * see above
      */
     public function run() {
-        $character = CD();
+        $Character = CD();
+        $Character->loadQuests();
 
         $this->controller->render("quests", array(
-            'CharacterQuests' => $character->characterQuests,
+            'CharacterQuests' => $Character->characterQuests,
         ));
     }
 }

@@ -45,26 +45,23 @@ class MischiefAction extends CAction {
             $this->controller->redirect('index');
         }
         
+        $Area = Area::model()->withRelated()->findByPk($areaID);
+        
         // Valid area?
-        $area = Area::model()->with(
-                    'requirement', 
-                    'areaEncounters', 
-                    'areaMonsters'
-                )->findByPk((int)$areaID);
-        if(!is_a($area, "Area")) {
+        if(!is_a($Area, "Area")) {
             EUserFlash::setErrorMessage("Something went wrong. Shit happens.");
             $this->controller->redirect('index');
         }
 
         // Does the Character meet the requirements for doing mischief here?
-        if(!$area->call("meetsRequirements", $Character)) {
+        if(!$Area->call("meetsRequirements", $Character)) {
             $this->controller->redirect('index');
         }
 
         // Will be used in some view files
         Yii::app()->session['lastArea'] = array(
             'id'   => $areaID,
-            'name' => $area->name,
+            'name' => $Area->name,
         );
 
         /**
@@ -76,7 +73,7 @@ class MischiefAction extends CAction {
         * 'id'     => encounterID OR monsterID
         * 'params' => array to pass on
         */
-        $episode = $area->call("generateEpisode");
+        $episode = $Area->call("generateEpisode");
 
         if($episode['type'] == 'monster') {
             $battleMonsterAction = new BattleMonsterAction($this->controller, "battleMonster");
