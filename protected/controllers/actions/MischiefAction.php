@@ -1,9 +1,13 @@
 <?php
 /**
  * Resolves doing mischief in a given area, i.e. either redirects to resolving 
- * an encounter or to start a battle against a monster
+ * an encounter or to start a battle against a monster.
+ * 
+ * If there are Encounters in the encounter queue, those are always handled
+ * first.
  * 
  * @uses Area
+ * @uses CharacterEncounters
  * @uses BattleMonsterAction
  * @uses EncounterAction
  * @package Actions
@@ -12,12 +16,25 @@
 class MischiefAction extends CAction {
 
     /**
-     * Lets the Area record generate an episode (monster or encounter), then
-     * starts either EncounterAction or BattleMonsterAction
+     * See above
      * @param string $areaID ID of the area in which the Character wants to do
      * mischief. int, but represented as a string because of $GET
      */
     public function run($areaID) {
+        $Character = CD();
+
+        // Check for Encounters in the encounter queue first
+        foreach($Character->characterEncounters as $CharacterEncounter) {
+            if($CharacterEncounter->delay == 0) {
+                $encounterAction = new EncounterAction($this->controller, "encounter");
+                $encounterAction->encounter = $CharacterEncounter->encounter;
+                $encounterAction->callFromWithinApplication = true;
+                $this->controller->runAction($encounterAction);
+                $CharacterEncounter->delete();
+                return;
+            }
+        }
+        
         // Syntax check: positive integer?
         $validSyntax = (!empty($areaID)
                         // are all characters digits? rules out decimal numbers
@@ -28,27 +45,23 @@ class MischiefAction extends CAction {
             $this->controller->redirect('index');
         }
         
+        $Area = Area::model()->withRelated()->findByPk($areaID);
+        
         // Valid area?
-        $area = Area::model()->with(
-                    'requirement', 
-                    'areaEncounters', 
-                    'areaMonsters'
-                )->findByPk((int)$areaID);
-        if(!is_a($area, "Area")) {
+        if(!is_a($Area, "Area")) {
             EUserFlash::setErrorMessage("Something went wrong. Shit happens.");
             $this->controller->redirect('index');
         }
 
         // Does the Character meet the requirements for doing mischief here?
-        $Character = CD();
-        if(!$area->call("meetsRequirements", $Character)) {
+        if(!$Area->call("meetsRequirements", $Character)) {
             $this->controller->redirect('index');
         }
 
         // Will be used in some view files
         Yii::app()->session['lastArea'] = array(
             'id'   => $areaID,
-            'name' => $area->name,
+            'name' => $Area->name,
         );
 
         /**
@@ -60,7 +73,7 @@ class MischiefAction extends CAction {
         * 'id'     => encounterID OR monsterID
         * 'params' => array to pass on
         */
-        $episode = $area->call("generateEpisode");
+        $episode = $Area->call("generateEpisode");
 
         if($episode['type'] == 'monster') {
             $battleMonsterAction = new BattleMonsterAction($this->controller, "battleMonster");

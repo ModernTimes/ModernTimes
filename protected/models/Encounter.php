@@ -6,7 +6,7 @@ Yii::import('application.models._base.BaseEncounter');
  * Handles basic encounter procedures.
  * Can be "overridden" by specialnessBehavior classes
  * 
- * See BaseEncounter for a list of attributes and related Models
+ * See BaseEncounter for a list of attributes and related Models.
  * 
  * @uses SpecialnessBehavior
  * @uses CharacterModifierBehavior
@@ -20,22 +20,19 @@ class Encounter extends BaseEncounter {
      * Resolves an Encounter
      * @todo split into smaller parts, so that specialnessBehavior classes can 
      * call these smaller __parent-methods?
-     * @todo ask for Character record in parameters to enable dependency 
-     * injection
      */
-    public function run() {
-        $character = CD();
-        $character->gainCash($this->gainCash);
-        $character->gainFavours($this->gainFavours);
-        $character->gainKudos($this->gainKudos);
+    public function run($Character) {
+        $Character->gainCash($this->gainCash);
+        $Character->gainFavours($this->gainFavours);
+        $Character->gainKudos($this->gainKudos);
         
-        $character->gainXp($this->gainXp);
-        $character->gainResoluteness($this->gainResoluteness);
-        $character->gainWillpower($this->gainWillpower);
-        $character->gainCunning($this->gainCunning);
+        $Character->gainXp($this->gainXp);
+        $Character->gainResoluteness($this->gainResoluteness);
+        $Character->gainWillpower($this->gainWillpower);
+        $Character->gainCunning($this->gainCunning);
 
         // Items
-        $character->gainItems($this->call('dropItems'));
+        $Character->gainItems($this->call('dropItems'));
     
         // Does the encounter cost a turn?
         if($this->costsTurn) {
@@ -45,7 +42,7 @@ class Encounter extends BaseEncounter {
         // Effect
         if(is_a($this->effect, "Effect")) {
             // Add the effect after the action is spent, to prevent its duration being decreased by 1 immediately
-            Yii::app()->tools->addEffect($character, $this->effect, $this->effectDuration);
+            Yii::app()->tools->addEffect($Character, $this->effect, $this->effectDuration);
         }
 
         /**
@@ -53,9 +50,9 @@ class Encounter extends BaseEncounter {
          * No choice-encounter: any potentially ongoing encounters are finished
          */
         if($this->isChoiceEncounter()) {
-            $character->ongoingEncounterID = $this->id;
+            $Character->ongoingEncounterID = $this->id;
         } else {
-            $character->ongoingEncounterID = null;
+            $Character->ongoingEncounterID = null;
         }
     }
         
@@ -99,6 +96,34 @@ class Encounter extends BaseEncounter {
                      );
     }
     
+    /**
+     * Returns the declaration of named scopes. A named scope represents a query
+     * criteria that can be chained together with other named scopes and applied
+     * to a query.
+     * @link http://www.yiiframework.com/doc/api/1.1/CActiveRecord#scopes-detail
+     * @return array the scope definition. The array keys are scope names
+     */
+    public function scopes() {
+        return array(
+            'withRelated' => array(
+                'with' => array(
+                    'effect' => array(
+                        'alias' => 'encounterEffect' . self::getScopeCounter(),
+                        'scopes' => 'withRelated'
+                    ),
+                    'encounterEncounters' => array(
+                        'alias' => 'encounterEncounterEncounters' . self::getScopeCounter(),
+                        'scopes' => 'withRelated'
+                    ),
+                    'encounterItems' => array(
+                        'alias' => 'encounterEncounterItems' . self::getScopeCounter(),
+                        'scopes' => 'withRelated'
+                    ),
+                )
+            ),
+        );
+    }
+
     /**
      * Factory method to get Model objects
      * @link http://www.yiiframework.com/doc/api/CModel

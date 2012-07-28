@@ -8,7 +8,7 @@
 	<title>File protected/models/Monster.php | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?277009506"></script>
+	<script type="text/javascript" src="elementlist.js?2322690236"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -58,6 +58,8 @@
 			<ul>
 				<li><a href="package-Actions.html">Actions<span></span></a>
 						<ul>
+				<li><a href="package-Actions.Battle.html">Battle</a>
+						</li>
 				<li><a href="package-Actions.Inventory.html">Inventory</a>
 						</li>
 				<li><a href="package-Actions.Shopping.html">Shopping</a>
@@ -81,6 +83,10 @@
 						</li>
 							</ul></li>
 				<li><a href="package-Items.html">Items</a>
+						</li>
+				<li><a href="package-None.html">None</a>
+						</li>
+				<li><a href="package-Quests.html">Quests</a>
 						</li>
 				<li><a href="package-Site.html">Site<span></span></a>
 						<ul>
@@ -136,7 +142,7 @@
 <a href="#6" id="6" class="l">  6 </a><span class="php-comment">/**
 </span><a href="#7" id="7" class="l">  7 </a><span class="php-comment"> * Simulates monsters during battles
 </span><a href="#8" id="8" class="l">  8 </a><span class="php-comment"> * 
-</span><a href="#9" id="9" class="l">  9 </a><span class="php-comment"> * See BaseMonster for a list of attributes and related Models
+</span><a href="#9" id="9" class="l">  9 </a><span class="php-comment"> * See BaseMonster for a list of attributes and related Models.
 </span><a href="#10" id="10" class="l"> 10 </a><span class="php-comment"> * 
 </span><a href="#11" id="11" class="l"> 11 </a><span class="php-comment"> * @uses CombatantBehavior
 </span><a href="#12" id="12" class="l"> 12 </a><span class="php-comment"> * @uses SpecialnessBehavior
@@ -278,15 +284,39 @@
 <a href="#148" id="148" class="l">148 </a>    }
 <a href="#149" id="149" class="l">149 </a>        
 <a href="#150" id="150" class="l">150 </a>    <span class="php-comment">/**
-</span><a href="#151" id="151" class="l">151 </a><span class="php-comment">     * Factory method to get Model objects
-</span><a href="#152" id="152" class="l">152 </a><span class="php-comment">     * @link http://www.yiiframework.com/doc/api/CModel
-</span><a href="#153" id="153" class="l">153 </a><span class="php-comment">     * @param string $className
-</span><a href="#154" id="154" class="l">154 </a><span class="php-comment">     * @return CModel
-</span><a href="#155" id="155" class="l">155 </a><span class="php-comment">     */</span>
-<a href="#156" id="156" class="l">156 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> model(<span class="php-var">$className</span>=__CLASS__) {
-<a href="#157" id="157" class="l">157 </a>        <span class="php-keyword1">return</span> parent::model(<span class="php-var">$className</span>);
-<a href="#158" id="158" class="l">158 </a>    }
-<a href="#159" id="159" class="l">159 </a>}</code></pre>
+</span><a href="#151" id="151" class="l">151 </a><span class="php-comment">     * Returns the declaration of named scopes. A named scope represents a query
+</span><a href="#152" id="152" class="l">152 </a><span class="php-comment">     * criteria that can be chained together with other named scopes and applied
+</span><a href="#153" id="153" class="l">153 </a><span class="php-comment">     * to a query.
+</span><a href="#154" id="154" class="l">154 </a><span class="php-comment">     * @link http://www.yiiframework.com/doc/api/1.1/CActiveRecord#scopes-detail
+</span><a href="#155" id="155" class="l">155 </a><span class="php-comment">     * @return array the scope definition. The array keys are scope names
+</span><a href="#156" id="156" class="l">156 </a><span class="php-comment">     */</span>
+<a href="#157" id="157" class="l">157 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> scopes() {
+<a href="#158" id="158" class="l">158 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">array</span>(
+<a href="#159" id="159" class="l">159 </a>            <span class="php-quote">'withRelated'</span> =&gt; <span class="php-keyword1">array</span>(
+<a href="#160" id="160" class="l">160 </a>                <span class="php-quote">'with'</span> =&gt; <span class="php-keyword1">array</span>(
+<a href="#161" id="161" class="l">161 </a>                    <span class="php-quote">'monsterSkills'</span> =&gt; <span class="php-keyword1">array</span>(
+<a href="#162" id="162" class="l">162 </a>                        <span class="php-quote">'alias'</span> =&gt; <span class="php-quote">'monsterMonsterSkills'</span> . self::getScopeCounter(),
+<a href="#163" id="163" class="l">163 </a>                        <span class="php-quote">'scopes'</span> =&gt; <span class="php-quote">'withRelated'</span>
+<a href="#164" id="164" class="l">164 </a>                    ),
+<a href="#165" id="165" class="l">165 </a>                    <span class="php-quote">'monsterItems'</span> =&gt; <span class="php-keyword1">array</span>(
+<a href="#166" id="166" class="l">166 </a>                        <span class="php-quote">'alias'</span> =&gt; <span class="php-quote">'monsterMonsterItems'</span> . self::getScopeCounter(),
+<a href="#167" id="167" class="l">167 </a>                        <span class="php-quote">'scopes'</span> =&gt; <span class="php-quote">'withRelated'</span>
+<a href="#168" id="168" class="l">168 </a>                    ),
+<a href="#169" id="169" class="l">169 </a>                )
+<a href="#170" id="170" class="l">170 </a>            ),
+<a href="#171" id="171" class="l">171 </a>        );
+<a href="#172" id="172" class="l">172 </a>    }
+<a href="#173" id="173" class="l">173 </a>
+<a href="#174" id="174" class="l">174 </a>    <span class="php-comment">/**
+</span><a href="#175" id="175" class="l">175 </a><span class="php-comment">     * Factory method to get Model objects
+</span><a href="#176" id="176" class="l">176 </a><span class="php-comment">     * @link http://www.yiiframework.com/doc/api/CModel
+</span><a href="#177" id="177" class="l">177 </a><span class="php-comment">     * @param string $className
+</span><a href="#178" id="178" class="l">178 </a><span class="php-comment">     * @return CModel
+</span><a href="#179" id="179" class="l">179 </a><span class="php-comment">     */</span>
+<a href="#180" id="180" class="l">180 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> model(<span class="php-var">$className</span>=__CLASS__) {
+<a href="#181" id="181" class="l">181 </a>        <span class="php-keyword1">return</span> parent::model(<span class="php-var">$className</span>);
+<a href="#182" id="182" class="l">182 </a>    }
+<a href="#183" id="183" class="l">183 </a>}</code></pre>
 	</div>
 
 	<div id="footer">

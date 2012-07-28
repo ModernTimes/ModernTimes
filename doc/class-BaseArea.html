@@ -7,7 +7,7 @@
 	<title>Class BaseArea | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?277009506"></script>
+	<script type="text/javascript" src="elementlist.js?2322690236"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -56,6 +56,8 @@
 			<ul>
 				<li><a href="package-Actions.html">Actions<span></span></a>
 						<ul>
+				<li><a href="package-Actions.Battle.html">Battle</a>
+						</li>
 				<li><a href="package-Actions.Inventory.html">Inventory</a>
 						</li>
 				<li><a href="package-Actions.Shopping.html">Shopping</a>
@@ -79,6 +81,10 @@
 						</li>
 							</ul></li>
 				<li><a href="package-Items.html">Items</a>
+						</li>
+				<li><a href="package-None.html">None</a>
+						</li>
+				<li><a href="package-Quests.html">Quests</a>
 						</li>
 				<li><a href="package-Site.html">Site<span></span></a>
 						<ul>
@@ -113,10 +119,12 @@
 				<li><a href="class-BaseBattleeffect.html">BaseBattleeffect</a></li>
 				<li><a href="class-BaseCharacter.html">BaseCharacter</a></li>
 				<li><a href="class-BaseCharacterEffects.html">BaseCharacterEffects</a></li>
+				<li><a href="class-BaseCharacterEncounters.html">BaseCharacterEncounters</a></li>
 				<li><a href="class-BaseCharacterEquipments.html">BaseCharacterEquipments</a></li>
 				<li><a href="class-BaseCharacterFamiliars.html">BaseCharacterFamiliars</a></li>
 				<li><a href="class-BaseCharacterItems.html">BaseCharacterItems</a></li>
 				<li><a href="class-BaseCharactermodifier.html">BaseCharactermodifier</a></li>
+				<li><a href="class-BaseCharacterQuests.html">BaseCharacterQuests</a></li>
 				<li><a href="class-BaseCharacterSkills.html">BaseCharacterSkills</a></li>
 				<li><a href="class-BaseCharacterSkillsets.html">BaseCharacterSkillsets</a></li>
 				<li><a href="class-BaseEffect.html">BaseEffect</a></li>
@@ -124,10 +132,13 @@
 				<li><a href="class-BaseEncounterEncounters.html">BaseEncounterEncounters</a></li>
 				<li><a href="class-BaseEncounterItems.html">BaseEncounterItems</a></li>
 				<li><a href="class-BaseItem.html">BaseItem</a></li>
+				<li><a href="class-BaseMarker.html">BaseMarker</a></li>
 				<li><a href="class-BaseMonster.html">BaseMonster</a></li>
 				<li><a href="class-BaseMonsterItems.html">BaseMonsterItems</a></li>
 				<li><a href="class-BaseMonsterSkills.html">BaseMonsterSkills</a></li>
+				<li><a href="class-BaseQuest.html">BaseQuest</a></li>
 				<li><a href="class-BaseRecipe.html">BaseRecipe</a></li>
+				<li><a href="class-BaseRequirement.html">BaseRequirement</a></li>
 				<li><a href="class-BaseShop.html">BaseShop</a></li>
 				<li><a href="class-BaseShopItems.html">BaseShopItems</a></li>
 				<li><a href="class-BaseSkill.html">BaseSkill</a></li>
@@ -160,9 +171,13 @@
 
 	<li>string specialClass</li>
 
+	<li>integer requirementID</li>
+
 	<li>string combatProb</li>
 
 	<li>integer reqMainstat</li>
+
+	<li>Requirement requirement</li>
 
 	<li>AreaEncounters areaEncounters</li>
 
@@ -228,7 +243,7 @@ GxActiveRecord
 
 			<td class="name"><div>
 			<a class="anchor" href="#_model">#</a>
-			<code><a href="source-class-BaseArea.html#25" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
+			<code><a href="source-class-BaseArea.html#27" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
 
 			<div class="description short">
 				
@@ -274,7 +289,7 @@ GxActiveRecord
 
 			<td class="name"><div>
 			<a class="anchor" href="#_tableName">#</a>
-			<code><a href="source-class-BaseArea.html#35" title="Go to source code">tableName</a>( )</code>
+			<code><a href="source-class-BaseArea.html#37" title="Go to source code">tableName</a>( )</code>
 
 			<div class="description short">
 				
@@ -311,7 +326,7 @@ GxActiveRecord
 
 			<td class="name"><div>
 			<a class="anchor" href="#_label">#</a>
-			<code><a href="source-class-BaseArea.html#43" title="Go to source code">label</a>( <span>integer <var>$n</var> = <span class="php-num">1</span></span> )</code>
+			<code><a href="source-class-BaseArea.html#45" title="Go to source code">label</a>( <span>integer <var>$n</var> = <span class="php-num">1</span></span> )</code>
 
 			<div class="description short">
 				
@@ -353,7 +368,7 @@ GxActiveRecord
 
 			<td class="name"><div>
 			<a class="anchor" href="#_representingColumn">#</a>
-			<code><a href="source-class-BaseArea.html#52" title="Go to source code">representingColumn</a>( )</code>
+			<code><a href="source-class-BaseArea.html#54" title="Go to source code">representingColumn</a>( )</code>
 
 			<div class="description short">
 				
@@ -392,7 +407,7 @@ though</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_rules">#</a>
-			<code><a href="source-class-BaseArea.html#61" title="Go to source code">rules</a>( )</code>
+			<code><a href="source-class-BaseArea.html#63" title="Go to source code">rules</a>( )</code>
 
 			<div class="description short">
 				
@@ -429,7 +444,7 @@ though</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_relations">#</a>
-			<code><a href="source-class-BaseArea.html#77" title="Go to source code">relations</a>( )</code>
+			<code><a href="source-class-BaseArea.html#79" title="Go to source code">relations</a>( )</code>
 
 			<div class="description short">
 				
@@ -468,7 +483,7 @@ array(BELONGS_TO|HAS_MANY, foreign Model, foreign attribute (key))</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_pivotModels">#</a>
-			<code><a href="source-class-BaseArea.html#89" title="Go to source code">pivotModels</a>( )</code>
+			<code><a href="source-class-BaseArea.html#92" title="Go to source code">pivotModels</a>( )</code>
 
 			<div class="description short">
 				
@@ -505,7 +520,7 @@ array(BELONGS_TO|HAS_MANY, foreign Model, foreign attribute (key))</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_attributeLabels">#</a>
-			<code><a href="source-class-BaseArea.html#98" title="Go to source code">attributeLabels</a>( )</code>
+			<code><a href="source-class-BaseArea.html#101" title="Go to source code">attributeLabels</a>( )</code>
 
 			<div class="description short">
 				
@@ -542,7 +557,7 @@ array(BELONGS_TO|HAS_MANY, foreign Model, foreign attribute (key))</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_search">#</a>
-			<code><a href="source-class-BaseArea.html#114" title="Go to source code">search</a>( )</code>
+			<code><a href="source-class-BaseArea.html#119" title="Go to source code">search</a>( )</code>
 
 			<div class="description short">
 				

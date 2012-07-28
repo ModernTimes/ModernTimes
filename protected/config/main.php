@@ -12,6 +12,8 @@ return array(
 	// autoloading model and component classes
 	'import'=>array(
 		'application.models.*',
+                'application.models.relations.*',
+                'application.models.forms.*',
 		'application.components.*',
                 'application.components.events.*',
                 'application.components.events.behaviors.*',
@@ -22,7 +24,6 @@ return array(
                 'application.controllers.actions.shop.*',
 
                 'ext.giix-components.*', // giix components
-                'ext.wr.*', // WithRelated-Behavior
                 'ext.Kint.*',
                 'ext.EUserFlash',
             

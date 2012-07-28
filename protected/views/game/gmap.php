@@ -79,58 +79,33 @@
         streetview,
         currentPlace = null;
 
-    var areas = [
-        {name:"Undisclosed insurance company",
-         markerType:"mischief",
-         lat:51.513622, lng:-0.081483,
-         pov: { heading: 227,
-                pitch: 28,
-                zoom: 1 },
-         desc: "The usual MBBCG client: over 100,000 employees, 1.5 trillion dollars of assets and a 250-year-old history. Time to tell those losers how to do their job.",
-         action: { id: "mischief",
-                   name: "Do mischief here",
-                   turn: true,
-                   params: { areaID: 1 } 
-                 },
-        },
-        {name:"Home, sweet home",
-         markerType:"home",
-         lat:51.488839, lng: -0.177439,
-         pov: { heading: 50.4,
-                pitch: 0.57,
-                zoom: 1 },
-         desc: "Your apartment. Well, either here or next door. You spend too many nights in hotel rooms to be sure. Besides, these houses all look the same!",
-         action: { id: "rest",
-                   name: "Rest",
-                   turn: true,
-                   params: {} },
-         active: true
-        },
-        {name:"Pablo jr.",
-         markerType:"shop",
-         lat:51.501655, lng: -0.13192900000001373,
-         pov: { heading: -134.68,
-                pitch: -6.76,
-                zoom: 3 },
-         desc: "You see Pablo jr. sitting on his usual bench at St James's park. You wonder what he might have in his little suitcase today.",
-         action: { id: "shop",
-                   name: "Talk to him",
-                   turn: false,
-                   params: {shopID: 1} },
-        },
-        {name:"McBooz&Bain Consulting Group",
-         markerType:"quest",
-         lat:51.518912, lng: -0.156052,
-         pov: { heading:  -140,
-                pitch: 15.5,
-                zoom: 1 },
-         desc: "The shiny golden plate next to the entrance door reads: \"Making up numbers since 1967.\"",
-         action: { id: "visit",
-                   name: "Go in",
-                   turn: false,
-                   params: {} },
-        },
-    ];
+    var areas = [<?php foreach($Markers as $Marker) {
+        if($Marker->meetsRequirements($Character, false)) {
+            echo "{name:\"" . $Marker->name . "\",
+                  markerType:\"" . $Marker->type . "\",
+                  lat:" . $Marker->lat . ", lng:" . $Marker->lng . ",
+                  pov: { heading: " . $Marker->povHeading . ",
+                         pitch: " . $Marker->povPitch . ",
+                         zoom: " . $Marker->povZoom . " },
+                  desc: \"" . $Marker->desc . "\",
+                  action: { id: \"" . $Marker->actionID . "\",
+                            name: \"" . $Marker->actionName . "\",
+                            turn: " . ($Marker->actionTurn ? "true" : "false") . ",
+                            params: { ";
+            $params = unserialize($Marker->actionParams);
+            if(is_array($params)) {
+                foreach($params as $key => $value) {
+                    echo $key . ": " . (is_string($value) ? "\"" : "") . 
+                            $value . 
+                            (is_string($value) ? "\"" : "") . 
+                            ", ";
+                }
+            }
+            echo " }, 
+                }, 
+            },";
+        }
+    } ?>];
     
     $(function() {
         $('#map').gmap3({

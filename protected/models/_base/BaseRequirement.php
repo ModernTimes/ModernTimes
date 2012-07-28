@@ -4,6 +4,8 @@
  * Properties and related Models:
  *
  * - integer id
+ * - integer questID
+ * - string questState
  * - string class
  * - string sex
  * - integer level
@@ -16,6 +18,8 @@
  * - AreaEncounters areaEncounters
  * - AreaMonsters areaMonsters
  * - Item items
+ * - Marker markers
+ * - Quest quest
  * - Shop shops
  * <br>
  * <p>This is the model base class for the table "{{requirement}}".
@@ -61,7 +65,7 @@ abstract class BaseRequirement extends GxActiveRecord {
 	 * @return mixed
 	 */
 	public static function representingColumn() {
-		return 'class';
+		return 'questState';
 	}
 
 	/**
@@ -70,11 +74,12 @@ abstract class BaseRequirement extends GxActiveRecord {
 	 */
 	public function rules() {
 		return array(
-			array('level, mainstat, resoluteness, willpower, cunning', 'numerical', 'integerOnly'=>true),
+			array('questID, level, mainstat, resoluteness, willpower, cunning', 'numerical', 'integerOnly'=>true),
+			array('questState', 'length', 'max'=>11),
 			array('class', 'length', 'max'=>12),
 			array('sex', 'length', 'max'=>6),
-			array('class, sex, level, mainstat, resoluteness, willpower, cunning', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, class, sex, level, mainstat, resoluteness, willpower, cunning', 'safe', 'on'=>'search'),
+			array('questID, questState, class, sex, level, mainstat, resoluteness, willpower, cunning', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, questID, questState, class, sex, level, mainstat, resoluteness, willpower, cunning', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -89,6 +94,8 @@ abstract class BaseRequirement extends GxActiveRecord {
 			'areaEncounters' => array(self::HAS_MANY, 'AreaEncounters', 'requirementID'),
 			'areaMonsters' => array(self::HAS_MANY, 'AreaMonsters', 'requirementID'),
 			'items' => array(self::HAS_MANY, 'Item', 'requirementID'),
+			'markers' => array(self::HAS_MANY, 'Marker', 'requirementID'),
+			'quest' => array(self::BELONGS_TO, 'Quest', 'questID'),
 			'shops' => array(self::HAS_MANY, 'Shop', 'requirementID'),
 		);
 	}
@@ -109,6 +116,8 @@ abstract class BaseRequirement extends GxActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => Yii::t('app', 'ID'),
+			'questID' => null,
+			'questState' => Yii::t('app', 'Quest State'),
 			'class' => Yii::t('app', 'Class'),
 			'sex' => Yii::t('app', 'Sex'),
 			'level' => Yii::t('app', 'Level'),
@@ -120,6 +129,8 @@ abstract class BaseRequirement extends GxActiveRecord {
 			'areaEncounters' => null,
 			'areaMonsters' => null,
 			'items' => null,
+			'markers' => null,
+			'quest' => null,
 			'shops' => null,
 		);
 	}
@@ -134,6 +145,8 @@ abstract class BaseRequirement extends GxActiveRecord {
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id);
+		$criteria->compare('questID', $this->questID);
+		$criteria->compare('questState', $this->questState, true);
 		$criteria->compare('class', $this->class, true);
 		$criteria->compare('sex', $this->sex, true);
 		$criteria->compare('level', $this->level);

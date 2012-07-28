@@ -28,28 +28,34 @@ class Tools extends CApplicationComponent {
     }
 
     /**
-     * decreases the number of available turns by 1
-     * reduces the duration of active effects by 1
+     * - Decreases the number of available turns by 1
+     * - Reduces the duration of active effects by 1
+     * - Reduces the delay of encounters in the encounter queue by 1
      * @todo ask for Character record in parameters to make dependency injection
      * and spending turns on other characters possible
      */
     function spendTurn () {
-        $character = CD();
-        $character->turns--;
+        $Character = CD();
+        $Character->turns--;
         
-        foreach($character->characterEffects as $characterEffect) {
-            $characterEffect->turns--;
-            if($characterEffect->turns == 0) {
-                $characterEffect->delete();
+        foreach($Character->characterEffects as $CharacterEffect) {
+            $CharacterEffect->turns--;
+            if($CharacterEffect->turns == 0) {
+                $CharacterEffect->delete();
             } else {
-                $characterEffect->update();
+                $CharacterEffect->update();
             }
         }
-        // $character->withRelated->save(true, array("characterEffects"));
+        foreach($Character->characterEncounters as $CharacterEncounter) {
+            if($CharacterEncounter->delay > 0) {
+                $CharacterEncounter->delay --;
+                $CharacterEncounter->update();
+            }
+        }
     }
     
     /**
-     * Adds an effect to the active character
+     * Adds an effect to a character
      * @param Character $Character Character record that the effect is to be
      * added to
      * @param mixed $effect Effect|int|string Effect model or its PK or its name

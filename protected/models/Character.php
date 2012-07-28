@@ -7,7 +7,7 @@ Yii::import('application.models._base.BaseCharacter');
  * Getter and "gainer" methods raise events which allow other code thingies to 
  * hook into the respective calculations.
  * 
- * See BaseCharacter for a list of attributes and related Models
+ * See BaseCharacter for a list of attributes and related Models.
  * 
  * @uses CombatantBehavior
  * @uses CharacterModifierBehavior
@@ -66,7 +66,7 @@ class Character extends BaseCharacter {
             'amount' => $amount,
             'source'   => $source
         ));
-        call_user_func(array($this, "onGaining" . ucfirst($resource)), $event);
+        call_user_func(array($this, "onGain" . ucfirst($resource)), $event);
 
         $amount = max(0, floor($event->adjustStat($amount)));
         
@@ -344,7 +344,7 @@ class Character extends BaseCharacter {
             'amount' => $amount,
             'source'   => $source
         ));
-        call_user_func(array($this, "onGaining" . ucfirst($substat)), $event);
+        call_user_func(array($this, "onGain" . ucfirst($substat)), $event);
         
         $amount = max(0, floor($event->adjustStat($amount)));
         
@@ -645,13 +645,24 @@ class Character extends BaseCharacter {
         $characterItems = CharacterItems::model()->with(array(
             'item' => array(
                 'with' => array(
-                    'useEffect', 'charactermodifier'
+                    'requirement',
+                    'useEffect', 
+                    'charactermodifier'
                 )
             )
         ))->findAll(
             't.characterID=:characterID', 
             array(':characterID'=>$this->id));
         $this->characterItems = $characterItems;
+    }
+    /**
+     * Lazy loading of quests (CharacterQuests) associated with the Character 
+     */
+    public function loadQuests() {
+        $characterQuests = CharacterQuests::model()->withRelated()->findAll(
+            't.characterID=:characterID', 
+            array(':characterID'=>$this->id));
+        $this->characterQuests = $characterQuests;
     }
     
     /**
@@ -672,13 +683,57 @@ class Character extends BaseCharacter {
     }
     
     /**
+     * Returns the CharacterQuests record that belongs to a given quest
+     * Creates a new record with state = unavailable if no
+     * CharacterQuests record is found
+     * @param mixed $quest Quest or int (ID of a Quest record)
+     * @return boolean 
+     */
+    public function getCharacterQuest($quest) {
+        if(is_numeric($quest)) {
+            $questID = $quest;
+        } else {
+            $questID = $quest->id;
+        }
+        foreach($this->characterQuests as $characterQuest) {
+            if($characterQuest->questID == $questID) {
+                return $characterQuest;
+            }
+        }
+        
+        /**
+         * If no CharacterQuests record exists for the given quest,
+         * create a new one with state = "unavailable";
+         */
+        $characterQuest = new CharacterQuests();
+        $characterQuest->characterID = $this->id;
+        $characterQuest->questID = $questID;
+        $characterQuest->state = "unavailable";
+        return $characterQuest;
+    }
+    /**
+     * Checks if the character has completed a certain Quest
+     * @param mixed $quest Quest or int (ID of a Quest record)
+     * @return boolean 
+     */
+    public function hasQuestCompleted($quest) {
+        $characterQuest = $this->getCharacterQuest($quest);
+        return ($characterQuest->state == "completed");
+    }
+
+    /**
      * Checks if the character has a certain Effect attached to them
-     * @param Effect $effect
+     * @param mixed $effect Effect or int (ID of an effect record)
      * @return boolean 
      */
     public function hasEffect($effect) {
+        if(is_numeric($effect)) {
+            $effectID = $effect;
+        } else {
+            $effectID = $effect->id;
+        }
         foreach($this->characterEffects as $characterEffect) {
-            if($characterEffect->effect->id == $effect->id) {
+            if($characterEffect->effectID == $effectID) {
                 return true;
             }
         }
@@ -686,6 +741,8 @@ class Character extends BaseCharacter {
     }
     /**
      * Adds a CharacterEffects record to the Character record
+     * @uses onAddEffect
+     * @uses GainEffectEvent
      * @todo Flash message only if the Character record represents the current
      * user's character
      * @uses CharacterEffects
@@ -700,6 +757,10 @@ class Character extends BaseCharacter {
         $charEffects[] = $characterEffect;
         $this->characterEffects = $charEffects;
         $characterEffect->effect->attachToCharacter($this);
+        
+        $event = new GainEffectEvent($this, $characterEffect);
+        $this->onGainEffect($event);
+        
         EUserFlash::setNoticeMessage($characterEffect->effect->name, "<b>" . $characterEffect->effect->name . "</b> (for the next " . $characterEffect->turns . " encounters)", 'effect');
     }
     
@@ -804,50 +865,58 @@ class Character extends BaseCharacter {
      * Event raiser
      * @param CEvent $event 
      */
-    public function onGainingCash($event) {
-        $this->raiseEvent("onGainingCash", $event);
+    public function onGainCash($event) {
+        $this->raiseEvent("onGainCash", $event);
     }
     /**
      * Event raiser
      * @param CEvent $event 
      */
-    public function onGainingFavours($event) {
-        $this->raiseEvent("onGainingFavours", $event);
+    public function onGainFavours($event) {
+        $this->raiseEvent("onGainFavours", $event);
     }
     /**
      * Event raiser
      * @param CEvent $event 
      */
-    public function onGainingKudos($event) {
-        $this->raiseEvent("onGainingKudos", $event);
+    public function onGainKudos($event) {
+        $this->raiseEvent("onGainKudos", $event);
     }
     /**
      * Event raiser
      * @param CEvent $event 
      */
-    public function onGainingXp($event) {
-        $this->raiseEvent("onGainingXp", $event);
+    public function onGainXp($event) {
+        $this->raiseEvent("onGainXp", $event);
     }
     /**
      * Event raiser
      * @param CEvent $event 
      */
-    public function onGainingResoluteness($event) {
-        $this->raiseEvent("onGainingResoluteness", $event);
+    public function onGainResoluteness($event) {
+        $this->raiseEvent("onGainResoluteness", $event);
     }
     /**
      * Event raiser
      * @param CEvent $event 
      */
-    public function onGainingWillpower($event) {
-        $this->raiseEvent("onGainingWillpower", $event);
+    public function onGainWillpower($event) {
+        $this->raiseEvent("onGainWillpower", $event);
     }
     /**
      * Event raiser
      * @param CEvent $event 
      */
-    public function onGainingCunning($event) {
-        $this->raiseEvent("onGainingCunning", $event);
+    public function onGainCunning($event) {
+        $this->raiseEvent("onGainCunning", $event);
+    }
+
+    /**
+     * Event raiser
+     * @param CEvent $event 
+     */
+    public function onGainEffect($event) {
+        $this->raiseEvent("onGainEffect", $event);
     }
 
     /**
@@ -898,7 +967,6 @@ class Character extends BaseCharacter {
      */
     public function behaviors() {
         return array(
-            // 'withRelated'=>array('class'=>'ext.wr.WithRelatedBehavior',),
             "application.components.CombatantBehavior",
             'AttributesBackupBehavior' => 'ext.AttributesBackupBehavior',
         );

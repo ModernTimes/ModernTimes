@@ -6,7 +6,7 @@ Yii::import('application.components.monsters.*');
 /**
  * Simulates monsters during battles
  * 
- * See BaseMonster for a list of attributes and related Models
+ * See BaseMonster for a list of attributes and related Models.
  * 
  * @uses CombatantBehavior
  * @uses SpecialnessBehavior
@@ -147,6 +147,30 @@ class Monster extends BaseMonster {
                         "application.components.CombatantBehavior");
     }
         
+    /**
+     * Returns the declaration of named scopes. A named scope represents a query
+     * criteria that can be chained together with other named scopes and applied
+     * to a query.
+     * @link http://www.yiiframework.com/doc/api/1.1/CActiveRecord#scopes-detail
+     * @return array the scope definition. The array keys are scope names
+     */
+    public function scopes() {
+        return array(
+            'withRelated' => array(
+                'with' => array(
+                    'monsterSkills' => array(
+                        'alias' => 'monsterMonsterSkills' . self::getScopeCounter(),
+                        'scopes' => 'withRelated'
+                    ),
+                    'monsterItems' => array(
+                        'alias' => 'monsterMonsterItems' . self::getScopeCounter(),
+                        'scopes' => 'withRelated'
+                    ),
+                )
+            ),
+        );
+    }
+
     /**
      * Factory method to get Model objects
      * @link http://www.yiiframework.com/doc/api/CModel

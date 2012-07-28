@@ -34,6 +34,7 @@ class GameController extends Controller {
     public function actions() {
         return array(
             'map'              => 'application.controllers.actions.MapAction',
+            'quests'           => 'application.controllers.actions.QuestsAction',
 
             'mischief'         => 'application.controllers.actions.MischiefAction',
             'battleMonster'    => 'application.controllers.actions.battle.BattleMonsterAction',

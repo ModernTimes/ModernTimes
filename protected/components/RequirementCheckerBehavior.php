@@ -29,6 +29,79 @@ class RequirementCheckerBehavior extends CModelBehavior {
             return true;
         }
         
+        if(!empty($Requirement->questID)) {
+            $characterQuest = $Character->getCharacterQuest($Requirement->questID);
+            switch($Requirement->questState) {
+                case "unavailable":
+                    if($characterQuest->state != "unavailable") {
+                        if($generateMessages) {
+                            EUserFlash::setErrorMessage("Only for characters 
+                                who cannot start the quest \"" . $Requirement->quest->name . "\"");
+                        }
+                        return false;
+                    }
+                    break;
+                case "available":
+                    if($characterQuest->state != "available") {
+                        if($generateMessages) {
+                            EUserFlash::setErrorMessage("Only for characters 
+                                who can start the quest \"" . $Requirement->quest->name . "\"");
+                        }
+                        return false;
+                    }
+                    break;
+                case "ongoing":
+                    if($characterQuest->state != "ongoing") {
+                        if($generateMessages) {
+                            EUserFlash::setErrorMessage("Only for characters 
+                                who are currently doing the quest \"" . $Requirement->quest->name . "\"");
+                        }
+                        return false;
+                    }
+                    break;
+                case "failed":
+                    if($characterQuest->state != "failed") {
+                        if($generateMessages) {
+                            EUserFlash::setErrorMessage("Only for characters 
+                                who have failed in the quest \"" . $Requirement->quest->name . "\"");
+                        }
+                        return false;
+                    }
+                    break;
+                case "rejected":
+                    if($characterQuest->state != "rejected") {
+                        if($generateMessages) {
+                            EUserFlash::setErrorMessage("Only for characters 
+                                who have rejected the quest \"" . $Requirement->quest->name . "\"");
+                        }
+                        return false;
+                    }
+                    break;
+                // started = anything besides available and unavailable
+                case "started":
+                    if($characterQuest->state == "unavailable" ||
+                            $characterQuest->state == "available") {
+                        
+                        if($generateMessages) {
+                            EUserFlash::setErrorMessage("Only for characters 
+                                who have started the quest \"" . $Requirement->quest->name . "\"");
+                        }
+                        return false;
+                    }
+                    break;
+                // default = completed
+                default:
+                    if($characterQuest->state != "completed") {
+                        if($generateMessages) {
+                            EUserFlash::setErrorMessage("Only for characters 
+                                who have completed the quest \"" . $Requirement->quest->name . "\"");
+                        }
+                        return false;
+                    }
+                    break;
+            }
+        }
+        
         switch($Requirement->class) {
             case "banker":
             case "consultant":

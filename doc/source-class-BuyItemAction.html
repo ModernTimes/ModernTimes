@@ -8,7 +8,7 @@
 	<title>File protected/controllers/actions/shop/BuyItemAction.php | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?277009506"></script>
+	<script type="text/javascript" src="elementlist.js?2322690236"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -58,6 +58,8 @@
 			<ul>
 				<li class="active"><a href="package-Actions.html">Actions<span></span></a>
 						<ul>
+				<li><a href="package-Actions.Battle.html">Battle</a>
+						</li>
 				<li><a href="package-Actions.Inventory.html">Inventory</a>
 						</li>
 				<li class="active"><a href="package-Actions.Shopping.html">Shopping</a>
@@ -81,6 +83,10 @@
 						</li>
 							</ul></li>
 				<li><a href="package-Items.html">Items</a>
+						</li>
+				<li><a href="package-None.html">None</a>
+						</li>
+				<li><a href="package-Quests.html">Quests</a>
 						</li>
 				<li><a href="package-Site.html">Site<span></span></a>
 						<ul>
@@ -206,7 +212,7 @@
 <a href="#80" id="80" class="l"> 80 </a>        <span class="php-comment">// Is the Character allowed to enter that shop?</span>
 <a href="#81" id="81" class="l"> 81 </a>        <span class="php-var">$Character</span> = CD();
 <a href="#82" id="82" class="l"> 82 </a>        <span class="php-keyword1">if</span>(!<span class="php-var">$Shop</span>-&gt;call(<span class="php-quote">&quot;meetsRequirements&quot;</span>, <span class="php-var">$Character</span>)) {
-<a href="#83" id="83" class="l"> 83 </a>            <span class="php-comment">// Shop is responsible for generating a flash message</span>
+<a href="#83" id="83" class="l"> 83 </a>            <span class="php-comment">// RequirementCheckerBehavior generates messages</span>
 <a href="#84" id="84" class="l"> 84 </a>            <span class="php-var">$this</span>-&gt;controller-&gt;redirect(<span class="php-keyword1">array</span>(<span class="php-quote">'index'</span>));
 <a href="#85" id="85" class="l"> 85 </a>        }
 <a href="#86" id="86" class="l"> 86 </a>        

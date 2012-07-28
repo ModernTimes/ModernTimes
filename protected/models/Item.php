@@ -6,7 +6,7 @@ Yii::import('application.components.items.*');
 /**
  * Can be "overridden" by specialnessBehavior classes
  * 
- * See BaseItem for a list of attributes and related Models
+ * See BaseItem for a list of attributes and related Models.
  * 
  * @uses SpecialnessBehavior
  * @uses CharacterModifierBehavior
@@ -40,6 +40,34 @@ class Item extends BaseItem {
      */
     public function getPopup() {
         return "";
+    }
+
+    /**
+     * Returns the declaration of named scopes. A named scope represents a query
+     * criteria that can be chained together with other named scopes and applied
+     * to a query.
+     * @link http://www.yiiframework.com/doc/api/1.1/CActiveRecord#scopes-detail
+     * @return array the scope definition. The array keys are scope names
+     */
+    public function scopes() {
+        return array(
+            'withRelated' => array(
+                'with' => array(
+                    'charactermodifier' => array(
+                        'alias' => 'itemCharactermodifier' . self::getScopeCounter(),
+                        'scopes' => 'withRelated'
+                    ),
+                    'requirement' => array(
+                        'alias' => 'itemRequirement' . self::getScopeCounter(),
+                        'scopes' => 'withRelated'
+                    ),
+                    'useEffect' => array(
+                        'alias' => 'itemUseEffect' . self::getScopeCounter(),
+                        'scopes' => 'withRelated'
+                    )
+                )
+            )
+        );
     }
 
     /**

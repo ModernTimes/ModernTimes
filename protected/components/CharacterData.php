@@ -69,7 +69,7 @@ class CharacterData extends CApplicationComponent {
      * - Redirects to character creation action in case it doesn't find an 
      * active character for the current user
      * @todo Find a way to add the "available = 1" conditions again, without
-     *       causing any errors
+     *       causing any errors. Update: so far, so good. Continue monitoring.
      * @todo put the static model() call into the Character model
      * @todo put the attach stuff things intot he Character model
      * That way, we can load and initialize other characters, too
@@ -77,52 +77,85 @@ class CharacterData extends CApplicationComponent {
      */
     public function load() {
         $this->_model = Character::model()->with(array(
-            // Care: Current Yii version does not yet automatically alias recurring table names in with-calls. Use alias!
+            /**
+            * Care: Current Yii version does not yet automatically alias 
+            * recurring table names in with-calls. So we have to do it
+            * ourselves.
+            */
             'characterEquipments'=>array(
                 'with' => array(
-                    'weapon0' => array('with' => array(
-                        'charactermodifier' => array('alias' => 'weaponCharactermodifier'))),
-                    'offhand0' => array('with' => array(
-                        'charactermodifier' => array('alias' => 'offhandCharactermodifier'))),
-                    'accessoryA0' => array('with' => array(
-                        'charactermodifier' => array('alias' => 'accessoryACharactermodifier'))),
-                    'accessoryB0' => array('with' => array(
-                        'charactermodifier' => array('alias' => 'accessoryBCharactermodifier'))),
-                    'accessoryC0' => array('with' => array(
-                        'charactermodifier' => array('alias' => 'accessoryCCharactermodifier'))),
+                    'weapon0' => array(
+                        'select' => array("`characterEquipment`.`specialClass`", 
+                                        "`characterEquipment`.`charactermodifierID`"),
+                        'with' => array('charactermodifier' => array('alias' => 'weaponCharactermodifier'))
+                    ),
+                    'offhand0' => array(
+                        'select' => array("`characterEquipment`.`specialClass`", 
+                                        "`characterEquipment`.`charactermodifierID`"),
+                        'with' => array('charactermodifier' => array('alias' => 'offhandCharactermodifier'))
+                    ),
+                    'accessoryA0' => array(
+                        'select' => array("`characterEquipment`.`specialClass`", 
+                                        "`characterEquipment`.`charactermodifierID`"),
+                        'with' => array('charactermodifier' => array('alias' => 'accessoryACharactermodifier'))
+                    ),
+                    'accessoryB0' => array(
+                        'select' => array("`characterEquipment`.`specialClass`", 
+                                        "`characterEquipment`.`charactermodifierID`"),
+                        'with' => array('charactermodifier' => array('alias' => 'accessoryBCharactermodifier'))
+                    ),
+                    'accessoryC0' => array(
+                        'select' => array("`characterEquipment`.`specialClass`", 
+                                        "`characterEquipment`.`charactermodifierID`"),
+                        'with' => array('charactermodifier' => array('alias' => 'accessoryCCharactermodifier'))
+                    ),
                 ),
                 // 'condition'=>"`characterEquipments`.`active`=1"
             ),
             'characterFamiliars'=>array(
                 // 'condition'=>"`characterFamiliars`.`active`=1"
             ),
-            // ToDo: with slot1, slot2, ...
-            'characterSkillsets'=>array(
-                // 'condition'=>"`characterSkillsets`.`active`=1"
-            ),
-	    // 'characterItems' => array('with' => array('item')),
             'characterSkills' => array(
+                // 'select' => false,
                 'with' => array(
                     'skill' => array(
+                        'alias' => 'characterSkillsSkill',
                         'with' => array(
-                            'createEffect0',
                             'charactermodifier' => array('alias' => 'skillCharactermodifier'),
                         )
                     )
                 ), 
-                // 'condition' => "available = 1"
+                /**
+                    * For general purposes, only available skills are needed,
+                    * and only those which can be used outside of combat or
+                    * which have a passive charactermodifier effect
+                    * Takes much longer in tests with this condition
+                'condition' => "`characterSkills`.`available` = 1 AND
+                                (`characterSkillsSkill`.`skillType` != 'combat' OR
+                                `characterSkillsSkill`.`charactermodifierID` IS NOT NULL)"
+                */
             ),
             'characterEffects'=> array(
                 'with' => array(
                     'effect' => array(
+                        'alias' => 'characterEffectsEffect',
                         'with' => array(
                             'charactermodifier' => array('alias' => 'effectCharactermodifier'),
                         )
                     )
                 )
             ),
+            'characterQuests' => array(
+                'with' => array(
+                    'quest' => array(
+                        'alias' => "characterQuestsQuest",
+                        'select' => "`characterQuestsQuest`.`specialClass`"
+                    ),
+                )
+            ),
+            'characterEncounters' => array()
         ))->find('t.userID=:userID AND t.active=1', 
-                 array(':userID'=>Yii::app()->user->id));
+                array(':userID'=>Yii::app()->user->id));
 
         // d($this->_model);
         
@@ -139,13 +172,24 @@ class CharacterData extends CApplicationComponent {
             $equipment->attachToCharacter($this->_model);
         }
         
-        // Attach effects
+        // Attach effects's event handlers
         foreach($this->_model->characterEffects as $characterEffect) {
             $characterEffect->effect->call("attachToCharacter", $this->_model);
         }
-        // Attach passive skill effects
+        // Attach passive skill's charactermodifier's event handlers
         foreach($this->_model->characterSkills as $characterSkill) {
             $characterSkill->skill->call("attachToCharacter", $this->_model);
+        }
+        /**
+         * Initialize quests, i.e. hook into Character's events, set a link
+         * to a CharacterQuests record, and load params based on that record
+         * Only if $characterQuest is not done for yet!
+         */
+        foreach($this->_model->characterQuests as $characterQuest) {
+            if($characterQuest->state != "completed" &&
+                    $characterQuest->state != "failed")
+                
+            $characterQuest->quest->call("initialize", $this->_model, $characterQuest);
         }
         
         PQPLogRoute::logMemory($this, "Completely loaded character data model");
