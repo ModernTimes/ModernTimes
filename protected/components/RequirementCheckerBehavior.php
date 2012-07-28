@@ -29,6 +29,15 @@ class RequirementCheckerBehavior extends CModelBehavior {
             return true;
         }
         
+        if(is_a($Requirement->quest, "Quest")) {
+            if(!$Character->hasQuestCompleted($Requirement->quest)) {
+                if($generateMessages) {
+                    EUserFlash::setErrorMessage("Only for characters who have completed the quest \"" . $Requirement->quest->name . "\"");
+                }
+                return false;
+            }
+        }
+        
         switch($Requirement->class) {
             case "banker":
             case "consultant":

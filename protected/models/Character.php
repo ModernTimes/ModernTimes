@@ -683,13 +683,37 @@ class Character extends BaseCharacter {
     }
     
     /**
+     * Checks if the character has completed a certain Quest
+     * @param mixed $quest Quest or int (ID of a Quest record)
+     * @return boolean 
+     */
+    public function hasQuestCompleted($quest) {
+        if(is_a($quest, "Quest")) {
+            $id = $quest->id;
+        } else {
+            $id = $quest;
+        }
+        foreach($this->characterQuests as $characterQuest) {
+            if($characterQuest->questID == $id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Checks if the character has a certain Effect attached to them
-     * @param Effect $effect
+     * @param mixed $effect Effect or int (ID of an effect record)
      * @return boolean 
      */
     public function hasEffect($effect) {
+        if(is_a($effect, "Effect")) {
+            $id = $effect->id;
+        } else {
+            $id = $effect;
+        }
         foreach($this->characterEffects as $characterEffect) {
-            if($characterEffect->effect->id == $effect->id) {
+            if($characterEffect->effectID == $id) {
                 return true;
             }
         }
