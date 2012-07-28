@@ -694,7 +694,8 @@ class Character extends BaseCharacter {
             $id = $quest;
         }
         foreach($this->characterQuests as $characterQuest) {
-            if($characterQuest->questID == $id) {
+            if($characterQuest->questID == $id &&
+               $characterQuest->state == "completed") {
                 return true;
             }
         }
