@@ -20,12 +20,11 @@ class ActivateCharacterAction extends CAction {
         if(!$validSyntax) {
             EUserFlash::setErrorMessage("Something went wrong. Shit happens.");
         } else {
-            $Characters = Character::model()->findAll(
+            $Character = Character::model()->find(
                 'userID=:userID AND id=:characterID',
                 array(':userID' => Yii::app()->user->id,
                       ':characterID' => $characterID)
             );
-            $Character = $Characters[0];
             
             if(!is_a($Character, "Character")) {
                 EUserFlash::setErrorMessage("Got 'ya! That character isn't yours.");
