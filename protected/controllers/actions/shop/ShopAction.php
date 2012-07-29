@@ -10,6 +10,7 @@ class ShopAction extends CAction {
 
     /**
      * Renders the shop's view file 
+     * @param int $shopID
      */
     public function run($shopID) {
         // positive integer

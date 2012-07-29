@@ -8,7 +8,7 @@
 	<title>File protected/controllers/actions/EncounterAction.php | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?3765678051"></script>
+	<script type="text/javascript" src="elementlist.js?657556270"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -220,24 +220,25 @@
 <a href="#83" id="83" class="l"> 83 </a>    <span class="php-comment">/**
 </span><a href="#84" id="84" class="l"> 84 </a><span class="php-comment">     * Checks if $this-&gt;encounter is legitimate, i.e. if the Character can
 </span><a href="#85" id="85" class="l"> 85 </a><span class="php-comment">     * actually be at this point in an Encounter path
-</span><a href="#86" id="86" class="l"> 86 </a><span class="php-comment">     * @return boolean 
-</span><a href="#87" id="87" class="l"> 87 </a><span class="php-comment">     */</span>
-<a href="#88" id="88" class="l"> 88 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> legitimateEncounter(<span class="php-var">$Character</span>) {
-<a href="#89" id="89" class="l"> 89 </a>        <span class="php-comment">// No ongoing encounter = fine</span>
-<a href="#90" id="90" class="l"> 90 </a>        <span class="php-keyword1">if</span>(<span class="php-var">$Character</span>-&gt;ongoingEncounterID != <span class="php-keyword1">null</span>) {
-<a href="#91" id="91" class="l"> 91 </a>            <span class="php-comment">// current encounter = to_id from last encounter = fine</span>
-<a href="#92" id="92" class="l"> 92 </a>            <span class="php-comment">// encounterEncounters instead?</span>
-<a href="#93" id="93" class="l"> 93 </a>            <span class="php-keyword1">foreach</span>(<span class="php-var">$this</span>-&gt;encounter-&gt;encounterEncounters1 <span class="php-keyword1">as</span> <span class="php-var">$previousEncounter</span>) {
-<a href="#94" id="94" class="l"> 94 </a>                <span class="php-keyword1">if</span>(<span class="php-var">$previousEncounter</span>-&gt;fromEncounterID == <span class="php-var">$Character</span>-&gt;ongoingEncounterID) {
-<a href="#95" id="95" class="l"> 95 </a>                    <span class="php-keyword1">return</span> <span class="php-keyword1">true</span>;
-<a href="#96" id="96" class="l"> 96 </a>                }
-<a href="#97" id="97" class="l"> 97 </a>            }
-<a href="#98" id="98" class="l"> 98 </a>            <span class="php-comment">// No previous encounter with to_id = current encounter = bad</span>
-<a href="#99" id="99" class="l"> 99 </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">false</span>;
-<a href="#100" id="100" class="l">100 </a>        }
-<a href="#101" id="101" class="l">101 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">true</span>;
-<a href="#102" id="102" class="l">102 </a>    }
-<a href="#103" id="103" class="l">103 </a>}</code></pre>
+</span><a href="#86" id="86" class="l"> 86 </a><span class="php-comment">     * @param Character $Character
+</span><a href="#87" id="87" class="l"> 87 </a><span class="php-comment">     * @return boolean 
+</span><a href="#88" id="88" class="l"> 88 </a><span class="php-comment">     */</span>
+<a href="#89" id="89" class="l"> 89 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> legitimateEncounter(<span class="php-var">$Character</span>) {
+<a href="#90" id="90" class="l"> 90 </a>        <span class="php-comment">// No ongoing encounter = fine</span>
+<a href="#91" id="91" class="l"> 91 </a>        <span class="php-keyword1">if</span>(<span class="php-var">$Character</span>-&gt;ongoingEncounterID != <span class="php-keyword1">null</span>) {
+<a href="#92" id="92" class="l"> 92 </a>            <span class="php-comment">// current encounter = to_id from last encounter = fine</span>
+<a href="#93" id="93" class="l"> 93 </a>            <span class="php-comment">// encounterEncounters instead?</span>
+<a href="#94" id="94" class="l"> 94 </a>            <span class="php-keyword1">foreach</span>(<span class="php-var">$this</span>-&gt;encounter-&gt;encounterEncounters1 <span class="php-keyword1">as</span> <span class="php-var">$previousEncounter</span>) {
+<a href="#95" id="95" class="l"> 95 </a>                <span class="php-keyword1">if</span>(<span class="php-var">$previousEncounter</span>-&gt;fromEncounterID == <span class="php-var">$Character</span>-&gt;ongoingEncounterID) {
+<a href="#96" id="96" class="l"> 96 </a>                    <span class="php-keyword1">return</span> <span class="php-keyword1">true</span>;
+<a href="#97" id="97" class="l"> 97 </a>                }
+<a href="#98" id="98" class="l"> 98 </a>            }
+<a href="#99" id="99" class="l"> 99 </a>            <span class="php-comment">// No previous encounter with to_id = current encounter = bad</span>
+<a href="#100" id="100" class="l">100 </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">false</span>;
+<a href="#101" id="101" class="l">101 </a>        }
+<a href="#102" id="102" class="l">102 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">true</span>;
+<a href="#103" id="103" class="l">103 </a>    }
+<a href="#104" id="104" class="l">104 </a>}</code></pre>
 	</div>
 
 	<div id="footer">

@@ -13,7 +13,7 @@ class CollectBonusEvent extends CEvent {
     /**
      * Constructor
      * @param mixed $sender obj or null
-     * @oaram array $params
+     * @param array $params
      * - float bonusAbs default = 0
      * - float bonusPerc default = 0
      */

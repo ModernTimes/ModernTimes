@@ -12,6 +12,13 @@
 
 class CombatantTakeDamageEvent extends CEvent {
     
+    /**
+     * Constructor
+     * @param mixed $sender obj or null
+     * @param float $damage
+     * @param string $damageType enum(normal|special) default normal
+     * @param type $params default array()
+     */
     public function __construct($sender, $damage = 0, $damageType = "normal", $params = array()) {
         $params = array_merge(
             // The default options

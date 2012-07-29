@@ -20,6 +20,7 @@ class Encounter extends BaseEncounter {
      * Resolves an Encounter
      * @todo split into smaller parts, so that specialnessBehavior classes can 
      * call these smaller __parent-methods?
+     * @param Character $Character
      */
     public function run($Character) {
         $Character->gainCash($this->gainCash);

@@ -17,6 +17,7 @@ class BattleActionDamageDealtEvent extends BattleActionEvent {
      * Combatant from whose perspective the event takes place
      * @param mixed $enemy null or CModel with CombatantBehavior
      * Enemy of the combatant from whose perspective the event takes place
+     * @param mixed $action Skill or Item
      * @param float $damage The base amount of damage (before adjustments)
      * @param string $damageType enum(normal|special)
      * @param array $params default empty

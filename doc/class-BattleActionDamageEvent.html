@@ -7,7 +7,7 @@
 	<title>Class BattleActionDamageEvent | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?3765678051"></script>
+	<script type="text/javascript" src="elementlist.js?657556270"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -210,7 +210,7 @@ CEvent
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-BattleActionDamageEvent.html#14" title="Go to source code">__construct</a>( <span><code><a href="class-Battle.html">Battle</a></code> <var>$sender</var></span>, <span>mixed <var>$hero</var></span>, <span>mixed <var>$enemy</var></span>, <span>float <var>$action</var></span>, <span>string <var>$damage</var> = <span class="php-num">0</span></span>, <span>array <var>$damageType</var> = <span class="php-quote">&quot;normal&quot;</span></span>, <span> <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
+			<code><a href="source-class-BattleActionDamageEvent.html#14" title="Go to source code">__construct</a>( <span><code><a href="class-Battle.html">Battle</a></code> <var>$sender</var></span>, <span>mixed <var>$hero</var></span>, <span>mixed <var>$enemy</var></span>, <span>mixed <var>$action</var></span>, <span>float <var>$damage</var> = <span class="php-num">0</span></span>, <span>string <var>$damageType</var> = <span class="php-quote">&quot;normal&quot;</span></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 			<div class="description short">
 				
@@ -235,13 +235,13 @@ event takes place</dd>
 						<dd><code>mixed</code><br> null or CModel with CombatantBehavior Enemy of the combatant from whose
 perspective the event takes place</dd>
 						<dt><var>$action</var></dt>
-						<dd><code>float</code><br>$damage The base amount of damage (before adjustments)</dd>
+						<dd><code>mixed</code><br> Skill or Item</dd>
 						<dt><var>$damage</var></dt>
-						<dd><code>string</code><br>$damageType enum(normal|special)</dd>
+						<dd><code>float</code><br> The base amount of damage (before adjustments)</dd>
 						<dt><var>$damageType</var></dt>
-						<dd><code>array</code><br>$params default empty</dd>
+						<dd><code>string</code><br> enum(normal|special)</dd>
 						<dt><var>$params</var></dt>
-						<dd></dd>
+						<dd><code>array</code><br> default array()</dd>
 					</dl></div>
 
 
@@ -268,7 +268,7 @@ perspective the event takes place</dd>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_behaviors">#</a>
-			<code><a href="source-class-BattleActionDamageEvent.html#56" title="Go to source code">behaviors</a>( )</code>
+			<code><a href="source-class-BattleActionDamageEvent.html#57" title="Go to source code">behaviors</a>( )</code>
 
 			<div class="description short">
 				

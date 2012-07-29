@@ -83,6 +83,7 @@ class EncounterAction extends CAction {
     /**
      * Checks if $this->encounter is legitimate, i.e. if the Character can
      * actually be at this point in an Encounter path
+     * @param Character $Character
      * @return boolean 
      */
     public function legitimateEncounter($Character) {
