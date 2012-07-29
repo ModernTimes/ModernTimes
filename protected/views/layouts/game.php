@@ -20,6 +20,7 @@
             <li><?php echo CHtml::link("Todo", array('game/quests')); ?></li>
         </ul>
         <ul class="nav pull-right">
+            <li><?php echo CHtml::link("Manage your characters", "../site/manageCharacters"); ?></li>
             <li><?php echo CHtml::link("Logout (" . Yii::app()->user->name . ")", array('site/logout')); ?></li>
             <li class="divider-vertical"></li>
             <li><?php echo CHtml::link("SITE", array('site/index')); ?></li>

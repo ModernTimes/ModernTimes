@@ -65,10 +65,11 @@ abstract class BaseCharacterQuests extends GxActiveRecord {
 	 */
 	public function rules() {
 		return array(
-			array('characterID, questID, params', 'required'),
+			array('characterID, questID', 'required'),
 			array('characterID, questID, visible', 'numerical', 'integerOnly'=>true),
 			array('state', 'length', 'max'=>11),
-			array('state, visible', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('params', 'safe'),
+			array('state, visible, params', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('id, characterID, questID, state, visible, params', 'safe', 'on'=>'search'),
 		);
 	}

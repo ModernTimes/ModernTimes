@@ -162,8 +162,7 @@ class CharacterData extends CApplicationComponent {
         // If no active character can be found: redirect
         // @todo Change to character/create
         if(!is_a($this->_model, "Character")) {
-            Yii::app()->controller->redirect(array('site/index'));
-            // Yii::app()->controller->redirect(array('character/create'));
+            Yii::app()->controller->redirect(array('site/createCharacter'));
         }
         
         // Let Equipment Model attach all Item event handlers to the Character class

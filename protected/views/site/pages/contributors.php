@@ -20,6 +20,11 @@ Then <a href="http://moderntimes.github.com/ModernTimes/design.html" target="_bl
 <p><b>Programmer?</b>
 Then <a href="https://github.com/ModernTimes/ModernTimes" target="_blank">fork the project on GitHub</a> and contribute to our code base!</p>
 
+<!-- <p>For more details on how to further develop this application, please read
+the <a href="http://www.yiiframework.com/doc/">documentation</a>.
+Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
+should you have any questions.</p> -->
+
 <p><b>Writer?</b>
 Then send us your witty descriptions and phrases via the <a href="http://moderntimes.userecho.com/" target="_blank">Pitchen-Hole</a>! We will provide a list of phrases that need more punch later on, to make contributing as a writer even easier. You can also pitch ideas for funny quests or interesting non-player characters.</p>
 

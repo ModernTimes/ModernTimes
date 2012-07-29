@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Starts website actions (as opposed to game actions) based on user input
+ * Handles website actions (as opposed to game actions)
  * @package Site
  */
 
@@ -13,6 +13,11 @@ class SiteController extends Controller {
      */
     public function actions() {
         return array(
+            'manageCharacters'      => 'application.controllers.actions.site.ManageCharactersAction',
+            'createCharacter'       => 'application.controllers.actions.site.CreateCharacterAction',
+            'activateCharacter'     => 'application.controllers.actions.site.ActivateCharacterAction',
+            'deleteCharacter'       => 'application.controllers.actions.site.DeleteCharacterAction',          
+            
             // captcha action renders the CAPTCHA image displayed on the contact page
             'captcha'=>array(
                 'class'=>'CCaptchaAction',
@@ -56,6 +61,7 @@ class SiteController extends Controller {
     /**
      * Displays the contact page
      */
+    /**
     public function actionContact() {
         $model=new ContactForm;
         if(isset($_POST['ContactForm'])) {
@@ -68,7 +74,7 @@ class SiteController extends Controller {
             }
         }
         $this->render('contact',array('model'=>$model));
-    }
+    } */
 
     /**
      * Displays the login page
