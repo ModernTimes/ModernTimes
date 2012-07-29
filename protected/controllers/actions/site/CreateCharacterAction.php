@@ -18,6 +18,7 @@ class CreateCharacterAction extends CAction {
     
     /**
      * See above
+     * @todo check for maximum number of characters
      */
     public function run() {
         $form = new CreateCharacterForm;
@@ -35,7 +36,7 @@ class CreateCharacterAction extends CAction {
                     
                     $form->addError("name", "Uh ohhh! Another character 
                         already has that name.");
-                    $this->controller->render('createCharacter', array('model' => $form));
+                    $this->controller->render('character/createCharacter', array('model' => $form));
                     return;
                 }
                 
@@ -117,7 +118,7 @@ class CreateCharacterAction extends CAction {
                 
             }
         }
-        $this->controller->render('createCharacter', array('model' => $form));
+        $this->controller->render('character/createCharacter', array('model' => $form));
     }    
 }
 

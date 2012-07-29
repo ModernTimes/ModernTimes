@@ -30,7 +30,7 @@
                 echo "<li>" . CHtml::link(Yii::app()->getModule('user')->t("Login"), Yii::app()->getModule('user')->loginUrl) . "</li>";
                 echo "<li>" . CHtml::link(Yii::app()->getModule('user')->t("Register"), Yii::app()->getModule('user')->registrationUrl) . "</li>";
             } else {
-                echo "<li>" . CHtml::link("Create new character", "./createCharacter") . "</li>";
+                echo "<li>" . CHtml::link("Manage your characters", "./manageCharacters") . "</li>";
                 echo "<li>" . CHtml::link(Yii::app()->getModule('user')->t("Profile"), Yii::app()->getModule('user')->profileUrl) . "</li>";
                 echo "<li>" . CHtml::link(Yii::app()->getModule('user')->t("Logout"), Yii::app()->getModule('user')->logoutUrl) . "</li>";
                 echo "<li class='divider-vertical'></li>";

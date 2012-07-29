@@ -7,7 +7,7 @@
 <img src="<?php echo Yii::app()->getBaseUrl(); ?>/images/characters/consultant/male-1.png" alt="Consultant" width="64" style="float: left">
 <img src="<?php echo Yii::app()->getBaseUrl(); ?>/images/characters/consultant/female-1.png" alt="Consultant" width="64" style="float: left">
 
-<div class="form" style="padding-left: 200px">
+<div class="well" style="padding-left: 200px">
 
 <?php $form = $this->beginWidget('CActiveForm', array(
 	'id'=>'createcharacter-form',
