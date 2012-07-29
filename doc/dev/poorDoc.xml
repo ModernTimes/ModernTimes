@@ -29,8 +29,8 @@
 	<file name="D:\Homepages\ModernTimes\protected\controllers\actions\shop\ShopAction.php">
 		<error severity="error" line="14" message="Missing documentation of parameter ShopAction::run()($shopID)" source="ApiGen.Documentation.Documentation"/>
 	</file>
-	<file name="D:\Homepages\ModernTimes\protected\controllers\actions\TestAction.php">
-		<error severity="error" line="43" message="Missing documentation of method TestAction::benchmarkCharacterDataInits()" source="ApiGen.Documentation.Documentation"/>
+	<file name="D:\Homepages\ModernTimes\protected\controllers\actions\site\CreateCharacterAction.php">
+		<error severity="error" line="16" message="Missing documentation of the data type of constant CreateCharacterAction::maxNumberOfCharacters" source="ApiGen.Documentation.Documentation"/>
 	</file>
 	<file name="D:\Homepages\ModernTimes\protected\models\Encounter.php">
 		<error severity="error" line="24" message="Missing documentation of parameter Encounter::run()($Character)" source="ApiGen.Documentation.Documentation"/>
@@ -43,6 +43,10 @@
 		<error severity="error" line="16" message="Missing documentation of property ContactForm::$verifyCode" source="ApiGen.Documentation.Documentation"/>
 		<error severity="error" line="21" message="Missing documentation of return value of method ContactForm::rules()" source="ApiGen.Documentation.Documentation"/>
 		<error severity="error" line="38" message="Missing documentation of return value of method ContactForm::attributeLabels()" source="ApiGen.Documentation.Documentation"/>
+	</file>
+	<file name="D:\Homepages\ModernTimes\protected\models\forms\CreateCharacterForm.php">
+		<error severity="error" line="9" message="Missing documentation of property CreateCharacterForm::$name" source="ApiGen.Documentation.Documentation"/>
+		<error severity="error" line="10" message="Missing documentation of property CreateCharacterForm::$sex" source="ApiGen.Documentation.Documentation"/>
 	</file>
 	<file name="D:\Homepages\ModernTimes\protected\models\forms\LoginForm.php">
 		<error severity="error" line="12" message="Missing documentation of property LoginForm::$username" source="ApiGen.Documentation.Documentation"/>

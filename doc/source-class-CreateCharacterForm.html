@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+	<meta name="robots" content="noindex" />
+
+	<title>File protected/models/forms/CreateCharacterForm.php | Modern Times Documentation</title>
+
+	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
+	<script type="text/javascript" src="elementlist.js?3765678051"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">Modern Times Documentation</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="package-Site.Forms.html" title="Summary of Site\Forms"><span>Package</span></a>
+						</li>
+						<li>
+							<a href="class-CreateCharacterForm.html" title="Summary of CreateCharacterForm"><span>Class</span></a>
+						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="" />
+			<input type="hidden" name="ie" value="UTF-8" />
+			<input type="text" name="q" class="search-query" placeholder="Search" />
+		</form>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li><a href="package-Actions.html">Actions<span></span></a>
+						<ul>
+				<li><a href="package-Actions.Battle.html">Battle</a>
+						</li>
+				<li><a href="package-Actions.Character.html">Character</a>
+						</li>
+				<li><a href="package-Actions.Inventory.html">Inventory</a>
+						</li>
+				<li><a href="package-Actions.Shopping.html">Shopping</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Battle.html">Battle<span></span></a>
+						<ul>
+				<li><a href="package-Battle.Battleeffects.html">Battleeffects</a>
+						</li>
+				<li><a href="package-Battle.Skills.html">Skills</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Character.html">Character<span></span></a>
+						<ul>
+				<li><a href="package-Character.Relations.html">Relations</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Events.html">Events<span></span></a>
+						<ul>
+				<li><a href="package-Events.Behaviors.html">Behaviors</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Items.html">Items</a>
+						</li>
+				<li><a href="package-Quests.html">Quests</a>
+						</li>
+				<li class="active"><a href="package-Site.html">Site<span></span></a>
+						<ul>
+				<li class="active"><a href="package-Site.Forms.html">Forms</a>
+						</li>
+							</ul></li>
+				<li><a href="package-System.html">System<span></span></a>
+						<ul>
+				<li><a href="package-System.Models.html">Models<span></span></a>
+						<ul>
+				<li><a href="package-System.Models.Base.html">Base</a>
+						</li>
+				<li><a href="package-System.Models.Relations.html">Relations</a>
+						</li>
+							</ul></li>
+				<li><a href="package-System.Tools.html">Tools</a>
+						</li>
+							</ul></li>
+				<li><a href="package-Widgets.html">Widgets</a>
+						</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-ContactForm.html">ContactForm</a></li>
+				<li class="active"><a href="class-CreateCharacterForm.html">CreateCharacterForm</a></li>
+				<li><a href="class-LoginForm.html">LoginForm</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<pre id="source"><code><a href="#1" id="1" class="l"> 1 </a><span class="xlang">&lt;?php</span>
+<a href="#2" id="2" class="l"> 2 </a>
+<a href="#3" id="3" class="l"> 3 </a><span class="php-comment">/**
+</span><a href="#4" id="4" class="l"> 4 </a><span class="php-comment"> * CreateCharacterForm class.
+</span><a href="#5" id="5" class="l"> 5 </a><span class="php-comment"> * @package Site.Forms
+</span><a href="#6" id="6" class="l"> 6 </a><span class="php-comment"> */</span>
+<a href="#7" id="7" class="l"> 7 </a><span class="php-keyword1">class</span> CreateCharacterForm <span class="php-keyword1">extends</span> CFormModel {
+<a href="#8" id="8" class="l"> 8 </a>
+<a href="#9" id="9" class="l"> 9 </a>    <span class="php-keyword1">public</span> <span class="php-var">$name</span>;
+<a href="#10" id="10" class="l">10 </a>    <span class="php-keyword1">public</span> <span class="php-var">$sex</span>;
+<a href="#11" id="11" class="l">11 </a>    <span class="php-comment">// public $verifyCode;</span>
+<a href="#12" id="12" class="l">12 </a>
+<a href="#13" id="13" class="l">13 </a>    <span class="php-comment">/**
+</span><a href="#14" id="14" class="l">14 </a><span class="php-comment">     * Declares the validation rules.
+</span><a href="#15" id="15" class="l">15 </a><span class="php-comment">     * @return array
+</span><a href="#16" id="16" class="l">16 </a><span class="php-comment">     */</span>
+<a href="#17" id="17" class="l">17 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> rules() {
+<a href="#18" id="18" class="l">18 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">array</span>(
+<a href="#19" id="19" class="l">19 </a>            <span class="php-comment">// name and sex are required</span>
+<a href="#20" id="20" class="l">20 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'name'</span>, <span class="php-quote">'required'</span>,
+<a href="#21" id="21" class="l">21 </a>                <span class="php-quote">'message'</span> =&gt; <span class="php-quote">&quot;Sorry, having a name is mandatory.&quot;</span>),
+<a href="#22" id="22" class="l">22 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'sex'</span>, <span class="php-quote">'required'</span>,
+<a href="#23" id="23" class="l">23 </a>                <span class="php-quote">'message'</span> =&gt; <span class="php-quote">&quot;Good luck running around without a sex!&quot;</span>),
+<a href="#24" id="24" class="l">24 </a>            <span class="php-comment">// sex has to be either male or female</span>
+<a href="#25" id="25" class="l">25 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'sex'</span>,<span class="php-quote">'in'</span>,<span class="php-quote">'range'</span>=&gt;<span class="php-keyword1">array</span>(<span class="php-quote">'male'</span>,<span class="php-quote">'female'</span>),<span class="php-quote">'allowEmpty'</span>=&gt;<span class="php-keyword1">false</span>, 
+<a href="#26" id="26" class="l">26 </a>                <span class="php-quote">'message'</span> =&gt; <span class="php-quote">&quot;Oh, c'mon. It can't be THAT hard to decide your sex.&quot;</span>),
+<a href="#27" id="27" class="l">27 </a>            <span class="php-comment">// verifyCode needs to be entered correctly</span>
+<a href="#28" id="28" class="l">28 </a>            <span class="php-comment">// array('verifyCode', 'captcha', 'allowEmpty'=&gt;!CCaptcha::checkRequirements()),</span>
+<a href="#29" id="29" class="l">29 </a>        );
+<a href="#30" id="30" class="l">30 </a>    }
+<a href="#31" id="31" class="l">31 </a>
+<a href="#32" id="32" class="l">32 </a>    <span class="php-comment">/**
+</span><a href="#33" id="33" class="l">33 </a><span class="php-comment">     * Declares customized attribute labels.
+</span><a href="#34" id="34" class="l">34 </a><span class="php-comment">     * @return array
+</span><a href="#35" id="35" class="l">35 </a><span class="php-comment">     */</span>
+<a href="#36" id="36" class="l">36 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> attributeLabels() {
+<a href="#37" id="37" class="l">37 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">array</span>(
+<a href="#38" id="38" class="l">38 </a>            <span class="php-comment">// 'verifyCode'=&gt;'Verification Code',</span>
+<a href="#39" id="39" class="l">39 </a>        );
+<a href="#40" id="40" class="l">40 </a>    }
+<a href="#41" id="41" class="l">41 </a>}</code></pre>
+	</div>
+
+	<div id="footer">
+		Modern Times Documentation API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</body>
+</html>
