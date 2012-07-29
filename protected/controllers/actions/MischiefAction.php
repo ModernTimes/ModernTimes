@@ -45,7 +45,13 @@ class MischiefAction extends CAction {
             $this->controller->redirect('index');
         }
         
-        $Area = Area::model()->withRelated()->findByPk($areaID);
+        $Area = Area::model()->with(array(
+            'requirement' => array(
+                'scopes' => 'withRelated'
+            ),
+            'areaEncounters',
+            'areaMonsters'
+        ))->findByPk($areaID);
         
         // Valid area?
         if(!is_a($Area, "Area")) {
