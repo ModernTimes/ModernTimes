@@ -15,7 +15,7 @@ Yii::import('application.components.quests.*');
  * 
  * @uses SpecialnessBehavior
  * @uses CharacterQuests
- * package System.Models 
+ * @package System.Models 
  */
 
 class Quest extends BaseQuest {
@@ -137,7 +137,7 @@ class Quest extends BaseQuest {
         if(!empty($this->params)) {
             $this->CharacterQuest->params = serialize($this->params);
         } else {
-            $this->CharacterQuest->params = "";
+            $this->CharacterQuest->params = null;
         }
         if($update) {
             $this->CharacterQuest->update();
@@ -149,7 +149,9 @@ class Quest extends BaseQuest {
      * @uses CharacterQuests
      */
     public function loadParams() {
-        $this->params = unserialize($this->CharacterQuest->params);
+        if(!empty($this->params)) {
+            $this->params = unserialize($this->CharacterQuest->params);
+        }
     }
     
     
