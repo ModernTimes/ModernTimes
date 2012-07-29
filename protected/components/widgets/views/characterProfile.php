@@ -1,4 +1,4 @@
-<div class="well" style="padding-left: 70px; width: 530px;">
+<div class="well" style="padding-left: 70px; width: <?php echo ($this->character->active ? "330" : "530"); ?>px;">
     <img src="<?php echo Yii::app()->getBaseUrl(); ?>/images/characters/<?php echo $this->character->class . "/" . $this->character->sex; ?>-1.png" alt="<?php echo ucfirst($this->character->class); ?>" width="48" height="48" style="float: left; position: relative; top: -5px">
 
     <div style="display: inline-block; margin-left: 20px; position: relative; top: 3px">

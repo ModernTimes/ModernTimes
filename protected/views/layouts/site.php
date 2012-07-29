@@ -29,10 +29,23 @@
             <?php if (Yii::app()->user->isGuest) {
                 echo "<li>" . CHtml::link(Yii::app()->getModule('user')->t("Login"), Yii::app()->getModule('user')->loginUrl) . "</li>";
                 echo "<li>" . CHtml::link(Yii::app()->getModule('user')->t("Register"), Yii::app()->getModule('user')->registrationUrl) . "</li>";
-            } else {
-                echo "<li>" . CHtml::link("Manage your characters", "./manageCharacters") . "</li>";
-                echo "<li>" . CHtml::link(Yii::app()->getModule('user')->t("Profile"), Yii::app()->getModule('user')->profileUrl) . "</li>";
-                echo "<li>" . CHtml::link(Yii::app()->getModule('user')->t("Logout"), Yii::app()->getModule('user')->logoutUrl) . "</li>";
+            } else { ?>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <?php echo Yii::app()->user->name; ?>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <?php echo "<li>" . CHtml::link(Yii::app()->getModule('user')->t("Logout"), Yii::app()->getModule('user')->logoutUrl) . "</li>"; ?>
+                        <?php echo "<li>" . CHtml::link(Yii::app()->getModule('user')->t("Profile"), Yii::app()->getModule('user')->profileUrl) . "</li>"; ?>
+                        <li class='divider'></li>
+                        <?php echo "<li>" . CHtml::link("Your characters", "./manageCharacters") . "</li>"; ?>
+                        <?php echo "<li>" . CHtml::link("Create a new character", "./createCharacter") . "</li>"; ?>
+                    </ul>
+                </li>
+            
+            <?php
                 echo "<li class='divider-vertical'></li>";
                 echo "<li>" . CHtml::link("GAME", array('/game/index')) . "</li>";
             } ?>

@@ -20,8 +20,21 @@
             <li><?php echo CHtml::link("Todo", array('game/quests')); ?></li>
         </ul>
         <ul class="nav pull-right">
-            <li><?php echo CHtml::link("Manage your characters", "../site/manageCharacters"); ?></li>
-            <li><?php echo CHtml::link("Logout (" . Yii::app()->user->name . ")", array('site/logout')); ?></li>
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <?php echo Yii::app()->user->name; ?>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <?php echo "<li>" . CHtml::link(Yii::app()->getModule('user')->t("Logout"), Yii::app()->getModule('user')->logoutUrl) . "</li>"; ?>
+                    <?php echo "<li>" . CHtml::link(Yii::app()->getModule('user')->t("Profile"), Yii::app()->getModule('user')->profileUrl) . "</li>"; ?>
+                    <li class='divider'></li>
+                    <?php echo "<li>" . CHtml::link("Your characters", "../site/manageCharacters") . "</li>"; ?>
+                    <?php echo "<li>" . CHtml::link("Create a new character", "../site/createCharacter") . "</li>"; ?>
+                </ul>
+            </li>
+
             <li class="divider-vertical"></li>
             <li><?php echo CHtml::link("SITE", array('site/index')); ?></li>
         </ul>
