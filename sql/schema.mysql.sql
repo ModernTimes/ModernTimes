@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 28. Jul 2012 um 19:02
+-- Erstellungszeit: 29. Jul 2012 um 02:49
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -176,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `mt_character` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `userID` (`userID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character`:
@@ -284,7 +284,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_equipments` (
   KEY `accessoryA` (`accessoryA`),
   KEY `accessoryB` (`accessoryB`),
   KEY `accessoryC` (`accessoryC`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_equipments`:
@@ -362,11 +362,11 @@ CREATE TABLE IF NOT EXISTS `mt_character_quests` (
   `questID` int(11) NOT NULL,
   `state` enum('unavailable','available','ongoing','completed','rejected','failed') NOT NULL DEFAULT 'unavailable',
   `visible` tinyint(1) NOT NULL DEFAULT '0',
-  `params` text NOT NULL,
+  `params` text,
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `questID` (`questID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_quests`:
@@ -391,7 +391,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_skills` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `skillID` (`skillID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_skills`:
@@ -434,7 +434,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_skillsets` (
   KEY `pos9` (`pos9`),
   KEY `pos10` (`pos10`),
   KEY `active` (`active`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_skillsets`:
