@@ -4,7 +4,7 @@
  * Handles the creation of a new character
  * 
  * @uses CreateCharacterForm
- * @package Site
+ * @package Actions.Character management
  */
 
 class CreateCharacterAction extends CAction {

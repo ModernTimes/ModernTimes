@@ -4,7 +4,7 @@
  * Collects Character data and renders manageCharacters.php view file
  * 
  * @uses Character
- * @package Site
+ * @package Actions.Character management
  */
 
 class ManageCharactersAction extends CAction {

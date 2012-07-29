@@ -14,7 +14,8 @@ class SiteController extends Controller {
     public function actions() {
         return array(
             'manageCharacters'      => 'application.controllers.actions.site.ManageCharactersAction',
-            'createCharacter'      => 'application.controllers.actions.site.CreateCharacterAction',
+            'createCharacter'       => 'application.controllers.actions.site.CreateCharacterAction',
+            'activateCharacter'     => 'application.controllers.actions.site.ActivateCharacterAction',
             
             // captcha action renders the CAPTCHA image displayed on the contact page
             'captcha'=>array(
