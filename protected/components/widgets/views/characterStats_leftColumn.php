@@ -6,7 +6,7 @@
 <div id="characterStats">
 
     <table width="100%""><tr>
-        <td><img src="<? echo Yii::app()->getBaseUrl(); ?>/images/characters/consultant/male-1.png" width="64" height="64"></td>
+        <td><img src="<? echo Yii::app()->getBaseUrl(); ?>/images/characters/consultant/<?php echo $this->character->sex; ?>-1.png" width="64" height="64"></td>
         <td align="center">
             <h3><?php echo $this->character['name']; ?></h3>
             <p><?php echo $this->character->getTitle(); ?></p>
