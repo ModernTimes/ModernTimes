@@ -27,8 +27,8 @@
             <?php echo $form->error($model,'name'); ?>
 	</div>
     
-	<div class="row" style="display: inline-block; margin-left: 30px; vertical-align: middle">
-            <?php /* echo $form->labelEx($model,'sex'); */ ?>
+	<div class="row" style="display: inline-block; margin-left: 30px; vertical-align: top">
+            <?php echo $form->labelEx($model,'sex'); ?>
             <?php echo $form->radioButtonList($model,'sex', array(
                 'male' => 'Male',
                 'female' => 'Female'

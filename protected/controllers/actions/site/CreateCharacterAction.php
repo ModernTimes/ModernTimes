@@ -17,7 +17,7 @@ class CreateCharacterAction extends CAction {
     
     
     /**
-     * @todo check for number of characters
+     * See above
      */
     public function run() {
         $form = new CreateCharacterForm;
@@ -25,7 +25,19 @@ class CreateCharacterAction extends CAction {
             $form->attributes = $_POST['CreateCharacterForm'];
             if($form->validate()) {
 
-                
+                // Does the chosen name for the character already exist?
+                $uniqueNameTest = Character::model()->findAll(
+                    'name=:name',
+                    array(':name'=>$form->name)
+                );
+                if(is_array($uniqueNameTest) &&
+                        count($uniqueNameTest) > 0) {
+                    
+                    $form->addError("name", "Uh ohhh! Another character 
+                        already has that name.");
+                    $this->controller->render('createCharacter', array('model' => $form));
+                    return;
+                }
                 
                 $transaction = Yii::app()->tools->getTransaction();
                 try {
@@ -98,10 +110,9 @@ class CreateCharacterAction extends CAction {
                     $this->controller->redirect("../game/index");
 
                 } catch(Exception $e) {
-                    d($e);
+                    // d($e);
                     $transaction->rollback();
                     EUserFlash::setErrorMessage("We really would have liked to create your character, but some weird database shit happened. We're looking into it, even though it's not fun. Promised.");
-                    $this->controller->refresh();
                 }                
                 
             }
