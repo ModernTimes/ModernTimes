@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 30. Jul 2012 um 14:19
+-- Erstellungszeit: 30. Jul 2012 um 18:19
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `mt_battle` (
   KEY `combatantBID` (`combatantBID`),
   KEY `state` (`state`),
   KEY `winnerID` (`winnerID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
 
 -- --------------------------------------------------------
 
@@ -211,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `mt_character` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `userID` (`userID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character`:
@@ -263,7 +263,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_battleskills` (
   KEY `characterID` (`characterID`),
   KEY `battleskillID` (`battleskillID`),
   KEY `available` (`available`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_battleskills`:
@@ -288,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_effects` (
   KEY `characterID` (`characterID`),
   KEY `effectID` (`effectID`),
   KEY `turns` (`turns`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_effects`:
@@ -312,7 +312,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_encounters` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `encounterID` (`encounterID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_encounters`:
@@ -345,7 +345,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_equipments` (
   KEY `accessoryAID` (`accessoryAID`),
   KEY `accessoryBID` (`accessoryBID`),
   KEY `accessoryCID` (`accessoryCID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_equipments`:
@@ -402,7 +402,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_items` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `itemID` (`itemID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_items`:
@@ -424,11 +424,11 @@ CREATE TABLE IF NOT EXISTS `mt_character_quests` (
   `questID` int(11) NOT NULL,
   `state` enum('unavailable','available','ongoing','completed','rejected','failed') NOT NULL DEFAULT 'unavailable',
   `visible` tinyint(1) NOT NULL DEFAULT '0',
-  `params` text,
+  `questState` text,
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `questID` (`questID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_quests`:
@@ -454,7 +454,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_skills` (
   KEY `characterID` (`characterID`),
   KEY `skillID` (`skillID`),
   KEY `available` (`available`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_skills`:
@@ -497,7 +497,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_skillsets` (
   KEY `pos8ID` (`pos8ID`),
   KEY `pos9ID` (`pos9ID`),
   KEY `pos10ID` (`pos10ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_skillsets`:
@@ -923,6 +923,8 @@ CREATE TABLE IF NOT EXISTS `mt_skill` (
 
 --
 -- RELATIONEN DER TABELLE `mt_skill`:
+--   `createEffectID`
+--       `mt_effect` -> `id`
 --   `charactermodifierID`
 --       `mt_charactermodifier` -> `id`
 --
@@ -1195,6 +1197,7 @@ ALTER TABLE `mt_shop_items`
 -- Constraints der Tabelle `mt_skill`
 --
 ALTER TABLE `mt_skill`
+  ADD CONSTRAINT `mt_skill_ibfk_2` FOREIGN KEY (`createEffectID`) REFERENCES `mt_effect` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `mt_skill_ibfk_1` FOREIGN KEY (`charactermodifierID`) REFERENCES `mt_charactermodifier` (`id`) ON UPDATE CASCADE;
 
 --
