@@ -83,13 +83,34 @@ if(count($this->character->characterEffects) > 0) { ?>
     } ?>
 <?php } ?>
 
+<?php /* Skills */ ?>
 <div class="row" style="margin-top: 15px; margin-left: 50px" align="center">
 <div class="btn-group">
     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Use a skill <span class="caret"></span></a>
     <ul class="dropdown-menu">
         <?php foreach($this->character->characterSkills as $characterSkill) {
-            if($characterSkill->skill->skillType == "active") {
-                echo "<li style=\"text-align: left\">" . CHtml::link($characterSkill->skill->name, "./useSkill?skillID=" . $characterSkill->skill->id) . "</li>";
+            if($characterSkill->skill->skillType == "active" &&
+                    $characterSkill->available) {
+
+                /**
+                 * Only generate standard popup content if Skill does not 
+                 * generate its own popup
+                 */
+                $popup = $characterSkill->skill->call('getPopup');
+                if(empty($popup)) {
+                    $popup = "<p>" . $characterSkill->skill->desc . "</p>";
+                }
+
+                echo "<li style=\"text-align: left\">" . 
+                        CHtml::link(
+                            "<span class='btn btn-mini'><i class='icon-star'></i> " . $characterSkill->skill->costEnergy . "</span>" . " " . $characterSkill->skill->name, 
+                            "./useSkill?skillID=" . $characterSkill->skill->id, 
+                            array(
+                                'data-title'=>$characterSkill->skill->name, 
+                                'data-content'=>$popup,
+                                'rel'=>'popover',
+                            )) . 
+                     "</li>";
             }
         } ?>
     </ul>
