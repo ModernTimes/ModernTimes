@@ -25,7 +25,7 @@ class Item extends BaseItem {
         $Character->changeEnergy($this->useEnergy);
         
         // Effect
-        if(is_a($this->useEffect, "Effect")) {
+        if($this->useEffectID != null) {
             Yii::app()->tools->addEffect($Character, $this->useEffect, $this->useEffectDuration);
         }
     }

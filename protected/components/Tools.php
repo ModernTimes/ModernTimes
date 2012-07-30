@@ -99,7 +99,7 @@ class Tools extends CApplicationComponent {
         if ($Character->hasEffect($Effect)) {
             if($options['addTurns']) {
                 // returns CharacterEffects model, not Effect model
-                $effectInPlace = $Character->getEffect($Effect);
+                $effectInPlace = $Character->getCharacterEffect($Effect);
                 $effectInPlace->increaseDuration($turns);
                 if ($effectInPlace->save()) {
                     Yii::trace("Effect already in place, increased turns by " . $turns);
@@ -118,7 +118,7 @@ class Tools extends CApplicationComponent {
             $CharacterEffect->turns = $turns;
             
             if ($CharacterEffect->save()) {
-                $Character->addEffect($CharacterEffect);
+                $Character->addCharacterEffect($CharacterEffect);
                 Yii::trace("Added effect '" . $Effect->name . "' for " . $turns . " turns");
                 return true;
             } else {
