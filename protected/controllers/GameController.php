@@ -35,6 +35,8 @@ class GameController extends Controller {
         return array(
             'map'              => 'application.controllers.actions.MapAction',
             'quests'           => 'application.controllers.actions.QuestsAction',
+            
+            'useSkill'         => 'application.controllers.actions.UseSkillAction',
 
             'mischief'         => 'application.controllers.actions.MischiefAction',
             'battleMonster'    => 'application.controllers.actions.battle.BattleMonsterAction',

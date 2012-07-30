@@ -17,14 +17,32 @@ class Skill extends BaseSkill {
 
     /**
      * Resolves the Skill using basic skill mechanics
+     * @param Character $Character Character who uses the skill
+     */
+    public function resolveUsage($Character) {
+        if($Character->energy < $this->costEnergy) {
+            EUserFlash::setErrorMessage("You don't have enough energy to use that skill.");
+        } else {
+            $this->call("createEffects", $Character);
+
+            
+        }
+    }
+    
+    /**
+     * Basic Effect creation
      * @param Character $Character
      */
-    public function resolve($Character) {
+    public function createEffects($Character) {
+        if($this->createEffectID != null) {
+            $CharacterEffect = $Character->getCharacterEffect($this->createEffectID);
+            $CharacterEffect->turns += $this->effectTurns;
+            $CharacterEffect->save();
+        }
     }
     
     /**
      * Basic getter
-     * msgResolved is usually used as the main message in BattleMessages
      * @return string
      */
     public function getMsgResolved() {
@@ -76,6 +94,10 @@ class Skill extends BaseSkill {
         return array(
             'withRelated' => array(
                 'with' => array(
+                    'createEffect' => array(
+                        'alias' => 'skillCreateEffect' . self::getScopeCounter(),
+                        'scopes' => 'withRelated'
+                    ),
                     'charactermodifier' => array(
                         'alias' => 'skillCharactermodifier' . self::getScopeCounter(),
                         'scopes' => 'withRelated'
