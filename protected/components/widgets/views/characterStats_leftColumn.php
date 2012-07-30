@@ -29,22 +29,16 @@
     <?php } */ ?>
     
    
-<?php /*
-<?php echo $this->character->hp; ?> / <?php echo $this->character->getHpMax(); ?>
-<?php echo $this->character->energy; ?> / <?php echo $this->character->getEnergyMax(); ?>
- */ ?>
-    
-
     <div align=""center"><table style="margin-top: 30px;" cellspacing="3">
         <?php /*
         
          * HP + Energy bars
         
         */ ?><tr>
-            <td style="width: 40px;"><i class="icon-heart"></i></td>
+            <td style="width: 40px;"><i class="icon-heart"></i> <?php echo $this->character->hp; ?></td>
             <td style="width: 80%"><div class="progress progress-danger" style="margin: 0px; height: 12px"><div class="bar" style="width: <?php echo floor($this->character->hp / $this->character->getHpMax() * 100); ?>%"></div></div></td>
         </tr><tr>
-            <td><i class="icon-star"></i></td>
+            <td><i class="icon-star"></i> <?php echo $this->character->energy; ?></td>
             <td><div class="progress" style="margin: 0px; height: 12px"><div class="bar" style="width: <?php echo floor($this->character->energy / $this->character->getEnergyMax() * 100); ?>%"></div></div></td>
         </tr><?php /*
         
@@ -88,13 +82,17 @@ if(count($this->character->characterEffects) > 0) { ?>
     } ?>
 <?php } ?>
 
-<?php /* ?>
-    <div align="center">Skills:</div>
-    <ul>
+<div class="row" style="margin-top: 15px" align="center">
+<div class="btn-group">
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Use a skill <span class="caret"></span></a>
+    <ul class="dropdown-menu">
         <?php foreach($this->character->characterSkills as $characterSkill) {
-            echo "<li>" . $characterSkill->skill->name . " (ID: " . $characterSkill->skill->id . ")</li>";
+            if($characterSkill->skill->skillType == "active") {
+                echo "<li style=\"text-align: left\">" . CHtml::link($characterSkill->skill->name, "./useSkill?skillID=" . $characterSkill->skill->id) . "</li>";
+            }
         } ?>
     </ul>
- <?php */ ?>
+</div>
+</div>
 
 </div>
