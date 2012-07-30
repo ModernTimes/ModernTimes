@@ -22,6 +22,12 @@ class EffectWidget extends CWidget {
     public $turns = 0;
     
     /**
+     * Additional styling information for the effect buttons
+     * @var string
+     */
+    public $styles = "";
+    
+    /**
      * Renders the item.php view file 
      */
     public function run() {

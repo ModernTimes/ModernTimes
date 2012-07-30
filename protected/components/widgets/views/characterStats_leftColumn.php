@@ -78,11 +78,12 @@ if(count($this->character->characterEffects) > 0) { ?>
         // d($characterEffect);
         $this->widget("EffectWidget", 
                 array("effect" => $characterEffect->effect,
-                      "turns" => $characterEffect->turns));
+                      "turns" => $characterEffect->turns,
+                      "styles" => "margin-bottom: 3px;"));
     } ?>
 <?php } ?>
 
-<div class="row" style="margin-top: 15px" align="center">
+<div class="row" style="margin-top: 15px; margin-left: 50px" align="center">
 <div class="btn-group">
     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Use a skill <span class="caret"></span></a>
     <ul class="dropdown-menu">

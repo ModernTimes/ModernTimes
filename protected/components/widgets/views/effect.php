@@ -26,7 +26,8 @@ if(!empty($this->effect)) {
         'class'=>'btn btn-info btn-mini', 
         'data-title'=>$this->effect->name . " <span style='font-size: 0.7em'>(" . $this->turns . " turns)</span>", 
         'data-content'=>$popup,
-        'rel'=>'popover'));
+        'rel'=>'popover',
+        'style' => $this->styles));
     
 }
 ?>
