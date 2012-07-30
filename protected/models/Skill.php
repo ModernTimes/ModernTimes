@@ -23,9 +23,9 @@ class Skill extends BaseSkill {
         if($Character->energy < $this->costEnergy) {
             EUserFlash::setErrorMessage("You don't have enough energy to use that skill.");
         } else {
+            $Character->decreaseEnergy($this->costEnergy);
+            $Character->update();
             $this->call("createEffects", $Character);
-
-            
         }
     }
     
