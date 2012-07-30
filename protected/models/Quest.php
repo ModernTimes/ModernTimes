@@ -135,9 +135,9 @@ class Quest extends BaseQuest {
      */
     public function saveParams($update = true) {
         if(!empty($this->params)) {
-            $this->CharacterQuest->params = serialize($this->params);
+            $this->CharacterQuest->questState = serialize($this->params);
         } else {
-            $this->CharacterQuest->params = null;
+            $this->CharacterQuest->questState = null;
         }
         if($update) {
             $this->CharacterQuest->update();
@@ -145,12 +145,12 @@ class Quest extends BaseQuest {
     }
     
     /**
-     * Sets $this->params according to $this->CharacterQuest->params 
+     * Sets $this->params according to $this->CharacterQuest->questState 
      * @uses CharacterQuests
      */
     public function loadParams() {
-        if(!empty($this->params)) {
-            $this->params = unserialize($this->CharacterQuest->params);
+        if(empty($this->params)) {
+            $this->params = unserialize($this->CharacterQuest->questState);
         }
     }
     

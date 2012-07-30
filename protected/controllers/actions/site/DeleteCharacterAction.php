@@ -34,6 +34,10 @@ class DeleteCharacterAction extends CAction {
                 } else {
                     $transaction = Yii::app()->tools->getTransaction();
                     try {
+                        $numberOfCharacterBattleskillsDeleted = CharacterBattleskills::model()->deleteAll(
+                            'characterID=:characterID',
+                            array(':characterID' => $Character->id)
+                        );
                         $numberOfCharacterEffectsDeleted = CharacterEffects::model()->deleteAll(
                             'characterID=:characterID',
                             array(':characterID' => $Character->id)

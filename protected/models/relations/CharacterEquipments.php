@@ -21,25 +21,23 @@ class CharacterEquipments extends BaseCharacterEquipments {
     
     /**
      * Attaches all Item model callbacks to the character event handlers
-     * Care: The giix Model generator adds a "0" after the item slot names, 
-     *       for whatever reason
      * @param Character $Character 
      */
     public function attachToCharacter($Character) {
-        if(is_a($this->weapon0, "Item")) {
-            $this->weapon0->call("attachToCharacter", $Character);
+        if(!empty($this->weaponID)) {
+            $this->weapon->call("attachToCharacter", $Character);
         }
-        if(is_a($this->offhand0, "Item")) {
-            $this->offhand0->call("attachToCharacter", $Character);
+        if(!empty($this->offhandID)) {
+            $this->offhand->call("attachToCharacter", $Character);
         }
-        if(is_a($this->accessoryA0, "Item")) {
-            $this->accessoryA0->call("attachToCharacter", $Character);
+        if(!empty($this->accessoryAID)) {
+            $this->accessoryA->call("attachToCharacter", $Character);
         }
-        if(is_a($this->accessoryB0, "Item")) {
-            $this->accessoryB0->call("attachToCharacter", $Character);
+        if(!empty($this->accessoryBID)) {
+            $this->accessoryB->call("attachToCharacter", $Character);
         }
-        if(is_a($this->accessoryC0, "Item")) {
-            $this->accessoryC0->call("attachToCharacter", $Character);
+        if(!empty($this->accessoryCID)) {
+            $this->accessoryC->call("attachToCharacter", $Character);
         }
     }
 
@@ -48,20 +46,20 @@ class CharacterEquipments extends BaseCharacterEquipments {
      * @param Character $Character 
      */
     public function detachFromCharacter($Character) {
-        if(is_a($this->weapon0, "Item")) {
-            $this->weapon0->call("detachFromCharacter", $Character);
+        if(!empty($this->weaponID)) {
+            $this->weapon->call("detachFromCharacter", $Character);
         }
-        if(is_a($this->offhand0, "Item")) {
-            $this->offhand0->call("detachFromCharacter", $Character);
+        if(!empty($this->offhandID)) {
+            $this->offhand->call("detachFromCharacter", $Character);
         }
-        if(is_a($this->accessoryA0, "Item")) {
-            $this->accessoryA0->call("detachFromCharacter", $Character);
+        if(!empty($this->accessoryAID)) {
+            $this->accessoryA->call("detachFromCharacter", $Character);
         }
-        if(is_a($this->accessoryB0, "Item")) {
-            $this->accessoryB0->call("detachFromCharacter", $Character);
+        if(!empty($this->accessoryBID)) {
+            $this->accessoryB->call("detachFromCharacter", $Character);
         }
-        if(is_a($this->accessoryC0, "Item")) {
-            $this->accessoryC0->call("detachFromCharacter", $Character);
+        if(!empty($this->accessoryCID)) {
+            $this->accessoryC->call("detachFromCharacter", $Character);
         }
     }
     
@@ -76,23 +74,23 @@ class CharacterEquipments extends BaseCharacterEquipments {
         return array(
             'withRelated' => array(
                 'with' => array(
-                    'weapon0' => array(
+                    'weapon' => array(
                         'alias' => 'characterEquipmentWeapon' . self::getScopeCounter(),
                         'scopes' => 'withRelated'
                     ),
-                    'offhand0' => array(
+                    'offhand' => array(
                         'alias' => 'characterEquipmentOffhand' . self::getScopeCounter(),
                         'scopes' => 'withRelated'
                     ),
-                    'accessoryA0' => array(
+                    'accessoryA' => array(
                         'alias' => 'characterEquipmentAccessoryA' . self::getScopeCounter(),
                         'scopes' => 'withRelated'
                     ),
-                    'accessoryB0' => array(
+                    'accessoryB' => array(
                         'alias' => 'characterEquipmentAccessoryB' . self::getScopeCounter(),
                         'scopes' => 'withRelated'
                     ),
-                    'accessoryC0' => array(
+                    'accessoryC' => array(
                         'alias' => 'characterEquipmentAccessoryC' . self::getScopeCounter(),
                         'scopes' => 'withRelated'
                     ),

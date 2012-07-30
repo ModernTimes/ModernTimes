@@ -38,6 +38,8 @@ class Tools extends CApplicationComponent {
         $Character = CD();
         $Character->turns--;
         
+        // @todo use updateAll queries. This is insane.
+        
         foreach($Character->characterEffects as $CharacterEffect) {
             $CharacterEffect->turns--;
             if($CharacterEffect->turns == 0) {

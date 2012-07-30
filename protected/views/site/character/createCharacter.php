@@ -4,10 +4,7 @@
 
 <p>&nbsp;</p>
 
-<img src="<?php echo Yii::app()->getBaseUrl(); ?>/images/characters/consultant/male-1.png" alt="Consultant" width="64" style="float: left">
-<img src="<?php echo Yii::app()->getBaseUrl(); ?>/images/characters/consultant/female-1.png" alt="Consultant" width="64" style="float: left">
-
-<div class="well" style="padding-left: 200px">
+<div class="well" style="padding-left: 50px">
 
 <?php $form = $this->beginWidget('CActiveForm', array(
 	'id'=>'createcharacter-form',
@@ -21,13 +18,18 @@
 
 	<?php /* echo $form->errorSummary($model); */ ?>
 
-	<div class="row" style="display: inline-block;">
+        <div  style="display: inline-block; margin-right: 60px">
+            <img src="<?php echo Yii::app()->getBaseUrl(); ?>/images/characters/consultant/male-1.png" alt="Consultant" width="64" height="64">
+            <img src="<?php echo Yii::app()->getBaseUrl(); ?>/images/characters/consultant/female-1.png" alt="Consultant" width="64" height="64">
+        </div>
+
+        <div style="display: inline-block; vertical-align: top">
             <?php echo $form->labelEx($model,'name'); ?>
             <?php echo $form->textField($model,'name'); ?>
             <?php echo $form->error($model,'name'); ?>
 	</div>
     
-	<div class="row" style="display: inline-block; margin-left: 30px; vertical-align: top">
+	<div style="display: inline-block; margin-left: 30px; vertical-align: top">
             <?php echo $form->labelEx($model,'sex'); ?>
             <?php echo $form->radioButtonList($model,'sex', array(
                 'male' => 'Male',
@@ -38,7 +40,7 @@
 
         <?php /*
 	<?php if(CCaptcha::checkRequirements()): ?>
-	<div class="row">
+	<div>
             <?php echo $form->labelEx($model,'verifyCode'); ?>
             <div>
             <?php $this->widget('CCaptcha'); ?>
@@ -51,7 +53,7 @@
 	<?php endif; ?>
         */ ?>
         
-	<div class="row buttons" style="display: inline-block; vertical-align: top; margin-left: 30px; padding-top: 1.8em">
+	<div class="buttons" style="display: inline-block; vertical-align: top; margin-left: 30px; padding-top: 1.8em">
             <?php echo CHtml::submitButton("Let's go!"); ?>
 	</div>
 
