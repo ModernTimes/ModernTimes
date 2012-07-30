@@ -24,7 +24,7 @@ class GameController extends Controller {
      * in this case MapAction
      */
     public function actionIndex() {
-        $this->redirect(array('map'));
+        $this->redirect(array('character'));
     }
 
     /**
@@ -124,6 +124,7 @@ class GameController extends Controller {
     
     /**
      * - Add the GoodForNothing Effect if Character has no hp left
+     * - Cap hp and energy at maxHp and maxEnergy respectively
      * - Save the Character record in case it has changed during the action
      * @param CAction $action
      * @return boolean always true
@@ -137,6 +138,9 @@ class GameController extends Controller {
             Yii::app()->tools->addEffect(1, 3, array('addTurns' => false));
         }
         
+        $character->hp = min($character->hp, $character->getHpMax());
+        $character->energy = min($character->hp, $character->getEnergyMax());
+
         // d($character);
         // Save Character AR in case it changed
         // (whether or not AR has changed is checked by AR behavior automatically)

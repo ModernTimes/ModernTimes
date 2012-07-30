@@ -115,6 +115,7 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-Area.html">Area</a></li>
+				<li><a href="class-Battleskill.html">Battleskill</a></li>
 				<li><a href="class-Effect.html">Effect</a></li>
 				<li><a href="class-Encounter.html">Encounter</a></li>
 				<li><a href="class-Item.html">Item</a></li>
@@ -275,9 +276,9 @@
 </span><a href="#135" id="135" class="l">135 </a><span class="php-comment">     */</span>
 <a href="#136" id="136" class="l">136 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> saveParams(<span class="php-var">$update</span> = <span class="php-keyword1">true</span>) {
 <a href="#137" id="137" class="l">137 </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword1">empty</span>(<span class="php-var">$this</span>-&gt;params)) {
-<a href="#138" id="138" class="l">138 </a>            <span class="php-var">$this</span>-&gt;CharacterQuest-&gt;params = <span class="php-keyword2">serialize</span>(<span class="php-var">$this</span>-&gt;params);
+<a href="#138" id="138" class="l">138 </a>            <span class="php-var">$this</span>-&gt;CharacterQuest-&gt;questState = <span class="php-keyword2">serialize</span>(<span class="php-var">$this</span>-&gt;params);
 <a href="#139" id="139" class="l">139 </a>        } <span class="php-keyword1">else</span> {
-<a href="#140" id="140" class="l">140 </a>            <span class="php-var">$this</span>-&gt;CharacterQuest-&gt;params = <span class="php-keyword1">null</span>;
+<a href="#140" id="140" class="l">140 </a>            <span class="php-var">$this</span>-&gt;CharacterQuest-&gt;questState = <span class="php-keyword1">null</span>;
 <a href="#141" id="141" class="l">141 </a>        }
 <a href="#142" id="142" class="l">142 </a>        <span class="php-keyword1">if</span>(<span class="php-var">$update</span>) {
 <a href="#143" id="143" class="l">143 </a>            <span class="php-var">$this</span>-&gt;CharacterQuest-&gt;update();
@@ -285,12 +286,12 @@
 <a href="#145" id="145" class="l">145 </a>    }
 <a href="#146" id="146" class="l">146 </a>    
 <a href="#147" id="147" class="l">147 </a>    <span class="php-comment">/**
-</span><a href="#148" id="148" class="l">148 </a><span class="php-comment">     * Sets $this-&gt;params according to $this-&gt;CharacterQuest-&gt;params 
+</span><a href="#148" id="148" class="l">148 </a><span class="php-comment">     * Sets $this-&gt;params according to $this-&gt;CharacterQuest-&gt;questState 
 </span><a href="#149" id="149" class="l">149 </a><span class="php-comment">     * @uses CharacterQuests
 </span><a href="#150" id="150" class="l">150 </a><span class="php-comment">     */</span>
 <a href="#151" id="151" class="l">151 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> loadParams() {
-<a href="#152" id="152" class="l">152 </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword1">empty</span>(<span class="php-var">$this</span>-&gt;params)) {
-<a href="#153" id="153" class="l">153 </a>            <span class="php-var">$this</span>-&gt;params = <span class="php-keyword2">unserialize</span>(<span class="php-var">$this</span>-&gt;CharacterQuest-&gt;params);
+<a href="#152" id="152" class="l">152 </a>        <span class="php-keyword1">if</span>(<span class="php-keyword1">empty</span>(<span class="php-var">$this</span>-&gt;params)) {
+<a href="#153" id="153" class="l">153 </a>            <span class="php-var">$this</span>-&gt;params = <span class="php-keyword2">unserialize</span>(<span class="php-var">$this</span>-&gt;CharacterQuest-&gt;questState);
 <a href="#154" id="154" class="l">154 </a>        }
 <a href="#155" id="155" class="l">155 </a>    }
 <a href="#156" id="156" class="l">156 </a>    

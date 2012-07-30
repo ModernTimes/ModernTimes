@@ -115,6 +115,7 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-Area.html">Area</a></li>
+				<li><a href="class-Battleskill.html">Battleskill</a></li>
 				<li><a href="class-Effect.html">Effect</a></li>
 				<li><a href="class-Encounter.html">Encounter</a></li>
 				<li class="active"><a href="class-Item.html">Item</a></li>
@@ -165,7 +166,7 @@
 <a href="#25" id="25" class="l">25 </a>        <span class="php-var">$Character</span>-&gt;changeEnergy(<span class="php-var">$this</span>-&gt;useEnergy);
 <a href="#26" id="26" class="l">26 </a>        
 <a href="#27" id="27" class="l">27 </a>        <span class="php-comment">// Effect</span>
-<a href="#28" id="28" class="l">28 </a>        <span class="php-keyword1">if</span>(<span class="php-keyword2">is_a</span>(<span class="php-var">$this</span>-&gt;useEffect, <span class="php-quote">&quot;Effect&quot;</span>)) {
+<a href="#28" id="28" class="l">28 </a>        <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;useEffectID != <span class="php-keyword1">null</span>) {
 <a href="#29" id="29" class="l">29 </a>            Yii::app()-&gt;tools-&gt;addEffect(<span class="php-var">$Character</span>, <span class="php-var">$this</span>-&gt;useEffect, <span class="php-var">$this</span>-&gt;useEffectDuration);
 <a href="#30" id="30" class="l">30 </a>        }
 <a href="#31" id="31" class="l">31 </a>    }

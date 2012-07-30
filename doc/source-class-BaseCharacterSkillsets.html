@@ -119,7 +119,9 @@
 				<li><a href="class-BaseAreaMonsters.html">BaseAreaMonsters</a></li>
 				<li><a href="class-BaseBattle.html">BaseBattle</a></li>
 				<li><a href="class-BaseBattleeffect.html">BaseBattleeffect</a></li>
+				<li><a href="class-BaseBattleskill.html">BaseBattleskill</a></li>
 				<li><a href="class-BaseCharacter.html">BaseCharacter</a></li>
+				<li><a href="class-BaseCharacterBattleskills.html">BaseCharacterBattleskills</a></li>
 				<li><a href="class-BaseCharacterEffects.html">BaseCharacterEffects</a></li>
 				<li><a href="class-BaseCharacterEncounters.html">BaseCharacterEncounters</a></li>
 				<li><a href="class-BaseCharacterEquipments.html">BaseCharacterEquipments</a></li>
@@ -136,6 +138,7 @@
 				<li><a href="class-BaseItem.html">BaseItem</a></li>
 				<li><a href="class-BaseMarker.html">BaseMarker</a></li>
 				<li><a href="class-BaseMonster.html">BaseMonster</a></li>
+				<li><a href="class-BaseMonsterBattleskills.html">BaseMonsterBattleskills</a></li>
 				<li><a href="class-BaseMonsterItems.html">BaseMonsterItems</a></li>
 				<li><a href="class-BaseMonsterSkills.html">BaseMonsterSkills</a></li>
 				<li><a href="class-BaseQuest.html">BaseQuest</a></li>
@@ -166,28 +169,28 @@
 </span><a href="#6" id="6" class="l">  6 </a><span class="php-comment"> * - integer id
 </span><a href="#7" id="7" class="l">  7 </a><span class="php-comment"> * - integer characterID
 </span><a href="#8" id="8" class="l">  8 </a><span class="php-comment"> * - integer active
-</span><a href="#9" id="9" class="l">  9 </a><span class="php-comment"> * - integer pos1
-</span><a href="#10" id="10" class="l"> 10 </a><span class="php-comment"> * - integer pos2
-</span><a href="#11" id="11" class="l"> 11 </a><span class="php-comment"> * - integer pos3
-</span><a href="#12" id="12" class="l"> 12 </a><span class="php-comment"> * - integer pos4
-</span><a href="#13" id="13" class="l"> 13 </a><span class="php-comment"> * - integer pos5
-</span><a href="#14" id="14" class="l"> 14 </a><span class="php-comment"> * - integer pos6
-</span><a href="#15" id="15" class="l"> 15 </a><span class="php-comment"> * - integer pos7
-</span><a href="#16" id="16" class="l"> 16 </a><span class="php-comment"> * - integer pos8
-</span><a href="#17" id="17" class="l"> 17 </a><span class="php-comment"> * - integer pos9
-</span><a href="#18" id="18" class="l"> 18 </a><span class="php-comment"> * - integer pos10
+</span><a href="#9" id="9" class="l">  9 </a><span class="php-comment"> * - integer pos1ID
+</span><a href="#10" id="10" class="l"> 10 </a><span class="php-comment"> * - integer pos2ID
+</span><a href="#11" id="11" class="l"> 11 </a><span class="php-comment"> * - integer pos3ID
+</span><a href="#12" id="12" class="l"> 12 </a><span class="php-comment"> * - integer pos4ID
+</span><a href="#13" id="13" class="l"> 13 </a><span class="php-comment"> * - integer pos5ID
+</span><a href="#14" id="14" class="l"> 14 </a><span class="php-comment"> * - integer pos6ID
+</span><a href="#15" id="15" class="l"> 15 </a><span class="php-comment"> * - integer pos7ID
+</span><a href="#16" id="16" class="l"> 16 </a><span class="php-comment"> * - integer pos8ID
+</span><a href="#17" id="17" class="l"> 17 </a><span class="php-comment"> * - integer pos9ID
+</span><a href="#18" id="18" class="l"> 18 </a><span class="php-comment"> * - integer pos10ID
 </span><a href="#19" id="19" class="l"> 19 </a><span class="php-comment"> *
-</span><a href="#20" id="20" class="l"> 20 </a><span class="php-comment"> * - Skill pos100
+</span><a href="#20" id="20" class="l"> 20 </a><span class="php-comment"> * - Battleskill pos10
 </span><a href="#21" id="21" class="l"> 21 </a><span class="php-comment"> * - Character character
-</span><a href="#22" id="22" class="l"> 22 </a><span class="php-comment"> * - Skill pos90
-</span><a href="#23" id="23" class="l"> 23 </a><span class="php-comment"> * - Skill pos11
-</span><a href="#24" id="24" class="l"> 24 </a><span class="php-comment"> * - Skill pos20
-</span><a href="#25" id="25" class="l"> 25 </a><span class="php-comment"> * - Skill pos30
-</span><a href="#26" id="26" class="l"> 26 </a><span class="php-comment"> * - Skill pos40
-</span><a href="#27" id="27" class="l"> 27 </a><span class="php-comment"> * - Skill pos50
-</span><a href="#28" id="28" class="l"> 28 </a><span class="php-comment"> * - Skill pos60
-</span><a href="#29" id="29" class="l"> 29 </a><span class="php-comment"> * - Skill pos70
-</span><a href="#30" id="30" class="l"> 30 </a><span class="php-comment"> * - Skill pos80
+</span><a href="#22" id="22" class="l"> 22 </a><span class="php-comment"> * - Battleskill pos9
+</span><a href="#23" id="23" class="l"> 23 </a><span class="php-comment"> * - Battleskill pos1
+</span><a href="#24" id="24" class="l"> 24 </a><span class="php-comment"> * - Battleskill pos2
+</span><a href="#25" id="25" class="l"> 25 </a><span class="php-comment"> * - Battleskill pos3
+</span><a href="#26" id="26" class="l"> 26 </a><span class="php-comment"> * - Battleskill pos4
+</span><a href="#27" id="27" class="l"> 27 </a><span class="php-comment"> * - Battleskill pos5
+</span><a href="#28" id="28" class="l"> 28 </a><span class="php-comment"> * - Battleskill pos6
+</span><a href="#29" id="29" class="l"> 29 </a><span class="php-comment"> * - Battleskill pos7
+</span><a href="#30" id="30" class="l"> 30 </a><span class="php-comment"> * - Battleskill pos8
 </span><a href="#31" id="31" class="l"> 31 </a><span class="php-comment"> * &lt;br&gt;
 </span><a href="#32" id="32" class="l"> 32 </a><span class="php-comment"> * &lt;p&gt;This is the model base class for the table &quot;{{character_skillsets}}&quot;.
 </span><a href="#33" id="33" class="l"> 33 </a><span class="php-comment"> * DO NOT MODIFY THIS FILE! It is automatically generated by giix.
@@ -242,9 +245,9 @@
 <a href="#82" id="82" class="l"> 82 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> rules() {
 <a href="#83" id="83" class="l"> 83 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">array</span>(
 <a href="#84" id="84" class="l"> 84 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'characterID, active'</span>, <span class="php-quote">'required'</span>),
-<a href="#85" id="85" class="l"> 85 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'characterID, active, pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9, pos10'</span>, <span class="php-quote">'numerical'</span>, <span class="php-quote">'integerOnly'</span>=&gt;<span class="php-keyword1">true</span>),
-<a href="#86" id="86" class="l"> 86 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9, pos10'</span>, <span class="php-quote">'default'</span>, <span class="php-quote">'setOnEmpty'</span> =&gt; <span class="php-keyword1">true</span>, <span class="php-quote">'value'</span> =&gt; <span class="php-keyword1">null</span>),
-<a href="#87" id="87" class="l"> 87 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'id, characterID, active, pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9, pos10'</span>, <span class="php-quote">'safe'</span>, <span class="php-quote">'on'</span>=&gt;<span class="php-quote">'search'</span>),
+<a href="#85" id="85" class="l"> 85 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'characterID, active, pos1ID, pos2ID, pos3ID, pos4ID, pos5ID, pos6ID, pos7ID, pos8ID, pos9ID, pos10ID'</span>, <span class="php-quote">'numerical'</span>, <span class="php-quote">'integerOnly'</span>=&gt;<span class="php-keyword1">true</span>),
+<a href="#86" id="86" class="l"> 86 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'pos1ID, pos2ID, pos3ID, pos4ID, pos5ID, pos6ID, pos7ID, pos8ID, pos9ID, pos10ID'</span>, <span class="php-quote">'default'</span>, <span class="php-quote">'setOnEmpty'</span> =&gt; <span class="php-keyword1">true</span>, <span class="php-quote">'value'</span> =&gt; <span class="php-keyword1">null</span>),
+<a href="#87" id="87" class="l"> 87 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'id, characterID, active, pos1ID, pos2ID, pos3ID, pos4ID, pos5ID, pos6ID, pos7ID, pos8ID, pos9ID, pos10ID'</span>, <span class="php-quote">'safe'</span>, <span class="php-quote">'on'</span>=&gt;<span class="php-quote">'search'</span>),
 <a href="#88" id="88" class="l"> 88 </a>        );
 <a href="#89" id="89" class="l"> 89 </a>    }
 <a href="#90" id="90" class="l"> 90 </a>
@@ -255,17 +258,17 @@
 </span><a href="#95" id="95" class="l"> 95 </a><span class="php-comment">     */</span>
 <a href="#96" id="96" class="l"> 96 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> relations() {
 <a href="#97" id="97" class="l"> 97 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">array</span>(
-<a href="#98" id="98" class="l"> 98 </a>            <span class="php-quote">'pos100'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Skill'</span>, <span class="php-quote">'pos10'</span>),
+<a href="#98" id="98" class="l"> 98 </a>            <span class="php-quote">'pos10'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Battleskill'</span>, <span class="php-quote">'pos10ID'</span>),
 <a href="#99" id="99" class="l"> 99 </a>            <span class="php-quote">'character'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Character'</span>, <span class="php-quote">'characterID'</span>),
-<a href="#100" id="100" class="l">100 </a>            <span class="php-quote">'pos90'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Skill'</span>, <span class="php-quote">'pos9'</span>),
-<a href="#101" id="101" class="l">101 </a>            <span class="php-quote">'pos11'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Skill'</span>, <span class="php-quote">'pos1'</span>),
-<a href="#102" id="102" class="l">102 </a>            <span class="php-quote">'pos20'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Skill'</span>, <span class="php-quote">'pos2'</span>),
-<a href="#103" id="103" class="l">103 </a>            <span class="php-quote">'pos30'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Skill'</span>, <span class="php-quote">'pos3'</span>),
-<a href="#104" id="104" class="l">104 </a>            <span class="php-quote">'pos40'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Skill'</span>, <span class="php-quote">'pos4'</span>),
-<a href="#105" id="105" class="l">105 </a>            <span class="php-quote">'pos50'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Skill'</span>, <span class="php-quote">'pos5'</span>),
-<a href="#106" id="106" class="l">106 </a>            <span class="php-quote">'pos60'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Skill'</span>, <span class="php-quote">'pos6'</span>),
-<a href="#107" id="107" class="l">107 </a>            <span class="php-quote">'pos70'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Skill'</span>, <span class="php-quote">'pos7'</span>),
-<a href="#108" id="108" class="l">108 </a>            <span class="php-quote">'pos80'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Skill'</span>, <span class="php-quote">'pos8'</span>),
+<a href="#100" id="100" class="l">100 </a>            <span class="php-quote">'pos9'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Battleskill'</span>, <span class="php-quote">'pos9ID'</span>),
+<a href="#101" id="101" class="l">101 </a>            <span class="php-quote">'pos1'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Battleskill'</span>, <span class="php-quote">'pos1ID'</span>),
+<a href="#102" id="102" class="l">102 </a>            <span class="php-quote">'pos2'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Battleskill'</span>, <span class="php-quote">'pos2ID'</span>),
+<a href="#103" id="103" class="l">103 </a>            <span class="php-quote">'pos3'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Battleskill'</span>, <span class="php-quote">'pos3ID'</span>),
+<a href="#104" id="104" class="l">104 </a>            <span class="php-quote">'pos4'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Battleskill'</span>, <span class="php-quote">'pos4ID'</span>),
+<a href="#105" id="105" class="l">105 </a>            <span class="php-quote">'pos5'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Battleskill'</span>, <span class="php-quote">'pos5ID'</span>),
+<a href="#106" id="106" class="l">106 </a>            <span class="php-quote">'pos6'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Battleskill'</span>, <span class="php-quote">'pos6ID'</span>),
+<a href="#107" id="107" class="l">107 </a>            <span class="php-quote">'pos7'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Battleskill'</span>, <span class="php-quote">'pos7ID'</span>),
+<a href="#108" id="108" class="l">108 </a>            <span class="php-quote">'pos8'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Battleskill'</span>, <span class="php-quote">'pos8ID'</span>),
 <a href="#109" id="109" class="l">109 </a>        );
 <a href="#110" id="110" class="l">110 </a>    }
 <a href="#111" id="111" class="l">111 </a>
@@ -287,27 +290,27 @@
 <a href="#127" id="127" class="l">127 </a>            <span class="php-quote">'id'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'ID'</span>),
 <a href="#128" id="128" class="l">128 </a>            <span class="php-quote">'characterID'</span> =&gt; <span class="php-keyword1">null</span>,
 <a href="#129" id="129" class="l">129 </a>            <span class="php-quote">'active'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Active'</span>),
-<a href="#130" id="130" class="l">130 </a>            <span class="php-quote">'pos1'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#131" id="131" class="l">131 </a>            <span class="php-quote">'pos2'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#132" id="132" class="l">132 </a>            <span class="php-quote">'pos3'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#133" id="133" class="l">133 </a>            <span class="php-quote">'pos4'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#134" id="134" class="l">134 </a>            <span class="php-quote">'pos5'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#135" id="135" class="l">135 </a>            <span class="php-quote">'pos6'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#136" id="136" class="l">136 </a>            <span class="php-quote">'pos7'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#137" id="137" class="l">137 </a>            <span class="php-quote">'pos8'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#138" id="138" class="l">138 </a>            <span class="php-quote">'pos9'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#139" id="139" class="l">139 </a>            <span class="php-quote">'pos10'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#140" id="140" class="l">140 </a>            <span class="php-quote">'pos100'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#130" id="130" class="l">130 </a>            <span class="php-quote">'pos1ID'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#131" id="131" class="l">131 </a>            <span class="php-quote">'pos2ID'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#132" id="132" class="l">132 </a>            <span class="php-quote">'pos3ID'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#133" id="133" class="l">133 </a>            <span class="php-quote">'pos4ID'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#134" id="134" class="l">134 </a>            <span class="php-quote">'pos5ID'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#135" id="135" class="l">135 </a>            <span class="php-quote">'pos6ID'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#136" id="136" class="l">136 </a>            <span class="php-quote">'pos7ID'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#137" id="137" class="l">137 </a>            <span class="php-quote">'pos8ID'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#138" id="138" class="l">138 </a>            <span class="php-quote">'pos9ID'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#139" id="139" class="l">139 </a>            <span class="php-quote">'pos10ID'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#140" id="140" class="l">140 </a>            <span class="php-quote">'pos10'</span> =&gt; <span class="php-keyword1">null</span>,
 <a href="#141" id="141" class="l">141 </a>            <span class="php-quote">'character'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#142" id="142" class="l">142 </a>            <span class="php-quote">'pos90'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#143" id="143" class="l">143 </a>            <span class="php-quote">'pos11'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#144" id="144" class="l">144 </a>            <span class="php-quote">'pos20'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#145" id="145" class="l">145 </a>            <span class="php-quote">'pos30'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#146" id="146" class="l">146 </a>            <span class="php-quote">'pos40'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#147" id="147" class="l">147 </a>            <span class="php-quote">'pos50'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#148" id="148" class="l">148 </a>            <span class="php-quote">'pos60'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#149" id="149" class="l">149 </a>            <span class="php-quote">'pos70'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#150" id="150" class="l">150 </a>            <span class="php-quote">'pos80'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#142" id="142" class="l">142 </a>            <span class="php-quote">'pos9'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#143" id="143" class="l">143 </a>            <span class="php-quote">'pos1'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#144" id="144" class="l">144 </a>            <span class="php-quote">'pos2'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#145" id="145" class="l">145 </a>            <span class="php-quote">'pos3'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#146" id="146" class="l">146 </a>            <span class="php-quote">'pos4'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#147" id="147" class="l">147 </a>            <span class="php-quote">'pos5'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#148" id="148" class="l">148 </a>            <span class="php-quote">'pos6'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#149" id="149" class="l">149 </a>            <span class="php-quote">'pos7'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#150" id="150" class="l">150 </a>            <span class="php-quote">'pos8'</span> =&gt; <span class="php-keyword1">null</span>,
 <a href="#151" id="151" class="l">151 </a>        );
 <a href="#152" id="152" class="l">152 </a>    }
 <a href="#153" id="153" class="l">153 </a>
@@ -323,16 +326,16 @@
 <a href="#163" id="163" class="l">163 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'id'</span>, <span class="php-var">$this</span>-&gt;id);
 <a href="#164" id="164" class="l">164 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'characterID'</span>, <span class="php-var">$this</span>-&gt;characterID);
 <a href="#165" id="165" class="l">165 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'active'</span>, <span class="php-var">$this</span>-&gt;active);
-<a href="#166" id="166" class="l">166 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'pos1'</span>, <span class="php-var">$this</span>-&gt;pos1);
-<a href="#167" id="167" class="l">167 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'pos2'</span>, <span class="php-var">$this</span>-&gt;pos2);
-<a href="#168" id="168" class="l">168 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'pos3'</span>, <span class="php-var">$this</span>-&gt;pos3);
-<a href="#169" id="169" class="l">169 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'pos4'</span>, <span class="php-var">$this</span>-&gt;pos4);
-<a href="#170" id="170" class="l">170 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'pos5'</span>, <span class="php-var">$this</span>-&gt;pos5);
-<a href="#171" id="171" class="l">171 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'pos6'</span>, <span class="php-var">$this</span>-&gt;pos6);
-<a href="#172" id="172" class="l">172 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'pos7'</span>, <span class="php-var">$this</span>-&gt;pos7);
-<a href="#173" id="173" class="l">173 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'pos8'</span>, <span class="php-var">$this</span>-&gt;pos8);
-<a href="#174" id="174" class="l">174 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'pos9'</span>, <span class="php-var">$this</span>-&gt;pos9);
-<a href="#175" id="175" class="l">175 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'pos10'</span>, <span class="php-var">$this</span>-&gt;pos10);
+<a href="#166" id="166" class="l">166 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'pos1ID'</span>, <span class="php-var">$this</span>-&gt;pos1ID);
+<a href="#167" id="167" class="l">167 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'pos2ID'</span>, <span class="php-var">$this</span>-&gt;pos2ID);
+<a href="#168" id="168" class="l">168 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'pos3ID'</span>, <span class="php-var">$this</span>-&gt;pos3ID);
+<a href="#169" id="169" class="l">169 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'pos4ID'</span>, <span class="php-var">$this</span>-&gt;pos4ID);
+<a href="#170" id="170" class="l">170 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'pos5ID'</span>, <span class="php-var">$this</span>-&gt;pos5ID);
+<a href="#171" id="171" class="l">171 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'pos6ID'</span>, <span class="php-var">$this</span>-&gt;pos6ID);
+<a href="#172" id="172" class="l">172 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'pos7ID'</span>, <span class="php-var">$this</span>-&gt;pos7ID);
+<a href="#173" id="173" class="l">173 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'pos8ID'</span>, <span class="php-var">$this</span>-&gt;pos8ID);
+<a href="#174" id="174" class="l">174 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'pos9ID'</span>, <span class="php-var">$this</span>-&gt;pos9ID);
+<a href="#175" id="175" class="l">175 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'pos10ID'</span>, <span class="php-var">$this</span>-&gt;pos10ID);
 <a href="#176" id="176" class="l">176 </a>
 <a href="#177" id="177" class="l">177 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> CActiveDataProvider(<span class="php-var">$this</span>, <span class="php-keyword1">array</span>(
 <a href="#178" id="178" class="l">178 </a>            <span class="php-quote">'criteria'</span> =&gt; <span class="php-var">$criteria</span>,
