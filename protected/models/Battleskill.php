@@ -1,7 +1,7 @@
 <?php
 
 Yii::import('application.models._base.BaseBattleskill');
-Yii::import('application.components.skills.*');
+Yii::import('application.components.battleskills.*');
 
 /**
  * Resolve the battleskill by interfering with the battle object
