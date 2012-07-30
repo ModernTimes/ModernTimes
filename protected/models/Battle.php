@@ -175,7 +175,7 @@ class Battle extends BaseBattle {
      * Validity of $playerAction is checked by controller or is provided by
      * a Monster model directly
      * @uses calculateRound
-     * @param mixed Skill or Item record
+     * @param mixed Battleskill or Item record
      */
     public function playerAction($playerAction = null) {
         // Yii::trace("playerAction. Action: " . $playerAction->name);
@@ -208,7 +208,7 @@ class Battle extends BaseBattle {
      * - resolve delayed effects
      * - resolve defensive actions
      * - resolve offensive actions
-     * - create new effects
+     * - create new battleeffects
      * 
      * @uses onBeforeRound with BattleEvent
      * @uses onAfterRound with BattleEvent
@@ -306,14 +306,14 @@ class Battle extends BaseBattle {
     /**
      * Increases the duration of $Effect, if $Effect is already in the list
      * of active Battleeffects, and if $Effect is not a permanent effect
-     * @param Battleeffect $Effect
+     * @param Battleeffect $Battleeffect
      * @param bool $sameHero default true
      */
-    public function increaseEffectDuration($Effect, $sameHero = true) {
-        $existingEffectIndex = $this->battleeffects->indexOf($Effect, $sameHero);
+    public function increaseEffectDuration($Battleeffect, $sameHero = true) {
+        $existingEffectIndex = $this->battleeffects->indexOf($Battleeffect, $sameHero);
         if($existingEffectIndex > -1) {
             $existingEffect = $this->battleeffects->itemAt($existingEffectIndex);
-            $existingEffect->turns += $Effect->turns;
+            $existingEffect->turns += $Battleeffect->turns;
         } else {
             // nothing or throw exception?
         }

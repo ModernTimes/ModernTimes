@@ -64,8 +64,9 @@ abstract class BaseCharacterSkills extends GxActiveRecord {
 	 */
 	public function rules() {
 		return array(
-			array('characterID, skillID, available, permed', 'required'),
+			array('characterID, skillID', 'required'),
 			array('characterID, skillID, available, permed', 'numerical', 'integerOnly'=>true),
+			array('available, permed', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('id, characterID, skillID, available, permed', 'safe', 'on'=>'search'),
 		);
 	}

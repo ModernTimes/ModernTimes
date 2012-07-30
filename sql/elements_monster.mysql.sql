@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 20. Jul 2012 um 17:50
+-- Erstellungszeit: 30. Jul 2012 um 18:57
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -25,14 +25,13 @@ SET time_zone = "+00:00";
 --
 
 INSERT INTO `mt_monster` (`id`, `name`, `specialClass`, `hpMax`, `attack`, `defense`, `xp`, `dropCash`, `dropFavours`, `dropKudos`, `msgEncounter`) VALUES
-(1, 'Middle management marketing guy', '', 7, 2, 1, NULL, 0, 0, 2, 'The five forces are strong with him.');
+(1, 'Advertising specialist', '', 7, 3, 1, NULL, 0, 1, 1, '');
 
 --
--- Daten für Tabelle `mt_monster_skills`
+-- Daten für Tabelle `mt_monster_battleskills`
 --
 
-INSERT INTO `mt_monster_skills` (`id`, `monsterID`, `skillID`, `prob`) VALUES
-(1, 1, 1, 0.500000),
+INSERT INTO `mt_monster_battleskills` (`id`, `monsterID`, `battleskillID`, `prob`) VALUES
 (2, 1, 3, 0.500000);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

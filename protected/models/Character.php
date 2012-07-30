@@ -639,33 +639,6 @@ class Character extends BaseCharacter {
      */
 
     /**
-     * Lazy loading of inventory items associated with the Character 
-     */
-    public function loadItems() {
-        $characterItems = CharacterItems::model()->with(array(
-            'item' => array(
-                'with' => array(
-                    'requirement',
-                    'useEffect', 
-                    'charactermodifier'
-                )
-            )
-        ))->findAll(
-            't.characterID=:characterID', 
-            array(':characterID'=>$this->id));
-        $this->characterItems = $characterItems;
-    }
-    /**
-     * Lazy loading of quests (CharacterQuests) associated with the Character 
-     */
-    public function loadQuests() {
-        $characterQuests = CharacterQuests::model()->withRelated()->findAll(
-            't.characterID=:characterID', 
-            array(':characterID'=>$this->id));
-        $this->characterQuests = $characterQuests;
-    }
-    
-    /**
      * Generates a "get into position" combat message
      * @todo If this is going to be used, make it more dynamic
      * @return string
@@ -680,6 +653,33 @@ class Character extends BaseCharacter {
      */
     public function getTitle() {
         return "Level " . $this->getLevel() . " " . ucfirst($this->class);
+    }
+    
+    /**
+     * Lazy loading of CharacterItems records
+     */
+    public function loadItems() {
+        $characterItems = CharacterItems::model()->with(array(
+            'item' => array(
+                'with' => array(
+                    'requirement',
+                    // 'useEffect', 
+                    'charactermodifier'
+                )
+            )
+        ))->findAll(
+            't.characterID=:characterID', 
+            array(':characterID'=>$this->id));
+        $this->characterItems = $characterItems;
+    }
+    /**
+     * Lazy loading of CharacterQuests records
+     */
+    public function loadQuests() {
+        $characterQuests = CharacterQuests::model()->withRelated()->findAll(
+            't.characterID=:characterID', 
+            array(':characterID'=>$this->id));
+        $this->characterQuests = $characterQuests;
     }
     
     /**
@@ -711,8 +711,10 @@ class Character extends BaseCharacter {
         $characterQuest->state = "unavailable";
         return $characterQuest;
     }
+    
     /**
      * Checks if the character has completed a certain Quest
+     * @uses getCharacterQuest
      * @param mixed $quest Quest or int (ID of a Quest record)
      * @return boolean 
      */
@@ -722,11 +724,13 @@ class Character extends BaseCharacter {
     }
 
     /**
-     * Checks if the character has a certain Effect attached to them
-     * @param mixed $effect Effect or int (ID of an effect record)
-     * @return boolean 
+     * Returns a CharacterEffects record for a given $effect
+     * (if no such effect is in place for the character, a new CharacterEffects
+     * record will be created with turns = 0)
+     * @param mixed $effect Effect or int
+     * @return CharacterEffects
      */
-    public function hasEffect($effect) {
+    public function getCharacterEffect($effect) {
         if(is_numeric($effect)) {
             $effectID = $effect;
         } else {
@@ -734,11 +738,32 @@ class Character extends BaseCharacter {
         }
         foreach($this->characterEffects as $characterEffect) {
             if($characterEffect->effectID == $effectID) {
-                return true;
+                return $characterEffect;
             }
         }
-        return false;
+
+        /**
+         * If no CharacterEffects record exists for the given effect,
+         * create a new one with turns = 0
+         */
+        $characterEffect = new CharacterEffects();
+        $characterEffect->characterID = $this->id;
+        $characterEffect->effectID = $effectID;
+        $characterEffect->turns = 0;
+        return $characterEffect;
     }
+
+    /**
+     * Checks if the character has a certain Effect attached to them
+     * @uses getCharacterEffect
+     * @param mixed $effect Effect or int (ID of an effect record)
+     * @return boolean 
+     */
+    public function hasEffect($effect) {
+        $characterEffect = $this->getCharacterEffect($effect);
+        return ($characterEffect->turns > 0);
+    }
+    
     /**
      * Adds a CharacterEffects record to the Character record
      * @uses onAddEffect
@@ -748,7 +773,7 @@ class Character extends BaseCharacter {
      * @uses CharacterEffects
      * @param CharacterEffects $characterEffect 
      */
-    public function addEffect($characterEffect) {
+    public function addCharacterEffect($characterEffect) {
         /**
          * Remember: $this->characterEffects is NOT a real property, but the 
          * result of a function call!
@@ -763,28 +788,52 @@ class Character extends BaseCharacter {
         
         EUserFlash::setNoticeMessage($characterEffect->effect->name, "<b>" . $characterEffect->effect->name . "</b> (for the next " . $characterEffect->turns . " encounters)", 'effect');
     }
-    
+
     /**
-     * Returns an Effect record of the indicated type if such an Effect is
-     * attached to the Character. (false if there is no such Effect attached
-     * to the Character)
-     * @param Effect $effect
-     * @return mixed Effect if Effect of the indicated type is found, false
-     * otherwise
+     * Returns a CharacterSkills record
+     * (If the character does not know the skill, a new record will be created
+     * with available = 0)
+     * @param mixed $skill Skill or int
+     * @return CharacterSkills
      */
-    public function getEffect($effect) {
-        foreach($this->characterEffects as $characterEffect) {
-            if($characterEffect->effect->id == $effect->id) {
-                return $characterEffect;
+    public function getCharacterSkill($skill) {
+        if(is_numeric($skill)) {
+            $skillID = $skill;
+        } else {
+            $skillID = $skill->id;
+        }
+        foreach($this->characterSkills as $characterSkill) {
+            if($characterSkill->skillID == $skillID) {
+                return $characterSkill;
             }
         }
-        return false;
+        
+        /**
+         * If no CharacterSkills record exists,
+         * create a new one with available = 0
+         */
+        $characterSkill = new CharacterSkills();
+        $characterSkill->characterID = $this->id;
+        $characterSkill->skillID = $skillID;
+        $characterSkill->available = 0;
+        return $characterSkill;
     }
 
     /**
+     * Checks if the character knows a certain skill
+     * @uses getCharacterSkill
+     * @param mixed $skill Skill or int (ID of a Skill record)
+     * @return boolean 
+     */
+    public function hasSkill($skill) {
+        $characterSkill= $this->getCharacterSkill($skill);
+        return ($characterSkill->available);
+    }
+    
+    /**
      * Returns the active CharacterFamiliars record
      * @see CharacterFamiliars
-     * @return mixed CharacterFamiliar or null
+     * @return mixed CharacterFamiliars or null
      */
     public function getFamiliar() {
         foreach($this->characterFamiliars as $familiar) {

@@ -1,19 +1,20 @@
 <?php
 
-Yii::import('application.models._base.BaseMonsterSkills');
+Yii::import('application.models._base.BaseMonsterBattleskills');
 
 /**
  * Basic HAS_MANY association model
- * Which skills can a monster use, and with which probability does it use them?
+ * Which battleskills can a monster use, and with which probability does it use 
+ * them?
  * 
- * See BaseMonsterSkills for a list of attributes and related Models
+ * See BaseMonsterBattleskills for a list of attributes and related Models
  * 
  * @see Monster
- * @see Skill
+ * @see Battleskill
  * @package System.Models.Relations
  */
 
-class MonsterSkills extends BaseMonsterSkills {
+class MonsterBattleskills extends BaseMonsterBattleskills {
     
     /**
      * Returns the declaration of named scopes. A named scope represents a query
@@ -26,8 +27,8 @@ class MonsterSkills extends BaseMonsterSkills {
         return array(
             'withRelated' => array(
                 'with' => array(
-                    'skill' => array(
-                        'alias' => 'monsterSkillsSkill' . self::getScopeCounter(),
+                    'battleskill' => array(
+                        'alias' => 'monsterBattleskillsBattleskill' . self::getScopeCounter(),
                         'scopes' => 'withRelated'
                     ),
                 )

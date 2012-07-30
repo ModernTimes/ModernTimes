@@ -24,9 +24,9 @@ class BattleMonsterAction extends CAction {
         $battle = new Battle;
         $battle->combatantA = CD();
         $battle->combatantB = Monster::model()->with(array(
-            'monsterSkills' => array('with' => array(
-                'skill' => array('with' => array(
-                    'createEffect0'))
+            'monsterBattleskills' => array('with' => array(
+                'battleskill' => array('with' => array(
+                    'createBattleeffect'))
                 ))
             ))->findByPk($this->monsterID);
         $battle->start();

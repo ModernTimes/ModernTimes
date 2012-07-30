@@ -6,36 +6,18 @@
  * - integer id
  * - string name
  * - string skillType
- * - string actionType
- * - string battlePhase
- * - string subType
  * - string specialClass
  * - integer charactermodifierID
  * - integer costEnergy
- * - integer dealsDamage
- * - string damageAttackFactor
- * - integer damageFixedAmount
- * - string damageType
  * - integer healing
- * - integer createEffect
+ * - integer createEffectID
  * - integer effectTurns
  * - string effectMsgIncreasedDuration
  * - string desc
  * - string msgResolved
  *
  * - CharacterSkills characterSkills
- * - CharacterSkillsets characterSkillsets
- * - CharacterSkillsets characterSkillsets1
- * - CharacterSkillsets characterSkillsets2
- * - CharacterSkillsets characterSkillsets3
- * - CharacterSkillsets characterSkillsets4
- * - CharacterSkillsets characterSkillsets5
- * - CharacterSkillsets characterSkillsets6
- * - CharacterSkillsets characterSkillsets7
- * - CharacterSkillsets characterSkillsets8
- * - CharacterSkillsets characterSkillsets9
- * - MonsterSkills monsterSkills
- * - Battleeffect createEffect0
+ * - Effect createEffect
  * - Charactermodifier charactermodifier
  * <br>
  * <p>This is the model base class for the table "{{skill}}".
@@ -90,17 +72,13 @@ abstract class BaseSkill extends GxActiveRecord {
 	 */
 	public function rules() {
 		return array(
-			array('name, subType, specialClass, effectMsgIncreasedDuration, desc, msgResolved', 'required'),
-			array('charactermodifierID, costEnergy, dealsDamage, damageFixedAmount, healing, createEffect, effectTurns', 'numerical', 'integerOnly'=>true),
+			array('name, specialClass, effectMsgIncreasedDuration, desc, msgResolved', 'required'),
+			array('charactermodifierID, costEnergy, healing, createEffectID, effectTurns', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
-			array('skillType', 'length', 'max'=>10),
-			array('actionType, damageType', 'length', 'max'=>8),
-			array('battlePhase', 'length', 'max'=>7),
-			array('subType', 'length', 'max'=>20),
+			array('skillType', 'length', 'max'=>7),
 			array('specialClass', 'length', 'max'=>50),
-			array('damageAttackFactor', 'length', 'max'=>5),
-			array('skillType, actionType, battlePhase, charactermodifierID, costEnergy, dealsDamage, damageAttackFactor, damageFixedAmount, damageType, healing, createEffect, effectTurns', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, name, skillType, actionType, battlePhase, subType, specialClass, charactermodifierID, costEnergy, dealsDamage, damageAttackFactor, damageFixedAmount, damageType, healing, createEffect, effectTurns, effectMsgIncreasedDuration, desc, msgResolved', 'safe', 'on'=>'search'),
+			array('skillType, charactermodifierID, costEnergy, healing, createEffectID, effectTurns', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, name, skillType, specialClass, charactermodifierID, costEnergy, healing, createEffectID, effectTurns, effectMsgIncreasedDuration, desc, msgResolved', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -112,18 +90,7 @@ abstract class BaseSkill extends GxActiveRecord {
 	public function relations() {
 		return array(
 			'characterSkills' => array(self::HAS_MANY, 'CharacterSkills', 'skillID'),
-			'characterSkillsets' => array(self::HAS_MANY, 'CharacterSkillsets', 'pos10'),
-			'characterSkillsets1' => array(self::HAS_MANY, 'CharacterSkillsets', 'pos9'),
-			'characterSkillsets2' => array(self::HAS_MANY, 'CharacterSkillsets', 'pos1'),
-			'characterSkillsets3' => array(self::HAS_MANY, 'CharacterSkillsets', 'pos2'),
-			'characterSkillsets4' => array(self::HAS_MANY, 'CharacterSkillsets', 'pos3'),
-			'characterSkillsets5' => array(self::HAS_MANY, 'CharacterSkillsets', 'pos4'),
-			'characterSkillsets6' => array(self::HAS_MANY, 'CharacterSkillsets', 'pos5'),
-			'characterSkillsets7' => array(self::HAS_MANY, 'CharacterSkillsets', 'pos6'),
-			'characterSkillsets8' => array(self::HAS_MANY, 'CharacterSkillsets', 'pos7'),
-			'characterSkillsets9' => array(self::HAS_MANY, 'CharacterSkillsets', 'pos8'),
-			'monsterSkills' => array(self::HAS_MANY, 'MonsterSkills', 'skillID'),
-			'createEffect0' => array(self::BELONGS_TO, 'Battleeffect', 'createEffect'),
+			'createEffect' => array(self::BELONGS_TO, 'Effect', 'createEffectID'),
 			'charactermodifier' => array(self::BELONGS_TO, 'Charactermodifier', 'charactermodifierID'),
 		);
 	}
@@ -146,35 +113,17 @@ abstract class BaseSkill extends GxActiveRecord {
 			'id' => Yii::t('app', 'ID'),
 			'name' => Yii::t('app', 'Name'),
 			'skillType' => Yii::t('app', 'Skill Type'),
-			'actionType' => Yii::t('app', 'Action Type'),
-			'battlePhase' => Yii::t('app', 'Battle Phase'),
-			'subType' => Yii::t('app', 'Sub Type'),
 			'specialClass' => Yii::t('app', 'Special Class'),
 			'charactermodifierID' => null,
 			'costEnergy' => Yii::t('app', 'Cost Energy'),
-			'dealsDamage' => Yii::t('app', 'Deals Damage'),
-			'damageAttackFactor' => Yii::t('app', 'Damage Attack Factor'),
-			'damageFixedAmount' => Yii::t('app', 'Damage Fixed Amount'),
-			'damageType' => Yii::t('app', 'Damage Type'),
 			'healing' => Yii::t('app', 'Healing'),
-			'createEffect' => null,
+			'createEffectID' => null,
 			'effectTurns' => Yii::t('app', 'Effect Turns'),
 			'effectMsgIncreasedDuration' => Yii::t('app', 'Effect Msg Increased Duration'),
 			'desc' => Yii::t('app', 'Desc'),
 			'msgResolved' => Yii::t('app', 'Msg Resolved'),
 			'characterSkills' => null,
-			'characterSkillsets' => null,
-			'characterSkillsets1' => null,
-			'characterSkillsets2' => null,
-			'characterSkillsets3' => null,
-			'characterSkillsets4' => null,
-			'characterSkillsets5' => null,
-			'characterSkillsets6' => null,
-			'characterSkillsets7' => null,
-			'characterSkillsets8' => null,
-			'characterSkillsets9' => null,
-			'monsterSkills' => null,
-			'createEffect0' => null,
+			'createEffect' => null,
 			'charactermodifier' => null,
 		);
 	}
@@ -191,18 +140,11 @@ abstract class BaseSkill extends GxActiveRecord {
 		$criteria->compare('id', $this->id);
 		$criteria->compare('name', $this->name, true);
 		$criteria->compare('skillType', $this->skillType, true);
-		$criteria->compare('actionType', $this->actionType, true);
-		$criteria->compare('battlePhase', $this->battlePhase, true);
-		$criteria->compare('subType', $this->subType, true);
 		$criteria->compare('specialClass', $this->specialClass, true);
 		$criteria->compare('charactermodifierID', $this->charactermodifierID);
 		$criteria->compare('costEnergy', $this->costEnergy);
-		$criteria->compare('dealsDamage', $this->dealsDamage);
-		$criteria->compare('damageAttackFactor', $this->damageAttackFactor, true);
-		$criteria->compare('damageFixedAmount', $this->damageFixedAmount);
-		$criteria->compare('damageType', $this->damageType, true);
 		$criteria->compare('healing', $this->healing);
-		$criteria->compare('createEffect', $this->createEffect);
+		$criteria->compare('createEffectID', $this->createEffectID);
 		$criteria->compare('effectTurns', $this->effectTurns);
 		$criteria->compare('effectMsgIncreasedDuration', $this->effectMsgIncreasedDuration, true);
 		$criteria->compare('desc', $this->desc, true);

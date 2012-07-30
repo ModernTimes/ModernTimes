@@ -70,6 +70,10 @@ class CreateCharacterAction extends CAction {
                     $CharacterEquipment->active = 1;
                     $CharacterEquipment->save();
                     
+                    /**
+                     * QUESTS 
+                     */
+                    
                     $GluttonyQuest = new CharacterQuests();
                     $GluttonyQuest->characterID = $Character->id;
                     $GluttonyQuest->questID = 2;
@@ -83,26 +87,37 @@ class CreateCharacterAction extends CAction {
                     $GreedQuest->state = 'ongoing';
                     $GreedQuest->visible = 0;
                     $GreedQuest->save();
+
+                    /**
+                     * SKILLS
+                     */
                     
-                    $ProcrastinateSkill = new CharacterSkills();
+                    $ProcrastinateSkill = new CharacterBattleskills();
                     $ProcrastinateSkill->characterID = $Character->id;
-                    $ProcrastinateSkill->skillID = 1;
+                    $ProcrastinateSkill->battleskillID = 1;
                     $ProcrastinateSkill->available = 1;
                     $ProcrastinateSkill->permed = 0;
                     $ProcrastinateSkill->save();
                     
-                    $BabbleSkill = new CharacterSkills();
+                    $BabbleSkill = new CharacterBattleskills();
                     $BabbleSkill->characterID = $Character->id;
-                    $BabbleSkill->skillID = 2;
+                    $BabbleSkill->battleskillID = 2;
                     $BabbleSkill->available = 1;
                     $BabbleSkill->permed = 0;
                     $BabbleSkill->save();
+
+                    $ExtramileSkill = new CharacterSkills();
+                    $ExtramileSkill->characterID = $Character->id;
+                    $ExtramileSkill->skillID = 1;
+                    $ExtramileSkill->available = 1;
+                    $ExtramileSkill->permed = 0;
+                    $ExtramileSkill->save();
                     
                     $CharacterSkillset = new CharacterSkillsets();
                     $CharacterSkillset->characterID = $Character->id;
                     $CharacterSkillset->active = 1;
-                    $CharacterSkillset->pos1 = 1;
-                    $CharacterSkillset->pos2 = 2;
+                    $CharacterSkillset->pos1ID = 1;
+                    $CharacterSkillset->pos2ID = 2;
                     $CharacterSkillset->save();
 
                     $transaction->commit();

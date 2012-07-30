@@ -40,8 +40,8 @@
                         <?php echo "<li>" . CHtml::link(Yii::app()->getModule('user')->t("Logout"), Yii::app()->getModule('user')->logoutUrl) . "</li>"; ?>
                         <?php echo "<li>" . CHtml::link(Yii::app()->getModule('user')->t("Profile"), Yii::app()->getModule('user')->profileUrl) . "</li>"; ?>
                         <li class='divider'></li>
-                        <?php echo "<li>" . CHtml::link("Your characters", "./manageCharacters") . "</li>"; ?>
-                        <?php echo "<li>" . CHtml::link("Create a new character", "./createCharacter") . "</li>"; ?>
+                        <?php echo "<li>" . CHtml::link("Your characters", "../site/manageCharacters") . "</li>"; ?>
+                        <?php echo "<li>" . CHtml::link("Create a new character", "../site/createCharacter") . "</li>"; ?>
                     </ul>
                 </li>
             

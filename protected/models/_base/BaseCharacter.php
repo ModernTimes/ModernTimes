@@ -24,6 +24,7 @@
  * - integer kudos
  *
  * - User user
+ * - CharacterBattleskills characterBattleskills
  * - CharacterEffects characterEffects
  * - CharacterEncounters characterEncounters
  * - CharacterEquipments characterEquipments
@@ -103,6 +104,7 @@ abstract class BaseCharacter extends GxActiveRecord {
 	public function relations() {
 		return array(
 			'user' => array(self::BELONGS_TO, 'User', 'userID'),
+			'characterBattleskills' => array(self::HAS_MANY, 'CharacterBattleskills', 'characterID'),
 			'characterEffects' => array(self::HAS_MANY, 'CharacterEffects', 'characterID'),
 			'characterEncounters' => array(self::HAS_MANY, 'CharacterEncounters', 'characterID'),
 			'characterEquipments' => array(self::HAS_MANY, 'CharacterEquipments', 'characterID'),
@@ -149,6 +151,7 @@ abstract class BaseCharacter extends GxActiveRecord {
 			'favours' => Yii::t('app', 'Favours'),
 			'kudos' => Yii::t('app', 'Kudos'),
 			'user' => null,
+			'characterBattleskills' => null,
 			'characterEffects' => null,
 			'characterEncounters' => null,
 			'characterEquipments' => null,

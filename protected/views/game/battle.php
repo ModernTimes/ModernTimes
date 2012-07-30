@@ -146,11 +146,9 @@ if($battle->state == "resolved") { ?>
                         );
                         echo $msgs[mt_rand(0, count($msgs)-1)];
                     ?></h3>
-                    <?php foreach($battle->getHero()->characterSkills as $characterSkill) {
-                        if($characterSkill->skill->skillType == "combat") {
-                            echo CHtml::link($characterSkill->skill->name, array('game/battleAction', 'skillID' => $characterSkill->skill->id), array('class'=>'btn btn-primary btn-danger', 'data-title'=>$characterSkill->skill->name, 'data-content'=>$characterSkill->skill->call("getPopup"), 'rel'=>'popover'));
-                            echo " &nbsp; ";
-                        }
+                    <?php foreach($battle->getHero()->characterBattleskills as $characterBattleskill) {
+                        echo CHtml::link($characterBattleskill->battleskill->name, array('game/battleAction', 'battleskillID' => $characterBattleskill->battleskillID), array('class'=>'btn btn-primary btn-danger', 'data-title'=>$characterBattleskill->battleskill->name, 'data-content'=>$characterBattleskill->battleskill->call("getPopup"), 'rel'=>'popover'));
+                        echo " &nbsp; ";
                     } ?></td>
                 <td style="width: 50%">
                     <h1 align="center">?</h1>

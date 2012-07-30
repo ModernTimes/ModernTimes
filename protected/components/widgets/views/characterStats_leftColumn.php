@@ -29,22 +29,16 @@
     <?php } */ ?>
     
    
-<?php /*
-<?php echo $this->character->hp; ?> / <?php echo $this->character->getHpMax(); ?>
-<?php echo $this->character->energy; ?> / <?php echo $this->character->getEnergyMax(); ?>
- */ ?>
-    
-
     <div align=""center"><table style="margin-top: 30px;" cellspacing="3">
         <?php /*
         
          * HP + Energy bars
         
         */ ?><tr>
-            <td style="width: 40px;"><i class="icon-heart"></i></td>
+            <td style="width: 40px;"><i class="icon-heart"></i> <?php echo $this->character->hp; ?></td>
             <td style="width: 80%"><div class="progress progress-danger" style="margin: 0px; height: 12px"><div class="bar" style="width: <?php echo floor($this->character->hp / $this->character->getHpMax() * 100); ?>%"></div></div></td>
         </tr><tr>
-            <td><i class="icon-star"></i></td>
+            <td><i class="icon-star"></i> <?php echo $this->character->energy; ?></td>
             <td><div class="progress" style="margin: 0px; height: 12px"><div class="bar" style="width: <?php echo floor($this->character->energy / $this->character->getEnergyMax() * 100); ?>%"></div></div></td>
         </tr><?php /*
         
@@ -84,17 +78,43 @@ if(count($this->character->characterEffects) > 0) { ?>
         // d($characterEffect);
         $this->widget("EffectWidget", 
                 array("effect" => $characterEffect->effect,
-                      "turns" => $characterEffect->turns));
+                      "turns" => $characterEffect->turns,
+                      "styles" => "margin-bottom: 3px;"));
     } ?>
 <?php } ?>
 
-<?php /* ?>
-    <div align="center">Skills:</div>
-    <ul>
+<?php /* Skills */ ?>
+<div class="row" style="margin-top: 15px; margin-left: 50px" align="center">
+<div class="btn-group">
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Use a skill <span class="caret"></span></a>
+    <ul class="dropdown-menu">
         <?php foreach($this->character->characterSkills as $characterSkill) {
-            echo "<li>" . $characterSkill->skill->name . " (ID: " . $characterSkill->skill->id . ")</li>";
+            if($characterSkill->skill->skillType == "active" &&
+                    $characterSkill->available) {
+
+                /**
+                 * Only generate standard popup content if Skill does not 
+                 * generate its own popup
+                 */
+                $popup = $characterSkill->skill->call('getPopup');
+                if(empty($popup)) {
+                    $popup = "<p>" . $characterSkill->skill->desc . "</p>";
+                }
+
+                echo "<li style=\"text-align: left\">" . 
+                        CHtml::link(
+                            "<span class='btn btn-mini'><i class='icon-star'></i> " . $characterSkill->skill->costEnergy . "</span>" . " " . $characterSkill->skill->name, 
+                            "./useSkill?skillID=" . $characterSkill->skill->id, 
+                            array(
+                                'data-title'=>$characterSkill->skill->name, 
+                                'data-content'=>$popup,
+                                'rel'=>'popover',
+                            )) . 
+                     "</li>";
+            }
         } ?>
     </ul>
- <?php */ ?>
+</div>
+</div>
 
 </div>

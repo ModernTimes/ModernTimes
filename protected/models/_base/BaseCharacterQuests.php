@@ -8,7 +8,7 @@
  * - integer questID
  * - string state
  * - integer visible
- * - string params
+ * - string questState
  *
  * - Character character
  * - Quest quest
@@ -68,9 +68,9 @@ abstract class BaseCharacterQuests extends GxActiveRecord {
 			array('characterID, questID', 'required'),
 			array('characterID, questID, visible', 'numerical', 'integerOnly'=>true),
 			array('state', 'length', 'max'=>11),
-			array('params', 'safe'),
-			array('state, visible, params', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, characterID, questID, state, visible, params', 'safe', 'on'=>'search'),
+			array('questState', 'safe'),
+			array('state, visible, questState', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, characterID, questID, state, visible, questState', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -106,7 +106,7 @@ abstract class BaseCharacterQuests extends GxActiveRecord {
 			'questID' => null,
 			'state' => Yii::t('app', 'State'),
 			'visible' => Yii::t('app', 'Visible'),
-			'params' => Yii::t('app', 'Params'),
+			'questState' => Yii::t('app', 'Quest State'),
 			'character' => null,
 			'quest' => null,
 		);
@@ -126,7 +126,7 @@ abstract class BaseCharacterQuests extends GxActiveRecord {
 		$criteria->compare('questID', $this->questID);
 		$criteria->compare('state', $this->state, true);
 		$criteria->compare('visible', $this->visible);
-		$criteria->compare('params', $this->params, true);
+		$criteria->compare('questState', $this->questState, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

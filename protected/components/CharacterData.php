@@ -68,8 +68,6 @@ class CharacterData extends CApplicationComponent {
      * Character model
      * - Redirects to character creation action in case it doesn't find an 
      * active character for the current user
-     * @todo Find a way to add the "available = 1" conditions again, without
-     *       causing any errors. Update: so far, so good. Continue monitoring.
      * @todo put the static model() call into the Character model
      * @todo put the attach stuff things intot he Character model
      * That way, we can load and initialize other characters, too
@@ -84,27 +82,27 @@ class CharacterData extends CApplicationComponent {
             */
             'characterEquipments'=>array(
                 'with' => array(
-                    'weapon0' => array(
+                    'weapon' => array(
                         'select' => array("`characterEquipment`.`specialClass`", 
                                         "`characterEquipment`.`charactermodifierID`"),
                         'with' => array('charactermodifier' => array('alias' => 'weaponCharactermodifier'))
                     ),
-                    'offhand0' => array(
+                    'offhand' => array(
                         'select' => array("`characterEquipment`.`specialClass`", 
                                         "`characterEquipment`.`charactermodifierID`"),
                         'with' => array('charactermodifier' => array('alias' => 'offhandCharactermodifier'))
                     ),
-                    'accessoryA0' => array(
+                    'accessoryA' => array(
                         'select' => array("`characterEquipment`.`specialClass`", 
                                         "`characterEquipment`.`charactermodifierID`"),
                         'with' => array('charactermodifier' => array('alias' => 'accessoryACharactermodifier'))
                     ),
-                    'accessoryB0' => array(
+                    'accessoryB' => array(
                         'select' => array("`characterEquipment`.`specialClass`", 
                                         "`characterEquipment`.`charactermodifierID`"),
                         'with' => array('charactermodifier' => array('alias' => 'accessoryBCharactermodifier'))
                     ),
-                    'accessoryC0' => array(
+                    'accessoryC' => array(
                         'select' => array("`characterEquipment`.`specialClass`", 
                                         "`characterEquipment`.`charactermodifierID`"),
                         'with' => array('charactermodifier' => array('alias' => 'accessoryCCharactermodifier'))
@@ -130,9 +128,8 @@ class CharacterData extends CApplicationComponent {
                     * and only those which can be used outside of combat or
                     * which have a passive charactermodifier effect
                     * Takes much longer in tests with this condition
-                'condition' => "`characterSkills`.`available` = 1 AND
-                                (`characterSkillsSkill`.`skillType` != 'combat' OR
-                                `characterSkillsSkill`.`charactermodifierID` IS NOT NULL)"
+                'condition' => "`characterSkills`.`available` = 1 AND 
+                                `characterSkillsSkill`.`charactermodifierID` IS NOT NULL"
                 */
             ),
             'characterEffects'=> array(

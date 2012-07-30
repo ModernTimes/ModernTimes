@@ -119,7 +119,9 @@
 				<li><a href="class-BaseAreaMonsters.html">BaseAreaMonsters</a></li>
 				<li><a href="class-BaseBattle.html">BaseBattle</a></li>
 				<li><a href="class-BaseBattleeffect.html">BaseBattleeffect</a></li>
+				<li><a href="class-BaseBattleskill.html">BaseBattleskill</a></li>
 				<li><a href="class-BaseCharacter.html">BaseCharacter</a></li>
+				<li><a href="class-BaseCharacterBattleskills.html">BaseCharacterBattleskills</a></li>
 				<li><a href="class-BaseCharacterEffects.html">BaseCharacterEffects</a></li>
 				<li><a href="class-BaseCharacterEncounters.html">BaseCharacterEncounters</a></li>
 				<li><a href="class-BaseCharacterEquipments.html">BaseCharacterEquipments</a></li>
@@ -136,6 +138,7 @@
 				<li><a href="class-BaseItem.html">BaseItem</a></li>
 				<li><a href="class-BaseMarker.html">BaseMarker</a></li>
 				<li><a href="class-BaseMonster.html">BaseMonster</a></li>
+				<li><a href="class-BaseMonsterBattleskills.html">BaseMonsterBattleskills</a></li>
 				<li><a href="class-BaseMonsterItems.html">BaseMonsterItems</a></li>
 				<li><a href="class-BaseMonsterSkills.html">BaseMonsterSkills</a></li>
 				<li><a href="class-BaseQuest.html">BaseQuest</a></li>
@@ -168,7 +171,7 @@
 </span><a href="#8" id="8" class="l">  8 </a><span class="php-comment"> * - integer questID
 </span><a href="#9" id="9" class="l">  9 </a><span class="php-comment"> * - string state
 </span><a href="#10" id="10" class="l"> 10 </a><span class="php-comment"> * - integer visible
-</span><a href="#11" id="11" class="l"> 11 </a><span class="php-comment"> * - string params
+</span><a href="#11" id="11" class="l"> 11 </a><span class="php-comment"> * - string questState
 </span><a href="#12" id="12" class="l"> 12 </a><span class="php-comment"> *
 </span><a href="#13" id="13" class="l"> 13 </a><span class="php-comment"> * - Character character
 </span><a href="#14" id="14" class="l"> 14 </a><span class="php-comment"> * - Quest quest
@@ -228,9 +231,9 @@
 <a href="#68" id="68" class="l"> 68 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'characterID, questID'</span>, <span class="php-quote">'required'</span>),
 <a href="#69" id="69" class="l"> 69 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'characterID, questID, visible'</span>, <span class="php-quote">'numerical'</span>, <span class="php-quote">'integerOnly'</span>=&gt;<span class="php-keyword1">true</span>),
 <a href="#70" id="70" class="l"> 70 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'state'</span>, <span class="php-quote">'length'</span>, <span class="php-quote">'max'</span>=&gt;<span class="php-num">11</span>),
-<a href="#71" id="71" class="l"> 71 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'params'</span>, <span class="php-quote">'safe'</span>),
-<a href="#72" id="72" class="l"> 72 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'state, visible, params'</span>, <span class="php-quote">'default'</span>, <span class="php-quote">'setOnEmpty'</span> =&gt; <span class="php-keyword1">true</span>, <span class="php-quote">'value'</span> =&gt; <span class="php-keyword1">null</span>),
-<a href="#73" id="73" class="l"> 73 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'id, characterID, questID, state, visible, params'</span>, <span class="php-quote">'safe'</span>, <span class="php-quote">'on'</span>=&gt;<span class="php-quote">'search'</span>),
+<a href="#71" id="71" class="l"> 71 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'questState'</span>, <span class="php-quote">'safe'</span>),
+<a href="#72" id="72" class="l"> 72 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'state, visible, questState'</span>, <span class="php-quote">'default'</span>, <span class="php-quote">'setOnEmpty'</span> =&gt; <span class="php-keyword1">true</span>, <span class="php-quote">'value'</span> =&gt; <span class="php-keyword1">null</span>),
+<a href="#73" id="73" class="l"> 73 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'id, characterID, questID, state, visible, questState'</span>, <span class="php-quote">'safe'</span>, <span class="php-quote">'on'</span>=&gt;<span class="php-quote">'search'</span>),
 <a href="#74" id="74" class="l"> 74 </a>        );
 <a href="#75" id="75" class="l"> 75 </a>    }
 <a href="#76" id="76" class="l"> 76 </a>
@@ -266,7 +269,7 @@
 <a href="#106" id="106" class="l">106 </a>            <span class="php-quote">'questID'</span> =&gt; <span class="php-keyword1">null</span>,
 <a href="#107" id="107" class="l">107 </a>            <span class="php-quote">'state'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'State'</span>),
 <a href="#108" id="108" class="l">108 </a>            <span class="php-quote">'visible'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Visible'</span>),
-<a href="#109" id="109" class="l">109 </a>            <span class="php-quote">'params'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Params'</span>),
+<a href="#109" id="109" class="l">109 </a>            <span class="php-quote">'questState'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Quest State'</span>),
 <a href="#110" id="110" class="l">110 </a>            <span class="php-quote">'character'</span> =&gt; <span class="php-keyword1">null</span>,
 <a href="#111" id="111" class="l">111 </a>            <span class="php-quote">'quest'</span> =&gt; <span class="php-keyword1">null</span>,
 <a href="#112" id="112" class="l">112 </a>        );
@@ -286,7 +289,7 @@
 <a href="#126" id="126" class="l">126 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'questID'</span>, <span class="php-var">$this</span>-&gt;questID);
 <a href="#127" id="127" class="l">127 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'state'</span>, <span class="php-var">$this</span>-&gt;state, <span class="php-keyword1">true</span>);
 <a href="#128" id="128" class="l">128 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'visible'</span>, <span class="php-var">$this</span>-&gt;visible);
-<a href="#129" id="129" class="l">129 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'params'</span>, <span class="php-var">$this</span>-&gt;params, <span class="php-keyword1">true</span>);
+<a href="#129" id="129" class="l">129 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'questState'</span>, <span class="php-var">$this</span>-&gt;questState, <span class="php-keyword1">true</span>);
 <a href="#130" id="130" class="l">130 </a>
 <a href="#131" id="131" class="l">131 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> CActiveDataProvider(<span class="php-var">$this</span>, <span class="php-keyword1">array</span>(
 <a href="#132" id="132" class="l">132 </a>            <span class="php-quote">'criteria'</span> =&gt; <span class="php-var">$criteria</span>,

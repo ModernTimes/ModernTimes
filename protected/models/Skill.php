@@ -4,9 +4,7 @@ Yii::import('application.models._base.BaseSkill');
 Yii::import('application.components.skills.*');
 
 /**
- * Resolve the skill by interfering with the battle object
- * The following holds true for all funcitons in this class:
- * hero and enemy are from the Skill user's point of view
+ * Represents and resolves non-battle skills
  * 
  * See BaseSkill for a list of attributes and related Models.
  * 
@@ -18,139 +16,33 @@ Yii::import('application.components.skills.*');
 class Skill extends BaseSkill {
 
     /**
-     * Other Skills or Battleeffects can block this skill, which means that
-     * it's not executed
-     * @var bool
+     * Resolves the Skill using basic skill mechanics
+     * @param Character $Character Character who uses the skill
      */
-    public $blocked = false;
-
-    /**
-     * Resolves the Skill by calling other functions to take care of basic
-     * Skill mechanics
-     * @uses checkBlocked
-     * @uses dealDamage
-     * @uses createEffects
-     * @param Battle $battle
-     * @param CombatantBehavior $hero Model record with CombatantBehavior
-     * @param CombatantBehavior $enemy Model record with CombatantBehavior
-     */
-    public function resolve($battle, $hero, $enemy) {
-        if(!$this->call("checkBlocked", $battle, $hero, $enemy)) {
-            return;
-        }
-        
-        $this->call("dealDamage", $battle, $hero, $enemy);
-        $this->call("createEffects", $battle, $hero, $enemy);
-    }
-    
-    /**
-     * Checks if this Skill is blocked and if so adds a Battlemessage
-     * @param Battle $battle
-     * @param CombatantBehavior $hero Model record with CombatantBehavior
-     * @param CombatantBehavior $enemy Model record with CombatantBehavior
-     * @return bool not blocked: true, blocked: false
-     */
-    public function checkBlocked($battle, $hero, $enemy) {
-        if($this->blocked) {
-            $battleMsg = new Battlemessage("", $this);
-            $battleMsg->setResult("blocked");
-            $battle->log($hero, $battleMsg);
-            
-            /**
-             * Remember that blocked is a property of the skill class and gets
-             * carried over to future rounds unless it is reset properly
-             */
-            $this->blocked = false;
-            
-            return false;
-        }
-        return true;
-    }
-    
-    /**
-     * Basic Battleeffect creation
-     * @param Battle $battle
-     * @param CombatantBehavior $hero Model record with CombatantBehavior
-     * @param CombatantBehavior $enemy Model record with CombatantBehavior
-     * @param bool $log whether the effect creation should be looged with a 
-     * Battlemessage
-     */
-    public function createEffects($battle, $hero, $enemy, $log = true) {
-        if($this->createEffect != null) {
-            $effect = clone $this->createEffect0;
-            
-            // See Battleeffect->initialize for further details
-            $result = $effect->call("initialize", $battle, $hero, $enemy, array(
-                'turns' => $this->effectTurns)
-            );
-            if($log) {
-                $battleMsg = new Battlemessage("", $this);
-                if($result == "added") {
-                    $battleMsg->msg = sprintf($this->call("getMsgResolved"), $hero->name);
-                } elseif($result == "increasedDuration") {
-                    $battleMsg->msg = sprintf($this->call("getMsgIncreasedDuration"), $hero->name);
-                }
-                $battleMsg->setResult("effect", $effect);
-                $battle->log($hero, $battleMsg);
-            }
+    public function resolveUsage($Character) {
+        if($Character->energy < $this->costEnergy) {
+            EUserFlash::setErrorMessage("You don't have enough energy to use that skill.");
+        } else {
+            $Character->decreaseEnergy($this->costEnergy);
+            $Character->update();
+            $this->call("createEffects", $Character);
         }
     }
     
     /**
-     * Basic damage dealing mechanics
-     * @param Battle $battle
-     * @param CombatantBehavior $hero Model record with CombatantBehavior
-     * @param CombatantBehavior $enemy Model record with CombatantBehavior
-     * @uses onBeforeDealingDamage
-     * @uses onAfterDealingDamage
-     * @uses BattleActionDamageEvent
-     * @uses BattleActionDamageDealtEvent
+     * Basic Effect creation
+     * @param Character $Character
      */
-    public function dealDamage($battle, $hero, $enemy) {
-        if($this->dealsDamage) {
-            $damage = $this->damageFixedAmount;
-            $damageType = $this->damageType;
-
-            if ($this->costEnergy == 0) {
-                $damage += $this->damageAttackFactor * $hero->getNormalAttack();
-            } else {
-                $damage += $this->damageAttackFactor * $hero->getSpecialAttack();
-            }
-
-            // Bonus collection
-            $event = new BattleActionDamageEvent($battle, $hero, $enemy, $this, 
-                    $damage, $damageType);
-            $battle->onBeforeDealingDamage($event);
-
-            $damageAdjusted = max(0, floor($event->adjustStat($damage)));
-            $damageDone = $enemy->takeDamage($damageAdjusted, $damageType);
-
-            $battleMsg = new Battlemessage(sprintf($this->call("getMsgResolved"), $hero->name), $this);
-            $battleMsg->setResult("damage", $damageDone, $damageType);
-            $battle->log($hero, $battleMsg);
-            
-            // Notification only
-            $event = new BattleActionDamageDealtEvent($battle, 
-                    $hero, $enemy, $this, 
-                    $damageDone, $damageType
-            );
-            $battle->onAfterDealingDamage($event);
+    public function createEffects($Character) {
+        if($this->createEffectID != null) {
+            $CharacterEffect = $Character->getCharacterEffect($this->createEffectID);
+            $CharacterEffect->turns += $this->effectTurns;
+            $CharacterEffect->save();
         }
-    }
-    
-    /**
-     * Basic setter
-     * @param bool $bool default true
-     * @return boolean true
-     */
-    public function setBlocked($bool = true) {
-        $this->blocked = $bool;
-        return true;
     }
     
     /**
      * Basic getter
-     * msgResolved is usually used as the main message in BattleMessages
      * @return string
      */
     public function getMsgResolved() {
@@ -178,21 +70,6 @@ class Skill extends BaseSkill {
                ($this->costEnergy > 0 ? "<BR />&nbsp;<BR /><span class='btn btn-mini'><i class='icon-star'></i> " . $this->costEnergy . "</span>" : "") . 
                "</p>";
     }
-    
-    /**
-     * Returns an array with log details about this Skill:
-     * id, name, type, desc, popup
-     * @return array
-     */
-    public function getLogDetails() {
-        return array(
-            'id' => $this->id,
-            'name' => $this->name,
-            'type' => $this->actionType,
-            'desc' => $this->desc,
-            'popup' => $this->call("getPopup"),
-        );
-    }
 
     /**
      * Returns a list of CBehaviors to be attached to this Model
@@ -217,6 +94,10 @@ class Skill extends BaseSkill {
         return array(
             'withRelated' => array(
                 'with' => array(
+                    'createEffect' => array(
+                        'alias' => 'skillCreateEffect' . self::getScopeCounter(),
+                        'scopes' => 'withRelated'
+                    ),
                     'charactermodifier' => array(
                         'alias' => 'skillCharactermodifier' . self::getScopeCounter(),
                         'scopes' => 'withRelated'

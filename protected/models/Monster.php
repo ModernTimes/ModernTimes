@@ -31,15 +31,18 @@ class Monster extends BaseMonster {
      */
     public function act($battle) {
         $l = new Lottery();
-        $l->addParticipants($this->monsterSkills);
+        $l->addParticipants($this->monsterBattleskills);
         $winner = $l->getWinner();
 
         if($winner == false) {
-            // Use the Wait skill, which does nothing
-            return Skill::model()->findByPk(1);
+            // Use the Pracrastinate skill, which does nothing
+            return Battleskill::model()->findByPk(1);
         }
-        // Remember that the winner is not the skill, but a MonsterSkills AR entry
-        return $winner->skill;
+        /**
+         * Remember that the winner is not the battleskill, but a 
+         * MonsterBattleskills AR entry
+         */
+        return $winner->battleskill;
     }
     
     /**
@@ -144,7 +147,7 @@ class Monster extends BaseMonster {
      */
     public function behaviors() {
         return array("application.components.SpecialnessBehavior",
-                        "application.components.CombatantBehavior");
+                     "application.components.CombatantBehavior");
     }
         
     /**
@@ -158,8 +161,8 @@ class Monster extends BaseMonster {
         return array(
             'withRelated' => array(
                 'with' => array(
-                    'monsterSkills' => array(
-                        'alias' => 'monsterMonsterSkills' . self::getScopeCounter(),
+                    'monsterBattleskills' => array(
+                        'alias' => 'monsterMonsterBattleskills' . self::getScopeCounter(),
                         'scopes' => 'withRelated'
                     ),
                     'monsterItems' => array(
