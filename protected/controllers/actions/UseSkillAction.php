@@ -25,7 +25,7 @@ class UseSkillAction extends BattleAction {
             if(!$CharacterSkill->available) {
                 EUserFlash::setErrorMessage("You haven't mastered that skill. Nice try, though.");
             } else {
-                $CharacterSkill->skill->resolveUsage($Character);
+                $CharacterSkill->skill->call("resolveUsage", $Character);
             }
         }
         
