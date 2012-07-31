@@ -18,8 +18,10 @@ class BattleActionAction extends BattleAction {
      * @param string $itemID treated as int, only string because of $GET
      */
     public function run($battleskillID = "", $itemID = "") {
-        $character = CD();
-        if($character->ongoingBattleID === null) {
+        $Character = CD();
+        $Character->loadSkillsets();
+        
+        if($Character->ongoingBattleID === null) {
             EUserFlash::setErrorMessage("You are not engaged in any battle right now.", 'validate');
             $this->controller->redirect(array('index'));
         }
@@ -36,16 +38,16 @@ class BattleActionAction extends BattleAction {
         }
         
         // @todo add hasSkill function to Character
-        foreach($character->characterBattleskills as $characterBattleskill) {
-            if($characterBattleskill->battleskillID == $battleskillID &&
-                    $characterBattleskill->available) {
+        foreach($Character->characterBattleskills as $CharacterBattleskill) {
+            if($CharacterBattleskill->battleskillID == $battleskillID &&
+                    $CharacterBattleskill->available) {
 
                 // Enough energy?
-                if($character->energy < $characterBattleskill->battleskill->costEnergy) {
+                if($Character->energy < $CharacterBattleskill->battleskill->costEnergy) {
                     EUserFlash::setErrorMessage("You do not have enough energy for that", 'validate');
                     break;
                 } else {
-                    $playerAction = $characterBattleskill->battleskill;
+                    $playerAction = $CharacterBattleskill->battleskill;
                     break;
                 }
             }
@@ -58,7 +60,7 @@ class BattleActionAction extends BattleAction {
             $this->renderBattle();
             return;
         }
-        $battleID = $character->ongoingBattleID;
+        $battleID = $Character->ongoingBattleID;
         $this->_battle = Battle::reconstructBattle($battleID);
         if($this->_battle !== false) {
             $this->_battle->playerAction($playerAction);

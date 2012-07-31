@@ -678,6 +678,27 @@ class Character extends BaseCharacter {
         $this->characterItems = $characterItems;
     }
     /**
+     * Lazy loading of CharacterSkillsets records
+     */
+    public function loadSkillsets() {
+        $characterSkillsets = CharacterSkillsets::model()->with(array(
+            'pos1',
+            'pos2',
+            'pos3',
+            'pos4',
+            'pos5',
+            'pos6',
+            'pos7',
+            'pos8',
+            'pos9',
+            'pos10',
+        ))->findAll(
+            't.characterID=:characterID', 
+            array(':characterID'=>$this->id));
+        $this->characterSkillsets = $characterSkillsets;
+    }    
+    
+    /**
      * Lazy loading of CharacterQuests records
      */
     public function loadQuests() {
