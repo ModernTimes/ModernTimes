@@ -6,9 +6,22 @@
  */
 
 if(count(Yii::app()->user->getFlashes(false)) > 0) { ?>
-        <div align="center"><div style="width: 75%; margin-bottom: 25px" align="left">
+        <!--<div style="width: 50%; margin: 0px 0px 25px 100px">
+            <div class="well" style="text-align: left;">-->
         <?php foreach(Yii::app()->user->getFlashes() as $key => $message) { ?>
-            <div class="" style="margin: 0px; padding: 3px; background-color: none; text-align: center">
+            <?php
+            // Standard badges
+            if(strstr($key, '__notice')) { ?>
+                <div class="alert" style="font-size: 1.3em"><span class="label label-info" style="position: relative; top: -2px">Info</span>
+            <?php } elseif (strstr($key, '__success')) { ?>
+                <div class="alert alert-success" style="font-size: 1.3em"><span class="label label-success" style="position: relative; top: -2px">Yay</span>
+            <?php } elseif (strstr($key, '__warning')) { ?>
+                <div class="alert alert-warning" style="font-size: 1.3em"><span class="label label-warning" style="position: relative; top: -2px">Care</span>
+            <?php } elseif (strstr($key, '__error')) { ?>
+                <div class="alert alert-error" style="font-size: 1.3em"><span class="label label-important" style="position: relative; top: -2px">Oops</span>
+            <?php } else { ?>
+                <div class="alert" style="font-size: 1.3em">
+            <?php } ?>
 
             <?php if (strstr($key, "gainItem")) { 
                 // @todo use actual itemID
@@ -49,20 +62,10 @@ if(count(Yii::app()->user->getFlashes(false)) > 0) { ?>
             } elseif (strstr($key, "gainNormalstat") ||
                       strstr($key, "gainXP") ||
                       strstr($key, "gainSubstat")) { ?>
-            <?php } 
-            // Standard badges
-            elseif(strstr($key, '__notice')) { ?>
-                <span class="label label-info">Info</span>
-            <?php } elseif (strstr($key, '__success')) { ?>
-                <span class="label label-success">Yay</span>
-            <?php } elseif (strstr($key, '__warning')) { ?>
-                <span class="label label-warning">Care</span>
-            <?php } elseif (strstr($key, '__error')) { ?>
-                <span class="label label-important">Oops</span>
-            <?php } ?>
+            <?php } ?> 
 
             <?php echo "&nbsp;" . $message . "</div>"; ?>
 
         <?php } ?>
-        </div></div>
+        <!-- </div></div> -->
 <?php } ?>
