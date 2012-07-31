@@ -14,7 +14,7 @@ if(!empty($this->msg->skill)) {
                 ($this->msg->result['damageType'] != 'normal' ? ucfirst($this->msg->result['damageType']) . " " : "") . 
                 "Damage</span></span>";
     } elseif ($this->msg->getResultType() == 'blocked') {
-        echo "<span class='btn btn-mini'><i class='icon-remove-circle'></i> Blocked</span>";
+        echo "<span class='btn-group'><span class='btn btn-mini'><i class='icon-remove-circle'></i> </span><span class='btn btn-mini'>Blocked</span>";
     } elseif ($this->msg->getResultType() == 'effect') {
         echo "<span class='btn-group'><span class='btn btn-mini'>Effect</span>" . 
                 CHtml::link($this->msg->result['effect']['name'], "#", array('class'=>'btn btn-mini ' . ($this->msg->result['effect']['buff'] ? 'btn-success' : 'btn-danger'), 'data-title'=>$this->msg->result['effect']['name'], 'data-content'=>$this->msg->result['effect']['popup'], 'rel'=>'popover')) .
