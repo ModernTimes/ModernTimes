@@ -1,8 +1,8 @@
 <?php $this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Profile");
-$this->breadcrumbs=array(
+/* $this->breadcrumbs=array(
 	UserModule::t("Profile")=>array('profile'),
 	UserModule::t("Edit"),
-);
+); */
 ?><h2><?php echo UserModule::t('Edit profile'); ?></h2>
 <?php echo $this->renderPartial('menu'); ?>
 
@@ -11,14 +11,15 @@ $this->breadcrumbs=array(
 <?php echo Yii::app()->user->getFlash('profileMessage'); ?>
 </div>
 <?php endif; ?>
-<div class="form">
+
+<div class="well" style="margin-top: 30px; padding-left: 100px;">
 <?php $form=$this->beginWidget('UActiveForm', array(
 	'id'=>'profile-form',
 	'enableAjaxValidation'=>true,
 	'htmlOptions' => array('enctype'=>'multipart/form-data'),
 )); ?>
 
-	<p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p>
+	<?php /* <p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p> */ ?>
 
 	<?php echo $form->errorSummary(array($model,$profile)); ?>
 
@@ -57,8 +58,8 @@ $this->breadcrumbs=array(
 		<?php echo $form->error($model,'email'); ?>
 	</div>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? UserModule::t('Create') : UserModule::t('Save')); ?>
+	<div class="row" style="margin-top: 20px">
+		<?php echo CHtml::submitButton($model->isNewRecord ? UserModule::t('Create') : UserModule::t('Save'), array('class' => 'btn btn-large btn-primary')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

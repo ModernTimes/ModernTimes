@@ -1,3 +1,5 @@
+<?php 
+/*
 <ul class="actions">
 <?php 
 if(UserModule::isAdmin()) {
@@ -15,3 +17,6 @@ if(UserModule::isAdmin()) {
 <li><?php echo CHtml::link(UserModule::t('Change password'),array('changepassword')); ?></li>
 <li><?php echo CHtml::link(UserModule::t('Logout'),array('/user/logout')); ?></li>
 </ul>
+
+*/
+?>

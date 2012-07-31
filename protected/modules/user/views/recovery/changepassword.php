@@ -1,25 +1,25 @@
 <?php $this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Change Password");
-$this->breadcrumbs=array(
+/* $this->breadcrumbs=array(
 	UserModule::t("Login") => array('/user/login'),
 	UserModule::t("Change Password"),
-);
+); */
 ?>
 
 <h1><?php echo UserModule::t("Change Password"); ?></h1>
 
 
-<div class="form">
+<div class="well" style="margin-top: 30px; padding-left: 100px;">
 <?php echo CHtml::beginForm(); ?>
 
-	<p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p>
+	<?php /* <p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p> */ ?>
 	<?php echo CHtml::errorSummary($form); ?>
 	
 	<div class="row">
 	<?php echo CHtml::activeLabelEx($form,'password'); ?>
 	<?php echo CHtml::activePasswordField($form,'password'); ?>
-	<p class="hint">
+	<span class="help-inline">
 	<?php echo UserModule::t("Minimal password length 4 symbols."); ?>
-	</p>
+	</span>
 	</div>
 	
 	<div class="row">
@@ -28,8 +28,8 @@ $this->breadcrumbs=array(
 	</div>
 	
 	
-	<div class="row submit">
-	<?php echo CHtml::submitButton(UserModule::t("Save")); ?>
+	<div class="row" style="margin-top: 20px">
+	<?php echo CHtml::submitButton(UserModule::t("Save"), array('class' => 'btn btn-large btn-primary')); ?>
 	</div>
 
 <?php echo CHtml::endForm(); ?>

@@ -1,18 +1,18 @@
 <?php $this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Registration");
-$this->breadcrumbs=array(
+/* $this->breadcrumbs=array(
 	UserModule::t("Registration"),
-);
+); */
 ?>
 
 <h1><?php echo UserModule::t("Registration"); ?></h1>
 
 <?php if(Yii::app()->user->hasFlash('registration')): ?>
 <div class="success">
-<?php echo Yii::app()->user->getFlash('registration'); ?>
+    <?php echo Yii::app()->user->getFlash('registration'); ?>
 </div>
 <?php else: ?>
 
-<div class="form">
+<div class="well" style="margin-top: 30px; padding-left: 100px;">
 <?php $form=$this->beginWidget('UActiveForm', array(
 	'id'=>'registration-form',
 	'enableAjaxValidation'=>true,
@@ -20,7 +20,7 @@ $this->breadcrumbs=array(
 	'htmlOptions' => array('enctype'=>'multipart/form-data'),
 )); ?>
 
-	<p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p>
+	<?php /*<p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p> */ ?>
 	
 	<?php echo $form->errorSummary(array($model,$profile)); ?>
 	
@@ -34,9 +34,7 @@ $this->breadcrumbs=array(
 	<?php echo $form->labelEx($model,'password'); ?>
 	<?php echo $form->passwordField($model,'password'); ?>
 	<?php echo $form->error($model,'password'); ?>
-	<p class="hint">
-	<?php echo UserModule::t("Minimal password length 4 symbols."); ?>
-	</p>
+	<span class="help-inline"><?php echo UserModule::t("Minimal password length 4 symbols."); ?></span>
 	</div>
 	
 	<div class="row">
@@ -80,16 +78,17 @@ $this->breadcrumbs=array(
 		<?php echo $form->labelEx($model,'verifyCode'); ?>
 		
 		<?php $this->widget('CCaptcha'); ?>
-		<?php echo $form->textField($model,'verifyCode'); ?>
+		<span class="help-inline"><?php echo UserModule::t("Please enter the letters as they are shown in the image above."); ?>
+		<br /><?php echo UserModule::t("Letters are not case-sensitive."); ?></span>
+
+                <BR /><?php echo $form->textField($model,'verifyCode'); ?>
 		<?php echo $form->error($model,'verifyCode'); ?>
 		
-		<p class="hint"><?php echo UserModule::t("Please enter the letters as they are shown in the image above."); ?>
-		<br/><?php echo UserModule::t("Letters are not case-sensitive."); ?></p>
 	</div>
 	<?php endif; ?>
 	
-	<div class="row submit">
-		<?php echo CHtml::submitButton(UserModule::t("Register")); ?>
+	<div class="row" style="margin-top: 20px">
+		<?php echo CHtml::submitButton(UserModule::t("Register"), array('class' => 'btn btn-large btn-primary')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

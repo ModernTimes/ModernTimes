@@ -50,9 +50,11 @@ return array(
             // 'game',
 
             'user'=>array(
-                // 'tableUsers' => 'mt_users',
-                // 'tableProfiles' => 'mt_profiles',
-                // 'tableProfileFields' => 'mt_profiles_fields',
+                    'loginUrl' => array('/user/login'),
+                    'returnUrl' => array('/site/manageCharacters'),
+                    // 'tableUsers' => 'mt_users',
+                    // 'tableProfiles' => 'mt_profiles',
+                    // 'tableProfileFields' => 'mt_profiles_fields',
             ),
             
             'gii'=>array(
@@ -82,7 +84,7 @@ return array(
             
             'user'=>array(
                     'loginUrl' => array('/user/login'),
-                    'returnUrl' => array('/site'),
+                    'returnUrl' => array('/site/manageCharacters'),
                     // enable cookie-based authentication
                     'allowAutoLogin'=>true,
                     // makes it possible to display flash messages after redirects
