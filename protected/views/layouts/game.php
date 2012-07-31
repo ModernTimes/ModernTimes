@@ -4,6 +4,19 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
 
+<?php 
+/**
+For new bootstrap extension. To be fixed later.
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/application.min.css" rel="stylesheet">
+	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap-responsive.css" rel="stylesheet"> 
+ */
+?>
+        
         <title><?php echo CHtml::encode($this->pageTitle); ?> - The Game</title>
 </head>
 

@@ -89,6 +89,9 @@ class BattleMessage extends CComponent {
             case "effect":
                 $this->setResultEffect(func_get_arg(1));
                 break;
+            case "blocked";
+                $this->setResultBlocked();
+                break;
             default:
                 break;
         }

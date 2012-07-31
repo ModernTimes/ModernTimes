@@ -8,6 +8,8 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Modern Times',
+    
+	// 'theme'=>'bootstrap',
 
 	// autoloading model and component classes
 	'import'=>array(
@@ -23,6 +25,12 @@ return array(
                 'application.controllers.actions.inventory.*',
                 'application.controllers.actions.shop.*',
 
+		/**
+                'ext.bootstrap-theme.widgets.*',
+		'ext.bootstrap-theme.helpers.*',
+		'ext.bootstrap-theme.behaviors.*',
+                */
+            
                 'ext.giix-components.*', // giix components
                 'ext.Kint.*',
                 'ext.EUserFlash',
@@ -53,6 +61,7 @@ return array(
                         'ext.giix-core', // giix generators
                         'ext.gtc',       // gii template collection
                         'bootstrap.gii', // since 0.9.1
+                        // 'ext.bootstrap-theme.gii',
                 ),
                 'password'=>'pass',
                 // If removed, Gii defaults to localhost only. Edit carefully to taste.
@@ -138,20 +147,39 @@ return array(
 
             'bootstrap'=>array(
                 'class'=>'ext.bootstrap.components.Bootstrap',
-                'coreCss'=>true, // whether to register the Bootstrap core CSS (bootstrap.min.css), defaults to true
-                'responsiveCss'=>false, // whether to register the Bootstrap responsive CSS (bootstrap-responsive.min.css), default to false
+                /**
+                 * whether to register the Bootstrap core CSS 
+                 * (bootstrap.min.css), defaults to true
+                 */
+                'coreCss'=>true, 
+                /**
+                 * whether to register the Bootstrap responsive CSS 
+                 * (bootstrap-responsive.min.css), default to false
+                 */
+                'responsiveCss'=>false, 
                 'plugins'=>array(
-                    // Optionally you can configure the "global" plugins (button, popover, tooltip and transition)
-                    // To prevent a plugin from being loaded set it to false as demonstrated below
-                    'transition'=>true, // disable CSS transitions
+                    /**
+                     * Optionally you can configure the "global" plugins 
+                     *(button, popover, tooltip and transition)
+                     * To prevent a plugin from being loaded set it to false
+                     */
+                    // disable CSS transitions
+                    'transition'=>true, 
                     'tooltip'=>array(
-                        'selector'=>'a.tooltip', // bind the plugin tooltip to anchor tags with the 'tooltip' class
+                        /**
+                         * bind the plugin tooltip to anything with
+                         * the tooltip attribute
+                         */
+                        'selector'=>'*[title]', 
                         'options'=>array(
-                            'placement'=>'bottom', // place the tooltips below instead
+                            'placement'=>'top', 
                         ),
                     ),
-                    // If you need help with configuring the plugins, please refer to Bootstrap's own documentation:
-                    // http://twitter.github.com/bootstrap/javascript.html
+                    /**
+                     * If you need help with configuring the plugins, please 
+                     * refer to Bootstrap's own documentation:
+                     * http://twitter.github.com/bootstrap/javascript.html
+                     */
                 ),
             ),
             

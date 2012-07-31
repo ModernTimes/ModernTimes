@@ -5,7 +5,19 @@
 	<meta name="language" content="en" />
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?> - SITE</title>
-</head>
+
+<?php
+/**
+For new bootstrap extension. To be fixed later.
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/application.min.css" rel="stylesheet">
+	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap-responsive.css" rel="stylesheet"> 
+ */ ?> 
+ </head>
 
 <body style="padding-top: 40px">
 
