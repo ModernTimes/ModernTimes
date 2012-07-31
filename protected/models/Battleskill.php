@@ -37,6 +37,10 @@ class Battleskill extends BaseBattleskill {
         if(!$this->call("checkBlocked", $battle, $hero, $enemy)) {
             return;
         }
+
+        if($this->costEnergy > 0) {
+            $hero->decreaseEnergy($this->costEnergy);
+        }
         
         $this->call("dealDamage", $battle, $hero, $enemy);
         $this->call("createEffects", $battle, $hero, $enemy);

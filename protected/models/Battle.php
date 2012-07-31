@@ -105,7 +105,7 @@ class Battle extends BaseBattle {
         $this->combatantA->ongoingBattleID = $this->id;
         if($this->type == "pvp") {
             $this->combatantB->ongoingBattleID = $this->id;
-            $this->combatantB->save();
+            // $this->combatantB->save();
         }
         
         $this->saveObjectState();
@@ -148,7 +148,7 @@ class Battle extends BaseBattle {
 
         $this->combatantA->ongoingBattleID = null;
         if($this->type == "pvp") {
-            // ToDo: Message to PVP enemy
+            // @todo Message to PVP enemy
             $this->combatantB->ongoingBattleID = null;
         }
 
@@ -159,8 +159,8 @@ class Battle extends BaseBattle {
          * ToDo: why does backupbehavior think that no attribute changed
          *       if we set ongoingBattleID to null?
          */
-        $this->combatantA->update();
         // $this->combatantA->save();
+        $this->combatantA->update();
         if($this->type == "pvp") {
             $this->combatantB->save();
         }
@@ -279,8 +279,8 @@ class Battle extends BaseBattle {
         } else {
             $this->onAfterRound(new BattleEvent($this));
 
+            $this->combatantA->save();
             if($this->type == "pvp") {
-                $this->combatantA->save();
                 $this->combatantB->save();
             }
             $this->saveObjectState();
@@ -565,9 +565,8 @@ class Battle extends BaseBattle {
     
     /**
      * Just increases $this->round by 1
-     * @param bool $nextRound not used yet
      */
-    public function nextRound($nextRound = true) {
+    public function nextRound() {
         $this->round++;
     }
     
@@ -642,14 +641,15 @@ class Battle extends BaseBattle {
      * @todo Reconstruct the second Character record in case of pvp
      */
     private function reconstructCombatants() {
+        $Character = CD();
         if($this->type == "pvp") {
-            if($this->combatantAID == CD()->id) {
-                $this->combatantA = CD();
+            if($this->combatantAID == $Character->id) {
+                $this->combatantA = $Character;
             } else {
-                $this->combatantB = CD();
+                $this->combatantB = $Character;
             }
         } else {
-            $this->combatantA = CD();
+            $this->combatantA = $Character;
         }
     }
 

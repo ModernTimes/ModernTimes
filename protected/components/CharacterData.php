@@ -234,6 +234,6 @@ class CharacterData extends CApplicationComponent {
      * @return void
      */
     public function saveSession() {
-        Yii::app()->session['CD'] = $this->_model;
+        // Yii::app()->session['CD'] = $this->_model;
     }
 }

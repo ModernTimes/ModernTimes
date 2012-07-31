@@ -25,7 +25,7 @@ class BattleActionAction extends BattleAction {
         }
         
         if(empty($battleskillID) && !empty($_GET['battleskillID'])) {
-            $battleskillID = $_GET['skillID'];
+            $battleskillID = $_GET['battleskillID'];
         }
         
         // syntax checks
@@ -37,18 +37,17 @@ class BattleActionAction extends BattleAction {
         
         // @todo add hasSkill function to Character
         foreach($character->characterBattleskills as $characterBattleskill) {
-            if($characterBattleskill->battleskillID == $battleskillID) {
+            if($characterBattleskill->battleskillID == $battleskillID &&
+                    $characterBattleskill->available) {
 
-                // Energy cost
+                // Enough energy?
                 if($character->energy < $characterBattleskill->battleskill->costEnergy) {
                     EUserFlash::setErrorMessage("You do not have enough energy for that", 'validate');
-                    $this->renderBattle();
-                    return;
+                    break;
+                } else {
+                    $playerAction = $characterBattleskill->battleskill;
+                    break;
                 }
-                $character->energy -= $characterBattleskill->battleskill->costEnergy;
-                $character->save();
-                
-                $playerAction = $characterBattleskill->battleskill;
             }
         }
         
@@ -59,10 +58,9 @@ class BattleActionAction extends BattleAction {
             $this->renderBattle();
             return;
         }
-       
-        $battleID = CD()->ongoingBattleID;
+        $battleID = $character->ongoingBattleID;
         $this->_battle = Battle::reconstructBattle($battleID);
-        if($this->_battle != false) {
+        if($this->_battle !== false) {
             $this->_battle->playerAction($playerAction);
             $this->renderBattle();
         }

@@ -22,6 +22,12 @@ class Monster extends BaseMonster {
     public $hp;
 
     /**
+     * Just in case a Monster uses a Battleskill with costEnergy > 0
+     * @var int
+     */
+    public $energy;
+    
+    /**
      * Future AI can refer to the current battle state
      * @todo ask for Lottery as parameter to enable dependency injection
      * @uses Lottery
@@ -75,10 +81,22 @@ class Monster extends BaseMonster {
     }
     
     /**
+     * Fpr compatibility reasons
+     * @param float $amount 
+     */
+    public function decreaseEnergy($amount) {
+        $this->energy -= (int) $amount;
+        if($this->energy < 0) {
+            $this->energy = 0;
+        }
+    }
+    
+    /**
      * Initializes the Monster for battle 
      */
     public function getReadyForBattle() {
         $this->hp = $this->hpMax;
+        $this->energy = 0;
     }
     
     
