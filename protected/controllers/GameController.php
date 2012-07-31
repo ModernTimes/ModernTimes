@@ -24,7 +24,7 @@ class GameController extends Controller {
      * in this case MapAction
      */
     public function actionIndex() {
-        $this->redirect(array('character'));
+        $this->redirect(array('map'));
     }
 
     /**
@@ -139,7 +139,7 @@ class GameController extends Controller {
         }
         
         $character->hp = min($character->hp, $character->getHpMax());
-        $character->energy = min($character->hp, $character->getEnergyMax());
+        $character->energy = min($character->energy, $character->getEnergyMax());
 
         // d($character);
         // Save Character AR in case it changed
