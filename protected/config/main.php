@@ -24,6 +24,7 @@ return array(
                 'application.controllers.actions.battle.*',
                 'application.controllers.actions.inventory.*',
                 'application.controllers.actions.shop.*',
+                'application.controllers.actions.consultant.*',
 
 		/**
                 'ext.bootstrap-theme.widgets.*',

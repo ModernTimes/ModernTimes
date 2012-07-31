@@ -54,7 +54,7 @@ class Greed1Quest extends CBehavior {
         if($event->getAmount() > 0) {
             $this->owner->params['cashCollected'] += $event->getAmount();
             if($this->owner->params['cashCollected'] >= self::cashToCollect) {
-                $this->owner->setState("completed");
+                $this->owner->setState("succeeded");
             } else {
                 $this->owner->saveParams();
             }
@@ -65,14 +65,11 @@ class Greed1Quest extends CBehavior {
      * Adds the "Mommon says hello" encounter to the encounter queue
      * @param QuestChangeStateEvent $event 
      */
-    public function reactToOnCompleted($event) {
+    public function reactToOnSucceeded($event) {
         $CharacterEncounter = new CharacterEncounters();
         $CharacterEncounter->characterID = $this->owner->CharacterQuest->characterID;
         $CharacterEncounter->encounterID = self::mommonCallsEncounterID;
         $CharacterEncounter->delay = 0;
         $CharacterEncounter->save();
-        
-        // Reset params and update CharacterQuest record
-        $this->owner->reactToOnCompleted($event);
     }
 }
