@@ -1,6 +1,7 @@
 <?php
 
 Yii::import('application.models._base.BaseBattleeffect');
+Yii::import('application.components.battleeffects.*');
 
 /**
  * Defines basic Battleeffect behavior, which includes
@@ -135,6 +136,10 @@ class Battleeffect extends BaseBattleeffect {
         }
         return $this->desc;
     }
+    
+    public function getMsgBlock() {
+        return $this->msgBlock;
+    }
 
     /**
      * Basic getter
@@ -220,7 +225,7 @@ class Battleeffect extends BaseBattleeffect {
     public function reactToOnBeforeAction($event) {
         if($this->blocks &&
            $this->active &&
-           $event->sender->getCombatantString($event->params['hero']) == $this->heroString &&
+           $event->sender->getCombatantString($event->hero) == $this->enemyString &&
            !$event->action->blocked) {
             
             if($this->blockChance != 1) {
@@ -234,7 +239,7 @@ class Battleeffect extends BaseBattleeffect {
                 $this->blockNumberOfBlocks --;
                 $this->charges --;
                 
-                $battleMsg = new Battlemessage(sprintf($this->msgBlock, $event->hero->name, $event->action->name));
+                $battleMsg = new Battlemessage(sprintf($this->call("getMsgBlock"), $event->hero->name, $event->action->name));
                 $event->sender->log($event->hero, $battleMsg);
                         
                 if($this->blockNumberOfBlocks == 0) {
