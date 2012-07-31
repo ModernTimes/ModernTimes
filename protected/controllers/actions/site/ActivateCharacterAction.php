@@ -45,7 +45,6 @@ class ActivateCharacterAction extends CAction {
                         $Character->update();
 
                         $transaction->commit();
-                        EUserFlash::setMessage("You are now playing as " . $Character->name . ", a " . $Character->getTitle() . ".");
                     } catch(Exception $e) {
                         $transaction->rollback();
                         EUserFlash::setErrorMessage("We really would have liked to 
