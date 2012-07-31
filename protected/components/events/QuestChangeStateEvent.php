@@ -23,8 +23,8 @@ class QuestChangeStateEvent extends CEvent {
     /**
      * Constructor
      * @param mixed $sender Quest
-     * @param string $stateBefore enum(unavailable|available|ongoing|completed|rejected|failed)
-     * @param string $stateAfter enum(unavailable|available|ongoing|completed|rejected|failed)
+     * @param string $stateBefore enum(unavailable|available|ongoing|completed|rejected|failed|succeeded)
+     * @param string $stateAfter enum(unavailable|available|ongoing|completed|rejected|failed|succeeded)
      * @param array $params default array() (Quest params via $sender->params)
      */
     public function __construct($sender, $stateBefore, $stateAfter, $params = array()) {
