@@ -54,6 +54,9 @@ class GameController extends Controller {
             'shop'             => 'application.controllers.actions.shop.ShopAction',
             'buyItem'          => 'application.controllers.actions.shop.BuyItemAction',
 
+            'consultantHQ'         => 'application.controllers.actions.consultant.ConsultantHQAction',
+            'consultantQuestGiver' => 'application.controllers.actions.consultant.ConsultantQuestGiverAction',
+            
             /**
              * To test new features without having to mess around with actual
              * game functions
