@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 30. Jul 2012 um 18:56
+-- Erstellungszeit: 31. Jul 2012 um 18:24
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 --
 
 INSERT INTO `mt_skill` (`id`, `name`, `skillType`, `specialClass`, `charactermodifierID`, `costEnergy`, `healing`, `createEffectID`, `effectTurns`, `effectMsgIncreasedDuration`, `desc`, `msgResolved`) VALUES
-(1, 'Go the extra mile', 'active', '', NULL, 1, 0, 8, 5, '', 'You pull an all-nighter in the office. You''ll be super prepared afterwards.', 'You just pulled an all-nighter in the office. You feel super prepared for tomorrow.');
+(1, 'Pull an all-nighter', 'active', '', NULL, 1, 0, 8, 5, '', 'You pull an all-nighter in the office. You''ll be super prepared for whatever might be coming at you.', 'You just pulled an all-nighter in the office. Don''t worry: work-life balance is overratd anyway.');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 20. Jul 2012 um 17:46
+-- Erstellungszeit: 31. Jul 2012 um 18:23
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -24,8 +24,9 @@ SET time_zone = "+00:00";
 -- Daten für Tabelle `mt_battleeffect`
 --
 
-INSERT INTO `mt_battleeffect` (`id`, `name`, `specialClass`, `buff`, `singleton`, `increaseDuration`, `blocks`, `blockActionTypes`, `blockActionNormalSpecial`, `blockChance`, `blockTurns`, `blockNumberOfBlocks`, `desc`, `msgExpire`) VALUES
-(1, 'Babble momentum', 'BabbleComboEffect', 1, 1, 0, 0, 'all', 'all', 0.000000, 0, 0, 'Babbling gets more obnoxious the longer it goes on.', '%1 lost babble momentum.');
+INSERT INTO `mt_battleeffect` (`id`, `name`, `specialClass`, `buff`, `singleton`, `increaseDuration`, `blocks`, `blockActionTypes`, `blockActionNormalSpecial`, `blockChance`, `blockTurns`, `blockNumberOfBlocks`, `msgBlock`, `desc`, `msgExpire`) VALUES
+(1, 'Babble momentum', 'BabbleComboEffect', 1, 1, 0, 0, 'all', 'all', 0.000000, 0, 0, '', 'Babbling gets more obnoxious the longer it goes on.', '%1 lost babble momentum.'),
+(2, 'Unassailable employee', '', 1, 1, 1, 1, 'all', 'all', 0.600000, 3, 0, 'The protection of McBooz&Bain Consulting Group is too strong.', 'Employees of McBooz&Bain Consulting Group are pretty much unassailable.', '%1$s is no longer protected by McBooz&Bain Consulting Group.');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
