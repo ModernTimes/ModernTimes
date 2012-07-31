@@ -164,14 +164,16 @@ class Character extends BaseCharacter {
     }
     /**
      * Adds an item to the character's inventory
-     * @param Item $item 
+     * @uses GainItemEvent
+     * @uses onGainItem
+     * @param Item $Item 
      * @param int $n how many Items of the indicated kind?
      * @return bool success?
      */
-    public function gainItem($item, $n = 1) {
+    public function gainItem($Item, $n = 1) {
         // d($item);
 
-        if(!is_a($item, "Item")) {
+        if(!is_a($Item, "Item")) {
             // @todo nice exception
             return false;
         }
@@ -180,7 +182,7 @@ class Character extends BaseCharacter {
 
         $added = false;
         foreach($this->characterItems as $characterItem) {
-            if($characterItem->item->id == $item->id) {
+            if($characterItem->item->id == $Item->id) {
                 $characterItem->n = $characterItem->n + $n;
                 $characterItem->save();
                 $added = true;
@@ -189,12 +191,15 @@ class Character extends BaseCharacter {
         if(!$added) {
             $CharacterItem = new CharacterItems;
             $CharacterItem->characterID = $this->id;
-            $CharacterItem->itemID = $item->id;
+            $CharacterItem->itemID = $Item->id;
             $CharacterItem->n = $n;
             $CharacterItem->save();
             $characterItems = $this->characterItems;
             $characterItems[] = $CharacterItem;
         }
+
+        $event = new GainItemEvent($this, $item, $n);
+        $this->onGainItem($event);
         
         EUserFlash::setSuccessMessage("You got " . $n . " <b>" . $item->name . "</b>", 'gainItem id:' . $item->id);
         return true;
@@ -962,12 +967,20 @@ class Character extends BaseCharacter {
 
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param GainEffectEvent $event 
      */
     public function onGainEffect($event) {
         $this->raiseEvent("onGainEffect", $event);
     }
 
+    /**
+     * Event raiser
+     * @param GainItemEvent $event 
+     */
+    public function onGainItem($event) {
+        $this->raiseEvent("onGainItem", $event);
+    }
+    
     /**
      * Event raiser
      * @param CEvent $event

@@ -17,7 +17,7 @@ class GainEffectEvent extends CEvent {
     /**
      * Constructor
      * @param mixed $sender obj or null
-     * @param mixed $Effect CharacterEffects or null
+     * @param mixed $CharacterEffect CharacterEffects or null
      * @param array $params
      */
     public function __construct($sender = null, $CharacterEffect = null, $params = array()) {
@@ -31,15 +31,6 @@ class GainEffectEvent extends CEvent {
      */
     public function getCharacterEffect() {
         return $this->_CharacterEffect;
-    }
-    
-    /**
-     * Returns a list of CBehaviors to be attached to this component
-     * @link http://www.yiiframework.com/doc/api/CBehavior
-     * @return array
-     */
-    public function behaviors() {
-        return array();
     }
 }
 
