@@ -9,7 +9,7 @@ $numberOfMessages = count(Yii::app()->user->getFlashes(false));
 if($numberOfMessages > 0) {
     if($numberOfMessages > 1) {
         $moreThanOneMessage = true;
-        echo "<div align='center'><div class=\"well\" style=\"width: 50%; text-align: left;\">";
+        echo "<div align='center'><div class=\"well\" style=\"width: 50%; text-align: left; margin-bottom: 20px\">";
     }
     foreach(Yii::app()->user->getFlashes() as $key => $message) { ?>
         <?php
@@ -68,6 +68,10 @@ if($numberOfMessages > 0) {
         <?php } ?> 
 
         <?php echo "&nbsp;" . $message . "</div>"; ?>
+            
+        <?php if($numberOfMessages == 1) {
+            echo "<div style='height: 20px'></div>";
+        } ?>
 
     <?php }
     if($numberOfMessages > 1) {
