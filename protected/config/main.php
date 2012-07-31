@@ -136,6 +136,8 @@ return array(
             'log'=>array(
                     'class'=>'CLogRouter',
                     'routes'=>array(
+                            // uncomment for extra debug and performance data
+                            // 'class'=>'ext.yii-debug-toolbar.YiiDebugToolbarRoute',
                             array(
                                     'class'=>'CFileLogRoute',
                                     'levels'=>'error, warning',
