@@ -15,7 +15,7 @@
             <div class="clear"></div>
 
             <!-- <div id="footer">
-                    Modern Times. Early alpha playground
+                    Early alpha playground
             </div> --><!-- footer -->
 
         </div>

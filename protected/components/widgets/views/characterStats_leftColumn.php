@@ -1,60 +1,68 @@
 <?php /*
  * shown on the left hand side of the game window
- * ToDo: insert character profile picture dynamically
- * ToDo: improve familiar section
+ * @todo improve familiar section
  */ ?>
 <div id="characterStats">
 
     <table width="100%""><tr>
-        <td><img src="<? echo Yii::app()->getBaseUrl(); ?>/images/characters/consultant/<?php echo $this->character->sex; ?>-1.png" width="64" height="64"></td>
+        <td><img src="<? echo Yii::app()->getBaseUrl(); ?>/images/characters/<?php echo $this->character->class; ?>/<?php echo $this->character->sex; ?>-1.png" width="64" height="64"></td>
         <td align="center">
             <h3><?php echo $this->character['name']; ?></h3>
             <p><?php echo $this->character->getTitle(); ?></p>
         </td>
     </tr></table>
 
-    <div class="progress progress-info" align="left" style="height: 12px; margin-top: 5px">
+    <div class="progress progress-info" title="Level progress" align="left" style="height: 12px; margin-top: 5px">
         <div class="bar" style="width: <?php echo floor($this->character->getLevelProgress() * 100); ?>%"></div>
     </div>
     
     <div align="center" style="margin-top: 15px">
-        <span class="btn btn-large"><i class="icon-time"></i> <b><?php echo $this->character->turns; ?></b></span>
+        <span class="btn btn-large" title="Turns"><i class="icon-time"></i> <b><?php echo $this->character->turns; ?></b></span>
     </div>
 
 
-    <?php /* if(!empty(Yii::app()->session['lastArea'])) { ?>
-        <p align="center"><div class="btn-group"><span class="btn btn-mini"><i class='icon-time'></i> 1</span>
-            <?php echo CHtml::link("" . Yii::app()->session['lastArea']['name'], array('game/doMischief', 'areaID' => Yii::app()->session['lastArea']['id']), array('class'=>'btn btn-mini btn-warning')); ?></p>
-        </div></p>
-    <?php } */ ?>
+
+    <?php 
+    /**
+     * HP + Energy bars
+     */ 
+    ?>
+    <div class="row" style="margin-left: 5px; margin-top: 20px;" title="Health: <?php echo $this->character->hp . " / " . $this->character->getHpMax(); ?>">
+        <div class="span4">
+            <div class='btn btn-mini'><i class="icon-heart"></i> <?php echo $this->character->hp; ?></div>
+        </div>
+        <div class="span8">
+            <div style="height: 5px;"></div>
+            <div class="progress progress-danger" style="height: 11px;"><div class="bar" style="width: <?php echo floor($this->character->hp / $this->character->getHpMax() * 100); ?>%"></div></div>
+        </div>
+    </div>
+    <div class="row" style="margin-left: 5px; position: relative; top: -10px" title="Energy: <?php echo $this->character->energy . " / " . $this->character->getEnergyMax(); ?>">
+        <div class="span4">
+            <div class='btn btn-mini'><i class="icon-star"></i> <?php echo $this->character->energy; ?></div>
+        </div>
+        <div class="span8">
+            <div style="height: 5px;"></div>
+            <div class="progress" style="height: 11px;"><div class="bar" style="width: <?php echo floor($this->character->energy / $this->character->getEnergyMax() * 100); ?>%"></div></div>
+        </div>
+    </div>
     
-   
-    <div align=""center"><table style="margin-top: 30px;" cellspacing="3">
-        <?php /*
-        
-         * HP + Energy bars
-        
-        */ ?><tr>
-            <td style="width: 40px;"><i class="icon-heart"></i> <?php echo $this->character->hp; ?></td>
-            <td style="width: 80%"><div class="progress progress-danger" style="margin: 0px; height: 12px"><div class="bar" style="width: <?php echo floor($this->character->hp / $this->character->getHpMax() * 100); ?>%"></div></div></td>
-        </tr><tr>
-            <td><i class="icon-star"></i> <?php echo $this->character->energy; ?></td>
-            <td><div class="progress" style="margin: 0px; height: 12px"><div class="bar" style="width: <?php echo floor($this->character->energy / $this->character->getEnergyMax() * 100); ?>%"></div></div></td>
-        </tr><?php /*
-        
-         * Cash, favours, kudos
-        
-        */ ?><tr><td colspan="2" style="height: 20px"></td></tr><tr>
-            <td><img src="<? echo Yii::app()->getBaseUrl(); ?>/images/cash.png" width="24" height="24" style="vertical-align: middle" title="Cash"></td>
-            <td style="font-size: 11pt"><?php echo number_format($this->character->cash); ?></td>
+    <?php
+    /**
+     * Cash, favours, kudos 
+     */
+    ?>
+    <table cellspacing="3" style="margin: 0px 0px 4px 10px;">
+        <tr>
+            <td width="50"><img src="<? echo Yii::app()->getBaseUrl(); ?>/images/cash.png" width="24" height="24" style="vertical-align: middle" title="Cash"></td>
+            <td style="font-size: 11pt"><span title="Cash"><?php echo number_format($this->character->cash); ?></span></td>
         </tr><tr>
             <td><img src="<? echo Yii::app()->getBaseUrl(); ?>/images/favours.png" width="24" height="24" style="vertical-align: middle" title="Favours"></td>
-            <td style="font-size: 11pt"><?php echo number_format($this->character->favours); ?></td>
+            <td style="font-size: 11pt"><span title="Favours"><?php echo number_format($this->character->favours); ?></span></td>
         </tr><tr>
             <td><img src="<? echo Yii::app()->getBaseUrl(); ?>/images/kudos.png" width="24" height="24" style="vertical-align: middle" title="Kudos"></td>
-            <td style="font-size: 11pt"><?php echo number_format($this->character->kudos); ?></td>
+            <td style="font-size: 11pt"><span title="Kudos"><?php echo number_format($this->character->kudos); ?></span></td>
         </tr>
-    </table></div>
+    </table>
     
 <?php /*
 
@@ -82,39 +90,5 @@ if(count($this->character->characterEffects) > 0) { ?>
                       "styles" => "margin-bottom: 3px;"));
     } ?>
 <?php } ?>
-
-<?php /* Skills */ ?>
-<div class="row" style="margin-top: 15px; margin-left: 50px" align="center">
-<div class="btn-group">
-    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Use a skill <span class="caret"></span></a>
-    <ul class="dropdown-menu">
-        <?php foreach($this->character->characterSkills as $characterSkill) {
-            if($characterSkill->skill->skillType == "active" &&
-                    $characterSkill->available) {
-
-                /**
-                 * Only generate standard popup content if Skill does not 
-                 * generate its own popup
-                 */
-                $popup = $characterSkill->skill->call('getPopup');
-                if(empty($popup)) {
-                    $popup = "<p>" . $characterSkill->skill->desc . "</p>";
-                }
-
-                echo "<li style=\"text-align: left\">" . 
-                        CHtml::link(
-                            "<span class='btn btn-mini'><i class='icon-star'></i> " . $characterSkill->skill->costEnergy . "</span>" . " " . $characterSkill->skill->name, 
-                            "./useSkill?skillID=" . $characterSkill->skill->id, 
-                            array(
-                                'data-title'=>$characterSkill->skill->name, 
-                                'data-content'=>$popup,
-                                'rel'=>'popover',
-                            )) . 
-                     "</li>";
-            }
-        } ?>
-    </ul>
-</div>
-</div>
 
 </div>

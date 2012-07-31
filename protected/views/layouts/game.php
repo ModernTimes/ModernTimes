@@ -31,9 +31,9 @@ For new bootstrap extension. To be fixed later.
             <li><?php echo CHtml::link("Me", array('game/character')); ?></li>
             <li><?php echo CHtml::link("My stuff", array('game/inventory')); ?></li>
             <li><?php echo CHtml::link("Todo", array('game/quests')); ?></li>
+            <?php $this->widget("CharacterSkillMenuWidget"); ?>
         </ul>
         <ul class="nav pull-right">
-
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <?php echo Yii::app()->user->name; ?>
