@@ -46,6 +46,7 @@ class BattleActionAction extends BattleAction {
                     return;
                 }
                 $character->energy -= $characterBattleskill->battleskill->costEnergy;
+                $character->save();
                 
                 $playerAction = $characterBattleskill->battleskill;
             }
