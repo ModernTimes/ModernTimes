@@ -1,6 +1,7 @@
 <?php
 /**
  * Retrieves item data and renders the inventory screen
+ * @todo Save last active tab and return to that tab in inventory screen
  * 
  * @package Actions.Inventory
  */

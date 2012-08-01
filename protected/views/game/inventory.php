@@ -29,6 +29,7 @@
   <li><a href="#inventoryCombat" data-toggle="tab">Combat</a></li>
   <li><a href="#inventoryQuest" data-toggle="tab">Quest</a></li>
   <li><a href="#inventoryMisc" data-toggle="tab">Other stuff</a></li>
+  <li><a href="#crafting" data-toggle="tab">Combine things</a></li>
 </ul>
 
 <div class="tab-content">
@@ -80,6 +81,31 @@
             'CharacterItems' => $CharacterItems,
             'itemType' => 'misc'
         )); ?>
+    </div>
+    
+    
+    
+    <div class="tab-pane" id="crafting">
+        <div class="well">
+            <table border="0" cellpadding="5"><tr>
+            <?php
+            $Items = array(array('id' => 'empty', 'name' => '(Select an item)'));
+            foreach($CharacterItems as $CharacterItem) {
+                $Items[] = $CharacterItem->item;
+            }
+            $CListData = CHtml::listData($Items, "id", "name");
+            
+            echo CHtml::beginForm("combineItems", "get");
+            echo "<td>Combine </td>";
+            echo "<td>" . CHtml::dropDownList("item1ID", "empty", $CListData) . "</td>";
+            echo "<td> with </td>";
+            echo "<td>" . CHtml::dropDownList("item2ID", "empty", $CListData) . "</td>";
+            echo "<td>" . CHtml::submitButton("Combine", array('class' => 'btn btn-large btn-primary')) . "</td>";
+            echo CHtml::endForm();
+            ?>
+            </tr></table>
+            
+        </div>
     </div>
 </div>
 
