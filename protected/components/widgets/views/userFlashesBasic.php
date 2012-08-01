@@ -25,15 +25,15 @@ if($numberOfMessages > 0) {
         <?php } ?>
 
         <?php if (strstr($key, "gainItem")) { 
-            // @todo use actual itemID
-            if(TRUE || file_exists(Yii::app()->getBaseUrl() . "/images/items/1.png")) {
-                echo CHtml::image(Yii::app()->getBaseUrl() . "/images/items/1.png", "Item", array(
-                    'width' => 36,
-                    'height' => 36,
+            $itemID = substr($key, strpos($key, 'id:')+3);
+            if(file_exists(Yii::app()->getBasePath() . "/../images/items/" . $itemID . ".png")) {
+                echo CHtml::image(Yii::app()->getBasePath() . "/../images/items/" . $itemID . ".png", "Item", array(
+                    'width' => 24,
+                    'height' => 24,
                     'style' => "vertical-align: middle",
                 ));
             } else { ?>
-                <span class="label label-success">Item</span>
+                <span class="label label-success" style="position: relative; top: -2px">Item</span>
             <?php }
         } elseif (strstr($key, "gainCash")) { 
             echo CHtml::image(Yii::app()->getBaseUrl() . "/images/cash.png", "Cash", array(
