@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 31. Jul 2012 um 20:23
+-- Erstellungszeit: 01. Aug 2012 um 16:40
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `mt_battle` (
   KEY `combatantBID` (`combatantBID`),
   KEY `state` (`state`),
   KEY `winnerID` (`winnerID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=61 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=82 ;
 
 -- --------------------------------------------------------
 
@@ -175,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `mt_battleskill` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `createEffectID` (`createBattleeffectID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_battleskill`:
@@ -290,7 +290,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_effects` (
   KEY `characterID` (`characterID`),
   KEY `effectID` (`effectID`),
   KEY `turns` (`turns`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_effects`:
@@ -314,7 +314,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_encounters` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `encounterID` (`encounterID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_encounters`:
@@ -404,7 +404,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_items` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `itemID` (`itemID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_items`:
@@ -572,6 +572,8 @@ CREATE TABLE IF NOT EXISTS `mt_encounter` (
   `gainCunning` smallint(6) NOT NULL DEFAULT '0',
   `effectID` int(11) DEFAULT NULL,
   `effectDuration` smallint(6) NOT NULL DEFAULT '0',
+  `questID` int(11) DEFAULT NULL,
+  `questSetState` enum('unavailable','available','rejected','ongoing','failed','succeeded','completed') DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `effectID` (`effectID`)
@@ -645,6 +647,7 @@ CREATE TABLE IF NOT EXISTS `mt_item` (
   `type` enum('usable','combat','weapon','offhand','accessory','quest','misc') NOT NULL DEFAULT 'usable',
   `usable` tinyint(1) NOT NULL DEFAULT '0',
   `tradable` tinyint(1) NOT NULL DEFAULT '1',
+  `autosellable` tinyint(1) NOT NULL DEFAULT '1',
   `desc` text NOT NULL,
   `autosellCash` int(11) NOT NULL DEFAULT '0',
   `autosellFavours` int(11) NOT NULL DEFAULT '0',
@@ -659,7 +662,7 @@ CREATE TABLE IF NOT EXISTS `mt_item` (
   KEY `charactermodifierID` (`charactermodifierID`),
   KEY `useEffectID` (`useEffectID`),
   KEY `requirementID` (`requirementID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_item`:
@@ -740,7 +743,7 @@ CREATE TABLE IF NOT EXISTS `mt_monster_battleskills` (
   PRIMARY KEY (`id`),
   KEY `monsterID` (`monsterID`),
   KEY `battleskillID` (`battleskillID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_monster_battleskills`:
@@ -764,7 +767,7 @@ CREATE TABLE IF NOT EXISTS `mt_monster_items` (
   PRIMARY KEY (`id`),
   KEY `monsterID` (`monsterID`),
   KEY `itemID` (`itemID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_monster_items`:
