@@ -705,6 +705,46 @@ class Character extends BaseCharacter {
         $this->characterItems = $characterItems;
     }
     /**
+     * Returns the CharacterItems record that belongs to a given item
+     * Creates a new record with n = 0 if no CharacterItems record is found
+     * @param mixed $item Item or int (ID of a Quest record)
+     * @return CharacterItems
+     */
+    public function getCharacterItem($item) {
+        if(is_numeric($item)) {
+            $itemID = $item;
+        } else {
+            $itemID = $item->id;
+        }
+        foreach($this->characterItems as $characterItem) {
+            if($characterItem->itemID == $itemID) {
+                return $characterItem;
+            }
+        }
+        
+        /**
+         * If no CharacterItems record exists for the given item,
+         * create a new one with n = 0
+         */
+        $characterItem = new CharacterItems();
+        $characterItem->characterID = $this->id;
+        $characterItem->itemID = $itemID;
+        $characterItem->n = 0;
+        return $characterItem;
+    }
+    
+    /**
+     * Checks if the character has a given item
+     * @uses getCharacterItem
+     * @param mixed $item Item or int (ID of an Item record)
+     * @return boolean 
+     */
+    public function hasItem($item) {
+        $characterItem = $this->getCharacterItem($item);
+        return ($characterItem->n > 0);
+    }
+    
+    /**
      * Lazy loading of CharacterSkillsets records
      */
     public function loadSkillsets() {
@@ -740,7 +780,7 @@ class Character extends BaseCharacter {
      * Creates a new record with state = unavailable if no
      * CharacterQuests record is found
      * @param mixed $quest Quest or int (ID of a Quest record)
-     * @return boolean 
+     * @return CharacterQuests 
      */
     public function getCharacterQuest($quest) {
         if(is_numeric($quest)) {
