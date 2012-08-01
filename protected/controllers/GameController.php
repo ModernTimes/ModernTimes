@@ -138,7 +138,7 @@ class GameController extends Controller {
         // Add GoodForNothing effect if character has 0 hp
         if($character->hp <= 0) {
             // Add GFN (ID 1) for 3 turns, unless it's already there
-            Yii::app()->tools->addEffect(1, 3, array('addTurns' => false));
+            Yii::app()->tools->addEffect($character, 1, 3, array('addTurns' => false));
         }
         
         $character->hp = min($character->hp, $character->getHpMax());
