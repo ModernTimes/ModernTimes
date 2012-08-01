@@ -25,7 +25,7 @@ class Consultant1Quest extends CBehavior {
      * ID of the required item
      * @constant int 
      */
-    const deckItemID = 11;
+    const deckItemID = 18;
     
     /**
      * Attaches custom event handlers to a Character
@@ -37,7 +37,6 @@ class Consultant1Quest extends CBehavior {
     }
     
     public function reactToOnGainItem($event) {
-        d($event);
         if($event->getItem()->id == self::deckItemID) {
             $this->owner->setState("succeeded");
         }
