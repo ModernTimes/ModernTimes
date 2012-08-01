@@ -27,27 +27,30 @@ class Character extends BaseCharacter {
      * @uses gainResource
      * @param float $amount
      * @param string $source enum(other|battle|encounter|quest|autosell) 
+     * @return int the actual amount of cash gained
      */
     public function gainCash($amount = 0, $source = '') {
-        $this->gainResource('cash', $amount, $source);
+        return $this->gainResource('cash', $amount, $source);
     }
     /**
      * Wrapper for gainResource
      * @uses gainResource
      * @param float $amount
      * @param string $source enum(other|battle|encounter|quest|autosell) 
+     * @return int the actual amount of favours gained
      */
     public function gainFavours($amount = 0, $source = '') {
-        $this->gainResource('favours', $amount, $source);
+        return $this->gainResource('favours', $amount, $source);
     }
     /**
      * Wrapper for gainResource
      * @uses gainResource
      * @param float $amount
      * @param string $source enum(other|battle|encounter|quest|autosell) 
+     * @return int the actual amount of kudos gained
      */
     public function gainKudos($amount = 0, $source = '') {
-        $this->gainResource('kudos', $amount, $source);
+        return $this->gainResource('kudos', $amount, $source);
     }
     /**
      * Gives resources to the character (or takes them away)
@@ -60,6 +63,7 @@ class Character extends BaseCharacter {
      * @param string $source enum(other|battle|encounter|quest|autosell) 
      * Allows event handlers to react to gainStuff events only in case the
      * resources come from a certain source
+     * @return int the actual amount of resource gained
      */ 
     private function gainResource($resource, $amount, $source) {
         $event = new GainStatEvent($this, array(
@@ -68,58 +72,64 @@ class Character extends BaseCharacter {
         ));
         call_user_func(array($this, "onGain" . ucfirst($resource)), $event);
 
-        $amount = max(0, floor($event->adjustStat($amount)));
+        $amount = max(0, $event->adjustStat($amount));
         
-        call_user_func(array($this, "increase" . ucfirst($resource)), $amount);
+        return call_user_func(array($this, "increase" . ucfirst($resource)), $amount);
     }
     
     /**
      * Wrapper for changeResource
      * @uses changeResource
      * @param float $amount
+     * @return int the actual cash increase
      */
     public function increaseCash($amount = 0) {
-        $this->changeResource('cash', $amount);
+        return $this->changeResource('cash', $amount);
     }
     /**
      * Wrapper for changeResource
      * @uses changeResource
      * @param float $amount
+     * @return int actual change in resource
      */
     public function increaseFavours($amount = 0) {
-        $this->changeResource('favours', $amount);
+        return $this->changeResource('favours', $amount);
     }
     /**
      * Wrapper for changeResource
      * @uses changeResource
      * @param float $amount
+     * @return int actual change in resource
      */
     public function increaseKudos($amount = 0) {
-        $this->changeResource('kudos', $amount);
+        return $this->changeResource('kudos', $amount);
     }
     /**
      * Wrapper for changeResource
      * @uses changeResource
      * @param float $amount
+     * @return int actual change in resource
      */
     public function decreaseCash($amount = 0) {
-        $this->changeResource('cash', -$amount);
+        return $this->changeResource('cash', -$amount);
     }
     /**
      * Wrapper for changeResource
      * @uses changeResource
      * @param float $amount
+     * @return int actual change in resource
      */
     public function decreaseFavours($amount = 0) {
-        $this->changeResource('favours', -$amount);
+        return $this->changeResource('favours', -$amount);
     }
     /**
      * Wrapper for changeResource
      * @uses changeResource
      * @param float $amount
+     * @return int actual change in resource
      */
     public function decreaseKudos($amount = 0) {
-        $this->changeResource('kudos', -$amount);
+        return $this->changeResource('kudos', -$amount);
     }
     /**
      * Changes the indicated resource by $amount (which can be negative)
@@ -127,13 +137,18 @@ class Character extends BaseCharacter {
      * fortunate turn of events.
      * This is more of a setter method and does not raise any events.
      * @param string $resource enum(cash|favours|kudos)
-     * @param type int
+     * @param int $amount
+     * @return int actual change in resource
      */
     private function changeResource($resource, $amount) {
-        $this->{$resource} += (int) $amount;
+        // If amount is between two numbers, use RNG to determine which one to use
+        $amount = Yii::app()->tools->decideBetweenTwoNumbers($amount);
+        
+        $this->{$resource} += $amount;
         if($amount > 0) {
-            EUserFlash::setSuccessMessage((int) $amount . " " . ucfirst($resource), 'gainResource gain' . ucfirst($resource));
+            EUserFlash::setSuccessMessage($amount . " " . ucfirst($resource), 'gainResource gain' . ucfirst($resource));
         }
+        return $amount;
     }
     
     /**
@@ -301,36 +316,40 @@ class Character extends BaseCharacter {
      * @uses gainSubstat
      * @param float $amount
      * @param string $from enum(battle|encounter|quest|autosell) 
+     * @return int actual xp gain
      */
     public function gainXp($amount = 0, $from = '') {
-        $this->gainSubstat('xp', $amount, $from);
+        return $this->gainSubstat('xp', $amount, $from);
     }
     /**
      * Wrapper for gainSubstat
      * @uses gainSubstat
      * @param float $amount
      * @param string $from enum(battle|encounter|quest|autosell) 
+     * @return int actual substat gain
      */
     public function gainResoluteness($amount = 0, $from = '') {
-        $this->gainSubstat('resoluteness', $amount, $from);
+        return $this->gainSubstat('resoluteness', $amount, $from);
     }
     /**
      * Wrapper for gainSubstat
      * @uses gainSubstat
      * @param float $amount
      * @param string $from enum(battle|encounter|quest|autosell) 
+     * @return int actual substat gain
      */
     public function gainWillpower($amount = 0, $from = '') {
-        $this->gainSubstat('willpower', $amount, $from);
+        return $this->gainSubstat('willpower', $amount, $from);
     }
     /**
      * Wrapper for gainSubstat
      * @uses gainSubstat
      * @param float $amount
      * @param string $from enum(battle|encounter|quest|autosell) 
+     * @return int actual substat gain
      */
     public function gainCunning($amount = 0, $from = '') {
-        $this->gainSubstat('cunning', $amount, $from);
+        return $this->gainSubstat('cunning', $amount, $from);
     }
     /**
      * Gives substats to the character (or take them away)
@@ -343,6 +362,7 @@ class Character extends BaseCharacter {
      * @param string $source enum(other|battle|encounter|quest|autosell) 
      * Allows event handlers to react to gainingStuff events only in case the
      * substat come from a certain source
+     * @return int actual substat gain
      */ 
     private function gainSubstat($substat, $amount, $source) {
         $event = new GainStatEvent($this, array(
@@ -351,9 +371,9 @@ class Character extends BaseCharacter {
         ));
         call_user_func(array($this, "onGain" . ucfirst($substat)), $event);
         
-        $amount = max(0, floor($event->adjustStat($amount)));
+        $amount = max(0, $event->adjustStat($amount));
         
-        call_user_func(array($this, "increase" . ucfirst($substat)), $amount);
+        return call_user_func(array($this, "increase" . ucfirst($substat)), $amount);
     }
 
     /**
@@ -363,6 +383,7 @@ class Character extends BaseCharacter {
      * @uses increaseWillpower
      * @uses increaseCunning
      * @param float $xp 
+     * @return int actual xp gain
      */
     public function increaseXp($xp) {
         $actualXpGain = 0;
@@ -373,6 +394,7 @@ class Character extends BaseCharacter {
         if($actualXpGain > 0) {
             EUserFlash::setSuccessMessage($actualXpGain . " experience points", 'gainStat gainXP');
         }
+        return $actualXpGain;
     }
     
     /**
