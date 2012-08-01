@@ -140,9 +140,9 @@ class Battle extends BaseBattle {
              * attack / 2 xp reward
              */
             if(isset($this->combatantB->xp)) {
-                $this->combatantA->increaseXp($this->combatantB->xp);
+                $this->combatantA->gainXp($this->combatantB->xp, "battle");
             } else {
-                $this->combatantA->increaseXp($this->combatantB->attack / 2);
+                $this->combatantA->gainXp($this->combatantB->attack / 4, "battle");
             }
         }
 
