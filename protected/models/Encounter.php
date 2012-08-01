@@ -3,6 +3,7 @@
 Yii::import('application.models._base.BaseEncounter');
 
 /**
+ * @todo rename to Incident
  * Handles basic encounter procedures.
  * Can be "overridden" by specialnessBehavior classes
  * 
