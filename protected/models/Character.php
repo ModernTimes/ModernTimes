@@ -198,10 +198,10 @@ class Character extends BaseCharacter {
             $characterItems[] = $CharacterItem;
         }
 
-        $event = new GainItemEvent($this, $item, $n);
+        $event = new GainItemEvent($this, $Item, $n);
         $this->onGainItem($event);
         
-        EUserFlash::setSuccessMessage("You got " . $n . " <b>" . $item->name . "</b>", 'gainItem id:' . $item->id);
+        EUserFlash::setSuccessMessage("You got " . $n . " <b>" . $Item->name . "</b>", 'gainItem id:' . $Item->id);
         return true;
     }
 
@@ -365,14 +365,14 @@ class Character extends BaseCharacter {
      * @param float $xp 
      */
     public function increaseXp($xp) {
-        if($xp > 0) {
-            EUserFlash::setSuccessMessage((int) $xp . " experience points", 'gainStat gainXP');
-        }
-        
+        $actualXpGain = 0;
         $cA = $this->getClassAttributes();
-        $this->increaseResoluteness($xp * $cA[$this->class]['resoluteness'], false);
-        $this->increaseWillpower($xp * $cA[$this->class]['willpower'], false);
-        $this->increaseCunning($xp * $cA[$this->class]['cunning'], false);
+        $actualXpGain += $this->increaseResoluteness($xp * $cA[$this->class]['resoluteness'], false);
+        $actualXpGain += $this->increaseWillpower($xp * $cA[$this->class]['willpower'], false);
+        $actualXpGain += $this->increaseCunning($xp * $cA[$this->class]['cunning'], false);
+        if($actualXpGain > 0) {
+            EUserFlash::setSuccessMessage($actualXpGain . " experience points", 'gainStat gainXP');
+        }
     }
     
     /**
@@ -380,27 +380,30 @@ class Character extends BaseCharacter {
      * @uses increaseSubstat
      * @param float $amount
      * @param bool $generateMsg
+     * @return int actual substat gains
      */
     public function increaseResoluteness($amount, $generateMsg = true) {
-        $this->increaseSubstat("resoluteness", $amount, $generateMsg);
+        return $this->increaseSubstat("resoluteness", $amount, $generateMsg);
     }
     /**
      * Wrapper for increaseSubstat
      * @uses increaseSubstat
      * @param float $amount
      * @param bool $generateMsg
+     * @return int actual substat gains
      */
     public function increaseWillpower($amount, $generateMsg = true) {
-        $this->increaseSubstat("willpower", $amount, $generateMsg);
+        return $this->increaseSubstat("willpower", $amount, $generateMsg);
     }
     /**
      * Wrapper for increaseSubstat
      * @uses increaseSubstat
      * @param float $amount
      * @param bool $generateMsg
+     * @return int actual substat gains
      */
     public function increaseCunning($amount, $generateMsg = true) {
-        $this->increaseSubstat("cunning", $amount, $generateMsg);
+        return $this->increaseSubstat("cunning", $amount, $generateMsg);
     }
     
     /**
@@ -412,6 +415,7 @@ class Character extends BaseCharacter {
      * @uses Tools->decideBetweenTwoNumbers
      * @param string $stat enum(resoluteness|cunning|willpower)
      * @param bool $generateMsg
+     * @return int actual substat gains
      */
     private function increaseSubstat($stat, $amount, $generateMsg = true) {
         // If amount is between two numbers, use RNG to determine which one to use
@@ -434,6 +438,7 @@ class Character extends BaseCharacter {
                 EUserFlash::setSuccessMessage("<b>You gained a level!</b>", 'gainStat gainLevel');
             }
         }
+        return $amount;
     }
     
     
