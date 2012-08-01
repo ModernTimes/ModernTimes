@@ -691,18 +691,20 @@ class Character extends BaseCharacter {
      * Lazy loading of CharacterItems records
      */
     public function loadItems() {
-        $characterItems = CharacterItems::model()->with(array(
-            'item' => array(
-                'with' => array(
-                    'requirement',
-                    // 'useEffect', 
-                    'charactermodifier'
+        if(!$this->hasRelated("characterItems")) {
+            $characterItems = CharacterItems::model()->with(array(
+                'item' => array(
+                    'with' => array(
+                        'requirement',
+                        // 'useEffect', 
+                        'charactermodifier'
+                    )
                 )
-            )
-        ))->findAll(
-            't.characterID=:characterID', 
-            array(':characterID'=>$this->id));
-        $this->characterItems = $characterItems;
+            ))->findAll(
+                't.characterID=:characterID', 
+                array(':characterID'=>$this->id));
+            $this->characterItems = $characterItems;
+        }
     }
     /**
      * Returns the CharacterItems record that belongs to a given item
@@ -748,31 +750,35 @@ class Character extends BaseCharacter {
      * Lazy loading of CharacterSkillsets records
      */
     public function loadSkillsets() {
-        $characterSkillsets = CharacterSkillsets::model()->with(array(
-            'pos1',
-            'pos2',
-            'pos3',
-            'pos4',
-            'pos5',
-            'pos6',
-            'pos7',
-            'pos8',
-            'pos9',
-            'pos10',
-        ))->findAll(
-            't.characterID=:characterID', 
-            array(':characterID'=>$this->id));
-        $this->characterSkillsets = $characterSkillsets;
+        if(!$this->hasRelated("characterSkillsets")) {
+            $characterSkillsets = CharacterSkillsets::model()->with(array(
+                'pos1',
+                'pos2',
+                'pos3',
+                'pos4',
+                'pos5',
+                'pos6',
+                'pos7',
+                'pos8',
+                'pos9',
+                'pos10',
+            ))->findAll(
+                't.characterID=:characterID', 
+                array(':characterID'=>$this->id));
+            $this->characterSkillsets = $characterSkillsets;
+        }
     }    
     
     /**
      * Lazy loading of CharacterQuests records
      */
     public function loadQuests() {
-        $characterQuests = CharacterQuests::model()->withRelated()->findAll(
-            't.characterID=:characterID', 
-            array(':characterID'=>$this->id));
-        $this->characterQuests = $characterQuests;
+        if(!$this->hasRelated("characterQuests")) {
+            $characterQuests = CharacterQuests::model()->withRelated()->findAll(
+                't.characterID=:characterID', 
+                array(':characterID'=>$this->id));
+            $this->characterQuests = $characterQuests;
+        }
     }
     
     /**
