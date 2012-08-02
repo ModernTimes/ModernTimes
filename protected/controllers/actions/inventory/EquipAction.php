@@ -30,26 +30,16 @@ class EquipAction extends CAction {
              */
             
             $Character = CD();
-            $Character->loadItems();
+            $CharacterItem = $Character->getCharacterItem($itemID);
             
-            $validCharacterItem = false;
-            foreach($Character->characterItems as $CharacterItem) {
-                if($CharacterItem->item->id == $itemID &&
-                   $CharacterItem->n > 0) {
-                    
-                    $Item = $CharacterItem->item;
-                    $validCharacterItem = true;
-                    break;
-                }
-            }
-            
-            if(!$validCharacterItem) {
+            if($CharacterItem->n == 0) {
                 EUserFlash::setErrorMessage("You don't have that.");
             } else {
+                $Item = $CharacterItem->item;
+                
                 /**
                 * Check: Is the item equippable?
                 */
-                
                 $validTypes = array("weapon", "offhand", "accessory");
                 if(!in_array($Item->type, $validTypes)) {
                     EUserFlash::setErrorMessage("That item is not equippable. You probably know that.");
@@ -114,8 +104,8 @@ class EquipAction extends CAction {
                             }
 
                             // The actual equipping
-                            $Equipment->{$slot} = $Item->id;
-                            $Equipment->{$slot . "0"} = $Item;
+                            $Equipment->{$slot . "ID"} = $Item->id;
+                            $Equipment->{$slot} = $Item;
                             $Equipment->save();
 
                             // Re-Attach event handlers
