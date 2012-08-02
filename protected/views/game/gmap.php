@@ -182,11 +182,16 @@
                                 setCurrentPlace(area);
                             // }
                         },
-                        mouseout: function(){
-                            /* var infowindow = $(this).gmap3({action:'get', name:'infowindow'});
+                        <?php 
+                        /* mouseout: function(){
+                            var infowindow = $(this).gmap3({action:'get', name:'infowindow'});
                             if (infowindow){
                                 infowindow.close();
-                            } */
+                            }
+                        },
+                        */ ?>
+                        click: function(marker, event, data){
+                            document.location.href = getLinkUrl(area.action);
                         }
                     },
                     options:{
@@ -283,7 +288,8 @@
         gmap.setZoom(15);
         gmap.setCenter(new google.maps.LatLng(51.51323,-0.143851));
     }
-    function showInfowindow(event, contentString) {
+    <?php
+    /* function showInfowindow(event, contentString) {
         contentString = google.maps.geometry.encoding.encodePath([
             // new google.maps.LatLng(),
             new google.maps.LatLng(51.5134222205612,-0.158407454239835), new google.maps.LatLng(51.5137275085991,-0.155991050828947), new google.maps.LatLng(51.5142307801025,-0.150743465319638), new google.maps.LatLng(51.51593920184,-0.145311822506835), new google.maps.LatLng(51.5197888480417,-0.144787847452093), new google.maps.LatLng(51.5208021991907,-0.139163329420697), new google.maps.LatLng(51.5163905766374,-0.130407608455561), new google.maps.LatLng(51.5133723226958,-0.129105569376926), new google.maps.LatLng(51.5129755474092,-0.129605231562351), new google.maps.LatLng(51.5088505901555,-0.137677489324293), new google.maps.LatLng(51.5061772131222,-0.144129497600128), new google.maps.LatLng(51.5018707358894,-0.151636439566585), new google.maps.LatLng(51.505397906812,-0.150966960414228), new google.maps.LatLng(51.5084716721264,-0.154312774655686), new google.maps.LatLng(51.5134222205612,-0.158407454239835),
@@ -296,7 +302,8 @@
         infowindow.setPosition(event.latLng);
 
         infowindow.open(gmap);
-    }
+    } 
+    */ ?>
     function printVar(variable) {
         $('#debug').append(prettyPrint(variable));        
     }
