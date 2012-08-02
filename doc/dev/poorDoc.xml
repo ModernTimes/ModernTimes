@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="1.3.0">
+	<file name="D:\Homepages\ModernTimes\protected\components\Controller.php">
+		<error severity="error" line="26" message="Missing documentation of method Controller::init()" source="ApiGen.Documentation.Documentation"/>
+	</file>
+	<file name="D:\Homepages\ModernTimes\protected\components\quests\Consultant1Quest.php">
+		<error severity="error" line="22" message="Missing documentation of the data type of constant Consultant1Quest::rewardCash" source="ApiGen.Documentation.Documentation"/>
+		<error severity="error" line="28" message="Missing documentation of the data type of constant Consultant1Quest::deckItemID" source="ApiGen.Documentation.Documentation"/>
+	</file>
 	<file name="D:\Homepages\ModernTimes\protected\components\quests\Gluttony1Quest.php">
 		<error severity="error" line="23" message="Missing documentation of the data type of constant Gluttony1Quest::effectsNeeded" source="ApiGen.Documentation.Documentation"/>
 		<error severity="error" line="29" message="Missing documentation of the data type of constant Gluttony1Quest::beelzebubCallsEncounterID" source="ApiGen.Documentation.Documentation"/>
@@ -10,6 +17,9 @@
 	</file>
 	<file name="D:\Homepages\ModernTimes\protected\controllers\actions\site\CreateCharacterAction.php">
 		<error severity="error" line="16" message="Missing documentation of the data type of constant CreateCharacterAction::maxNumberOfCharacters" source="ApiGen.Documentation.Documentation"/>
+	</file>
+	<file name="D:\Homepages\ModernTimes\protected\models\Battleeffect.php">
+		<error severity="error" line="140" message="Missing documentation of method Battleeffect::getMsgBlock()" source="ApiGen.Documentation.Documentation"/>
 	</file>
 	<file name="D:\Homepages\ModernTimes\protected\models\forms\ContactForm.php">
 		<error severity="error" line="12" message="Missing documentation of property ContactForm::$name" source="ApiGen.Documentation.Documentation"/>

@@ -8,7 +8,7 @@
 	<title>File protected/components/quests/Greed1Quest.php | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?657556270"></script>
+	<script type="text/javascript" src="elementlist.js?3963278912"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -62,6 +62,8 @@
 						</li>
 				<li><a href="package-Actions.Character.html">Character</a>
 						</li>
+				<li><a href="package-Actions.Consultant.html">Consultant</a>
+						</li>
 				<li><a href="package-Actions.Inventory.html">Inventory</a>
 						</li>
 				<li><a href="package-Actions.Shopping.html">Shopping</a>
@@ -85,6 +87,8 @@
 						</li>
 							</ul></li>
 				<li><a href="package-Items.html">Items</a>
+						</li>
+				<li><a href="package-Monsters.html">Monsters</a>
 						</li>
 				<li class="active"><a href="package-Quests.html">Quests</a>
 						</li>
@@ -114,6 +118,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-Consultant1Quest.html">Consultant1Quest</a></li>
 				<li><a href="class-Gluttony1Quest.html">Gluttony1Quest</a></li>
 				<li class="active"><a href="class-Greed1Quest.html">Greed1Quest</a></li>
 				<li><a href="class-TestQuest.html">TestQuest</a></li>
@@ -187,7 +192,7 @@
 <a href="#54" id="54" class="l">54 </a>        <span class="php-keyword1">if</span>(<span class="php-var">$event</span>-&gt;getAmount() &gt; <span class="php-num">0</span>) {
 <a href="#55" id="55" class="l">55 </a>            <span class="php-var">$this</span>-&gt;owner-&gt;params[<span class="php-quote">'cashCollected'</span>] += <span class="php-var">$event</span>-&gt;getAmount();
 <a href="#56" id="56" class="l">56 </a>            <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;owner-&gt;params[<span class="php-quote">'cashCollected'</span>] &gt;= self::cashToCollect) {
-<a href="#57" id="57" class="l">57 </a>                <span class="php-var">$this</span>-&gt;owner-&gt;setState(<span class="php-quote">&quot;completed&quot;</span>);
+<a href="#57" id="57" class="l">57 </a>                <span class="php-var">$this</span>-&gt;owner-&gt;setState(<span class="php-quote">&quot;succeeded&quot;</span>);
 <a href="#58" id="58" class="l">58 </a>            } <span class="php-keyword1">else</span> {
 <a href="#59" id="59" class="l">59 </a>                <span class="php-var">$this</span>-&gt;owner-&gt;saveParams();
 <a href="#60" id="60" class="l">60 </a>            }
@@ -198,17 +203,14 @@
 </span><a href="#65" id="65" class="l">65 </a><span class="php-comment">     * Adds the &quot;Mommon says hello&quot; encounter to the encounter queue
 </span><a href="#66" id="66" class="l">66 </a><span class="php-comment">     * @param QuestChangeStateEvent $event 
 </span><a href="#67" id="67" class="l">67 </a><span class="php-comment">     */</span>
-<a href="#68" id="68" class="l">68 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> reactToOnCompleted(<span class="php-var">$event</span>) {
+<a href="#68" id="68" class="l">68 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> reactToOnSucceeded(<span class="php-var">$event</span>) {
 <a href="#69" id="69" class="l">69 </a>        <span class="php-var">$CharacterEncounter</span> = <span class="php-keyword1">new</span> CharacterEncounters();
 <a href="#70" id="70" class="l">70 </a>        <span class="php-var">$CharacterEncounter</span>-&gt;characterID = <span class="php-var">$this</span>-&gt;owner-&gt;CharacterQuest-&gt;characterID;
 <a href="#71" id="71" class="l">71 </a>        <span class="php-var">$CharacterEncounter</span>-&gt;encounterID = self::mommonCallsEncounterID;
 <a href="#72" id="72" class="l">72 </a>        <span class="php-var">$CharacterEncounter</span>-&gt;delay = <span class="php-num">0</span>;
 <a href="#73" id="73" class="l">73 </a>        <span class="php-var">$CharacterEncounter</span>-&gt;save();
-<a href="#74" id="74" class="l">74 </a>        
-<a href="#75" id="75" class="l">75 </a>        <span class="php-comment">// Reset params and update CharacterQuest record</span>
-<a href="#76" id="76" class="l">76 </a>        <span class="php-var">$this</span>-&gt;owner-&gt;reactToOnCompleted(<span class="php-var">$event</span>);
-<a href="#77" id="77" class="l">77 </a>    }
-<a href="#78" id="78" class="l">78 </a>}</code></pre>
+<a href="#74" id="74" class="l">74 </a>    }
+<a href="#75" id="75" class="l">75 </a>}</code></pre>
 	</div>
 
 	<div id="footer">

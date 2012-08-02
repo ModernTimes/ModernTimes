@@ -7,7 +7,7 @@
 	<title>Package Actions\Inventory | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?657556270"></script>
+	<script type="text/javascript" src="elementlist.js?3963278912"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -59,6 +59,8 @@
 						</li>
 				<li><a href="package-Actions.Character.html">Character</a>
 						</li>
+				<li><a href="package-Actions.Consultant.html">Consultant</a>
+						</li>
 				<li class="active"><a href="package-Actions.Inventory.html">Inventory</a>
 						</li>
 				<li><a href="package-Actions.Shopping.html">Shopping</a>
@@ -82,6 +84,8 @@
 						</li>
 							</ul></li>
 				<li><a href="package-Items.html">Items</a>
+						</li>
+				<li><a href="package-Monsters.html">Monsters</a>
 						</li>
 				<li><a href="package-Quests.html">Quests</a>
 						</li>
@@ -112,6 +116,7 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-AutosellAction.html">AutosellAction</a></li>
+				<li><a href="class-CombineItemsAction.html">CombineItemsAction</a></li>
 				<li><a href="class-EquipAction.html">EquipAction</a></li>
 				<li><a href="class-InventoryAction.html">InventoryAction</a></li>
 				<li><a href="class-UnequipAction.html">UnequipAction</a></li>
@@ -143,13 +148,17 @@
 the Item's autosell values</td>
 </tr>
 <tr>
+	<td class="name"><a href="class-CombineItemsAction.html">CombineItemsAction</a></td>
+	<td>Combines two items into a new one as long as there is a recipe</td>
+</tr>
+<tr>
 	<td class="name"><a href="class-EquipAction.html">EquipAction</a></td>
 	<td>Equips an item in the proper equipment slot If the slot is occupied, run
 UnequipAction as a child process</td>
 </tr>
 <tr>
 	<td class="name"><a href="class-InventoryAction.html">InventoryAction</a></td>
-	<td>Retrieves item data and renders the inventory screen</td>
+	<td>Retrieves item and recipe data and renders the inventory screen</td>
 </tr>
 <tr>
 	<td class="name"><a href="class-UnequipAction.html">UnequipAction</a></td>

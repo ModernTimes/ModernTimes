@@ -8,7 +8,7 @@
 	<title>File protected/components/events/GainEffectEvent.php | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?657556270"></script>
+	<script type="text/javascript" src="elementlist.js?3963278912"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -62,6 +62,8 @@
 						</li>
 				<li><a href="package-Actions.Character.html">Character</a>
 						</li>
+				<li><a href="package-Actions.Consultant.html">Consultant</a>
+						</li>
 				<li><a href="package-Actions.Inventory.html">Inventory</a>
 						</li>
 				<li><a href="package-Actions.Shopping.html">Shopping</a>
@@ -85,6 +87,8 @@
 						</li>
 							</ul></li>
 				<li><a href="package-Items.html">Items</a>
+						</li>
+				<li><a href="package-Monsters.html">Monsters</a>
 						</li>
 				<li><a href="package-Quests.html">Quests</a>
 						</li>
@@ -122,6 +126,7 @@
 				<li><a href="class-CombatantTakeDamageEvent.html">CombatantTakeDamageEvent</a></li>
 				<li><a href="class-CombatantTakenDamageEvent.html">CombatantTakenDamageEvent</a></li>
 				<li class="active"><a href="class-GainEffectEvent.html">GainEffectEvent</a></li>
+				<li><a href="class-GainItemEvent.html">GainItemEvent</a></li>
 				<li><a href="class-GainStatEvent.html">GainStatEvent</a></li>
 				<li><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></li>
 			</ul>
@@ -157,7 +162,7 @@
 <a href="#17" id="17" class="l">17 </a>    <span class="php-comment">/**
 </span><a href="#18" id="18" class="l">18 </a><span class="php-comment">     * Constructor
 </span><a href="#19" id="19" class="l">19 </a><span class="php-comment">     * @param mixed $sender obj or null
-</span><a href="#20" id="20" class="l">20 </a><span class="php-comment">     * @param mixed $Effect CharacterEffects or null
+</span><a href="#20" id="20" class="l">20 </a><span class="php-comment">     * @param mixed $CharacterEffect CharacterEffects or null
 </span><a href="#21" id="21" class="l">21 </a><span class="php-comment">     * @param array $params
 </span><a href="#22" id="22" class="l">22 </a><span class="php-comment">     */</span>
 <a href="#23" id="23" class="l">23 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> __construct(<span class="php-var">$sender</span> = <span class="php-keyword1">null</span>, <span class="php-var">$CharacterEffect</span> = <span class="php-keyword1">null</span>, <span class="php-var">$params</span> = <span class="php-keyword1">array</span>()) {
@@ -172,19 +177,10 @@
 <a href="#32" id="32" class="l">32 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> getCharacterEffect() {
 <a href="#33" id="33" class="l">33 </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;_CharacterEffect;
 <a href="#34" id="34" class="l">34 </a>    }
-<a href="#35" id="35" class="l">35 </a>    
-<a href="#36" id="36" class="l">36 </a>    <span class="php-comment">/**
-</span><a href="#37" id="37" class="l">37 </a><span class="php-comment">     * Returns a list of CBehaviors to be attached to this component
-</span><a href="#38" id="38" class="l">38 </a><span class="php-comment">     * @link http://www.yiiframework.com/doc/api/CBehavior
-</span><a href="#39" id="39" class="l">39 </a><span class="php-comment">     * @return array
-</span><a href="#40" id="40" class="l">40 </a><span class="php-comment">     */</span>
-<a href="#41" id="41" class="l">41 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> behaviors() {
-<a href="#42" id="42" class="l">42 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">array</span>();
-<a href="#43" id="43" class="l">43 </a>    }
-<a href="#44" id="44" class="l">44 </a>}
-<a href="#45" id="45" class="l">45 </a>
-<a href="#46" id="46" class="l">46 </a><span class="xlang">?&gt;</span>
-<a href="#47" id="47" class="l">47 </a></code></pre>
+<a href="#35" id="35" class="l">35 </a>}
+<a href="#36" id="36" class="l">36 </a>
+<a href="#37" id="37" class="l">37 </a><span class="xlang">?&gt;</span>
+<a href="#38" id="38" class="l">38 </a></code></pre>
 	</div>
 
 	<div id="footer">

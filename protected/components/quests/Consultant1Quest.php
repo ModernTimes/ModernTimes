@@ -36,6 +36,10 @@ class Consultant1Quest extends CBehavior {
         $Character->onGainItem = array($this, 'reactToOnGainItem');
     }
     
+    /**
+     * Checks whether the character got a novice deck
+     * @param GainItemEvent $event 
+     */
     public function reactToOnGainItem($event) {
         if($event->getItem()->id == self::deckItemID) {
             $this->owner->setState("succeeded");

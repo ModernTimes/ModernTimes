@@ -1,12 +1,15 @@
 <?php
 
 /**
- * Smily flirtily or bitchily, depending on the sex of her opponent 
+ * Smily flirtily or bitchily, depending on the sex of her opponent
+ * 
+ * @package Monsters
  */
 
 class ReceptionistFemaleMonster extends CBehavior {
 
     /**
+     * See above
      * @param Battle $battle
      * @return Skill
      */

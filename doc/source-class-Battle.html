@@ -8,7 +8,7 @@
 	<title>File protected/models/Battle.php | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?657556270"></script>
+	<script type="text/javascript" src="elementlist.js?3963278912"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -62,6 +62,8 @@
 						</li>
 				<li><a href="package-Actions.Character.html">Character</a>
 						</li>
+				<li><a href="package-Actions.Consultant.html">Consultant</a>
+						</li>
 				<li><a href="package-Actions.Inventory.html">Inventory</a>
 						</li>
 				<li><a href="package-Actions.Shopping.html">Shopping</a>
@@ -85,6 +87,8 @@
 						</li>
 							</ul></li>
 				<li><a href="package-Items.html">Items</a>
+						</li>
+				<li><a href="package-Monsters.html">Monsters</a>
 						</li>
 				<li><a href="package-Quests.html">Quests</a>
 						</li>
@@ -241,7 +245,7 @@
 <a href="#105" id="105" class="l">105 </a>        <span class="php-var">$this</span>-&gt;combatantA-&gt;ongoingBattleID = <span class="php-var">$this</span>-&gt;id;
 <a href="#106" id="106" class="l">106 </a>        <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;type == <span class="php-quote">&quot;pvp&quot;</span>) {
 <a href="#107" id="107" class="l">107 </a>            <span class="php-var">$this</span>-&gt;combatantB-&gt;ongoingBattleID = <span class="php-var">$this</span>-&gt;id;
-<a href="#108" id="108" class="l">108 </a>            <span class="php-var">$this</span>-&gt;combatantB-&gt;save();
+<a href="#108" id="108" class="l">108 </a>            <span class="php-comment">// $this-&gt;combatantB-&gt;save();</span>
 <a href="#109" id="109" class="l">109 </a>        }
 <a href="#110" id="110" class="l">110 </a>        
 <a href="#111" id="111" class="l">111 </a>        <span class="php-var">$this</span>-&gt;saveObjectState();
@@ -276,15 +280,15 @@
 </span><a href="#140" id="140" class="l">140 </a><span class="php-comment">             * attack / 2 xp reward
 </span><a href="#141" id="141" class="l">141 </a><span class="php-comment">             */</span>
 <a href="#142" id="142" class="l">142 </a>            <span class="php-keyword1">if</span>(<span class="php-keyword1">isset</span>(<span class="php-var">$this</span>-&gt;combatantB-&gt;xp)) {
-<a href="#143" id="143" class="l">143 </a>                <span class="php-var">$this</span>-&gt;combatantA-&gt;increaseXp(<span class="php-var">$this</span>-&gt;combatantB-&gt;xp);
+<a href="#143" id="143" class="l">143 </a>                <span class="php-var">$this</span>-&gt;combatantA-&gt;gainXp(<span class="php-var">$this</span>-&gt;combatantB-&gt;xp, <span class="php-quote">&quot;battle&quot;</span>);
 <a href="#144" id="144" class="l">144 </a>            } <span class="php-keyword1">else</span> {
-<a href="#145" id="145" class="l">145 </a>                <span class="php-var">$this</span>-&gt;combatantA-&gt;increaseXp(<span class="php-var">$this</span>-&gt;combatantB-&gt;attack / <span class="php-num">2</span>);
+<a href="#145" id="145" class="l">145 </a>                <span class="php-var">$this</span>-&gt;combatantA-&gt;gainXp(<span class="php-var">$this</span>-&gt;combatantB-&gt;attack / <span class="php-num">4</span>, <span class="php-quote">&quot;battle&quot;</span>);
 <a href="#146" id="146" class="l">146 </a>            }
 <a href="#147" id="147" class="l">147 </a>        }
 <a href="#148" id="148" class="l">148 </a>
 <a href="#149" id="149" class="l">149 </a>        <span class="php-var">$this</span>-&gt;combatantA-&gt;ongoingBattleID = <span class="php-keyword1">null</span>;
 <a href="#150" id="150" class="l">150 </a>        <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;type == <span class="php-quote">&quot;pvp&quot;</span>) {
-<a href="#151" id="151" class="l">151 </a>            <span class="php-comment">// ToDo: Message to PVP enemy</span>
+<a href="#151" id="151" class="l">151 </a>            <span class="php-comment">// @todo Message to PVP enemy</span>
 <a href="#152" id="152" class="l">152 </a>            <span class="php-var">$this</span>-&gt;combatantB-&gt;ongoingBattleID = <span class="php-keyword1">null</span>;
 <a href="#153" id="153" class="l">153 </a>        }
 <a href="#154" id="154" class="l">154 </a>
@@ -295,8 +299,8 @@
 </span><a href="#159" id="159" class="l">159 </a><span class="php-comment">         * ToDo: why does backupbehavior think that no attribute changed
 </span><a href="#160" id="160" class="l">160 </a><span class="php-comment">         *       if we set ongoingBattleID to null?
 </span><a href="#161" id="161" class="l">161 </a><span class="php-comment">         */</span>
-<a href="#162" id="162" class="l">162 </a>        <span class="php-var">$this</span>-&gt;combatantA-&gt;update();
-<a href="#163" id="163" class="l">163 </a>        <span class="php-comment">// $this-&gt;combatantA-&gt;save();</span>
+<a href="#162" id="162" class="l">162 </a>        <span class="php-comment">// $this-&gt;combatantA-&gt;save();</span>
+<a href="#163" id="163" class="l">163 </a>        <span class="php-var">$this</span>-&gt;combatantA-&gt;update();
 <a href="#164" id="164" class="l">164 </a>        <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;type == <span class="php-quote">&quot;pvp&quot;</span>) {
 <a href="#165" id="165" class="l">165 </a>            <span class="php-var">$this</span>-&gt;combatantB-&gt;save();
 <a href="#166" id="166" class="l">166 </a>        }
@@ -415,8 +419,8 @@
 <a href="#279" id="279" class="l">279 </a>        } <span class="php-keyword1">else</span> {
 <a href="#280" id="280" class="l">280 </a>            <span class="php-var">$this</span>-&gt;onAfterRound(<span class="php-keyword1">new</span> BattleEvent(<span class="php-var">$this</span>));
 <a href="#281" id="281" class="l">281 </a>
-<a href="#282" id="282" class="l">282 </a>            <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;type == <span class="php-quote">&quot;pvp&quot;</span>) {
-<a href="#283" id="283" class="l">283 </a>                <span class="php-var">$this</span>-&gt;combatantA-&gt;save();
+<a href="#282" id="282" class="l">282 </a>            <span class="php-var">$this</span>-&gt;combatantA-&gt;save();
+<a href="#283" id="283" class="l">283 </a>            <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;type == <span class="php-quote">&quot;pvp&quot;</span>) {
 <a href="#284" id="284" class="l">284 </a>                <span class="php-var">$this</span>-&gt;combatantB-&gt;save();
 <a href="#285" id="285" class="l">285 </a>            }
 <a href="#286" id="286" class="l">286 </a>            <span class="php-var">$this</span>-&gt;saveObjectState();
@@ -701,91 +705,91 @@
 <a href="#565" id="565" class="l">565 </a>    
 <a href="#566" id="566" class="l">566 </a>    <span class="php-comment">/**
 </span><a href="#567" id="567" class="l">567 </a><span class="php-comment">     * Just increases $this-&gt;round by 1
-</span><a href="#568" id="568" class="l">568 </a><span class="php-comment">     * @param bool $nextRound not used yet
-</span><a href="#569" id="569" class="l">569 </a><span class="php-comment">     */</span>
-<a href="#570" id="570" class="l">570 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> nextRound(<span class="php-var">$nextRound</span> = <span class="php-keyword1">true</span>) {
-<a href="#571" id="571" class="l">571 </a>        <span class="php-var">$this</span>-&gt;<span class="php-keyword2">round</span>++;
-<a href="#572" id="572" class="l">572 </a>    }
-<a href="#573" id="573" class="l">573 </a>    
-<a href="#574" id="574" class="l">574 </a>    <span class="php-comment">/**
-</span><a href="#575" id="575" class="l">575 </a><span class="php-comment">     * Saves the Battle state in the database
-</span><a href="#576" id="576" class="l">576 </a><span class="php-comment">     * serialize invokes __sleep, which sets $this-&gt;combatantA and B to null
-</span><a href="#577" id="577" class="l">577 </a><span class="php-comment">     * reconstructCombatants reconstructs the Combatants. That way, the
-</span><a href="#578" id="578" class="l">578 </a><span class="php-comment">     * complex Combatant objects do not use up space in the DB
-</span><a href="#579" id="579" class="l">579 </a><span class="php-comment">     * @uses __sleep
-</span><a href="#580" id="580" class="l">580 </a><span class="php-comment">     * @uses reconstructCombatants
-</span><a href="#581" id="581" class="l">581 </a><span class="php-comment">     */</span>
-<a href="#582" id="582" class="l">582 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> saveObjectState() {
-<a href="#583" id="583" class="l">583 </a>        <span class="php-var">$this</span>-&gt;objectState = <span class="php-keyword2">base64_encode</span>(<span class="php-keyword2">serialize</span>(<span class="php-var">$this</span>));
-<a href="#584" id="584" class="l">584 </a>        <span class="php-var">$this</span>-&gt;isNewRecord = <span class="php-keyword1">false</span>;
-<a href="#585" id="585" class="l">585 </a>        <span class="php-var">$this</span>-&gt;update();
-<a href="#586" id="586" class="l">586 </a>        <span class="php-var">$this</span>-&gt;reconstructCombatants();
-<a href="#587" id="587" class="l">587 </a>    }
-<a href="#588" id="588" class="l">588 </a>    
-<a href="#589" id="589" class="l">589 </a>    <span class="php-comment">/**
-</span><a href="#590" id="590" class="l">590 </a><span class="php-comment">     * Prepares the object for hibernation
-</span><a href="#591" id="591" class="l">591 </a><span class="php-comment">     * Sets combatantA and B to null and removes inactive Battleeffects
-</span><a href="#592" id="592" class="l">592 </a><span class="php-comment">     * @return array array_keys((array)$this)
-</span><a href="#593" id="593" class="l">593 </a><span class="php-comment">     */</span>
-<a href="#594" id="594" class="l">594 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> __sleep() {
-<a href="#595" id="595" class="l">595 </a>        <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;type == <span class="php-quote">&quot;pvp&quot;</span>) {
-<a href="#596" id="596" class="l">596 </a>            <span class="php-var">$this</span>-&gt;combatantA = <span class="php-keyword1">null</span>;
-<a href="#597" id="597" class="l">597 </a>            <span class="php-var">$this</span>-&gt;combatantB = <span class="php-keyword1">null</span>;
-<a href="#598" id="598" class="l">598 </a>        } <span class="php-keyword1">else</span> {
-<a href="#599" id="599" class="l">599 </a>            <span class="php-var">$this</span>-&gt;combatantA = <span class="php-keyword1">null</span>;
-<a href="#600" id="600" class="l">600 </a>        }
-<a href="#601" id="601" class="l">601 </a>        
-<a href="#602" id="602" class="l">602 </a>        <span class="php-comment">/**
-</span><a href="#603" id="603" class="l">603 </a><span class="php-comment">         * This is ugly, but you can't remove items from a CList while cycling 
-</span><a href="#604" id="604" class="l">604 </a><span class="php-comment">         * through the list with foreach. The iterator's $_i for the current 
-</span><a href="#605" id="605" class="l">605 </a><span class="php-comment">         * position is not updated. Apparently, this is how it should be. Weird.
-</span><a href="#606" id="606" class="l">606 </a><span class="php-comment">         */</span>
-<a href="#607" id="607" class="l">607 </a>        <span class="php-var">$toDelete</span> = <span class="php-keyword1">array</span>();
-<a href="#608" id="608" class="l">608 </a>        <span class="php-keyword1">foreach</span>(<span class="php-var">$this</span>-&gt;battleeffects <span class="php-keyword1">as</span> <span class="php-var">$battleeffect</span>) {
-<a href="#609" id="609" class="l">609 </a>            <span class="php-keyword1">if</span>(!<span class="php-var">$battleeffect</span>-&gt;active) {
-<a href="#610" id="610" class="l">610 </a>                <span class="php-var">$toDelete</span>[] = <span class="php-var">$battleeffect</span>;
-<a href="#611" id="611" class="l">611 </a>            }
-<a href="#612" id="612" class="l">612 </a>        }
-<a href="#613" id="613" class="l">613 </a>        <span class="php-keyword1">foreach</span>(<span class="php-var">$toDelete</span> <span class="php-keyword1">as</span> <span class="php-var">$deletee</span>) {
-<a href="#614" id="614" class="l">614 </a>            <span class="php-var">$this</span>-&gt;battleeffects-&gt;remove(<span class="php-var">$deletee</span>);
-<a href="#615" id="615" class="l">615 </a>        }
-<a href="#616" id="616" class="l">616 </a>        
-<a href="#617" id="617" class="l">617 </a>        <span class="php-keyword1">return</span> parent::__sleep();
-<a href="#618" id="618" class="l">618 </a>    }
-<a href="#619" id="619" class="l">619 </a>    
-<a href="#620" id="620" class="l">620 </a>    <span class="php-comment">/**
-</span><a href="#621" id="621" class="l">621 </a><span class="php-comment">     * Factory method
-</span><a href="#622" id="622" class="l">622 </a><span class="php-comment">     * Reconstructs a battle record with unserialize from the attribute
-</span><a href="#623" id="623" class="l">623 </a><span class="php-comment">     * objectState
-</span><a href="#624" id="624" class="l">624 </a><span class="php-comment">     * @todo reconstruct enemy Character model in PVP
-</span><a href="#625" id="625" class="l">625 </a><span class="php-comment">     * @uses reconstructCombatants
-</span><a href="#626" id="626" class="l">626 </a><span class="php-comment">     * @param int $battleID
-</span><a href="#627" id="627" class="l">627 </a><span class="php-comment">     * @return mixed Battle record or false in case of an error
-</span><a href="#628" id="628" class="l">628 </a><span class="php-comment">     */</span>
-<a href="#629" id="629" class="l">629 </a>    <span class="php-keyword1">static</span> <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> reconstructBattle(<span class="php-var">$battleID</span>) {
-<a href="#630" id="630" class="l">630 </a>        <span class="php-var">$battleModel</span> = Battle::model()-&gt;findByPk(<span class="php-var">$battleID</span>);
-<a href="#631" id="631" class="l">631 </a>        <span class="php-var">$battle</span> = <span class="php-keyword2">unserialize</span>(<span class="php-keyword2">base64_decode</span>(<span class="php-var">$battleModel</span>-&gt;objectState));
-<a href="#632" id="632" class="l">632 </a>        <span class="php-keyword1">if</span>(<span class="php-keyword2">is_a</span>(<span class="php-var">$battle</span>, <span class="php-quote">&quot;Battle&quot;</span>)) {
-<a href="#633" id="633" class="l">633 </a>            <span class="php-var">$battle</span>-&gt;reconstructCombatants();
-<a href="#634" id="634" class="l">634 </a>            <span class="php-keyword1">return</span> <span class="php-var">$battle</span>;
-<a href="#635" id="635" class="l">635 </a>        }
-<a href="#636" id="636" class="l">636 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">false</span>;
-<a href="#637" id="637" class="l">637 </a>    }
-<a href="#638" id="638" class="l">638 </a>    
-<a href="#639" id="639" class="l">639 </a>    <span class="php-comment">/**
-</span><a href="#640" id="640" class="l">640 </a><span class="php-comment">     * Reconstructs $this-&gt;combatantA and B after the Battle record was in
-</span><a href="#641" id="641" class="l">641 </a><span class="php-comment">     * hibernation
-</span><a href="#642" id="642" class="l">642 </a><span class="php-comment">     * @todo Reconstruct the second Character record in case of pvp
-</span><a href="#643" id="643" class="l">643 </a><span class="php-comment">     */</span>
-<a href="#644" id="644" class="l">644 </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">function</span> reconstructCombatants() {
+</span><a href="#568" id="568" class="l">568 </a><span class="php-comment">     */</span>
+<a href="#569" id="569" class="l">569 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> nextRound() {
+<a href="#570" id="570" class="l">570 </a>        <span class="php-var">$this</span>-&gt;<span class="php-keyword2">round</span>++;
+<a href="#571" id="571" class="l">571 </a>    }
+<a href="#572" id="572" class="l">572 </a>    
+<a href="#573" id="573" class="l">573 </a>    <span class="php-comment">/**
+</span><a href="#574" id="574" class="l">574 </a><span class="php-comment">     * Saves the Battle state in the database
+</span><a href="#575" id="575" class="l">575 </a><span class="php-comment">     * serialize invokes __sleep, which sets $this-&gt;combatantA and B to null
+</span><a href="#576" id="576" class="l">576 </a><span class="php-comment">     * reconstructCombatants reconstructs the Combatants. That way, the
+</span><a href="#577" id="577" class="l">577 </a><span class="php-comment">     * complex Combatant objects do not use up space in the DB
+</span><a href="#578" id="578" class="l">578 </a><span class="php-comment">     * @uses __sleep
+</span><a href="#579" id="579" class="l">579 </a><span class="php-comment">     * @uses reconstructCombatants
+</span><a href="#580" id="580" class="l">580 </a><span class="php-comment">     */</span>
+<a href="#581" id="581" class="l">581 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> saveObjectState() {
+<a href="#582" id="582" class="l">582 </a>        <span class="php-var">$this</span>-&gt;objectState = <span class="php-keyword2">base64_encode</span>(<span class="php-keyword2">serialize</span>(<span class="php-var">$this</span>));
+<a href="#583" id="583" class="l">583 </a>        <span class="php-var">$this</span>-&gt;isNewRecord = <span class="php-keyword1">false</span>;
+<a href="#584" id="584" class="l">584 </a>        <span class="php-var">$this</span>-&gt;update();
+<a href="#585" id="585" class="l">585 </a>        <span class="php-var">$this</span>-&gt;reconstructCombatants();
+<a href="#586" id="586" class="l">586 </a>    }
+<a href="#587" id="587" class="l">587 </a>    
+<a href="#588" id="588" class="l">588 </a>    <span class="php-comment">/**
+</span><a href="#589" id="589" class="l">589 </a><span class="php-comment">     * Prepares the object for hibernation
+</span><a href="#590" id="590" class="l">590 </a><span class="php-comment">     * Sets combatantA and B to null and removes inactive Battleeffects
+</span><a href="#591" id="591" class="l">591 </a><span class="php-comment">     * @return array array_keys((array)$this)
+</span><a href="#592" id="592" class="l">592 </a><span class="php-comment">     */</span>
+<a href="#593" id="593" class="l">593 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> __sleep() {
+<a href="#594" id="594" class="l">594 </a>        <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;type == <span class="php-quote">&quot;pvp&quot;</span>) {
+<a href="#595" id="595" class="l">595 </a>            <span class="php-var">$this</span>-&gt;combatantA = <span class="php-keyword1">null</span>;
+<a href="#596" id="596" class="l">596 </a>            <span class="php-var">$this</span>-&gt;combatantB = <span class="php-keyword1">null</span>;
+<a href="#597" id="597" class="l">597 </a>        } <span class="php-keyword1">else</span> {
+<a href="#598" id="598" class="l">598 </a>            <span class="php-var">$this</span>-&gt;combatantA = <span class="php-keyword1">null</span>;
+<a href="#599" id="599" class="l">599 </a>        }
+<a href="#600" id="600" class="l">600 </a>        
+<a href="#601" id="601" class="l">601 </a>        <span class="php-comment">/**
+</span><a href="#602" id="602" class="l">602 </a><span class="php-comment">         * This is ugly, but you can't remove items from a CList while cycling 
+</span><a href="#603" id="603" class="l">603 </a><span class="php-comment">         * through the list with foreach. The iterator's $_i for the current 
+</span><a href="#604" id="604" class="l">604 </a><span class="php-comment">         * position is not updated. Apparently, this is how it should be. Weird.
+</span><a href="#605" id="605" class="l">605 </a><span class="php-comment">         */</span>
+<a href="#606" id="606" class="l">606 </a>        <span class="php-var">$toDelete</span> = <span class="php-keyword1">array</span>();
+<a href="#607" id="607" class="l">607 </a>        <span class="php-keyword1">foreach</span>(<span class="php-var">$this</span>-&gt;battleeffects <span class="php-keyword1">as</span> <span class="php-var">$battleeffect</span>) {
+<a href="#608" id="608" class="l">608 </a>            <span class="php-keyword1">if</span>(!<span class="php-var">$battleeffect</span>-&gt;active) {
+<a href="#609" id="609" class="l">609 </a>                <span class="php-var">$toDelete</span>[] = <span class="php-var">$battleeffect</span>;
+<a href="#610" id="610" class="l">610 </a>            }
+<a href="#611" id="611" class="l">611 </a>        }
+<a href="#612" id="612" class="l">612 </a>        <span class="php-keyword1">foreach</span>(<span class="php-var">$toDelete</span> <span class="php-keyword1">as</span> <span class="php-var">$deletee</span>) {
+<a href="#613" id="613" class="l">613 </a>            <span class="php-var">$this</span>-&gt;battleeffects-&gt;remove(<span class="php-var">$deletee</span>);
+<a href="#614" id="614" class="l">614 </a>        }
+<a href="#615" id="615" class="l">615 </a>        
+<a href="#616" id="616" class="l">616 </a>        <span class="php-keyword1">return</span> parent::__sleep();
+<a href="#617" id="617" class="l">617 </a>    }
+<a href="#618" id="618" class="l">618 </a>    
+<a href="#619" id="619" class="l">619 </a>    <span class="php-comment">/**
+</span><a href="#620" id="620" class="l">620 </a><span class="php-comment">     * Factory method
+</span><a href="#621" id="621" class="l">621 </a><span class="php-comment">     * Reconstructs a battle record with unserialize from the attribute
+</span><a href="#622" id="622" class="l">622 </a><span class="php-comment">     * objectState
+</span><a href="#623" id="623" class="l">623 </a><span class="php-comment">     * @todo reconstruct enemy Character model in PVP
+</span><a href="#624" id="624" class="l">624 </a><span class="php-comment">     * @uses reconstructCombatants
+</span><a href="#625" id="625" class="l">625 </a><span class="php-comment">     * @param int $battleID
+</span><a href="#626" id="626" class="l">626 </a><span class="php-comment">     * @return mixed Battle record or false in case of an error
+</span><a href="#627" id="627" class="l">627 </a><span class="php-comment">     */</span>
+<a href="#628" id="628" class="l">628 </a>    <span class="php-keyword1">static</span> <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> reconstructBattle(<span class="php-var">$battleID</span>) {
+<a href="#629" id="629" class="l">629 </a>        <span class="php-var">$battleModel</span> = Battle::model()-&gt;findByPk(<span class="php-var">$battleID</span>);
+<a href="#630" id="630" class="l">630 </a>        <span class="php-var">$battle</span> = <span class="php-keyword2">unserialize</span>(<span class="php-keyword2">base64_decode</span>(<span class="php-var">$battleModel</span>-&gt;objectState));
+<a href="#631" id="631" class="l">631 </a>        <span class="php-keyword1">if</span>(<span class="php-keyword2">is_a</span>(<span class="php-var">$battle</span>, <span class="php-quote">&quot;Battle&quot;</span>)) {
+<a href="#632" id="632" class="l">632 </a>            <span class="php-var">$battle</span>-&gt;reconstructCombatants();
+<a href="#633" id="633" class="l">633 </a>            <span class="php-keyword1">return</span> <span class="php-var">$battle</span>;
+<a href="#634" id="634" class="l">634 </a>        }
+<a href="#635" id="635" class="l">635 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">false</span>;
+<a href="#636" id="636" class="l">636 </a>    }
+<a href="#637" id="637" class="l">637 </a>    
+<a href="#638" id="638" class="l">638 </a>    <span class="php-comment">/**
+</span><a href="#639" id="639" class="l">639 </a><span class="php-comment">     * Reconstructs $this-&gt;combatantA and B after the Battle record was in
+</span><a href="#640" id="640" class="l">640 </a><span class="php-comment">     * hibernation
+</span><a href="#641" id="641" class="l">641 </a><span class="php-comment">     * @todo Reconstruct the second Character record in case of pvp
+</span><a href="#642" id="642" class="l">642 </a><span class="php-comment">     */</span>
+<a href="#643" id="643" class="l">643 </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">function</span> reconstructCombatants() {
+<a href="#644" id="644" class="l">644 </a>        <span class="php-var">$Character</span> = CD();
 <a href="#645" id="645" class="l">645 </a>        <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;type == <span class="php-quote">&quot;pvp&quot;</span>) {
-<a href="#646" id="646" class="l">646 </a>            <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;combatantAID == CD()-&gt;id) {
-<a href="#647" id="647" class="l">647 </a>                <span class="php-var">$this</span>-&gt;combatantA = CD();
+<a href="#646" id="646" class="l">646 </a>            <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;combatantAID == <span class="php-var">$Character</span>-&gt;id) {
+<a href="#647" id="647" class="l">647 </a>                <span class="php-var">$this</span>-&gt;combatantA = <span class="php-var">$Character</span>;
 <a href="#648" id="648" class="l">648 </a>            } <span class="php-keyword1">else</span> {
-<a href="#649" id="649" class="l">649 </a>                <span class="php-var">$this</span>-&gt;combatantB = CD();
+<a href="#649" id="649" class="l">649 </a>                <span class="php-var">$this</span>-&gt;combatantB = <span class="php-var">$Character</span>;
 <a href="#650" id="650" class="l">650 </a>            }
 <a href="#651" id="651" class="l">651 </a>        } <span class="php-keyword1">else</span> {
-<a href="#652" id="652" class="l">652 </a>            <span class="php-var">$this</span>-&gt;combatantA = CD();
+<a href="#652" id="652" class="l">652 </a>            <span class="php-var">$this</span>-&gt;combatantA = <span class="php-var">$Character</span>;
 <a href="#653" id="653" class="l">653 </a>        }
 <a href="#654" id="654" class="l">654 </a>    }
 <a href="#655" id="655" class="l">655 </a>
