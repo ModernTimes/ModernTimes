@@ -25,7 +25,7 @@ class Consultant1Quest extends CBehavior {
      * ID of the required item
      * @constant int 
      */
-    const deckItemID = 18;
+    const deckItemID = 19;
     
     /**
      * Attaches custom event handlers to a Character
