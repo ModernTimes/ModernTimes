@@ -26,7 +26,7 @@ class CharacterRecipes extends BaseCharacterRecipes {
         return array(
             'withRelated' => array(
                 'with' => array(
-                    'itemResult' => array(
+                    'recipe' => array(
                         'alias' => 'characterRecipesItemResult' . self::getScopeCounter(),
                         'scopes' => 'withRelated'
                     ),

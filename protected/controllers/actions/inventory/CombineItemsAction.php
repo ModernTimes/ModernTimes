@@ -32,7 +32,7 @@ class CombineItemsAction extends CAction {
             $CharacterItem2 = $Character->getCharacterItem($item2ID);
             
             if($CharacterItem1->n == 0 || $CharacterItem2->n == 0) {
-                EUserFlash::setErrorMessage("You don't have that.");
+                EUserFlash::setErrorMessage("You don't have these things.");
             } else {
                 
                 // Is there a recipe for these ingredients?

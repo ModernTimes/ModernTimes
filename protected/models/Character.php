@@ -11,6 +11,8 @@ Yii::import('application.models._base.BaseCharacter');
  * 
  * @todo loadX methods with getRelated() 
  * http://www.yiiframework.com/doc/api/1.1/CActiveRecord#getRelated-detail
+ * @todo put loadX, hasX, gainX, and addX in one place, fill gaps, and search
+ * rest of code base for calls of these methods that can be beautified
  * 
  * @uses CombatantBehavior
  * @uses CharacterModifierBehavior
@@ -742,7 +744,24 @@ class Character extends BaseCharacter {
             $characterRecipes = CharacterRecipes::model()->with(array(
                 'recipe' => array(
                     'with' => array(
-                        'item1', 'item2', 'itemResult'
+                        'item1' => array(
+                            'with' => array(
+                                'charactermodifier' => array('alias' => 'item1charactermodifier'),
+                                'requirement' => array('alias' => 'item1requirement')
+                            )
+                        ), 
+                        'item2' => array(
+                            'with' => array(
+                                'charactermodifier' => array('alias' => 'item2charactermodifier'),
+                                'requirement' => array('alias' => 'item2requirement')
+                            )
+                        ), 
+                        'itemResult' => array(
+                            'with' => array(
+                                'charactermodifier' => array('alias' => 'itemResultcharactermodifier'),
+                                'requirement' => array('alias' => 'itemResultrequirement')
+                            )
+                        ), 
                     )
                 )
             ))->findAll(
