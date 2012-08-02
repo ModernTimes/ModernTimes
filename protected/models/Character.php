@@ -189,8 +189,6 @@ class Character extends BaseCharacter {
      * @return bool success?
      */
     public function gainItem($Item, $n = 1) {
-        // d($item);
-
         if(!is_a($Item, "Item")) {
             // @todo nice exception
             return false;
@@ -198,23 +196,9 @@ class Character extends BaseCharacter {
        
         $this->loadItems();
 
-        $added = false;
-        foreach($this->characterItems as $characterItem) {
-            if($characterItem->item->id == $Item->id) {
-                $characterItem->n = $characterItem->n + $n;
-                $characterItem->save();
-                $added = true;
-            }
-        }
-        if(!$added) {
-            $CharacterItem = new CharacterItems;
-            $CharacterItem->characterID = $this->id;
-            $CharacterItem->itemID = $Item->id;
-            $CharacterItem->n = $n;
-            $CharacterItem->save();
-            $characterItems = $this->characterItems;
-            $characterItems[] = $CharacterItem;
-        }
+        $CharacterItem = $this->getCharacterItem($Item);
+        $CharacterItem->n += $n;
+        $CharacterItem->save();
 
         $event = new GainItemEvent($this, $Item, $n);
         $this->onGainItem($event);
