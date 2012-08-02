@@ -48,6 +48,7 @@ class GameController extends Controller {
             'equip'            => 'application.controllers.actions.inventory.EquipAction',
             'unequip'          => 'application.controllers.actions.inventory.UnequipAction',
             'useItem'          => 'application.controllers.actions.inventory.UseItemAction',
+            'combineItems'     => 'application.controllers.actions.inventory.CombineItemsAction',
             
             'rest'             => 'application.controllers.actions.RestAction',
             

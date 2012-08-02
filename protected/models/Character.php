@@ -9,6 +9,11 @@ Yii::import('application.models._base.BaseCharacter');
  * 
  * See BaseCharacter for a list of attributes and related Models.
  * 
+ * @todo loadX methods with getRelated() 
+ * http://www.yiiframework.com/doc/api/1.1/CActiveRecord#getRelated-detail
+ * @todo put loadX, hasX, gainX, and addX in one place, fill gaps, and search
+ * rest of code base for calls of these methods that can be beautified
+ * 
  * @uses CombatantBehavior
  * @uses CharacterModifierBehavior
  * @uses CalcCharacterStatEvent
@@ -186,8 +191,6 @@ class Character extends BaseCharacter {
      * @return bool success?
      */
     public function gainItem($Item, $n = 1) {
-        // d($item);
-
         if(!is_a($Item, "Item")) {
             // @todo nice exception
             return false;
@@ -195,23 +198,9 @@ class Character extends BaseCharacter {
        
         $this->loadItems();
 
-        $added = false;
-        foreach($this->characterItems as $characterItem) {
-            if($characterItem->item->id == $Item->id) {
-                $characterItem->n = $characterItem->n + $n;
-                $characterItem->save();
-                $added = true;
-            }
-        }
-        if(!$added) {
-            $CharacterItem = new CharacterItems;
-            $CharacterItem->characterID = $this->id;
-            $CharacterItem->itemID = $Item->id;
-            $CharacterItem->n = $n;
-            $CharacterItem->save();
-            $characterItems = $this->characterItems;
-            $characterItems[] = $CharacterItem;
-        }
+        $CharacterItem = $this->getCharacterItem($Item);
+        $CharacterItem->n += $n;
+        $CharacterItem->save();
 
         $event = new GainItemEvent($this, $Item, $n);
         $this->onGainItem($event);
@@ -691,18 +680,20 @@ class Character extends BaseCharacter {
      * Lazy loading of CharacterItems records
      */
     public function loadItems() {
-        $characterItems = CharacterItems::model()->with(array(
-            'item' => array(
-                'with' => array(
-                    'requirement',
-                    // 'useEffect', 
-                    'charactermodifier'
+        if(!$this->hasRelated("characterItems")) {
+            $characterItems = CharacterItems::model()->with(array(
+                'item' => array(
+                    'with' => array(
+                        'requirement',
+                        // 'useEffect', 
+                        'charactermodifier'
+                    )
                 )
-            )
-        ))->findAll(
-            't.characterID=:characterID', 
-            array(':characterID'=>$this->id));
-        $this->characterItems = $characterItems;
+            ))->findAll(
+                't.characterID=:characterID', 
+                array(':characterID'=>$this->id));
+            $this->characterItems = $characterItems;
+        }
     }
     /**
      * Returns the CharacterItems record that belongs to a given item
@@ -711,6 +702,7 @@ class Character extends BaseCharacter {
      * @return CharacterItems
      */
     public function getCharacterItem($item) {
+        $this->loadItems();
         if(is_numeric($item)) {
             $itemID = $item;
         } else {
@@ -745,34 +737,111 @@ class Character extends BaseCharacter {
     }
     
     /**
+     * Lazy loading of CharacterRecipes records
+     */
+    public function loadRecipes() {
+        if(!$this->hasRelated("characterRecipes")) {
+            $characterRecipes = CharacterRecipes::model()->with(array(
+                'recipe' => array(
+                    'with' => array(
+                        'item1' => array(
+                            'with' => array(
+                                'charactermodifier' => array('alias' => 'item1charactermodifier'),
+                                'requirement' => array('alias' => 'item1requirement')
+                            )
+                        ), 
+                        'item2' => array(
+                            'with' => array(
+                                'charactermodifier' => array('alias' => 'item2charactermodifier'),
+                                'requirement' => array('alias' => 'item2requirement')
+                            )
+                        ), 
+                        'itemResult' => array(
+                            'with' => array(
+                                'charactermodifier' => array('alias' => 'itemResultcharactermodifier'),
+                                'requirement' => array('alias' => 'itemResultrequirement')
+                            )
+                        ), 
+                    )
+                )
+            ))->findAll(
+                't.characterID=:characterID', 
+                array(':characterID'=>$this->id));
+            $this->characterRecipes = $characterRecipes;
+        }
+    }
+    /**
+     * Returns the CharacterRecipes record that belongs to a given recipe.
+     * @param mixed $recipe Recipe or int (ID of a Recipe record)
+     * @return CharacterRecipes
+     */
+    public function getCharacterRecipe($recipe) {
+        $this->loadRecipes();
+        if(is_numeric($recipe)) {
+            $recipeID = $recipe;
+        } else {
+            $recipeID = $recipe->id;
+        }
+        foreach($this->characterRecipes as $characterRecipe) {
+            if($characterRecipe->recipeID == $recipeID) {
+                return $characterRecipe;
+            }
+        }
+        
+        /**
+         * If no CharacterItems record exists for the given item,
+         * create a new one with n = 0
+         */
+        $characterRecipe = new CharacterRecipes();
+        $characterRecipe->characterID = $this->id;
+        $characterRecipe->recipeID = $recipeID;
+        $characterRecipe->n = 0;
+        return $characterRecipe;
+    }
+    /**
+     * Checks if the character has found a given recipe
+     * @uses getCharacterRecipe
+     * @param mixed $recipe Recipe or int (ID of a Recipe record)
+     * @return boolean 
+     */
+    public function hasRecipe($recipe) {
+        $characterRecipe = $this->getCharacterRecipe($recipe);
+        return ($characterRecipe->n > 0);
+    }
+
+    /**
      * Lazy loading of CharacterSkillsets records
      */
     public function loadSkillsets() {
-        $characterSkillsets = CharacterSkillsets::model()->with(array(
-            'pos1',
-            'pos2',
-            'pos3',
-            'pos4',
-            'pos5',
-            'pos6',
-            'pos7',
-            'pos8',
-            'pos9',
-            'pos10',
-        ))->findAll(
-            't.characterID=:characterID', 
-            array(':characterID'=>$this->id));
-        $this->characterSkillsets = $characterSkillsets;
+        if(!$this->hasRelated("characterSkillsets")) {
+            $characterSkillsets = CharacterSkillsets::model()->with(array(
+                'pos1',
+                'pos2',
+                'pos3',
+                'pos4',
+                'pos5',
+                'pos6',
+                'pos7',
+                'pos8',
+                'pos9',
+                'pos10',
+            ))->findAll(
+                't.characterID=:characterID', 
+                array(':characterID'=>$this->id));
+            $this->characterSkillsets = $characterSkillsets;
+        }
     }    
     
     /**
      * Lazy loading of CharacterQuests records
      */
     public function loadQuests() {
-        $characterQuests = CharacterQuests::model()->withRelated()->findAll(
-            't.characterID=:characterID', 
-            array(':characterID'=>$this->id));
-        $this->characterQuests = $characterQuests;
+        if(!$this->hasRelated("characterQuests")) {
+            $characterQuests = CharacterQuests::model()->withRelated()->findAll(
+                't.characterID=:characterID', 
+                array(':characterID'=>$this->id));
+            $this->characterQuests = $characterQuests;
+        }
     }
     
     /**
@@ -783,6 +852,7 @@ class Character extends BaseCharacter {
      * @return CharacterQuests 
      */
     public function getCharacterQuest($quest) {
+        $this->loadQuests();
         if(is_numeric($quest)) {
             $questID = $quest;
         } else {

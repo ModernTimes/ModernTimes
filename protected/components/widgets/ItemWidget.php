@@ -18,6 +18,18 @@ class ItemWidget extends CWidget {
     public $item;
     
     /**
+     * Width and height of the item graphic, in px
+     * @var int
+     */
+    public $width = 48;
+    
+    /**
+     * margin-right of the item displays, in px
+     * @var int
+     */
+    public $marginRight = 10;
+    
+    /**
      * @var string enum(free|inventory|equipment)
      */
     public $context = "free";

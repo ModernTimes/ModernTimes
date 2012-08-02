@@ -29,6 +29,7 @@
   <li><a href="#inventoryCombat" data-toggle="tab">Combat</a></li>
   <li><a href="#inventoryQuest" data-toggle="tab">Quest</a></li>
   <li><a href="#inventoryMisc" data-toggle="tab">Other stuff</a></li>
+  <li><a href="#crafting" data-toggle="tab">Combine things</a></li>
 </ul>
 
 <div class="tab-content">
@@ -80,6 +81,63 @@
             'CharacterItems' => $CharacterItems,
             'itemType' => 'misc'
         )); ?>
+    </div>
+    
+    
+    
+    <div class="tab-pane" id="crafting">
+        <div class="well">
+            <table border="0" cellpadding="5"><tr>
+            <?php
+            $Items = array(array('id' => 'empty', 'name' => '(Select an item)'));
+            foreach($CharacterItems as $CharacterItem) {
+                $Items[] = $CharacterItem->item;
+            }
+            $CListData = CHtml::listData($Items, "id", "name");
+            
+            echo CHtml::beginForm("combineItems", "get");
+            echo "<td style='font-size: 1.3em'>Combine </td>";
+            echo "<td>" . CHtml::dropDownList("item1ID", "empty", $CListData, array('style' => 'position: relative; top: 5px')) . "</td>";
+            echo "<td style='font-size: 1.3em'> with </td>";
+            echo "<td>" . CHtml::dropDownList("item2ID", "empty", $CListData, array('style' => 'position: relative; top: 5px')) . "</td>";
+            echo "<td>" . CHtml::submitButton("Combine", array('class' => 'btn btn-large btn-primary', 'style'=>'margin-left: 10px')) . "</td>";
+            echo CHtml::endForm();
+            ?>
+            </tr></table>
+        </div>
+        
+        <?php 
+        if(count($CharacterRecipes) > 0) {
+            echo "<h2>Known combinations</h2><BR />";
+            foreach($CharacterRecipes as $CharacterRecipe) {
+                echo "<div>";
+                $this->widget('ItemWidget', array(
+                    "context" => "free",
+                    "width" => 36,
+                    "marginRight" => 0,
+                    "item" => $CharacterRecipe->recipe->item1,
+                ));
+                echo "<span style='position: relative; top: 10px'> + </span>";
+                $this->widget('ItemWidget', array(
+                    "context" => "free",
+                    "width" => 36,
+                    "marginRight" => 0,
+                    "item" => $CharacterRecipe->recipe->item2,
+                ));
+                echo "<span style='position: relative; top: 10px'> = </span>";
+                $this->widget('ItemWidget', array(
+                    "context" => "free",
+                    "width" => 36,
+                    "marginRight" => 0,
+                    "item" => $CharacterRecipe->recipe->itemResult
+                ));
+                echo CHtml::link("Combine", "./combineItems?item1ID=" . $CharacterRecipe->recipe->item1ID . "&item2ID=" . $CharacterRecipe->recipe->item2ID, array('class' => 'btn btn-primary', 'style' => 'margin-left: 15px; position: relative; top: 10px;'));
+                echo "</div>";
+            }
+        }
+
+        ?>
+            
     </div>
 </div>
 
