@@ -58,8 +58,7 @@ if(!empty($this->item)) {
                 "/images/items/" . $this->item->id . ".png", 
                 $this->item->name, array(
                     'width' => $this->width,
-                    'height' => $this->width,
-                    'style' => "",
+                    // 'height' => $this->width
                 ));
     } else {
         $displayHTML = $this->item->name;
