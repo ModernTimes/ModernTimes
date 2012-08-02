@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 30. Jul 2012 um 18:57
+-- Erstellungszeit: 01. Aug 2012 um 18:51
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -25,14 +25,30 @@ SET time_zone = "+00:00";
 --
 
 INSERT INTO `mt_monster` (`id`, `name`, `specialClass`, `hpMax`, `attack`, `defense`, `xp`, `dropCash`, `dropFavours`, `dropKudos`, `msgEncounter`) VALUES
-(1, 'Advertising specialist', '', 7, 3, 1, NULL, 0, 1, 1, '');
+(1, 'Junior advertising specialist', '', 2, 4, 2, NULL, 5.0, 0.0, 1.0, ''),
+(2, 'Reception assistant', 'ReceptionistFemaleMonster', 1, 4, 1, NULL, 0.0, 0.0, 2.0, ''),
+(3, 'Middle management manager guy', '', 3, 5, 1, NULL, 3.0, 1.0, 1.0, ''),
+(4, 'Sales person coordinator', '', 2, 4, 1, NULL, 4.0, 0.5, 0.0, '');
 
 --
 -- Daten für Tabelle `mt_monster_battleskills`
 --
 
 INSERT INTO `mt_monster_battleskills` (`id`, `monsterID`, `battleskillID`, `prob`) VALUES
-(2, 1, 3, 0.500000);
+(2, 1, 1, 0.340000),
+(3, 1, 6, 0.660000);
+
+--
+-- Daten für Tabelle `mt_monster_items`
+--
+
+INSERT INTO `mt_monster_items` (`id`, `monsterID`, `itemID`, `prob`) VALUES
+(1, 1, 7, 0.200000),
+(2, 1, 12, 0.200000),
+(3, 4, 13, 0.200000),
+(4, 4, 9, 0.200000),
+(5, 3, 10, 0.200000),
+(6, 3, 14, 0.200000);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

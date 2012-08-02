@@ -7,35 +7,33 @@
 
 $numberOfMessages = count(Yii::app()->user->getFlashes(false));
 if($numberOfMessages > 0) {
-    if($numberOfMessages > 1) {
-        $moreThanOneMessage = true;
-        echo "<div align='center'><div class=\"well\" style=\"width: 50%; text-align: left; margin-bottom: 20px\">";
-    }
+    echo "<div align='center'><div class=\"well\" style=\"width: 65%; text-align: left; margin-bottom: 20px;\">";
+    
     foreach(Yii::app()->user->getFlashes() as $key => $message) { ?>
         <?php
         // Standard badges
         if(strstr($key, '__notice')) { ?>
-            <div class="alert" style="font-size: 1.3em; margin: 0px"><span class="label label-info" style="position: relative; top: -2px">Info</span>
+            <div class="alert" style="font-size: 1.3em; margin: 0px"><?php /* <span class="label label-info" style="position: relative; top: -2px">Info</span> */ ?>
         <?php } elseif (strstr($key, '__success')) { ?>
-            <div class="alert alert-success" style="font-size: 1.3em; margin: 0px"><span class="label label-success" style="position: relative; top: -2px">Yay</span>
+            <div class="alert alert-success" style="font-size: 1.3em; margin: 0px;"><?php /* <span class="label label-success" style="position: relative; top: -2px">Yay</span> */ ?>
         <?php } elseif (strstr($key, '__warning')) { ?>
-            <div class="alert alert-warning" style="font-size: 1.3em; margin: 0px"><span class="label label-warning" style="position: relative; top: -2px">Care</span>
+            <div class="alert alert-warning" style="font-size: 1.3em; margin: 0px"><?php /* <span class="label label-warning" style="position: relative; top: -2px">Care</span>  */ ?>
         <?php } elseif (strstr($key, '__error')) { ?>
             <div class="alert alert-error" style="font-size: 1.3em; margin: 0px"><span class="label label-important" style="position: relative; top: -2px">Oops</span>
         <?php } else { ?>
-            <div class="alert" style="font-size: 1.3em; margin: 0px">
+            <div style="font-size: 1.3em; margin: 0px">
         <?php } ?>
 
         <?php if (strstr($key, "gainItem")) { 
-            // @todo use actual itemID
-            if(TRUE || file_exists(Yii::app()->getBaseUrl() . "/images/items/1.png")) {
-                echo CHtml::image(Yii::app()->getBaseUrl() . "/images/items/1.png", "Item", array(
-                    'width' => 36,
-                    'height' => 36,
+            $itemID = substr($key, strpos($key, 'id:')+3);
+            if(file_exists(Yii::app()->getBasePath() . "/../images/items/" . $itemID . ".png")) {
+                echo CHtml::image(Yii::app()->getBasePath() . "/../images/items/" . $itemID . ".png", "Item", array(
+                    'width' => 24,
+                    'height' => 24,
                     'style' => "vertical-align: middle",
                 ));
             } else { ?>
-                <span class="label label-success">Item</span>
+                <span class="label label-success" style="position: relative; top: -2px">Item</span>
             <?php }
         } elseif (strstr($key, "gainCash")) { 
             echo CHtml::image(Yii::app()->getBaseUrl() . "/images/cash.png", "Cash", array(
@@ -67,15 +65,9 @@ if($numberOfMessages > 0) {
                     strstr($key, "gainSubstat")) { ?>
         <?php } ?> 
 
-        <?php echo "&nbsp;" . $message . "</div>"; ?>
+        <?php echo $message . "</div>"; ?>
             
-        <?php if($numberOfMessages == 1) {
-            echo "<div style='height: 20px'></div>";
-        } ?>
-
     <?php }
-    if($numberOfMessages > 1) {
         echo "</div></div>";
-    }
 }
 ?>

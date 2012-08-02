@@ -3,13 +3,14 @@
  * Rest in your home to regenerate hp and energy
  * @todo The effectiveness of resting depends on 135134 factors -- that all
  *       have to be implemented.
+ * @todo reduce duration of certain effects (drunk, high, etc.)
  * @package Actions
  */
 
 class RestAction extends CAction {
 
     /**
-     * Rest and redirect to index, i.e. MapAction
+     * See above
      */
     public function run() {
         EUserFlash::setMessage("You rest.", '');

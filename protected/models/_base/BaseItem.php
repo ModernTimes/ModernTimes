@@ -11,6 +11,7 @@
  * - string type
  * - integer usable
  * - integer tradable
+ * - integer autosellable
  * - string desc
  * - integer autosellCash
  * - integer autosellFavours
@@ -28,9 +29,9 @@
  * - CharacterEquipments characterEquipments4
  * - CharacterItems characterItems
  * - EncounterItems encounterItems
- * - Requirement requirement
  * - Charactermodifier charactermodifier
  * - Effect useEffect
+ * - Requirement requirement
  * - MonsterItems monsterItems
  * - Recipe recipes
  * - Recipe recipes1
@@ -90,12 +91,12 @@ abstract class BaseItem extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('name, specialClass, desc, useMsg', 'required'),
-			array('charactermodifierID, requirementID, usable, tradable, autosellCash, autosellFavours, autosellKudos, useHp, useEnergy, useEffectID, useEffectDuration', 'numerical', 'integerOnly'=>true),
+			array('charactermodifierID, requirementID, usable, tradable, autosellable, autosellCash, autosellFavours, autosellKudos, useHp, useEnergy, useEffectID, useEffectDuration', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			array('specialClass', 'length', 'max'=>50),
 			array('type', 'length', 'max'=>9),
-			array('charactermodifierID, requirementID, type, usable, tradable, autosellCash, autosellFavours, autosellKudos, useHp, useEnergy, useEffectID, useEffectDuration', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, name, specialClass, charactermodifierID, requirementID, type, usable, tradable, desc, autosellCash, autosellFavours, autosellKudos, useHp, useEnergy, useEffectID, useEffectDuration, useMsg', 'safe', 'on'=>'search'),
+			array('charactermodifierID, requirementID, type, usable, tradable, autosellable, autosellCash, autosellFavours, autosellKudos, useHp, useEnergy, useEffectID, useEffectDuration', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, name, specialClass, charactermodifierID, requirementID, type, usable, tradable, autosellable, desc, autosellCash, autosellFavours, autosellKudos, useHp, useEnergy, useEffectID, useEffectDuration, useMsg', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -106,20 +107,20 @@ abstract class BaseItem extends GxActiveRecord {
 	 */
 	public function relations() {
 		return array(
-			'characterEquipments' => array(self::HAS_MANY, 'CharacterEquipments', 'accessoryC'),
-			'characterEquipments1' => array(self::HAS_MANY, 'CharacterEquipments', 'weapon'),
-			'characterEquipments2' => array(self::HAS_MANY, 'CharacterEquipments', 'offhand'),
-			'characterEquipments3' => array(self::HAS_MANY, 'CharacterEquipments', 'accessoryA'),
-			'characterEquipments4' => array(self::HAS_MANY, 'CharacterEquipments', 'accessoryB'),
+			'characterEquipments' => array(self::HAS_MANY, 'CharacterEquipments', 'weaponID'),
+			'characterEquipments1' => array(self::HAS_MANY, 'CharacterEquipments', 'offhandID'),
+			'characterEquipments2' => array(self::HAS_MANY, 'CharacterEquipments', 'accessoryAID'),
+			'characterEquipments3' => array(self::HAS_MANY, 'CharacterEquipments', 'accessoryBID'),
+			'characterEquipments4' => array(self::HAS_MANY, 'CharacterEquipments', 'accessoryCID'),
 			'characterItems' => array(self::HAS_MANY, 'CharacterItems', 'itemID'),
 			'encounterItems' => array(self::HAS_MANY, 'EncounterItems', 'itemID'),
-			'requirement' => array(self::BELONGS_TO, 'Requirement', 'requirementID'),
 			'charactermodifier' => array(self::BELONGS_TO, 'Charactermodifier', 'charactermodifierID'),
 			'useEffect' => array(self::BELONGS_TO, 'Effect', 'useEffectID'),
+			'requirement' => array(self::BELONGS_TO, 'Requirement', 'requirementID'),
 			'monsterItems' => array(self::HAS_MANY, 'MonsterItems', 'itemID'),
-			'recipes' => array(self::HAS_MANY, 'Recipe', 'itemResultID'),
-			'recipes1' => array(self::HAS_MANY, 'Recipe', 'item1ID'),
-			'recipes2' => array(self::HAS_MANY, 'Recipe', 'item2ID'),
+			'recipes' => array(self::HAS_MANY, 'Recipe', 'item1ID'),
+			'recipes1' => array(self::HAS_MANY, 'Recipe', 'item2ID'),
+			'recipes2' => array(self::HAS_MANY, 'Recipe', 'itemResultID'),
 			'shopItems' => array(self::HAS_MANY, 'ShopItems', 'itemID'),
 		);
 	}
@@ -147,6 +148,7 @@ abstract class BaseItem extends GxActiveRecord {
 			'type' => Yii::t('app', 'Type'),
 			'usable' => Yii::t('app', 'Usable'),
 			'tradable' => Yii::t('app', 'Tradable'),
+			'autosellable' => Yii::t('app', 'Autosellable'),
 			'desc' => Yii::t('app', 'Desc'),
 			'autosellCash' => Yii::t('app', 'Autosell Cash'),
 			'autosellFavours' => Yii::t('app', 'Autosell Favours'),
@@ -163,9 +165,9 @@ abstract class BaseItem extends GxActiveRecord {
 			'characterEquipments4' => null,
 			'characterItems' => null,
 			'encounterItems' => null,
-			'requirement' => null,
 			'charactermodifier' => null,
 			'useEffect' => null,
+			'requirement' => null,
 			'monsterItems' => null,
 			'recipes' => null,
 			'recipes1' => null,
@@ -191,6 +193,7 @@ abstract class BaseItem extends GxActiveRecord {
 		$criteria->compare('type', $this->type, true);
 		$criteria->compare('usable', $this->usable);
 		$criteria->compare('tradable', $this->tradable);
+		$criteria->compare('autosellable', $this->autosellable);
 		$criteria->compare('desc', $this->desc, true);
 		$criteria->compare('autosellCash', $this->autosellCash);
 		$criteria->compare('autosellFavours', $this->autosellFavours);

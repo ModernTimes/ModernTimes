@@ -23,4 +23,7 @@ $this->breadcrumbs=array(
     <li>Some of the avatar graphics: http://www.aha-soft.com</li>
     <li>Shirt icons: Gordon Irving (http://qwertykkk.deviantart.com/)</li>
     <li>Red trolley suitcase: http://177icons.com</li>
+    <li>PowerPoint slide icon: http://jrdng.deviantart.com/?rnrd=8324</li>
+    <li>Flipchart and calendar icons: http://www.oxygen-icons.org/</li>
+    <li>Notebook icon: http://dreamxis.deviantart.com/</li>
 </ul>

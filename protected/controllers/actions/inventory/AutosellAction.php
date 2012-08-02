@@ -25,44 +25,42 @@ class AutosellAction extends CAction {
         } else {
             $Character = CD();
             $Character->loadItems();
+            $CharacterItem = $Character->getCharacterItem($itemID);
             
-            $validCharacterItem = false;
-            foreach($Character->characterItems as $CharacterItem) {
-                if($CharacterItem->item->id == $itemID &&
-                   $CharacterItem->n > 0) {
-                    
-                    $validCharacterItem = true;
-                    break;
-                }
-            }
-            
-            if(!$validCharacterItem) {
+            if($CharacterItem->n == 0) {
                 EUserFlash::setErrorMessage("You don't have that.");
             } else {
+                if(!$CharacterItem->item->autosellable) {
+                    EUserFlash::setErrorMessage("You can't sell that.");
+                } else {
                 
-                $transaction = Yii::app()->tools->getTransaction();
-                try {
+                    $transaction = Yii::app()->tools->getTransaction();
+                    try {
 
-                    $CharacterItem->n --;
-                    if($CharacterItem->n < 1) {
-                        $CharacterItem->delete();
-                    } else { 
-                        $CharacterItem->save();
+                        $CharacterItem->n --;
+                        if($CharacterItem->n < 1) {
+                            $CharacterItem->delete();
+                        } else { 
+                            $CharacterItem->save();
+                        }
+
+                        $gainCash = $Character->gainCash($CharacterItem->item->autosellCash);
+                        $gainFavours = $Character->gainFavours($CharacterItem->item->autosellFavours);
+                        $gainKudos = $Character->gainKudos($CharacterItem->item->autosellKudos);
+
+                        // Don't forget to trigger the character data updates before the redirect
+                        $this->controller->afterAction($this);
+
+                        $transaction->commit();
+                        EUserFlash::setMessage("You sold 1 " . $CharacterItem->item->name . "." . 
+                                ($gainCash+$gainFavours+$gainKudos == 0
+                                    ? "<BR />You didn't think that you'd get something for that crap, did you?"
+                                    : ""));
+
+                    } catch(Exception $e) {
+                        $transaction->rollback();
+                        EUserFlash::setErrorMessage("Weird database shit happened.");
                     }
-
-                    $Character->gainCash($CharacterItem->item->autosellCash);
-                    $Character->gainFavours($CharacterItem->item->autosellFavours);
-                    $Character->gainKudos($CharacterItem->item->autosellKudos);
-
-                    // Don't forget to trigger the character data updates before the redirect
-                    $this->controller->afterAction($this);
-
-                    $transaction->commit();
-                    EUserFlash::setMessage("You sold 1 " . $CharacterItem->item->name);
-
-                } catch(Exception $e) {
-                    $transaction->rollback();
-                    EUserFlash::setErrorMessage("Weird database shit happened.");
                 }
             }
         }

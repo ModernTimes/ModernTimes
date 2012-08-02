@@ -43,10 +43,11 @@ class UnequipAction extends CAction {
             if(empty($Equipment->{$slot})) {
                 EUserFlash::setErrorMessage("Something went wrong. Shit happens.");
             } else {
-                $Item = $Equipment->{$slot . "0"};
+                $Item = $Equipment->{$slot};
                 $transaction = Yii::app()->tools->getTransaction();
                 try {
 
+                    $Equipment->{$slot . "ID"} = null;
                     $Equipment->{$slot} = null;
                     $Equipment->save();
 
@@ -54,12 +55,9 @@ class UnequipAction extends CAction {
                      * Unequipping implies that the item goes back to the
                      * inventory
                      */
-                    $Character->gainItem($Item);
+                    $Character->gainItem($Item, 1, "unequip");
 
                     if(!$this->_childAction) {
-                        // Don't forget to trigger the character data updates before the redirect
-                        $this->controller->afterAction($this);
-
                         $transaction->commit();
                     }
                     EUserFlash::setMessage("You put away your " . $Item->name);

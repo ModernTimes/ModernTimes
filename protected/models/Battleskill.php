@@ -177,9 +177,9 @@ class Battleskill extends BaseBattleskill {
      * @return string
      */
     public function getPopup() {
-        return "<p>" . $this->desc . 
-               ($this->costEnergy > 0 ? "<BR />&nbsp;<BR /><span class='btn btn-mini'><i class='icon-star'></i> " . $this->costEnergy . "</span>" : "") . 
-               "</p>";
+        return "<p>" . $this->desc . "</p>" .
+               ($this->costEnergy > 0 ? "<p><BR /><span class='btn btn-mini'><i class='icon-star'></i> " . $this->costEnergy . "</span></p>" : "") . 
+               (!empty($this->subType) ? "<p style='font-size: 0.8em'><BR />Type: " . ucfirst($this->subType) . "</p>" : "");
     }
     
     /**

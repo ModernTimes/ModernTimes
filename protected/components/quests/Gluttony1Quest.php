@@ -86,7 +86,7 @@ class Gluttony1Quest extends CBehavior {
                                $this->owner->params['wasDrunk'] + 
                                $this->owner->params['wasHammered'];
             if($numberOfEffects >= self::effectsNeeded) {
-                $this->owner->setState("completed");
+                $this->owner->setState("succeeded");
             } else {
                 $this->owner->saveParams();
             }
@@ -98,14 +98,11 @@ class Gluttony1Quest extends CBehavior {
      * Adds the "Beelzebub says hello" encounter to the encounter queue
      * @param QuestChangeStateEvent $event 
      */
-    public function reactToOnCompleted($event) {
+    public function reactToOnSucceeded($event) {
         $CharacterEncounter = new CharacterEncounters();
         $CharacterEncounter->characterID = $this->owner->CharacterQuest->characterID;
         $CharacterEncounter->encounterID = self::beelzebubCallsEncounterID;
         $CharacterEncounter->delay = 0;
         $CharacterEncounter->save();
-        
-        // Reset params and update CharacterQuest record
-        $this->owner->reactToOnCompleted($event);
     }
 }

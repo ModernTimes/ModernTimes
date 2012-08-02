@@ -21,8 +21,11 @@ class BattleMonsterAction extends CAction {
      * and renders the battle view
      */
     public function run() {
+        $Character = CD();
+        $Character->loadSkillsets();
+        
         $battle = new Battle;
-        $battle->combatantA = CD();
+        $battle->combatantA = $Character;
         $battle->combatantB = Monster::model()->with(array(
             'monsterBattleskills' => array('with' => array(
                 'battleskill' => array('with' => array(

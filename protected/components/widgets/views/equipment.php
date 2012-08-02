@@ -3,7 +3,7 @@
 $this->widget('ItemWidget', array(
     "context" => "equipment",
     "equipmentSlot" => "weapon",
-    "item" => (!empty($this->equipment->weapon0) ? $this->equipment->weapon0 : null)
+    "item" => (!empty($this->equipment->weapon) ? $this->equipment->weapon : null)
 )); 
 ?>
 </div>
@@ -13,7 +13,7 @@ $this->widget('ItemWidget', array(
 $this->widget('ItemWidget', array(
     "context" => "equipment",
     "equipmentSlot" => "offhand",
-    "item" => (!empty($this->equipment->offhand0) ? $this->equipment->offhand0 : null)
+    "item" => (!empty($this->equipment->offhand) ? $this->equipment->offhand : null)
 )); 
 ?>
 </div>
@@ -23,17 +23,17 @@ $this->widget('ItemWidget', array(
 $this->widget('ItemWidget', array(
     "context" => "equipment",
     "equipmentSlot" => "accessoryA",
-    "item" => (!empty($this->equipment->accessoryA0) ? $this->equipment->accessoryA0 : null)
+    "item" => (!empty($this->equipment->accessoryA) ? $this->equipment->accessoryA : null)
 )); 
 $this->widget('ItemWidget', array(
     "context" => "equipment",
     "equipmentSlot" => "accessoryB",
-    "item" => (!empty($this->equipment->accessoryB0) ? $this->equipment->accessoryB0 : null)
+    "item" => (!empty($this->equipment->accessoryB) ? $this->equipment->accessoryB : null)
 )); 
 $this->widget('ItemWidget', array(
     "context" => "equipment",
     "equipmentSlot" => "accessoryC",
-    "item" => (!empty($this->equipment->accessoryC0) ? $this->equipment->accessoryC0 : null)
+    "item" => (!empty($this->equipment->accessoryC) ? $this->equipment->accessoryC : null)
 )); 
 ?>
 </div>

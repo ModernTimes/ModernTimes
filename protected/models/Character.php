@@ -9,6 +9,11 @@ Yii::import('application.models._base.BaseCharacter');
  * 
  * See BaseCharacter for a list of attributes and related Models.
  * 
+ * @todo loadX methods with getRelated() 
+ * http://www.yiiframework.com/doc/api/1.1/CActiveRecord#getRelated-detail
+ * @todo put loadX, hasX, gainX, and addX in one place, fill gaps, and search
+ * rest of code base for calls of these methods that can be beautified
+ * 
  * @uses CombatantBehavior
  * @uses CharacterModifierBehavior
  * @uses CalcCharacterStatEvent
@@ -27,27 +32,30 @@ class Character extends BaseCharacter {
      * @uses gainResource
      * @param float $amount
      * @param string $source enum(other|battle|encounter|quest|autosell) 
+     * @return int the actual amount of cash gained
      */
     public function gainCash($amount = 0, $source = '') {
-        $this->gainResource('cash', $amount, $source);
+        return $this->gainResource('cash', $amount, $source);
     }
     /**
      * Wrapper for gainResource
      * @uses gainResource
      * @param float $amount
      * @param string $source enum(other|battle|encounter|quest|autosell) 
+     * @return int the actual amount of favours gained
      */
     public function gainFavours($amount = 0, $source = '') {
-        $this->gainResource('favours', $amount, $source);
+        return $this->gainResource('favours', $amount, $source);
     }
     /**
      * Wrapper for gainResource
      * @uses gainResource
      * @param float $amount
      * @param string $source enum(other|battle|encounter|quest|autosell) 
+     * @return int the actual amount of kudos gained
      */
     public function gainKudos($amount = 0, $source = '') {
-        $this->gainResource('kudos', $amount, $source);
+        return $this->gainResource('kudos', $amount, $source);
     }
     /**
      * Gives resources to the character (or takes them away)
@@ -60,6 +68,7 @@ class Character extends BaseCharacter {
      * @param string $source enum(other|battle|encounter|quest|autosell) 
      * Allows event handlers to react to gainStuff events only in case the
      * resources come from a certain source
+     * @return int the actual amount of resource gained
      */ 
     private function gainResource($resource, $amount, $source) {
         $event = new GainStatEvent($this, array(
@@ -68,58 +77,64 @@ class Character extends BaseCharacter {
         ));
         call_user_func(array($this, "onGain" . ucfirst($resource)), $event);
 
-        $amount = max(0, floor($event->adjustStat($amount)));
+        $amount = max(0, $event->adjustStat($amount));
         
-        call_user_func(array($this, "increase" . ucfirst($resource)), $amount);
+        return call_user_func(array($this, "increase" . ucfirst($resource)), $amount);
     }
     
     /**
      * Wrapper for changeResource
      * @uses changeResource
      * @param float $amount
+     * @return int the actual cash increase
      */
     public function increaseCash($amount = 0) {
-        $this->changeResource('cash', $amount);
+        return $this->changeResource('cash', $amount);
     }
     /**
      * Wrapper for changeResource
      * @uses changeResource
      * @param float $amount
+     * @return int actual change in resource
      */
     public function increaseFavours($amount = 0) {
-        $this->changeResource('favours', $amount);
+        return $this->changeResource('favours', $amount);
     }
     /**
      * Wrapper for changeResource
      * @uses changeResource
      * @param float $amount
+     * @return int actual change in resource
      */
     public function increaseKudos($amount = 0) {
-        $this->changeResource('kudos', $amount);
+        return $this->changeResource('kudos', $amount);
     }
     /**
      * Wrapper for changeResource
      * @uses changeResource
      * @param float $amount
+     * @return int actual change in resource
      */
     public function decreaseCash($amount = 0) {
-        $this->changeResource('cash', -$amount);
+        return $this->changeResource('cash', -$amount);
     }
     /**
      * Wrapper for changeResource
      * @uses changeResource
      * @param float $amount
+     * @return int actual change in resource
      */
     public function decreaseFavours($amount = 0) {
-        $this->changeResource('favours', -$amount);
+        return $this->changeResource('favours', -$amount);
     }
     /**
      * Wrapper for changeResource
      * @uses changeResource
      * @param float $amount
+     * @return int actual change in resource
      */
     public function decreaseKudos($amount = 0) {
-        $this->changeResource('kudos', -$amount);
+        return $this->changeResource('kudos', -$amount);
     }
     /**
      * Changes the indicated resource by $amount (which can be negative)
@@ -127,13 +142,18 @@ class Character extends BaseCharacter {
      * fortunate turn of events.
      * This is more of a setter method and does not raise any events.
      * @param string $resource enum(cash|favours|kudos)
-     * @param type int
+     * @param int $amount
+     * @return int actual change in resource
      */
     private function changeResource($resource, $amount) {
-        $this->{$resource} += (int) $amount;
+        // If amount is between two numbers, use RNG to determine which one to use
+        $amount = Yii::app()->tools->decideBetweenTwoNumbers($amount);
+        
+        $this->{$resource} += $amount;
         if($amount > 0) {
-            EUserFlash::setSuccessMessage((int) $amount . " " . ucfirst($resource), 'gainResource gain' . ucfirst($resource));
+            EUserFlash::setSuccessMessage($amount . " " . ucfirst($resource), 'gainResource gain' . ucfirst($resource));
         }
+        return $amount;
     }
     
     /**
@@ -154,49 +174,41 @@ class Character extends BaseCharacter {
      * Wrapper for gainItem. Allows handling of multiple Items.
      * @uses gainItem
      * @param array $items several Items
+     * @param string $source enum(other|battle|encounter|quest|unequip) 
      */
-    public function gainItems($items) {
+    public function gainItems($items, $source = "other") {
         if(!is_array($items) || empty($items)) { return; }
         
         foreach($items as $item) {
-            $this->gainItem($item);
+            $this->gainItem($item, $source);
         }
     }
     /**
      * Adds an item to the character's inventory
-     * @param Item $item 
+     * @uses GainItemEvent
+     * @uses onGainItem
+     * @param Item $Item 
      * @param int $n how many Items of the indicated kind?
+     * @param string $source enum(other|battle|encounter|quest|unequip) 
      * @return bool success?
      */
-    public function gainItem($item, $n = 1) {
-        // d($item);
-
-        if(!is_a($item, "Item")) {
+    public function gainItem($Item, $n = 1, $source = "other") {
+        if(!is_a($Item, "Item")) {
             // @todo nice exception
             return false;
         }
        
         $this->loadItems();
 
-        $added = false;
-        foreach($this->characterItems as $characterItem) {
-            if($characterItem->item->id == $item->id) {
-                $characterItem->n = $characterItem->n + $n;
-                $characterItem->save();
-                $added = true;
-            }
+        $CharacterItem = $this->getCharacterItem($Item);
+        $CharacterItem->n += $n;
+        $CharacterItem->save();
+
+        if($source != "unequip") {
+            $event = new GainItemEvent($this, $Item, $n);
+            $this->onGainItem($event);
+            EUserFlash::setSuccessMessage("You got " . $n . " <b>" . $Item->name . "</b>", 'gainItem id:' . $Item->id);
         }
-        if(!$added) {
-            $CharacterItem = new CharacterItems;
-            $CharacterItem->characterID = $this->id;
-            $CharacterItem->itemID = $item->id;
-            $CharacterItem->n = $n;
-            $CharacterItem->save();
-            $characterItems = $this->characterItems;
-            $characterItems[] = $CharacterItem;
-        }
-        
-        EUserFlash::setSuccessMessage("You got " . $n . " <b>" . $item->name . "</b>", 'gainItem id:' . $item->id);
         return true;
     }
 
@@ -296,36 +308,40 @@ class Character extends BaseCharacter {
      * @uses gainSubstat
      * @param float $amount
      * @param string $from enum(battle|encounter|quest|autosell) 
+     * @return int actual xp gain
      */
     public function gainXp($amount = 0, $from = '') {
-        $this->gainSubstat('xp', $amount, $from);
+        return $this->gainSubstat('xp', $amount, $from);
     }
     /**
      * Wrapper for gainSubstat
      * @uses gainSubstat
      * @param float $amount
      * @param string $from enum(battle|encounter|quest|autosell) 
+     * @return int actual substat gain
      */
     public function gainResoluteness($amount = 0, $from = '') {
-        $this->gainSubstat('resoluteness', $amount, $from);
+        return $this->gainSubstat('resoluteness', $amount, $from);
     }
     /**
      * Wrapper for gainSubstat
      * @uses gainSubstat
      * @param float $amount
      * @param string $from enum(battle|encounter|quest|autosell) 
+     * @return int actual substat gain
      */
     public function gainWillpower($amount = 0, $from = '') {
-        $this->gainSubstat('willpower', $amount, $from);
+        return $this->gainSubstat('willpower', $amount, $from);
     }
     /**
      * Wrapper for gainSubstat
      * @uses gainSubstat
      * @param float $amount
      * @param string $from enum(battle|encounter|quest|autosell) 
+     * @return int actual substat gain
      */
     public function gainCunning($amount = 0, $from = '') {
-        $this->gainSubstat('cunning', $amount, $from);
+        return $this->gainSubstat('cunning', $amount, $from);
     }
     /**
      * Gives substats to the character (or take them away)
@@ -338,6 +354,7 @@ class Character extends BaseCharacter {
      * @param string $source enum(other|battle|encounter|quest|autosell) 
      * Allows event handlers to react to gainingStuff events only in case the
      * substat come from a certain source
+     * @return int actual substat gain
      */ 
     private function gainSubstat($substat, $amount, $source) {
         $event = new GainStatEvent($this, array(
@@ -346,9 +363,9 @@ class Character extends BaseCharacter {
         ));
         call_user_func(array($this, "onGain" . ucfirst($substat)), $event);
         
-        $amount = max(0, floor($event->adjustStat($amount)));
+        $amount = max(0, $event->adjustStat($amount));
         
-        call_user_func(array($this, "increase" . ucfirst($substat)), $amount);
+        return call_user_func(array($this, "increase" . ucfirst($substat)), $amount);
     }
 
     /**
@@ -358,16 +375,18 @@ class Character extends BaseCharacter {
      * @uses increaseWillpower
      * @uses increaseCunning
      * @param float $xp 
+     * @return int actual xp gain
      */
     public function increaseXp($xp) {
-        if($xp > 0) {
-            EUserFlash::setSuccessMessage((int) $xp . " experience points", 'gainStat gainXP');
-        }
-        
+        $actualXpGain = 0;
         $cA = $this->getClassAttributes();
-        $this->increaseResoluteness($xp * $cA[$this->class]['resoluteness'], false);
-        $this->increaseWillpower($xp * $cA[$this->class]['willpower'], false);
-        $this->increaseCunning($xp * $cA[$this->class]['cunning'], false);
+        $actualXpGain += $this->increaseResoluteness($xp * $cA[$this->class]['resoluteness'], false);
+        $actualXpGain += $this->increaseWillpower($xp * $cA[$this->class]['willpower'], false);
+        $actualXpGain += $this->increaseCunning($xp * $cA[$this->class]['cunning'], false);
+        if($actualXpGain > 0) {
+            EUserFlash::setSuccessMessage($actualXpGain . " experience points", 'gainStat gainXP');
+        }
+        return $actualXpGain;
     }
     
     /**
@@ -375,27 +394,30 @@ class Character extends BaseCharacter {
      * @uses increaseSubstat
      * @param float $amount
      * @param bool $generateMsg
+     * @return int actual substat gains
      */
     public function increaseResoluteness($amount, $generateMsg = true) {
-        $this->increaseSubstat("resoluteness", $amount, $generateMsg);
+        return $this->increaseSubstat("resoluteness", $amount, $generateMsg);
     }
     /**
      * Wrapper for increaseSubstat
      * @uses increaseSubstat
      * @param float $amount
      * @param bool $generateMsg
+     * @return int actual substat gains
      */
     public function increaseWillpower($amount, $generateMsg = true) {
-        $this->increaseSubstat("willpower", $amount, $generateMsg);
+        return $this->increaseSubstat("willpower", $amount, $generateMsg);
     }
     /**
      * Wrapper for increaseSubstat
      * @uses increaseSubstat
      * @param float $amount
      * @param bool $generateMsg
+     * @return int actual substat gains
      */
     public function increaseCunning($amount, $generateMsg = true) {
-        $this->increaseSubstat("cunning", $amount, $generateMsg);
+        return $this->increaseSubstat("cunning", $amount, $generateMsg);
     }
     
     /**
@@ -407,6 +429,7 @@ class Character extends BaseCharacter {
      * @uses Tools->decideBetweenTwoNumbers
      * @param string $stat enum(resoluteness|cunning|willpower)
      * @param bool $generateMsg
+     * @return int actual substat gains
      */
     private function increaseSubstat($stat, $amount, $generateMsg = true) {
         // If amount is between two numbers, use RNG to determine which one to use
@@ -429,6 +452,7 @@ class Character extends BaseCharacter {
                 EUserFlash::setSuccessMessage("<b>You gained a level!</b>", 'gainStat gainLevel');
             }
         }
+        return $amount;
     }
     
     
@@ -659,27 +683,160 @@ class Character extends BaseCharacter {
      * Lazy loading of CharacterItems records
      */
     public function loadItems() {
-        $characterItems = CharacterItems::model()->with(array(
-            'item' => array(
-                'with' => array(
-                    'requirement',
-                    // 'useEffect', 
-                    'charactermodifier'
+        if(!$this->hasRelated("characterItems")) {
+            $characterItems = CharacterItems::model()->with(array(
+                'item' => array(
+                    'with' => array(
+                        'requirement',
+                        // 'useEffect', 
+                        'charactermodifier'
+                    )
                 )
-            )
-        ))->findAll(
-            't.characterID=:characterID', 
-            array(':characterID'=>$this->id));
-        $this->characterItems = $characterItems;
+            ))->findAll(
+                't.characterID=:characterID', 
+                array(':characterID'=>$this->id));
+            $this->characterItems = $characterItems;
+        }
     }
+    /**
+     * Returns the CharacterItems record that belongs to a given item
+     * Creates a new record with n = 0 if no CharacterItems record is found
+     * @param mixed $item Item or int (ID of a Quest record)
+     * @return CharacterItems
+     */
+    public function getCharacterItem($item) {
+        $this->loadItems();
+        if(is_numeric($item)) {
+            $itemID = $item;
+        } else {
+            $itemID = $item->id;
+        }
+        foreach($this->characterItems as $characterItem) {
+            if($characterItem->itemID == $itemID) {
+                return $characterItem;
+            }
+        }
+        
+        /**
+         * If no CharacterItems record exists for the given item,
+         * create a new one with n = 0
+         */
+        $characterItem = new CharacterItems();
+        $characterItem->characterID = $this->id;
+        $characterItem->itemID = $itemID;
+        $characterItem->n = 0;
+        return $characterItem;
+    }
+    
+    /**
+     * Checks if the character has a given item
+     * @uses getCharacterItem
+     * @param mixed $item Item or int (ID of an Item record)
+     * @return boolean 
+     */
+    public function hasItem($item) {
+        $characterItem = $this->getCharacterItem($item);
+        return ($characterItem->n > 0);
+    }
+    
+    /**
+     * Lazy loading of CharacterRecipes records
+     */
+    public function loadRecipes() {
+        if(!$this->hasRelated("characterRecipes")) {
+            $characterRecipes = CharacterRecipes::model()->with(array(
+                'recipe' => array(
+                    'with' => array(
+                        'item1' => array(
+                            'with' => array(
+                                'charactermodifier' => array('alias' => 'item1charactermodifier'),
+                                'requirement' => array('alias' => 'item1requirement')
+                            )
+                        ), 
+                        'item2' => array(
+                            'with' => array(
+                                'charactermodifier' => array('alias' => 'item2charactermodifier'),
+                                'requirement' => array('alias' => 'item2requirement')
+                            )
+                        ), 
+                        'itemResult' => array(
+                            'with' => array(
+                                'charactermodifier' => array('alias' => 'itemResultcharactermodifier'),
+                                'requirement' => array('alias' => 'itemResultrequirement')
+                            )
+                        ), 
+                    )
+                )
+            ))->findAll(
+                't.characterID=:characterID', 
+                array(':characterID'=>$this->id));
+            $this->characterRecipes = $characterRecipes;
+        }
+    }
+    /**
+     * Returns the CharacterRecipes record that belongs to a given recipe.
+     * @param mixed $recipe Recipe or int (ID of a Recipe record)
+     * @return CharacterRecipes
+     */
+    public function getCharacterRecipe($recipe) {
+        $this->loadRecipes();
+        if(is_numeric($recipe)) {
+            $recipeID = $recipe;
+        } else {
+            $recipeID = $recipe->id;
+        }
+        foreach($this->characterRecipes as $characterRecipe) {
+            if($characterRecipe->recipeID == $recipeID) {
+                return $characterRecipe;
+            }
+        }
+        
+        /**
+         * If no CharacterItems record exists for the given item,
+         * create a new one with n = 0
+         */
+        $characterRecipe = new CharacterRecipes();
+        $characterRecipe->characterID = $this->id;
+        $characterRecipe->recipeID = $recipeID;
+        $characterRecipe->n = 0;
+        return $characterRecipe;
+    }
+    /**
+     * Checks if the character has found a given recipe
+     * @uses getCharacterRecipe
+     * @param mixed $recipe Recipe or int (ID of a Recipe record)
+     * @return boolean 
+     */
+    public function hasRecipe($recipe) {
+        $characterRecipe = $this->getCharacterRecipe($recipe);
+        return ($characterRecipe->n > 0);
+    }
+
+    /**
+     * Lazy loading of CharacterSkillsets records
+     */
+    public function loadSkillsets() {
+        if(!$this->hasRelated("characterSkillsets")) {
+            $characterSkillsets = CharacterSkillsets::model()->with(array(
+                'pos1', 'pos2', 'pos3', 'pos4', 'pos5', 'pos6',
+                'pos7', 'pos8', 'pos9', 'pos10',
+            ))->findAll(
+                't.characterID=:characterID', 
+                array(':characterID'=>$this->id));
+            $this->characterSkillsets = $characterSkillsets;
+        }
+    }    
+    
     /**
      * Lazy loading of CharacterQuests records
      */
     public function loadQuests() {
-        $characterQuests = CharacterQuests::model()->withRelated()->findAll(
-            't.characterID=:characterID', 
-            array(':characterID'=>$this->id));
-        $this->characterQuests = $characterQuests;
+        if(!$this->hasRelated("characterQuests")) {
+            $characterQuests = CharacterQuests::model()->withRelated()->findAll(
+                't.characterID=:characterID', 
+                array(':characterID'=>$this->id));
+            $this->characterQuests = $characterQuests;
+        }
     }
     
     /**
@@ -687,9 +844,10 @@ class Character extends BaseCharacter {
      * Creates a new record with state = unavailable if no
      * CharacterQuests record is found
      * @param mixed $quest Quest or int (ID of a Quest record)
-     * @return boolean 
+     * @return CharacterQuests 
      */
     public function getCharacterQuest($quest) {
+        $this->loadQuests();
         if(is_numeric($quest)) {
             $questID = $quest;
         } else {
@@ -843,12 +1001,33 @@ class Character extends BaseCharacter {
         }
         return null;
     }
+    
+    /**
+     * Since some equipment data is laoded in CharacterData, we need
+     * to be able to find out if the full data has been loaded or not
+     * @var bool
+     */
+    private $hasRelatedEquipmentsFull = false;
+    /**
+     * Lazy loading of CharacterEquipments records
+     */
+    public function loadEquipments() {
+        if(!$this->hasRelatedEquipmentsFull) {
+            $characterEquipments = CharacterEquipments::model()->withRelated()->findAll(
+                't.characterID=:characterID', 
+                array(':characterID'=>$this->id));
+            $this->characterEquipments = $characterEquipments;
+            $this->hasRelatedEquipmentsFull = true;
+        }
+    }    
+    
     /**
      * Returns the active CharacterEquipments record
      * @see CharacterEquipments
      * @return mixed CharacterEquipments or null
      */
     public function getEquipment() {
+        $this->loadEquipments();
         foreach($this->characterEquipments as $equipment) {
             if($equipment->active == 1) {
                 return $equipment;
@@ -962,12 +1141,20 @@ class Character extends BaseCharacter {
 
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param GainEffectEvent $event 
      */
     public function onGainEffect($event) {
         $this->raiseEvent("onGainEffect", $event);
     }
 
+    /**
+     * Event raiser
+     * @param GainItemEvent $event 
+     */
+    public function onGainItem($event) {
+        $this->raiseEvent("onGainItem", $event);
+    }
+    
     /**
      * Event raiser
      * @param CEvent $event

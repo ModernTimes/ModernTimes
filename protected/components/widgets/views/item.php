@@ -5,8 +5,8 @@
  * @uses RequirementWidget
  */
 ?>
-<div style="width: 50px; display: inline-block; vertical-align: top; margin-right: 20px">
-<div class="thumbnail" style="width: 50px; height: 50px; display: inline-block">
+<div style="width: <?php echo ($this->width+2); ?>px; display: inline-block; vertical-align: top; margin-right: <?php echo ($this->marginRight+10); ?>px">
+<div class="thumbnail" style="width: <?php echo ($this->width + 2);?>px; height: <?php echo ($this->width+2);?>px; display: inline-block">
 
 <?php
 if(!empty($this->item)) {
@@ -57,9 +57,8 @@ if(!empty($this->item)) {
         $displayHTML = CHtml::image(Yii::app()->getBaseUrl(true) . 
                 "/images/items/" . $this->item->id . ".png", 
                 $this->item->name, array(
-                    'width' => 48,
-                    'height' => 48,
-                    'style' => "",
+                    'width' => $this->width,
+                    // 'height' => $this->width
                 ));
     } else {
         $displayHTML = $this->item->name;

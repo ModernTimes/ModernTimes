@@ -8,6 +8,8 @@ Yii::import('application.models._base.BaseEncounter');
  * 
  * See BaseEncounter for a list of attributes and related Models.
  * 
+ * @todo rename to Incident
+ *  
  * @uses SpecialnessBehavior
  * @uses CharacterModifierBehavior
  * @uses Charactermodifier
