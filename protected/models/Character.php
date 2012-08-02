@@ -9,6 +9,9 @@ Yii::import('application.models._base.BaseCharacter');
  * 
  * See BaseCharacter for a list of attributes and related Models.
  * 
+ * @todo loadX methods with getRelated() 
+ * http://www.yiiframework.com/doc/api/1.1/CActiveRecord#getRelated-detail
+ * 
  * @uses CombatantBehavior
  * @uses CharacterModifierBehavior
  * @uses CalcCharacterStatEvent
@@ -713,6 +716,7 @@ class Character extends BaseCharacter {
      * @return CharacterItems
      */
     public function getCharacterItem($item) {
+        $this->loadItems();
         if(is_numeric($item)) {
             $itemID = $item;
         } else {
@@ -746,6 +750,54 @@ class Character extends BaseCharacter {
         return ($characterItem->n > 0);
     }
     
+    /**
+     * Lazy loading of CharacterRecipes records
+     */
+    public function loadRecipes() {
+        if(!$this->hasRelated("characterRecipes")) {
+            $characterRecipes = CharacterRecipes::model()->with(array(
+                'item1', 'item2', 'itemResult'
+            ))->findAll(
+                't.characterID=:characterID', 
+                array(':characterID'=>$this->id));
+            $this->characterRecipes = $characterRecipes;
+        }
+    }
+    /**
+     * Returns the CharacterRecipes record that belongs to a given recipe.
+     * @param mixed $recipe Recipe or int (ID of a Recipe record)
+     * @return mixed CharacterItems or false
+     */
+    public function getCharacterRecipe($recipe) {
+        $this->loadRecipes();
+        if(is_numeric($recipe)) {
+            $recipeID = $recipe;
+        } else {
+            $recipeID = $recipe->id;
+        }
+        foreach($this->characterRecipes as $characterRecipe) {
+            if($characterRecipe->recipeID == $recipeID) {
+                return $characterRecipe;
+            }
+        }
+        
+        /**
+         * If no CharacterItems record exists for the given item,
+         * return false
+         */
+        return false;
+    }
+    /**
+     * Checks if the character has found a given recipe
+     * @uses getCharacterRecipe
+     * @param mixed $recipe Recipe or int (ID of a Recipe record)
+     * @return boolean 
+     */
+    public function hasRecipe($recipe) {
+        $characterRecipe = $this->getCharacterRecipe($recipe);
+        return (is_a($characterRecipe, "CharacterRecipe"));
+    }
+
     /**
      * Lazy loading of CharacterSkillsets records
      */
@@ -789,6 +841,7 @@ class Character extends BaseCharacter {
      * @return CharacterQuests 
      */
     public function getCharacterQuest($quest) {
+        $this->loadQuests();
         if(is_numeric($quest)) {
             $questID = $quest;
         } else {
