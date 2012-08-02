@@ -148,7 +148,7 @@ class RequirementCheckerBehavior extends CModelBehavior {
             }
         }
         if($Requirement->resoluteness > 0) {
-            if($Character->getResolutenessBuffed() < $Requirement->resoluteness) {
+            if($Character->getResolutenessBase() < $Requirement->resoluteness) {
                 if($generateMessages) {
                     EUserFlash::setErrorMessage("You need to have " . $Requirement->resoluteness . " resoluteness to do that");
                 }
@@ -156,7 +156,7 @@ class RequirementCheckerBehavior extends CModelBehavior {
             }
         }
         if($Requirement->willpower > 0) {
-            if($Character->getWillpowerBuffed() < $Requirement->willpower) {
+            if($Character->getWillpowerBase() < $Requirement->willpower) {
                 if($generateMessages) {
                     EUserFlash::setErrorMessage("You need to have " . $Requirement->willpower . " willpower to do that");
                 }
@@ -164,7 +164,7 @@ class RequirementCheckerBehavior extends CModelBehavior {
             }
         }
         if($Requirement->cunning > 0) {
-            if($Character->getCunningBuffed() < $Requirement->cunning) {
+            if($Character->getCunningBase() < $Requirement->cunning) {
                 if($generateMessages) {
                     EUserFlash::setErrorMessage("You need to have " . $Requirement->cunning . " cunning to do that");
                 }
@@ -172,7 +172,7 @@ class RequirementCheckerBehavior extends CModelBehavior {
             }
         }
         if($Requirement->mainstat > 0) {
-            if($Character->getMainstatBuffed() < $Requirement->mainstat) {
+            if($Character->getMainstatBase() < $Requirement->mainstat) {
                 if($generateMessages) {
                     EUserFlash::setErrorMessage("You need to have " . $Requirement->mainstat . " " . $Character->getClassType() . " to do that");
                 }
