@@ -62,6 +62,10 @@ class CombineItemsAction extends CAction {
                         }
                         
                         $Character->gainItem($Recipe->itemResult);
+                        
+                        $CharacterRecipe = $Character->getCharacterRecipe($Recipe);
+                        $CharacterRecipe->n++;
+                        $CharacterRecipe->save();
 
                         $transaction->commit();
                         
@@ -70,6 +74,7 @@ class CombineItemsAction extends CAction {
                             "and a " . $CharacterItem2->item->name . " and get a " . $Recipe->itemResult->name);
                         */
                     } catch(Exception $e) {
+                        d($e);
                         $transaction->rollback();
                         EUserFlash::setErrorMessage("Weird database shit happened.");
                     }

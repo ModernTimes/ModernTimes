@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 02. Aug 2012 um 14:12
+-- Erstellungszeit: 02. Aug 2012 um 14:20
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -450,6 +450,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_recipes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `characterID` int(11) NOT NULL,
   `recipeID` int(11) NOT NULL,
+  `n` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `recipeID` (`recipeID`)
@@ -457,10 +458,10 @@ CREATE TABLE IF NOT EXISTS `mt_character_recipes` (
 
 --
 -- RELATIONEN DER TABELLE `mt_character_recipes`:
---   `characterID`
---       `mt_character` -> `id`
 --   `recipeID`
 --       `mt_recipe` -> `id`
+--   `characterID`
+--       `mt_character` -> `id`
 --
 
 -- --------------------------------------------------------
@@ -1122,8 +1123,8 @@ ALTER TABLE `mt_character_quests`
 -- Constraints der Tabelle `mt_character_recipes`
 --
 ALTER TABLE `mt_character_recipes`
-  ADD CONSTRAINT `mt_character_recipes_ibfk_2` FOREIGN KEY (`characterID`) REFERENCES `mt_character` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `mt_character_recipes_ibfk_1` FOREIGN KEY (`recipeID`) REFERENCES `mt_recipe` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `mt_character_recipes_ibfk_1` FOREIGN KEY (`recipeID`) REFERENCES `mt_recipe` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `mt_character_recipes_ibfk_2` FOREIGN KEY (`characterID`) REFERENCES `mt_character` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `mt_character_skills`

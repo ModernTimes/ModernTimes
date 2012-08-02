@@ -756,7 +756,11 @@ class Character extends BaseCharacter {
     public function loadRecipes() {
         if(!$this->hasRelated("characterRecipes")) {
             $characterRecipes = CharacterRecipes::model()->with(array(
-                'item1', 'item2', 'itemResult'
+                'recipe' => array(
+                    'with' => array(
+                        'item1', 'item2', 'itemResult'
+                    )
+                )
             ))->findAll(
                 't.characterID=:characterID', 
                 array(':characterID'=>$this->id));
@@ -766,7 +770,7 @@ class Character extends BaseCharacter {
     /**
      * Returns the CharacterRecipes record that belongs to a given recipe.
      * @param mixed $recipe Recipe or int (ID of a Recipe record)
-     * @return mixed CharacterItems or false
+     * @return CharacterRecipes
      */
     public function getCharacterRecipe($recipe) {
         $this->loadRecipes();
@@ -783,9 +787,13 @@ class Character extends BaseCharacter {
         
         /**
          * If no CharacterItems record exists for the given item,
-         * return false
+         * create a new one with n = 0
          */
-        return false;
+        $characterRecipe = new CharacterRecipes();
+        $characterRecipe->characterID = $this->id;
+        $characterRecipe->recipeID = $recipeID;
+        $characterRecipe->n = 0;
+        return $characterRecipe;
     }
     /**
      * Checks if the character has found a given recipe
@@ -795,7 +803,7 @@ class Character extends BaseCharacter {
      */
     public function hasRecipe($recipe) {
         $characterRecipe = $this->getCharacterRecipe($recipe);
-        return (is_a($characterRecipe, "CharacterRecipe"));
+        return ($characterRecipe->n > 0);
     }
 
     /**

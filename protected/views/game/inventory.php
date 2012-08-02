@@ -105,6 +105,18 @@
             ?>
             </tr></table>
             
+            <?php 
+            if(count($CharacterRecipes) > 0) {
+                echo "<hr><h2>Known combinations</h2><BR />";
+                foreach($CharacterRecipes as $CharacterRecipe) {
+                    echo "<div>" . $CharacterRecipe->recipe->item1->name . " + " .
+                            $CharacterRecipe->recipe->item2->name . " = " .
+                            $CharacterRecipe->recipe->itemResult->name . "</div>";
+                }
+            }
+            
+            ?>
+            
         </div>
     </div>
 </div>
