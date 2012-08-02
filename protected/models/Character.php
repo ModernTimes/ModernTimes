@@ -174,12 +174,13 @@ class Character extends BaseCharacter {
      * Wrapper for gainItem. Allows handling of multiple Items.
      * @uses gainItem
      * @param array $items several Items
+     * @param string $source enum(other|battle|encounter|quest|unequip) 
      */
-    public function gainItems($items) {
+    public function gainItems($items, $source = "other") {
         if(!is_array($items) || empty($items)) { return; }
         
         foreach($items as $item) {
-            $this->gainItem($item);
+            $this->gainItem($item, $source);
         }
     }
     /**
@@ -188,9 +189,10 @@ class Character extends BaseCharacter {
      * @uses onGainItem
      * @param Item $Item 
      * @param int $n how many Items of the indicated kind?
+     * @param string $source enum(other|battle|encounter|quest|unequip) 
      * @return bool success?
      */
-    public function gainItem($Item, $n = 1) {
+    public function gainItem($Item, $n = 1, $source = "other") {
         if(!is_a($Item, "Item")) {
             // @todo nice exception
             return false;
@@ -202,10 +204,11 @@ class Character extends BaseCharacter {
         $CharacterItem->n += $n;
         $CharacterItem->save();
 
-        $event = new GainItemEvent($this, $Item, $n);
-        $this->onGainItem($event);
-        
-        EUserFlash::setSuccessMessage("You got " . $n . " <b>" . $Item->name . "</b>", 'gainItem id:' . $Item->id);
+        if($source != "unequip") {
+            $event = new GainItemEvent($this, $Item, $n);
+            $this->onGainItem($event);
+            EUserFlash::setSuccessMessage("You got " . $n . " <b>" . $Item->name . "</b>", 'gainItem id:' . $Item->id);
+        }
         return true;
     }
 
@@ -815,16 +818,8 @@ class Character extends BaseCharacter {
     public function loadSkillsets() {
         if(!$this->hasRelated("characterSkillsets")) {
             $characterSkillsets = CharacterSkillsets::model()->with(array(
-                'pos1',
-                'pos2',
-                'pos3',
-                'pos4',
-                'pos5',
-                'pos6',
-                'pos7',
-                'pos8',
-                'pos9',
-                'pos10',
+                'pos1', 'pos2', 'pos3', 'pos4', 'pos5', 'pos6',
+                'pos7', 'pos8', 'pos9', 'pos10',
             ))->findAll(
                 't.characterID=:characterID', 
                 array(':characterID'=>$this->id));
@@ -1006,12 +1001,33 @@ class Character extends BaseCharacter {
         }
         return null;
     }
+    
+    /**
+     * Since some equipment data is laoded in CharacterData, we need
+     * to be able to find out if the full data has been loaded or not
+     * @var bool
+     */
+    private $hasRelatedEquipmentsFull = false;
+    /**
+     * Lazy loading of CharacterEquipments records
+     */
+    public function loadEquipments() {
+        if(!$this->hasRelatedEquipmentsFull) {
+            $characterEquipments = CharacterEquipments::model()->withRelated()->findAll(
+                't.characterID=:characterID', 
+                array(':characterID'=>$this->id));
+            $this->characterEquipments = $characterEquipments;
+            $this->hasRelatedEquipmentsFull = true;
+        }
+    }    
+    
     /**
      * Returns the active CharacterEquipments record
      * @see CharacterEquipments
      * @return mixed CharacterEquipments or null
      */
     public function getEquipment() {
+        $this->loadEquipments();
         foreach($this->characterEquipments as $equipment) {
             if($equipment->active == 1) {
                 return $equipment;
