@@ -23,24 +23,13 @@ class DamageStorageBehavior extends CBehavior {
     private $_damageType;
     
     /**
-     * Whether the behavior has already been initialized.
-     * (It can only be initialized once, to prevent access to init function
-     * by something other than owner.)
-     * @var bool
-     */
-    private $_initialized = false;
-    
-    /**
      * Initiates the storage
      * @param float $amount default = 0
      * @param string $type enum(normal|special) default: normal
      */
     public function init($amount = 0, $type = "normal") {
-        if(!$this->_initialized) {
-            $this->_damageAmount = $amount;
-            $this->_damageType = $type;
-            $this->_initialized = true;
-        }
+        $this->_damageAmount = $amount;
+        $this->_damageType = $type;
     }
     
     /**

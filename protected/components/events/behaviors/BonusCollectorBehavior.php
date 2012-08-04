@@ -32,24 +32,13 @@ class BonusCollectorBehavior extends CBehavior {
     private $_bonusPerc = 0;
     
     /**
-     * Whether the behavior has already been initialized.
-     * (It can only be initialized once, to prevent access to init function
-     * by something other than owner.)
-     * @var bool
-     */
-    private $_initialized = false;
-    
-    /**
      * Initiates the collector
      * @param float $bonusAbs default = 0
      * @param float $bonusPerc default = 0
      */
     public function init($bonusAbs = 0, $bonusPerc = 0) {
-        if(!$this->_initialized) {
-            $this->_bonusAbs = $bonusAbs;
-            $this->_bonusPerc = $bonusPerc;
-            $this->_initialized = true;
-        }
+        $this->_bonusAbs = $bonusAbs;
+        $this->_bonusPerc = $bonusPerc;
     }
     
     /**
