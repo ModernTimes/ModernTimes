@@ -180,7 +180,7 @@ class Character extends BaseCharacter {
         if(!is_array($items) || empty($items)) { return; }
         
         foreach($items as $item) {
-            $this->gainItem($item, $source);
+            $this->gainItem($item, 1, $source);
         }
     }
     /**
@@ -543,7 +543,7 @@ class Character extends BaseCharacter {
         $buffed = max(1, $event->adjustStat($base));
 
         if($this->getClassType() == 'resoluteness') {
-            $buffed = floor($buffed * 1.5);
+            $buffed = floor($buffed * 1.2);
         }
         return $buffed;
     }
@@ -563,7 +563,7 @@ class Character extends BaseCharacter {
         $buffed = max(1, $event->adjustStat($base));
 
         if($this->getClassType() == 'willpower') {
-            $buffed = floor($buffed * 1.5);
+            $buffed = floor($buffed * 1.3);
         }
         return $buffed;
     }
@@ -630,34 +630,110 @@ class Character extends BaseCharacter {
     }
 
     /**
-     * Returns the attack value of the Character (for normal attacks)
-     * = resoluteness buffed
-     * @uses getResolutenessBuffed
+     * BATTLE STUFF 
+     */
+    
+    /**
+     * Returns how much damage the Character actually suffered
+     * @uses onBeforeTakeDamage
+     * @uses onAfterTakenDamage
+     * @uses CombatantTakeDamageEvent
+     * @uses CombatnatTakenDamageEvent
+     * @param int $damage, how much damage the Character is to take
+     * @param string $damageType enum(normal|vices)
+     * @return int 
+     */
+    public function takeDamage($damage, $damageType) {
+        // $debugArray["damageInitially"] = $damage;
+        
+        // TakeDamageEvent, collect bonuses
+        $event = new CombatantTakeDamageEvent($this, $damage, $damageType);
+        $this->onBeforeTakeDamage($event);
+        $damageAdjusted = $event->adjustStat($damage);
+        // $debugArray["damageAfterTakeDamageEvent"] = $damageAdjusted;
+        
+        // Reduce damage based on absolute damage reduction value
+        $event = new CollectBonusEvent($this);
+        $this->onCalcResistanceAbs($event);
+        $damageAdjusted -= $event->getBonusAbs();
+        // $debugArray["damageAfterResistanceAbs"] = $damageAdjusted;
+        
+        if($damageAdjusted > 0) {
+            // Reduce damage based on resistance level
+            $resistanceLevel = $this->getResistanceLevel($damageType);
+            $damageAdjusted *= $this->getResistanceModifier($resistanceLevel);
+            // $debugArray["damageAfterResistanceLevels"] = $damageAdjusted;
+            
+            // Beautify result
+            $damageAdjusted = Yii::app()->tools->decideBetweenTwoNumbers(max($damageAdjusted, 0));
+            // $debugArray['damageAfterBeautification'] = $damageAdjusted;
+
+            // Actually take damage
+            $this->decreaseHp($damageAdjusted);
+        } else {
+            $damageAdjusted = 0;
+        }
+        
+        // takeN damage event, notification only
+        $event = new CombatantTakenDamageEvent($this, $damageAdjusted, $damageType);
+        $this->onAfterTakenDamage($event);
+        
+        // d($debugArray);
+        return $damageAdjusted;
+    }
+    
+    /**
+     * Returns the resistance level against a given damage Type
+     * Resistance is percentage based and has diminishing returns based on
+     * resistance levels
+     * @uses CollectBonusEvent
+     * @param string $damageType enum(normal|vices)
      * @return int
      */
-    public function getNormalAttack() {
-        return $this->getResolutenessBuffed();
+    public function getResistanceLevel($damageType = "normal") {
+        $event = new CollectBonusEvent($this);
+        call_user_func(array($this, "onCalcResistanceLevel" . ucfirst($damageType)), $event);
+        return $event->getBonusAbs();
     }
+    
     /**
-     * Returns the special attack value of the Character (for special attacks)
-     * = willpower buffed
-     * @uses getWillpowerBuffed
+     * Returns the damage modifier based on a resistance level against the
+     * damage type
+     * @todo load precalculated modifiers?
+     * @param int $resistanceLevel 
+     * @return float
+     */
+    public function getResistanceModifier($resistanceLevel) {
+        return (0.1 + 0.9 * pow(10/11, $resistanceLevel));
+    }
+    
+    /**
+     * Returns the attack value depending on the relevant stat
+     * @param string $stat enum(resoluteness|willpower)
      * @return int
      */
-    public function getSpecialAttack() {
-        return $this->getWillpowerBuffed();
+    public function getAttack($stat = "resoluteness") {
+        switch($stat) {
+            case "resoluteness":
+                return $this->getResolutenessBuffed();
+                break;
+            case "willpower":
+                return $this->getWillpowerBuffed();
+                break;
+            default:
+                return 0;
+                break;
+        }
     }
+    
     /**
-     * Returns the defense value of the Character (against normal attacks)
-     * = cunning buffed
-     * @uses getCunningBuffed
+     * Returns the defense value (= cunning)
      * @return int
      */
     public function getDefense() {
         return $this->getCunningBuffed();
     }
     
-
     /**
      * OTHER STUFF
      */
@@ -1055,40 +1131,176 @@ class Character extends BaseCharacter {
 
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param CollectBonusEvent $event 
      */
     public function onCalcHp($event) {
         $this->raiseEvent("onCalcHp", $event);
     }
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param CollectBonusEvent $event 
      */
     public function onCalcEnergy($event) {
         $this->raiseEvent("onCalcEnergy", $event);
     }
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param CollectBonusEvent $event 
      */
     public function onCalcResoluteness($event) {
         $this->raiseEvent("onCalcResoluteness", $event);
     }
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param CollectBonusEvent $event 
      */
     public function onCalcWillpower($event) {
         $this->raiseEvent("onCalcWillpower", $event);
     }
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param CollectBonusEvent $event 
      */
     public function onCalcCunning($event) {
         $this->raiseEvent("onCalcCunning", $event);
     }
+    /**
+     * Event raiser
+     * @param CollectBonusEvent $event 
+     */
+    public function onCalcResistanceAbs($event) {
+        $this->raiseEvent("onCalcResistanceAbs", $event);
+    }
+    /**
+     * Event raiser
+     * @param CollectBonusEvent $event 
+     */
+    public function onCalcResistanceLevelNormal($event) {
+        $this->raiseEvent("onCalcResistanceLevelNormal", $event);
+    }
+    /**
+     * Event raiser
+     * @param CollectBonusEvent $event 
+     */
+    public function onCalcResistanceLevelEnvy($event) {
+        $this->raiseEvent("onCalcResistanceLevelEnvy", $event);
+    }
+    /**
+     * Event raiser
+     * @param CollectBonusEvent $event 
+     */
+    public function onCalcResistanceLevelGreed($event) {
+        $this->raiseEvent("onCalcResistanceLevelGreed", $event);
+    }
+    /**
+     * Event raiser
+     * @param CollectBonusEvent $event 
+     */
+    public function onCalcResistanceLevelGluttony($event) {
+        $this->raiseEvent("onCalcResistanceLevelGluttony", $event);
+    }
+    /**
+     * Event raiser
+     * @param CollectBonusEvent $event 
+     */
+    public function onCalcResistanceLevelLust($event) {
+        $this->raiseEvent("onCalcResistanceLevelLust", $event);
+    }
+    /**
+     * Event raiser
+     * @param CollectBonusEvent $event 
+     */
+    public function onCalcResistanceLevelPride($event) {
+        $this->raiseEvent("onCalcResistanceLevelPride", $event);
+    }
+    /**
+     * Event raiser
+     * @param CollectBonusEvent $event 
+     */
+    public function onCalcResistanceLevelSloth($event) {
+        $this->raiseEvent("onCalcResistanceLevelSloth", $event);
+    }
+    /**
+     * Event raiser
+     * @param CollectBonusEvent $event 
+     */
+    public function onCalcResistanceLevelWrath($event) {
+        $this->raiseEvent("onCalcResistanceLevelWrath", $event);
+    }
 
+    /**
+     * Event raiser
+     * @param CollectBonusEvent $event
+     */
+    public function onCalcCritChance($event) {
+        $this->raiseEvent("onCalcCritChance", $event);
+    }
+
+    /**
+     * Wrapper for onCalcBonusDamageX methods
+     * @param CollectBonusEvent $event
+     * @param string $damageType enum (normal|vices) default normal
+     */
+    public function onCalcBonusDamage($event, $damageType = "normal") {
+        call_user_func(array($this, "onCalcBonusDamage" . ucfirst($damageType)), $event);
+    }
+    /**
+     * Event raiser
+     * @param CollectBonusEvent $event
+     */
+    public function onCalcBonusDamageNormal($event) {
+        $this->raiseEvent("onCalcBonusDamageNormal", $event);
+    }
+    /**
+     * Event raiser
+     * @param CollectBonusEvent $event
+     */
+    public function onCalcBonusDamageEnvy($event) {
+        $this->raiseEvent("onCalcBonusDamageEnvy", $event);
+    }
+    /**
+     * Event raiser
+     * @param CollectBonusEvent $event
+     */
+    public function onCalcBonusDamageGreed($event) {
+        $this->raiseEvent("onCalcBonusDamageGreed", $event);
+    }
+    /**
+     * Event raiser
+     * @param CollectBonusEvent $event
+     */
+    public function onCalcBonusDamageGluttony($event) {
+        $this->raiseEvent("onCalcBonusDamageGluttony", $event);
+    }
+    /**
+     * Event raiser
+     * @param CollectBonusEvent $event
+     */
+    public function onCalcBonusDamageLust($event) {
+        $this->raiseEvent("onCalcBonusDamageLust", $event);
+    }
+    /**
+     * Event raiser
+     * @param CollectBonusEvent $event
+     */
+    public function onCalcBonusDamagePride($event) {
+        $this->raiseEvent("onCalcBonusDamagePride", $event);
+    }
+    /**
+     * Event raiser
+     * @param CollectBonusEvent $event
+     */
+    public function onCalcBonusDamageSloth($event) {
+        $this->raiseEvent("onCalcBonusDamageSloth", $event);
+    }
+    /**
+     * Event raiser
+     * @param CollectBonusEvent $event
+     */
+    public function onCalcBonusDamageWrath($event) {
+        $this->raiseEvent("onCalcBonusDamageWrath", $event);
+    }
+    
     /**
      * Event raiser
      * @param CEvent $event 

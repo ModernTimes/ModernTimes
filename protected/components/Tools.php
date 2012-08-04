@@ -140,6 +140,16 @@ class Tools extends CApplicationComponent {
     }
     
     /**
+     * Verbal representation of a given resistance level
+     * @todo much nicer representation pls
+     * @param int $level
+     * @return string 
+     */
+    public function getResistanceLevelLabel($level) {
+        return "Level " . $level;
+    }
+    
+    /**
      * Returns the possessive pronoun for a given character
      * @param Character $character, default is the active character
      * @return string "his" or "her"

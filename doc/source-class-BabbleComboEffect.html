@@ -164,7 +164,7 @@
 <a href="#29" id="29" class="l"> 29 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> attachToBattle(<span class="php-var">$Battle</span>) {
 <a href="#30" id="30" class="l"> 30 </a>        <span class="php-var">$this</span>-&gt;owner-&gt;attachToBattle(<span class="php-var">$Battle</span>);
 <a href="#31" id="31" class="l"> 31 </a>        <span class="php-var">$Battle</span>-&gt;onAfterAction = <span class="php-keyword1">array</span>(<span class="php-var">$this</span>, <span class="php-quote">'reactToOnAfterAction'</span>);
-<a href="#32" id="32" class="l"> 32 </a>        <span class="php-var">$Battle</span>-&gt;onBeforeDealingDamage = <span class="php-keyword1">array</span>(<span class="php-var">$this</span>, <span class="php-quote">'reactToOnBeforeDealingDamage'</span>);
+<a href="#32" id="32" class="l"> 32 </a>        <span class="php-var">$Battle</span>-&gt;onBeforeDealDamage = <span class="php-keyword1">array</span>(<span class="php-var">$this</span>, <span class="php-quote">'reactToOnBeforeDealDamage'</span>);
 <a href="#33" id="33" class="l"> 33 </a>    }
 <a href="#34" id="34" class="l"> 34 </a>
 <a href="#35" id="35" class="l"> 35 </a>    <span class="php-comment">/**
@@ -184,7 +184,7 @@
 </span><a href="#49" id="49" class="l"> 49 </a><span class="php-comment">     * @param BattleActionDamageEvent $Event sender is a Skill
 </span><a href="#50" id="50" class="l"> 50 </a><span class="php-comment">     * @return void
 </span><a href="#51" id="51" class="l"> 51 </a><span class="php-comment">     */</span>
-<a href="#52" id="52" class="l"> 52 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> reactToOnBeforeDealingDamage(<span class="php-var">$Event</span>) {
+<a href="#52" id="52" class="l"> 52 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> reactToOnBeforeDealDamage(<span class="php-var">$Event</span>) {
 <a href="#53" id="53" class="l"> 53 </a>        <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;owner-&gt;active &amp;&amp;
 <a href="#54" id="54" class="l"> 54 </a>                <span class="php-var">$Event</span>-&gt;sender-&gt;getCombatantString(<span class="php-var">$Event</span>-&gt;hero) == <span class="php-var">$this</span>-&gt;owner-&gt;heroString &amp;&amp;
 <a href="#55" id="55" class="l"> 55 </a>                <span class="php-var">$Event</span>-&gt;action-&gt;subType == <span class="php-quote">&quot;babbling&quot;</span>) {

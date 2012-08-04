@@ -89,8 +89,11 @@ class BattleMessage extends CComponent {
             case "effect":
                 $this->setResultEffect(func_get_arg(1));
                 break;
-            case "blocked";
+            case "blocked":
                 $this->setResultBlocked();
+                break;
+            case "failed":
+                $this->setResultFailed();
                 break;
             default:
                 break;
@@ -127,5 +130,12 @@ class BattleMessage extends CComponent {
      */
     public function setResultBlocked() {
         $this->result['type'] = 'blocked';
+    }
+    /**
+     * Sets the battle action result to 'failed'
+     * @return void 
+     */
+    public function setResultFailed() {
+        $this->result['type'] = 'failed';
     }
 }

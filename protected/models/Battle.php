@@ -372,29 +372,15 @@ class Battle extends BaseBattle {
      * Raises an event
      * @param CEvent $event 
      */
-    public function onBeforeDealingDamage($event) {
-        $this->raiseEvent("onBeforeDealingDamage", $event);
+    public function onBeforeDealDamage($event) {
+        $this->raiseEvent("onBeforeDealDamage", $event);
     }
     /**
      * Raises an event
      * @param CEvent $event 
      */
-    public function onAfterDealingDamage($event) {
-        $this->raiseEvent("onAfterDealingDamage", $event);
-    }
-    /**
-     * Raises an event
-     * @param CEvent $event 
-     */
-    public function onBeforeTakingDamage($event) {
-        $this->raiseEvent("onBeforeTakingDamage", $event);
-    }
-    /**
-     * Raises an event
-     * @param CEvent $event 
-     */
-    public function onAfterTakingDamage($event) {
-        $this->raiseEvent("onAfterTakingDamage", $event);
+    public function onAfterDealtDamage($event) {
+        $this->raiseEvent("onAfterDealtDamage", $event);
     }
     
     /**
@@ -402,7 +388,7 @@ class Battle extends BaseBattle {
      * @param Battleeffect $effect
      */
     public function detachAllEventHandlers($effect) {
-        $eventNames = array("onBeforeAction", "onAfterAction", "onBeforeDealingDamage", "onAfterDealingDamage", "onBeforeTakingDamage", "onAfterTakingDamage");
+        $eventNames = array("onBeforeAction", "onAfterAction", "onBeforeDealDamage", "onAfterDealtDamage");
         foreach($eventNames as $eventName) {
             $this->detachEventHandler($eventName, array($effect, "reactTo" . ucfirst($eventName)));
             $this->detachEventHandler($eventName, array($effect->asa("special"), "reactTo" . ucfirst($eventName)));

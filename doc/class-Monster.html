@@ -243,6 +243,57 @@ GxActiveRecord
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="takeDamage" id="_takeDamage">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_takeDamage">#</a>
+			<code><a href="source-class-Monster.html#54" title="Go to source code">takeDamage</a>( <span>integer <var>$damage</var></span>, <span>string <var>$damageType</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Returns how much damage the Monster actually suffered</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns how much damage the Monster actually suffered</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$damage</var></dt>
+						<dd><code>integer</code><br>$damage, how much damage the Monster is to take</dd>
+						<dt><var>$damageType</var></dt>
+						<dd><code>string</code><br> enum(normal|vices)</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br />
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							onBeforeTakeDamage<br />
+							onAfterTakenDamage<br />
+							<code><code><a href="class-CombatantTakeDamageEvent.html">CombatantTakeDamageEvent</a></code></code> <br />
+							CombatnatTakenDamageEvent<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="dropItems" id="_dropItems">
 
 			<td class="attributes"><code>
@@ -254,7 +305,7 @@ GxActiveRecord
 
 			<td class="name"><div>
 			<a class="anchor" href="#_dropItems">#</a>
-			<code><a href="source-class-Monster.html#54" title="Go to source code">dropItems</a>( <span>integer <var>$dropItemPerc</var> = <span class="php-num">0</span></span> )</code>
+			<code><a href="source-class-Monster.html#81" title="Go to source code">dropItems</a>( <span>integer <var>$dropItemPerc</var> = <span class="php-num">0</span></span> )</code>
 
 			<div class="description short">
 				
@@ -298,7 +349,7 @@ dropItemPerc are percentage point increasers/decreasers as usual</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_decreaseHp">#</a>
-			<code><a href="source-class-Monster.html#72" title="Go to source code">decreaseHp</a>( <span>integer <var>$damage</var></span> )</code>
+			<code><a href="source-class-Monster.html#99" title="Go to source code">decreaseHp</a>( <span>integer <var>$damage</var></span> )</code>
 
 			<div class="description short">
 				
@@ -336,7 +387,7 @@ dropItemPerc are percentage point increasers/decreasers as usual</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_decreaseEnergy">#</a>
-			<code><a href="source-class-Monster.html#83" title="Go to source code">decreaseEnergy</a>( <span>float <var>$amount</var></span> )</code>
+			<code><a href="source-class-Monster.html#110" title="Go to source code">decreaseEnergy</a>( <span>float <var>$amount</var></span> )</code>
 
 			<div class="description short">
 				
@@ -374,7 +425,7 @@ dropItemPerc are percentage point increasers/decreasers as usual</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getReadyForBattle">#</a>
-			<code><a href="source-class-Monster.html#94" title="Go to source code">getReadyForBattle</a>( )</code>
+			<code><a href="source-class-Monster.html#121" title="Go to source code">getReadyForBattle</a>( )</code>
 
 			<div class="description short">
 				
@@ -407,7 +458,7 @@ dropItemPerc are percentage point increasers/decreasers as usual</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_createFirstRoundCombatMessage">#</a>
-			<code><a href="source-class-Monster.html#103" title="Go to source code">createFirstRoundCombatMessage</a>( )</code>
+			<code><a href="source-class-Monster.html#130" title="Go to source code">createFirstRoundCombatMessage</a>( )</code>
 
 			<div class="description short">
 				
@@ -449,7 +500,7 @@ dropItemPerc are percentage point increasers/decreasers as usual</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getTitle">#</a>
-			<code><a href="source-class-Monster.html#123" title="Go to source code">getTitle</a>( )</code>
+			<code><a href="source-class-Monster.html#150" title="Go to source code">getTitle</a>( )</code>
 
 			<div class="description short">
 				
@@ -477,7 +528,7 @@ string, but can be changed by specialness behavior class</p>
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="getNormalAttack" id="_getNormalAttack">
+		<tr data-order="getAttack" id="_getAttack">
 
 			<td class="attributes"><code>
 				 public 
@@ -487,58 +538,27 @@ string, but can be changed by specialness behavior class</p>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_getNormalAttack">#</a>
-			<code><a href="source-class-Monster.html#132" title="Go to source code">getNormalAttack</a>( )</code>
+			<a class="anchor" href="#_getAttack">#</a>
+			<code><a href="source-class-Monster.html#159" title="Go to source code">getAttack</a>( <span>string <var>$stat</var> = <span class="php-quote">&quot;resoluteness&quot;</span></span> )</code>
 
 			<div class="description short">
 				
-<p>Returns the Monster's attack value (for normal attacks)</p>
+<p>Returns the Monster's attack value</p>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>Returns the Monster's attack value (for normal attacks)</p>
+<p>Returns the Monster's attack value</p>
 
 
 
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code>integer</code><br />
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="getSpecialAttack" id="_getSpecialAttack">
-
-			<td class="attributes"><code>
-				 public 
-				integer
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_getSpecialAttack">#</a>
-			<code><a href="source-class-Monster.html#139" title="Go to source code">getSpecialAttack</a>( )</code>
-
-			<div class="description short">
-				
-<p>Returns the Monster's special attack value (for special attacks)</p>
-
-			</div>
-
-			<div class="description detailed hidden">
-				
-<p>Returns the Monster's special attack value (for special attacks)</p>
-
-
-
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$stat</var></dt>
+						<dd><code>string</code><br> enum(resoluteness|willpower). Included for compatibility reasons
+(Character-&gt;getAttack needs that param)</dd>
+					</dl></div>
 
 					<h4>Returns</h4>
 					<div class="list">
@@ -562,17 +582,17 @@ string, but can be changed by specialness behavior class</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getDefense">#</a>
-			<code><a href="source-class-Monster.html#146" title="Go to source code">getDefense</a>( )</code>
+			<code><a href="source-class-Monster.html#168" title="Go to source code">getDefense</a>( )</code>
 
 			<div class="description short">
 				
-<p>Returns the Monster's defense value (against normal attacks)</p>
+<p>Returns the Monster's defense value</p>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>Returns the Monster's defense value (against normal attacks)</p>
+<p>Returns the Monster's defense value</p>
 
 
 
@@ -599,7 +619,7 @@ string, but can be changed by specialness behavior class</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getHpMax">#</a>
-			<code><a href="source-class-Monster.html#153" title="Go to source code">getHpMax</a>( )</code>
+			<code><a href="source-class-Monster.html#175" title="Go to source code">getHpMax</a>( )</code>
 
 			<div class="description short">
 				
@@ -625,6 +645,84 @@ string, but can be changed by specialness behavior class</p>
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="onCalcBonusDamage" id="_onCalcBonusDamage">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onCalcBonusDamage">#</a>
+			<code><a href="source-class-Monster.html#183" title="Go to source code">onCalcBonusDamage</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span>, <span>string <var>$damageType</var> = <span class="php-quote">&quot;normal&quot;</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Raises nothing, leaves $event unchanged</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Raises nothing, leaves $event unchanged</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code></code></dd>
+						<dt><var>$damageType</var></dt>
+						<dd><code>string</code><br> enum (normal|vices) default normal</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onCalcCritChance" id="_onCalcCritChance">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onCalcCritChance">#</a>
+			<code><a href="source-class-Monster.html#190" title="Go to source code">onCalcCritChance</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Raises nothing, leaves $event unchanged</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Raises nothing, leaves $event unchanged</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="behaviors" id="_behaviors">
 
 			<td class="attributes"><code>
@@ -636,7 +734,7 @@ string, but can be changed by specialness behavior class</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_behaviors">#</a>
-			<code><a href="source-class-Monster.html#161" title="Go to source code">behaviors</a>( )</code>
+			<code><a href="source-class-Monster.html#196" title="Go to source code">behaviors</a>( )</code>
 
 			<div class="description short">
 				
@@ -677,7 +775,7 @@ string, but can be changed by specialness behavior class</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_scopes">#</a>
-			<code><a href="source-class-Monster.html#171" title="Go to source code">scopes</a>( )</code>
+			<code><a href="source-class-Monster.html#206" title="Go to source code">scopes</a>( )</code>
 
 			<div class="description short">
 				
@@ -722,7 +820,7 @@ query.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_model">#</a>
-			<code><a href="source-class-Monster.html#195" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
+			<code><a href="source-class-Monster.html#230" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
 
 			<div class="description short">
 				
