@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 02. Aug 2012 um 14:20
+-- Erstellungszeit: 04. Aug 2012 um 11:53
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `mt_battle` (
   KEY `combatantBID` (`combatantBID`),
   KEY `state` (`state`),
   KEY `winnerID` (`winnerID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=108 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=122 ;
 
 -- --------------------------------------------------------
 
@@ -162,9 +162,14 @@ CREATE TABLE IF NOT EXISTS `mt_battleskill` (
   `subType` varchar(20) NOT NULL,
   `specialClass` varchar(50) NOT NULL,
   `costEnergy` smallint(6) NOT NULL DEFAULT '0',
+  `successRate` decimal(4,3) NOT NULL DEFAULT '1.000',
   `dealsDamage` tinyint(1) NOT NULL DEFAULT '0',
+  `damageAttackFactorStat` enum('resoluteness','willpower') DEFAULT NULL,
   `damageAttackFactor` decimal(5,3) DEFAULT NULL,
+  `damageAttackFactorCap` smallint(6) DEFAULT NULL,
+  `damageBonusCap` smallint(6) DEFAULT NULL,
   `damageFixedAmount` smallint(6) DEFAULT NULL,
+  `damageFixedAmountVariation` smallint(3) NOT NULL DEFAULT '0',
   `damageType` enum('normal','envy','gluttony','greed','lust','pride','sloth','wrath') DEFAULT NULL,
   `healing` smallint(6) NOT NULL DEFAULT '0',
   `createBattleeffectID` int(11) DEFAULT NULL,
@@ -230,22 +235,48 @@ CREATE TABLE IF NOT EXISTS `mt_character` (
 CREATE TABLE IF NOT EXISTS `mt_charactermodifier` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `hp` smallint(6) NOT NULL DEFAULT '0',
-  `hpPerc` smallint(6) NOT NULL DEFAULT '0',
+  `hpPerc` tinyint(4) NOT NULL DEFAULT '0',
   `energy` smallint(6) NOT NULL DEFAULT '0',
-  `energyPerc` smallint(6) NOT NULL DEFAULT '0',
-  `resoluteness` smallint(6) NOT NULL DEFAULT '0',
-  `resolutenessPerc` smallint(6) NOT NULL DEFAULT '0',
-  `willpower` smallint(6) NOT NULL DEFAULT '0',
-  `willpowerPerc` smallint(6) NOT NULL DEFAULT '0',
-  `cunning` smallint(6) NOT NULL DEFAULT '0',
-  `cunningPerc` smallint(6) NOT NULL DEFAULT '0',
-  `dropCash` smallint(6) NOT NULL DEFAULT '0',
-  `dropCashPerc` smallint(6) NOT NULL DEFAULT '0',
-  `dropFavours` smallint(6) NOT NULL DEFAULT '0',
-  `dropFavoursPerc` smallint(6) NOT NULL DEFAULT '0',
-  `dropKudos` smallint(6) NOT NULL DEFAULT '0',
-  `dropKudosPerc` smallint(6) NOT NULL DEFAULT '0',
-  `dropItemPerc` smallint(6) NOT NULL DEFAULT '0',
+  `energyPerc` tinyint(4) NOT NULL DEFAULT '0',
+  `resoluteness` tinyint(4) NOT NULL DEFAULT '0',
+  `resolutenessPerc` tinyint(4) NOT NULL DEFAULT '0',
+  `willpower` tinyint(4) NOT NULL DEFAULT '0',
+  `willpowerPerc` tinyint(4) NOT NULL DEFAULT '0',
+  `cunning` tinyint(4) NOT NULL DEFAULT '0',
+  `cunningPerc` smallint(4) NOT NULL DEFAULT '0',
+  `dropCash` tinyint(4) NOT NULL DEFAULT '0',
+  `dropCashPerc` tinyint(4) NOT NULL DEFAULT '0',
+  `dropFavours` tinyint(4) NOT NULL DEFAULT '0',
+  `dropFavoursPerc` tinyint(4) NOT NULL DEFAULT '0',
+  `dropKudos` tinyint(4) NOT NULL DEFAULT '0',
+  `dropKudosPerc` tinyint(4) NOT NULL DEFAULT '0',
+  `dropItemPerc` tinyint(4) NOT NULL DEFAULT '0',
+  `critChancePerc` tinyint(4) NOT NULL DEFAULT '0',
+  `damageNormalAbs` tinyint(4) NOT NULL DEFAULT '0',
+  `damageNormalPerc` tinyint(4) NOT NULL DEFAULT '0',
+  `damageEnvyAbs` tinyint(4) NOT NULL DEFAULT '0',
+  `damageEnvyPerc` tinyint(4) NOT NULL DEFAULT '0',
+  `damageGreedAbs` tinyint(4) NOT NULL DEFAULT '0',
+  `damageGreedPerc` tinyint(4) NOT NULL DEFAULT '0',
+  `damageGluttonyAbs` tinyint(4) NOT NULL DEFAULT '0',
+  `damageGluttonyPerc` tinyint(4) NOT NULL DEFAULT '0',
+  `damageLustAbs` tinyint(4) NOT NULL DEFAULT '0',
+  `damageLustPerc` tinyint(4) NOT NULL DEFAULT '0',
+  `damagePrideAbs` tinyint(4) NOT NULL DEFAULT '0',
+  `damagePridePerc` tinyint(4) NOT NULL DEFAULT '0',
+  `damageSlothAbs` tinyint(4) NOT NULL DEFAULT '0',
+  `damageSlothPerc` tinyint(4) NOT NULL DEFAULT '0',
+  `damageWrathAbs` tinyint(4) NOT NULL DEFAULT '0',
+  `damageWrathPerc` tinyint(4) NOT NULL DEFAULT '0',
+  `resistanceAbs` tinyint(4) NOT NULL DEFAULT '0',
+  `resistanceLevelNormal` tinyint(4) NOT NULL DEFAULT '0',
+  `resistanceLevelEnvy` tinyint(4) NOT NULL DEFAULT '0',
+  `resistanceLevelGreed` tinyint(4) NOT NULL DEFAULT '0',
+  `resistanceLevelGluttony` tinyint(4) NOT NULL DEFAULT '0',
+  `resistanceLevelLust` tinyint(4) NOT NULL DEFAULT '0',
+  `resistanceLevelPride` tinyint(4) NOT NULL DEFAULT '0',
+  `resistanceLevelSloth` tinyint(4) NOT NULL DEFAULT '0',
+  `resistanceLevelWrath` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
@@ -290,7 +321,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_effects` (
   KEY `characterID` (`characterID`),
   KEY `effectID` (`effectID`),
   KEY `turns` (`turns`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_effects`:
@@ -314,7 +345,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_encounters` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `encounterID` (`encounterID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_encounters`:
@@ -404,7 +435,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_items` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `itemID` (`itemID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_items`:
@@ -454,7 +485,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_recipes` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `recipeID` (`recipeID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_recipes`:
@@ -836,7 +867,7 @@ CREATE TABLE IF NOT EXISTS `mt_recipe` (
   KEY `item2ID` (`item2ID`),
   KEY `itemResultID` (`itemResultID`),
   KEY `ingredients` (`item1ID`,`item2ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_recipe`:

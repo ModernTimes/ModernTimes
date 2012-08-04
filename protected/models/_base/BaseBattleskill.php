@@ -10,9 +10,14 @@
  * - string subType
  * - string specialClass
  * - integer costEnergy
+ * - string successRate
  * - integer dealsDamage
+ * - string damageAttackFactorStat
  * - string damageAttackFactor
+ * - integer damageAttackFactorCap
+ * - integer damageBonusCap
  * - integer damageFixedAmount
+ * - integer damageFixedAmountVariation
  * - string damageType
  * - integer healing
  * - integer createBattleeffectID
@@ -88,15 +93,17 @@ abstract class BaseBattleskill extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('name, subType, specialClass, effectMsgIncreasedDuration, desc, msgResolved', 'required'),
-			array('costEnergy, dealsDamage, damageFixedAmount, healing, createBattleeffectID, battleeffectTurns', 'numerical', 'integerOnly'=>true),
+			array('costEnergy, dealsDamage, damageAttackFactorCap, damageBonusCap, damageFixedAmount, damageFixedAmountVariation, healing, createBattleeffectID, battleeffectTurns', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			array('actionType, damageType', 'length', 'max'=>8),
 			array('battlePhase', 'length', 'max'=>7),
 			array('subType', 'length', 'max'=>20),
 			array('specialClass', 'length', 'max'=>50),
+			array('successRate', 'length', 'max'=>4),
+			array('damageAttackFactorStat', 'length', 'max'=>12),
 			array('damageAttackFactor', 'length', 'max'=>5),
-			array('actionType, battlePhase, costEnergy, dealsDamage, damageAttackFactor, damageFixedAmount, damageType, healing, createBattleeffectID, battleeffectTurns', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, name, actionType, battlePhase, subType, specialClass, costEnergy, dealsDamage, damageAttackFactor, damageFixedAmount, damageType, healing, createBattleeffectID, battleeffectTurns, effectMsgIncreasedDuration, desc, msgResolved', 'safe', 'on'=>'search'),
+			array('actionType, battlePhase, costEnergy, successRate, dealsDamage, damageAttackFactorStat, damageAttackFactor, damageAttackFactorCap, damageBonusCap, damageFixedAmount, damageFixedAmountVariation, damageType, healing, createBattleeffectID, battleeffectTurns', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, name, actionType, battlePhase, subType, specialClass, costEnergy, successRate, dealsDamage, damageAttackFactorStat, damageAttackFactor, damageAttackFactorCap, damageBonusCap, damageFixedAmount, damageFixedAmountVariation, damageType, healing, createBattleeffectID, battleeffectTurns, effectMsgIncreasedDuration, desc, msgResolved', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -109,8 +116,8 @@ abstract class BaseBattleskill extends GxActiveRecord {
 		return array(
 			'createBattleeffect' => array(self::BELONGS_TO, 'Battleeffect', 'createBattleeffectID'),
 			'characterBattleskills' => array(self::HAS_MANY, 'CharacterBattleskills', 'battleskillID'),
-			'characterSkillsets' => array(self::HAS_MANY, 'CharacterSkillsets', 'pos10ID'),
-			'characterSkillsets1' => array(self::HAS_MANY, 'CharacterSkillsets', 'pos9ID'),
+			'characterSkillsets' => array(self::HAS_MANY, 'CharacterSkillsets', 'pos9ID'),
+			'characterSkillsets1' => array(self::HAS_MANY, 'CharacterSkillsets', 'pos10ID'),
 			'characterSkillsets2' => array(self::HAS_MANY, 'CharacterSkillsets', 'pos1ID'),
 			'characterSkillsets3' => array(self::HAS_MANY, 'CharacterSkillsets', 'pos2ID'),
 			'characterSkillsets4' => array(self::HAS_MANY, 'CharacterSkillsets', 'pos3ID'),
@@ -145,9 +152,14 @@ abstract class BaseBattleskill extends GxActiveRecord {
 			'subType' => Yii::t('app', 'Sub Type'),
 			'specialClass' => Yii::t('app', 'Special Class'),
 			'costEnergy' => Yii::t('app', 'Cost Energy'),
+			'successRate' => Yii::t('app', 'Success Rate'),
 			'dealsDamage' => Yii::t('app', 'Deals Damage'),
+			'damageAttackFactorStat' => Yii::t('app', 'Damage Attack Factor Stat'),
 			'damageAttackFactor' => Yii::t('app', 'Damage Attack Factor'),
+			'damageAttackFactorCap' => Yii::t('app', 'Damage Attack Factor Cap'),
+			'damageBonusCap' => Yii::t('app', 'Damage Bonus Cap'),
 			'damageFixedAmount' => Yii::t('app', 'Damage Fixed Amount'),
+			'damageFixedAmountVariation' => Yii::t('app', 'Damage Fixed Amount Variation'),
 			'damageType' => Yii::t('app', 'Damage Type'),
 			'healing' => Yii::t('app', 'Healing'),
 			'createBattleeffectID' => null,
@@ -187,9 +199,14 @@ abstract class BaseBattleskill extends GxActiveRecord {
 		$criteria->compare('subType', $this->subType, true);
 		$criteria->compare('specialClass', $this->specialClass, true);
 		$criteria->compare('costEnergy', $this->costEnergy);
+		$criteria->compare('successRate', $this->successRate, true);
 		$criteria->compare('dealsDamage', $this->dealsDamage);
+		$criteria->compare('damageAttackFactorStat', $this->damageAttackFactorStat, true);
 		$criteria->compare('damageAttackFactor', $this->damageAttackFactor, true);
+		$criteria->compare('damageAttackFactorCap', $this->damageAttackFactorCap);
+		$criteria->compare('damageBonusCap', $this->damageBonusCap);
 		$criteria->compare('damageFixedAmount', $this->damageFixedAmount);
+		$criteria->compare('damageFixedAmountVariation', $this->damageFixedAmountVariation);
 		$criteria->compare('damageType', $this->damageType, true);
 		$criteria->compare('healing', $this->healing);
 		$criteria->compare('createBattleeffectID', $this->createBattleeffectID);
