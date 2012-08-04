@@ -226,7 +226,8 @@ class Battleeffect extends BaseBattleeffect {
         if($this->blocks &&
            $this->active &&
            $event->sender->getCombatantString($event->hero) == $this->enemyString &&
-           !$event->action->blocked) {
+           !$event->action->blocked &&
+           $event->action->battlePhase == "offense") {
             
             if($this->blockChance != 1) {
                 $rand = mt_rand(0,100);
@@ -265,14 +266,14 @@ class Battleeffect extends BaseBattleeffect {
      * "Override" and extend by SpecialnessBehavior classes as necessary
      * @param BattleActionDamageEvent $event 
      */
-    public function reactToOnBeforeDealingDamage($event) { }
+    public function reactToOnBeforeDealDamage($event) { }
     /**
      * Empty event handler. Only there to have a fallback function if
      * a SpecialnessBehavior class does not provide it.
      * "Override" and extend by SpecialnessBehavior classes as necessary
      * @param CEvent $event 
      */
-    public function reactToOnAfterDealingDamage($event) { }
+    public function reactToOnAfterDealtDamage($event) { }
     /**
      * Empty event handler. Only there to have a fallback function if
      * a SpecialnessBehavior class does not provide it.
