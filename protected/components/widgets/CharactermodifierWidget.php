@@ -24,16 +24,19 @@ class CharactermodifierWidget extends CWidget {
     }
     
     /**
-     * Returns a HTML prefix depending on $number
+     * Returns a HTML mantle depending on $number
      * Used by charactermodifier.php view file
      * @param float $number
+     * @param string $string
+     * @param bool $plusSign whether a plus sign should be added for positive
+     * numbers
      * @return string 
      */
-    public function getColorPrefix($number) {
+    public function addColor($number, $string, $plusSign = true) {
         if($number > 0) {
-            return "<span style='color: green'>+";
+            return "<span style='color: green'>" . ($plusSign ? "+" : "") . $string . "</span>";
         } else {
-            return "<span style='color: red'>";
+            return "<span style='color: red'>" . $string . "</span>";
         }
     }    
 }
