@@ -27,6 +27,7 @@ class Battleskill extends BaseBattleskill {
      * Resolves the Battleskill by calling other functions to take care of basic
      * Skill mechanics
      * @uses checkBlocked
+     * @uses checkSuccess
      * @uses dealDamage
      * @uses createEffects
      * @param Battle $battle
@@ -35,6 +36,9 @@ class Battleskill extends BaseBattleskill {
      */
     public function resolve($battle, $hero, $enemy) {
         if(!$this->call("checkBlocked", $battle, $hero, $enemy)) {
+            return;
+        }
+        if(!$this->call("checkSuccess", $battle, $hero, $enemy)) {
             return;
         }
 
@@ -71,6 +75,29 @@ class Battleskill extends BaseBattleskill {
     }
     
     /**
+     * Checks if this Battleskill is used successfully 
+     * (RNG based on successRate)
+     * @param Battle $battle
+     * @param CombatantBehavior $hero Model record with CombatantBehavior
+     * @param CombatantBehavior $enemy Model record with CombatantBehavior
+     * @return bool success: true, failure: false
+     */
+    public function checkSuccess($battle, $hero, $enemy) {
+        if($this->successRate == 1) {
+            return true;
+        } else {
+            if(mt_rand(0, 100) > $this->successRate * 100) {
+                $battleMsg = new Battlemessage("", $this);
+                $battleMsg->setResult("failed");
+                $battle->log($hero, $battleMsg);
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+    
+    /**
      * Basic Battleeffect creation
      * @param Battle $battle
      * @param CombatantBehavior $hero Model record with CombatantBehavior
@@ -104,6 +131,9 @@ class Battleskill extends BaseBattleskill {
      * @param Battle $battle
      * @param CombatantBehavior $hero Model record with CombatantBehavior
      * @param CombatantBehavior $enemy Model record with CombatantBehavior
+     * @uses getDamageFixedAmount
+     * @uses getDamageAttackStatBonus
+     * @uses getCritFactor
      * @uses onBeforeDealingDamage
      * @uses onAfterDealingDamage
      * @uses BattleActionDamageEvent
@@ -111,24 +141,42 @@ class Battleskill extends BaseBattleskill {
      */
     public function dealDamage($battle, $hero, $enemy) {
         if($this->dealsDamage) {
-            $damage = $this->damageFixedAmount;
             $damageType = $this->damageType;
 
-            if ($this->costEnergy == 0) {
-                $damage += $this->damageAttackFactor * $hero->getNormalAttack();
-            } else {
-                $damage += $this->damageAttackFactor * $hero->getSpecialAttack();
-            }
-
+            // Fixed amount + variation
+            $damage = $this->call("getDamageFixedAmount");
+            // Attack stat bonus (resoluteness or willpower) + cap of said bonus
+            $damage += $this->call("getDamageAttackStatBonus", $hero);
+            /**
+             * Critical hit factor
+             * 2 for critical hits [typically], 1 for normal hits
+             */
+            $critFactor = $this->call("getCritFactor", $hero);
+            $damage *= $critFactor;
+            
             // Bonus collection
             $event = new BattleActionDamageEvent($battle, $hero, $enemy, $this, 
                     $damage, $damageType);
-            $battle->onBeforeDealingDamage($event);
+            // raise 2x
+            $battle->onBeforeDealDamage($event);
+            $hero->onCalcBonusDamage($event, $damageType);
+            $damage = $event->adjustStat($damage);
+            
+            // Adjust damage based on hero's attack and enemy's defense rating
+            $damage *= $this->call("getAttDefDifferenceFactor", 
+                            $hero->getAttack($this->damageAttackFactorStat) - $enemy->getDefense());
+            
+            /**
+             * Actually inflict damage
+             * This returns an integer >= 0
+             */
+            $damageDone = $enemy->takeDamage($damage, $damageType);
 
-            $damageAdjusted = max(0, floor($event->adjustStat($damage)));
-            $damageDone = $enemy->takeDamage($damageAdjusted, $damageType);
-
-            $battleMsg = new Battlemessage(sprintf($this->call("getMsgResolved"), $hero->name), $this);
+            $battleMsg = new Battlemessage(
+                    ($critFactor > 1
+                        ? "<span class='label label-important'>Critical Hit!</span> " : "") . 
+                    sprintf($this->call("getMsgResolved"), $hero->name), 
+                    $this);
             $battleMsg->setResult("damage", $damageDone, $damageType);
             $battle->log($hero, $battleMsg);
             
@@ -137,7 +185,81 @@ class Battleskill extends BaseBattleskill {
                     $hero, $enemy, $this, 
                     $damageDone, $damageType
             );
-            $battle->onAfterDealingDamage($event);
+            $battle->onAfterDealtDamage($event);
+        }
+    }
+    
+    /**
+     * Returns damageFixedAmount + variation
+     * (based on damageFixedAmountVariation)
+     * @return float
+     */
+    public function getDamageFixedAmount() {
+        $damage = $this->damageFixedAmount;
+        // Variations
+        if(!empty($this->damageFixedAmountVariation)) {
+            $damage += mt_rand(0, $this->damageFixedAmountVariation);
+            $damage -= mt_rand(0, $this->damageFixedAmountVariation);
+        }
+        return $damage;
+    }
+    
+    /**
+     * Returns attack stat based bonus damage
+     * @param CombatantBehavior $hero Model record with CombatantBehavior
+     * @return float
+     */
+    public function getDamageAttackStatBonus($hero) {
+        switch ($this->damageAttackFactorStat) {
+            case "resoluteness":
+            case "willpower":
+                $attackStat = $hero->getAttack($this->damageAttackFactorStat);
+                break;
+            default:
+                $attackStat = 0;
+                break;
+        }
+        $damageAttackBonus = $this->damageAttackFactor * $attackStat;
+        
+        // Limit attack stat based bonus if a limit is defined
+        if(!empty($this->damageAttackFactorCap)) {
+            $damageAttackBonus = min($damageAttackBonus, $this->damageAttackFactorCap);
+        }
+        
+        return $damageAttackBonus;
+    }
+    
+    /**
+     * Returns the crit factor (1 if not crit, 2 if crit)
+     * @param CombatantBehavior $hero Model record with CombatantBehavior
+     * @return float
+     */
+    public function getCritFactor($hero) {
+        $critFactor = 1;
+        
+        // Get crit chance bonus
+        $event = new CollectBonusEvent($this);
+        $hero->onCalcCritChance($event);
+        $critChance = 5 + $event->getBonusPerc();
+
+        if(mt_rand(0, 100) <= $critChance) {
+            $critFactor = 2;
+        }
+        return $critFactor;
+    }
+    
+    /**
+     * Returns the damage modifier based on the difference of hero's
+     * attack stat and enemy's defense stat
+     * @param int $difference
+     * @return float
+     */
+    public function getAttDefDifferenceFactor($difference) {
+        // @todo load precalculated modifiers?
+        if($difference < 0) {
+            return (0.1 + 0.9 * pow(10/11, abs($difference)));
+        } else {
+            return (1 + 0.12 * pow($difference, 0.95));
         }
     }
     
