@@ -40,6 +40,12 @@ class Quest extends BaseQuest {
     public $params = array();
     
     /**
+     * Previous string, in case the state was changed during the current action
+     * @var string
+     */
+    public $previousState;
+    
+    /**
      * Initializes the quest:
      * - Sets links to a Character and the CharacterQuests record
      * - If ongoing: Hooks into Character's events and
@@ -119,6 +125,8 @@ class Quest extends BaseQuest {
                                "ongoing", "failed", "succeeded", "completed");
         if(in_array($state, $allowedStates) && 
                 $state != $this->CharacterQuest->state) {
+            
+            $this->previousState = $this->CharacterQuest->state;
             
             $this->CharacterQuest->state = $state;
             if($update) {
@@ -328,7 +336,9 @@ class Quest extends BaseQuest {
 
     /**
      * Event handler
-     * Standard reaction: set visible = 1
+     * Standard reaction: 
+     * - set visible = 1
+     * - generate flash message (disabled)
      * @param QuestChangeStateEvent $event 
      */
     public function reactToOnOngoing($event) { 
@@ -336,6 +346,12 @@ class Quest extends BaseQuest {
             $this->CharacterQuest->visible = 1;
             $this->CharacterQuest->update();
         }
+        /*
+        if(empty($this->desc)) {
+            $this->refresh();
+        }
+        EUserFlash::setMessage("You've started a new project:<BR />" . $this->call("getDesc"));
+        */
     }
     /**
      * Wrapper for reactToOnOngoing which makes it possible to use
@@ -349,10 +365,16 @@ class Quest extends BaseQuest {
     
     /**
      * Event handler
-     * Quasi-abstract; "override" by SpecialnessBehavior classes.
+     * Standard behavior:
+     * - generate flash message
      * @param QuestChangeStateEvent $event 
      */
-    public function reactToOnFailed($event) { }
+    public function reactToOnFailed($event) {
+        if(empty($this->desc)) {
+            $this->refresh();
+        }
+        EUserFlash::setMessage("You've failed in the following project:<BR />" . $this->call("getDesc"));
+    }
     /**
      * Wrapper for reactToOnFailed which makes it possible to use
      * $this->call('reactToOnFailed') as a callback in initialize
@@ -365,10 +387,16 @@ class Quest extends BaseQuest {
 
     /**
      * Event handler
-     * Quasi-abstract; "override" by SpecialnessBehavior classes.
+     * Standard behavior:
+     * - generate flash message
      * @param QuestChangeStateEvent $event 
      */
-    public function reactToOnSucceeded($event) { }
+    public function reactToOnSucceeded($event) {
+        if(empty($this->desc)) {
+            $this->refresh();
+        }
+        EUserFlash::setSuccessMessage("You've succeeded in the following project:<BR />" . $this->call("getDesc"));
+    }
     /**
      * Wrapper for reactToOnSucceeded which makes it possible to use
      * $this->call('reactToOnSucceeded') as a callback in initialize
@@ -398,8 +426,6 @@ class Quest extends BaseQuest {
     public function callReactToOnCompleted($event) {
         $this->call('reactToOnCompleted', $event);
     }
-    
-    
     
     /**
      * Returns a list of CBehaviors to be attached to this Model

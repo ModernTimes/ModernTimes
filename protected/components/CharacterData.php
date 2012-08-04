@@ -183,9 +183,10 @@ class CharacterData extends CApplicationComponent {
          */
         foreach($this->_model->characterQuests as $characterQuest) {
             if($characterQuest->state != "completed" &&
-                    $characterQuest->state != "failed")
+                    $characterQuest->state != "failed") {
                 
-            $characterQuest->quest->call("initialize", $this->_model, $characterQuest);
+                $characterQuest->quest->call("initialize", $this->_model, $characterQuest);
+            }
         }
         
         PQPLogRoute::logMemory($this, "Completely loaded character data model");
