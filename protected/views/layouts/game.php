@@ -4,6 +4,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
 
+        <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/game.css" rel="stylesheet">
+            
 <?php 
 /**
 For new bootstrap extension. To be fixed later.
