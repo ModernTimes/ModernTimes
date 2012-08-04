@@ -11,13 +11,12 @@
     <?php 
     $ongoingTodos = 0;
     foreach($CharacterQuests as $CharacterQuest) {
-        if($CharacterQuest->visible &&
-                ($CharacterQuest->state == "ongoing" ||
-                 $CharacterQuest->state == "succeeded")) {
+        if($CharacterQuest->state == "ongoing" ||
+                $CharacterQuest->state == "succeeded") {
             
-            echo "<p style=\"margin-bottom: 1.6em\">" . 
-                $CharacterQuest->quest->call('getDesc') . 
-                "</p>";
+            $this->widget('QuestWidget', array(
+                "CharacterQuest" => $CharacterQuest
+            )); 
             $ongoingTodos++;
         }
     } 
@@ -25,19 +24,17 @@
         echo "<p>You have no unfinished business right now.</p>";
     }
     ?>
-
-    <h2 align="center" style="margin-bottom: 0.4em">Past projects</h2>
+        
+    <h2 align="center" style="margin: 1em 0 0.4em 0">Past projects</h2>
 
     <?php foreach($CharacterQuests as $CharacterQuest) {
-        if($CharacterQuest->visible && 
-                ($CharacterQuest->state == "completed" ||
+        if($CharacterQuest->state == "completed" ||
                  $CharacterQuest->state == "failed" ||
-                 $CharacterQuest->state == "rejected")) {
+                 $CharacterQuest->state == "rejected") {
             
-            echo "<p style=\"margin-bottom: 1.6em\">" . 
-                "<span class='label'>" . ucfirst($CharacterQuest->state) . "</span> " .
-                $CharacterQuest->quest->call('getDesc') . 
-                "</p>";
+            $this->widget('QuestWidget', array(
+                "CharacterQuest" => $CharacterQuest
+            )); 
         }
     } ?>
     
