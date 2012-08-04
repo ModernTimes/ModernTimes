@@ -100,7 +100,9 @@ class Quest extends BaseQuest {
      * 
      * @return string empty
      */
-    public function getDescStatus() { return ""; }
+    public function getDescStatus() { 
+        return ""; 
+    }
     
     /**
      * - Sets the current state of the quest

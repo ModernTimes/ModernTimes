@@ -904,14 +904,21 @@ class Character extends BaseCharacter {
     }    
     
     /**
+     * Since some quest data is laoded in CharacterData, we need
+     * to be able to find out if the full data has been loaded or not
+     * @var bool
+     */
+    private $hasRelatedQuestsFull = false;
+    /**
      * Lazy loading of CharacterQuests records
      */
     public function loadQuests() {
-        if(!$this->hasRelated("characterQuests")) {
+        if(!$this->hasRelatedQuestsFull) {
             $characterQuests = CharacterQuests::model()->withRelated()->findAll(
                 't.characterID=:characterID', 
                 array(':characterID'=>$this->id));
             $this->characterQuests = $characterQuests;
+            $this->hasRelatedQuestsFull = true;
         }
     }
     
@@ -1103,7 +1110,7 @@ class Character extends BaseCharacter {
      * @return mixed CharacterEquipments or null
      */
     public function getEquipment() {
-        $this->loadEquipments();
+        // $this->loadEquipments();
         foreach($this->characterEquipments as $equipment) {
             if($equipment->active == 1) {
                 return $equipment;
