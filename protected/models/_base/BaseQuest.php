@@ -6,6 +6,7 @@
  * - integer id
  * - string name
  * - string specialClass
+ * - integer rejectable
  * - string desc
  *
  * - CharacterQuests characterQuests
@@ -64,9 +65,11 @@ abstract class BaseQuest extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('name, specialClass, desc', 'required'),
+			array('rejectable', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			array('specialClass', 'length', 'max'=>50),
-			array('id, name, specialClass, desc', 'safe', 'on'=>'search'),
+			array('rejectable', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, name, specialClass, rejectable, desc', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -100,6 +103,7 @@ abstract class BaseQuest extends GxActiveRecord {
 			'id' => Yii::t('app', 'ID'),
 			'name' => Yii::t('app', 'Name'),
 			'specialClass' => Yii::t('app', 'Special Class'),
+			'rejectable' => Yii::t('app', 'Rejectable'),
 			'desc' => Yii::t('app', 'Desc'),
 			'characterQuests' => null,
 			'requirements' => null,
@@ -118,6 +122,7 @@ abstract class BaseQuest extends GxActiveRecord {
 		$criteria->compare('id', $this->id);
 		$criteria->compare('name', $this->name, true);
 		$criteria->compare('specialClass', $this->specialClass, true);
+		$criteria->compare('rejectable', $this->rejectable);
 		$criteria->compare('desc', $this->desc, true);
 
 		return new CActiveDataProvider($this, array(
