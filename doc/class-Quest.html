@@ -64,6 +64,8 @@
 						</li>
 				<li><a href="package-Actions.Inventory.html">Inventory</a>
 						</li>
+				<li><a href="package-Actions.Quests.html">Quests</a>
+						</li>
 				<li><a href="package-Actions.Shopping.html">Shopping</a>
 						</li>
 							</ul></li>
@@ -198,6 +200,8 @@ GxActiveRecord
 				<code><code><a href="class-CharacterQuests.html">CharacterQuests</a></code></code> <br />
 				<b>Used by:</b>
 				<code><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code></code> <br />
+				<b>Used by:</b>
+				<code><code><a href="class-QuestWidget.html">QuestWidget</a></code></code> <br />
 		<b>Located at</b> <a href="source-class-Quest.html#7" title="Go to source code">protected/models/Quest.php</a><br />
 	</div>
 
@@ -215,7 +219,7 @@ GxActiveRecord
 
 			<td class="name"><div>
 			<a class="anchor" href="#_initialize">#</a>
-			<code><a href="source-class-Quest.html#42" title="Go to source code">initialize</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$Character</var></span>, <span><code><a href="class-CharacterQuests.html">CharacterQuests</a></code> <var>$CharacterQuest</var></span> )</code>
+			<code><a href="source-class-Quest.html#48" title="Go to source code">initialize</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$Character</var></span>, <span><code><a href="class-CharacterQuests.html">CharacterQuests</a></code> <var>$CharacterQuest</var></span> )</code>
 
 			<div class="description short">
 				
@@ -286,7 +290,7 @@ GxActiveRecord
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setInitialParams">#</a>
-			<code><a href="source-class-Quest.html#80" title="Go to source code">setInitialParams</a>( )</code>
+			<code><a href="source-class-Quest.html#86" title="Go to source code">setInitialParams</a>( )</code>
 
 			<div class="description short">
 				
@@ -325,7 +329,7 @@ parameters for the quest, e.g. counters, flags, etc.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getDesc">#</a>
-			<code><a href="source-class-Quest.html#86" title="Go to source code">getDesc</a>( )</code>
+			<code><a href="source-class-Quest.html#92" title="Go to source code">getDesc</a>( )</code>
 
 			<div class="description short">
 				
@@ -368,7 +372,7 @@ status of this Quest (from the Character's point of view)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getDescStatus">#</a>
-			<code><a href="source-class-Quest.html#96" title="Go to source code">getDescStatus</a>( )</code>
+			<code><a href="source-class-Quest.html#102" title="Go to source code">getDescStatus</a>( )</code>
 
 			<div class="description short">
 				
@@ -413,7 +417,7 @@ Character's point of view)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setState">#</a>
-			<code><a href="source-class-Quest.html#105" title="Go to source code">setState</a>( <span>string <var>$state</var></span>, <span>boolean <var>$update</var> = <span class="php-keyword1">true</span></span> )</code>
+			<code><a href="source-class-Quest.html#113" title="Go to source code">setState</a>( <span>string <var>$state</var></span>, <span>boolean <var>$update</var> = <span class="php-keyword1">true</span></span> )</code>
 
 			<div class="description short">
 				
@@ -471,7 +475,7 @@ Character's point of view)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_saveParams">#</a>
-			<code><a href="source-class-Quest.html#134" title="Go to source code">saveParams</a>( <span>boolean <var>$update</var> = <span class="php-keyword1">true</span></span> )</code>
+			<code><a href="source-class-Quest.html#144" title="Go to source code">saveParams</a>( <span>boolean <var>$update</var> = <span class="php-keyword1">true</span></span> )</code>
 
 			<div class="description short">
 				
@@ -513,7 +517,7 @@ Character's point of view)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_loadParams">#</a>
-			<code><a href="source-class-Quest.html#150" title="Go to source code">loadParams</a>( )</code>
+			<code><a href="source-class-Quest.html#160" title="Go to source code">loadParams</a>( )</code>
 
 			<div class="description short">
 				
@@ -556,7 +560,7 @@ $this-&gt;CharacterQuest-&gt;questState</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_attachToCharacter">#</a>
-			<code><a href="source-class-Quest.html#161" title="Go to source code">attachToCharacter</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$Character</var></span> )</code>
+			<code><a href="source-class-Quest.html#171" title="Go to source code">attachToCharacter</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$Character</var></span> )</code>
 
 			<div class="description short">
 				
@@ -596,7 +600,7 @@ class's event handlers to the Character's events</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_detachFromCharacter">#</a>
-			<code><a href="source-class-Quest.html#169" title="Go to source code">detachFromCharacter</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$Character</var></span> )</code>
+			<code><a href="source-class-Quest.html#179" title="Go to source code">detachFromCharacter</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$Character</var></span> )</code>
 
 			<div class="description short">
 				
@@ -636,7 +640,7 @@ class's event handlers from the Character's events</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onChangeState">#</a>
-			<code><a href="source-class-Quest.html#177" title="Go to source code">onChangeState</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#187" title="Go to source code">onChangeState</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -678,7 +682,7 @@ class's event handlers from the Character's events</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onUnavailable">#</a>
-			<code><a href="source-class-Quest.html#184" title="Go to source code">onUnavailable</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#194" title="Go to source code">onUnavailable</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -716,7 +720,7 @@ class's event handlers from the Character's events</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onAvailable">#</a>
-			<code><a href="source-class-Quest.html#191" title="Go to source code">onAvailable</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#201" title="Go to source code">onAvailable</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -754,7 +758,7 @@ class's event handlers from the Character's events</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onRejected">#</a>
-			<code><a href="source-class-Quest.html#198" title="Go to source code">onRejected</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#208" title="Go to source code">onRejected</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -792,7 +796,7 @@ class's event handlers from the Character's events</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onOngoing">#</a>
-			<code><a href="source-class-Quest.html#205" title="Go to source code">onOngoing</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#215" title="Go to source code">onOngoing</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -830,7 +834,7 @@ class's event handlers from the Character's events</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onFailed">#</a>
-			<code><a href="source-class-Quest.html#212" title="Go to source code">onFailed</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#222" title="Go to source code">onFailed</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -868,7 +872,7 @@ class's event handlers from the Character's events</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onSucceeded">#</a>
-			<code><a href="source-class-Quest.html#219" title="Go to source code">onSucceeded</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#229" title="Go to source code">onSucceeded</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -906,7 +910,7 @@ class's event handlers from the Character's events</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCompleted">#</a>
-			<code><a href="source-class-Quest.html#226" title="Go to source code">onCompleted</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#236" title="Go to source code">onCompleted</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -944,7 +948,7 @@ class's event handlers from the Character's events</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnChangeState">#</a>
-			<code><a href="source-class-Quest.html#234" title="Go to source code">reactToOnChangeState</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#244" title="Go to source code">reactToOnChangeState</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -987,7 +991,7 @@ class's event handlers from the Character's events</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_callReactToOnChangeState">#</a>
-			<code><a href="source-class-Quest.html#264" title="Go to source code">callReactToOnChangeState</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#274" title="Go to source code">callReactToOnChangeState</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1035,7 +1039,7 @@ $this-&gt;call('reactToOnChangeState') as a callback in initialize</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnUnavailable">#</a>
-			<code><a href="source-class-Quest.html#274" title="Go to source code">reactToOnUnavailable</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#284" title="Go to source code">reactToOnUnavailable</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1077,7 +1081,7 @@ $this-&gt;call('reactToOnChangeState') as a callback in initialize</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_callReactToOnUnavailable">#</a>
-			<code><a href="source-class-Quest.html#285" title="Go to source code">callReactToOnUnavailable</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#295" title="Go to source code">callReactToOnUnavailable</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1121,7 +1125,7 @@ $this-&gt;call('reactToOnUnavailable') as a callback in initialize</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnAvailable">#</a>
-			<code><a href="source-class-Quest.html#295" title="Go to source code">reactToOnAvailable</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#305" title="Go to source code">reactToOnAvailable</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1163,7 +1167,7 @@ $this-&gt;call('reactToOnUnavailable') as a callback in initialize</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_callReactToOnAvailable">#</a>
-			<code><a href="source-class-Quest.html#301" title="Go to source code">callReactToOnAvailable</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#311" title="Go to source code">callReactToOnAvailable</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1207,7 +1211,7 @@ $this-&gt;call('reactToOnAvailable') as a callback in initialize</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnRejected">#</a>
-			<code><a href="source-class-Quest.html#311" title="Go to source code">reactToOnRejected</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#321" title="Go to source code">reactToOnRejected</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1249,7 +1253,7 @@ $this-&gt;call('reactToOnAvailable') as a callback in initialize</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_callReactToOnRejected">#</a>
-			<code><a href="source-class-Quest.html#317" title="Go to source code">callReactToOnRejected</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#327" title="Go to source code">callReactToOnRejected</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1293,17 +1297,29 @@ $this-&gt;call('reactToOnRejected') as a callback in initialize</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnOngoing">#</a>
-			<code><a href="source-class-Quest.html#327" title="Go to source code">reactToOnOngoing</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#337" title="Go to source code">reactToOnOngoing</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
-<p>Event handler Standard reaction: set visible = 1</p>
+<p>Event handler Standard reaction:</p>
+
+<ul>
+	<li>set visible = 1</li>
+
+	<li>generate flash message (disabled)</li>
+</ul>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>Event handler Standard reaction: set visible = 1</p>
+<p>Event handler Standard reaction:</p>
+
+<ul>
+	<li>set visible = 1</li>
+
+	<li>generate flash message (disabled)</li>
+</ul>
 
 
 
@@ -1335,7 +1351,7 @@ $this-&gt;call('reactToOnRejected') as a callback in initialize</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_callReactToOnOngoing">#</a>
-			<code><a href="source-class-Quest.html#338" title="Go to source code">callReactToOnOngoing</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#356" title="Go to source code">callReactToOnOngoing</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1379,17 +1395,25 @@ $this-&gt;call('reactToOnOngoing') as a callback in initialize</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnFailed">#</a>
-			<code><a href="source-class-Quest.html#348" title="Go to source code">reactToOnFailed</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#366" title="Go to source code">reactToOnFailed</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
-<p>Event handler Quasi-abstract; "override" by SpecialnessBehavior classes.</p>
+<p>Event handler Standard behavior:</p>
+
+<ul>
+	<li>generate flash message</li>
+</ul>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>Event handler Quasi-abstract; "override" by SpecialnessBehavior classes.</p>
+<p>Event handler Standard behavior:</p>
+
+<ul>
+	<li>generate flash message</li>
+</ul>
 
 
 
@@ -1421,7 +1445,7 @@ $this-&gt;call('reactToOnOngoing') as a callback in initialize</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_callReactToOnFailed">#</a>
-			<code><a href="source-class-Quest.html#354" title="Go to source code">callReactToOnFailed</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#378" title="Go to source code">callReactToOnFailed</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1465,17 +1489,25 @@ $this-&gt;call('reactToOnFailed') as a callback in initialize</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnSucceeded">#</a>
-			<code><a href="source-class-Quest.html#364" title="Go to source code">reactToOnSucceeded</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#388" title="Go to source code">reactToOnSucceeded</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
-<p>Event handler Quasi-abstract; "override" by SpecialnessBehavior classes.</p>
+<p>Event handler Standard behavior:</p>
+
+<ul>
+	<li>generate flash message</li>
+</ul>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>Event handler Quasi-abstract; "override" by SpecialnessBehavior classes.</p>
+<p>Event handler Standard behavior:</p>
+
+<ul>
+	<li>generate flash message</li>
+</ul>
 
 
 
@@ -1507,7 +1539,7 @@ $this-&gt;call('reactToOnFailed') as a callback in initialize</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_callReactToOnSucceeded">#</a>
-			<code><a href="source-class-Quest.html#370" title="Go to source code">callReactToOnSucceeded</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#400" title="Go to source code">callReactToOnSucceeded</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1551,7 +1583,7 @@ $this-&gt;call('reactToOnSucceeded') as a callback in initialize</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnCompleted">#</a>
-			<code><a href="source-class-Quest.html#380" title="Go to source code">reactToOnCompleted</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#410" title="Go to source code">reactToOnCompleted</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1595,7 +1627,7 @@ $this-&gt;CharacterQuest</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_callReactToOnCompleted">#</a>
-			<code><a href="source-class-Quest.html#390" title="Go to source code">callReactToOnCompleted</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Quest.html#420" title="Go to source code">callReactToOnCompleted</a>( <span><code><a href="class-QuestChangeStateEvent.html">QuestChangeStateEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1639,7 +1671,7 @@ $this-&gt;call('reactToOnCompleted') as a callback in initialize</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_behaviors">#</a>
-			<code><a href="source-class-Quest.html#402" title="Go to source code">behaviors</a>( )</code>
+			<code><a href="source-class-Quest.html#430" title="Go to source code">behaviors</a>( )</code>
 
 			<div class="description short">
 				
@@ -1680,7 +1712,7 @@ $this-&gt;call('reactToOnCompleted') as a callback in initialize</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_model">#</a>
-			<code><a href="source-class-Quest.html#411" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
+			<code><a href="source-class-Quest.html#439" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
 
 			<div class="description short">
 				
@@ -1818,6 +1850,34 @@ quest for a Character</p>
 				<div class="description detailed hidden">
 					
 <p>Additional params to manage the Quest</p>
+
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="previousState" id="$previousState">
+
+			<td class="attributes"><code>
+				public 
+				string
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Quest.html#42" title="Go to source code"><var>$previousState</var></a>
+			</td>
+			<td class="value"><code></code></td>
+			<td class="description"><div>
+				<a href="#$previousState" class="anchor">#</a>
+
+				<div class="description short">
+					
+<p>Previous string, in case the state was changed during the current action</p>
+
+				</div>
+
+				<div class="description detailed hidden">
+					
+<p>Previous string, in case the state was changed during the current action</p>
 
 
 				</div>

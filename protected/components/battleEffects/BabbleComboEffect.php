@@ -29,7 +29,7 @@ class BabbleComboEffect extends CBehavior {
     public function attachToBattle($Battle) {
         $this->owner->attachToBattle($Battle);
         $Battle->onAfterAction = array($this, 'reactToOnAfterAction');
-        $Battle->onBeforeDealingDamage = array($this, 'reactToOnBeforeDealingDamage');
+        $Battle->onBeforeDealDamage = array($this, 'reactToOnBeforeDealDamage');
     }
 
     /**
@@ -49,7 +49,7 @@ class BabbleComboEffect extends CBehavior {
      * @param BattleActionDamageEvent $Event sender is a Skill
      * @return void
      */
-    public function reactToOnBeforeDealingDamage($Event) {
+    public function reactToOnBeforeDealDamage($Event) {
         if($this->owner->active &&
                 $Event->sender->getCombatantString($Event->hero) == $this->owner->heroString &&
                 $Event->action->subType == "babbling") {
@@ -69,7 +69,9 @@ class BabbleComboEffect extends CBehavior {
      * @return void
      */
     public function reactToOnAfterAction($event) {
-        if($event->sender->getCombatantString($event->hero) == $this->owner->heroString) {
+        if($this->owner->active &&
+                $event->sender->getCombatantString($event->hero) == $this->owner->heroString) {
+            
             if ($event->action->actionType == "personal" &&
                 $event->action->subType != "babbling") {
             
