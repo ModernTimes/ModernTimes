@@ -914,10 +914,30 @@ class Character extends BaseCharacter {
      */
     public function loadQuests() {
         if(!$this->hasRelatedQuestsFull) {
+            foreach($this->characterQuests as $CharacterQuest) {
+                if($CharacterQuest->state == "ongoing") {
+                    $CharacterQuest->quest->detachFromCharacter($this);
+                }
+            }
+            
             $characterQuests = CharacterQuests::model()->withRelated()->findAll(
                 't.characterID=:characterID', 
                 array(':characterID'=>$this->id));
             $this->characterQuests = $characterQuests;
+            
+            /**
+            * Initialize quests, i.e. hook into Character's events, set a link
+            * to a CharacterQuests record, and load params based on that record
+            * Only if $characterQuest is not done for yet!
+            */
+            foreach($this->characterQuests as $CharacterQuest) {
+                if($CharacterQuest->state != "completed" &&
+                        $CharacterQuest->state != "failed") {
+
+                    $CharacterQuest->quest->call("initialize", $this, $CharacterQuest);
+                }
+            }
+            
             $this->hasRelatedQuestsFull = true;
         }
     }
