@@ -239,6 +239,7 @@ Skill mechanics</p>
 					<h4>Uses</h4>
 					<div class="list">
 							<code><code><a href="class-Battleskill.html#_">Battleskill::checkBlocked()</a></code></code> <br />
+							<code><code><a href="class-Battleskill.html#_">Battleskill::checkSuccess()</a></code></code> <br />
 							<code><code><a href="class-Battleskill.html#_">Battleskill::dealDamage()</a></code></code> <br />
 							<code><code><a href="class-Battleskill.html#_">Battleskill::createEffects()</a></code></code> <br />
 					</div>
@@ -258,7 +259,7 @@ Skill mechanics</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_checkBlocked">#</a>
-			<code><a href="source-class-Battleskill.html#49" title="Go to source code">checkBlocked</a>( <span><code><a href="class-Battle.html">Battle</a></code> <var>$battle</var></span>, <span><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code> <var>$hero</var></span>, <span><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code> <var>$enemy</var></span> )</code>
+			<code><a href="source-class-Battleskill.html#53" title="Go to source code">checkBlocked</a>( <span><code><a href="class-Battle.html">Battle</a></code> <var>$battle</var></span>, <span><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code> <var>$hero</var></span>, <span><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code> <var>$enemy</var></span> )</code>
 
 			<div class="description short">
 				
@@ -297,6 +298,58 @@ Skill mechanics</p>
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="checkSuccess" id="_checkSuccess">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_checkSuccess">#</a>
+			<code><a href="source-class-Battleskill.html#77" title="Go to source code">checkSuccess</a>( <span><code><a href="class-Battle.html">Battle</a></code> <var>$battle</var></span>, <span><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code> <var>$hero</var></span>, <span><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code> <var>$enemy</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Checks if this Battleskill is used successfully (RNG based on
+successRate)</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Checks if this Battleskill is used successfully (RNG based on
+successRate)</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$battle</var></dt>
+						<dd><code><code><a href="class-Battle.html">Battle</a></code></code></dd>
+						<dt><var>$hero</var></dt>
+						<dd><code><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code></code><br> Model record with CombatantBehavior</dd>
+						<dt><var>$enemy</var></dt>
+						<dd><code><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code></code><br> Model record with CombatantBehavior</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br>success: true, failure: false<br />
+					</div>
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Battleskill.html#_">Battleskill::resolve()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="createEffects" id="_createEffects">
 
 			<td class="attributes"><code>
@@ -308,7 +361,7 @@ Skill mechanics</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_createEffects">#</a>
-			<code><a href="source-class-Battleskill.html#73" title="Go to source code">createEffects</a>( <span><code><a href="class-Battle.html">Battle</a></code> <var>$battle</var></span>, <span><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code> <var>$hero</var></span>, <span><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code> <var>$enemy</var></span>, <span>boolean <var>$log</var> = <span class="php-keyword1">true</span></span> )</code>
+			<code><a href="source-class-Battleskill.html#100" title="Go to source code">createEffects</a>( <span><code><a href="class-Battle.html">Battle</a></code> <var>$battle</var></span>, <span><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code> <var>$hero</var></span>, <span><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code> <var>$enemy</var></span>, <span>boolean <var>$log</var> = <span class="php-keyword1">true</span></span> )</code>
 
 			<div class="description short">
 				
@@ -356,7 +409,7 @@ Skill mechanics</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_dealDamage">#</a>
-			<code><a href="source-class-Battleskill.html#102" title="Go to source code">dealDamage</a>( <span><code><a href="class-Battle.html">Battle</a></code> <var>$battle</var></span>, <span><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code> <var>$hero</var></span>, <span><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code> <var>$enemy</var></span> )</code>
+			<code><a href="source-class-Battleskill.html#129" title="Go to source code">dealDamage</a>( <span><code><a href="class-Battle.html">Battle</a></code> <var>$battle</var></span>, <span><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code> <var>$hero</var></span>, <span><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code> <var>$enemy</var></span> )</code>
 
 			<div class="description short">
 				
@@ -384,6 +437,9 @@ Skill mechanics</p>
 
 					<h4>Uses</h4>
 					<div class="list">
+							<code><code><a href="class-Battleskill.html#_">Battleskill::getDamageFixedAmount()</a></code></code> <br />
+							<code><code><a href="class-Battleskill.html#_">Battleskill::getDamageAttackStatBonus()</a></code></code> <br />
+							<code><code><a href="class-Battleskill.html#_">Battleskill::getCritFactor()</a></code></code> <br />
 							onBeforeDealingDamage<br />
 							onAfterDealingDamage<br />
 							<code><code><a href="class-BattleActionDamageEvent.html">BattleActionDamageEvent</a></code></code> <br />
@@ -393,6 +449,185 @@ Skill mechanics</p>
 					<div class="list">
 							<code><code><a href="class-Battleskill.html#_">Battleskill::resolve()</a></code></code> <br />
 					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getDamageFixedAmount" id="_getDamageFixedAmount">
+
+			<td class="attributes"><code>
+				 public 
+				float
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getDamageFixedAmount">#</a>
+			<code><a href="source-class-Battleskill.html#192" title="Go to source code">getDamageFixedAmount</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns damageFixedAmount + variation (based on
+damageFixedAmountVariation)</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns damageFixedAmount + variation (based on
+damageFixedAmountVariation)</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>float</code><br />
+					</div>
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Battleskill.html#_">Battleskill::dealDamage()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getDamageAttackStatBonus" id="_getDamageAttackStatBonus">
+
+			<td class="attributes"><code>
+				 public 
+				float
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getDamageAttackStatBonus">#</a>
+			<code><a href="source-class-Battleskill.html#207" title="Go to source code">getDamageAttackStatBonus</a>( <span><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code> <var>$hero</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Returns attack stat based bonus damage</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns attack stat based bonus damage</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$hero</var></dt>
+						<dd><code><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code></code><br> Model record with CombatantBehavior</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>float</code><br />
+					</div>
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Battleskill.html#_">Battleskill::dealDamage()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getCritFactor" id="_getCritFactor">
+
+			<td class="attributes"><code>
+				 public 
+				float
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getCritFactor">#</a>
+			<code><a href="source-class-Battleskill.html#232" title="Go to source code">getCritFactor</a>( <span><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code> <var>$hero</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Returns the crit factor (1 if not crit, 2 if crit)</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns the crit factor (1 if not crit, 2 if crit)</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$hero</var></dt>
+						<dd><code><code><a href="class-CombatantBehavior.html">CombatantBehavior</a></code></code><br> Model record with CombatantBehavior</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>float</code><br />
+					</div>
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Battleskill.html#_">Battleskill::dealDamage()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getAttDefDifferenceFactor" id="_getAttDefDifferenceFactor">
+
+			<td class="attributes"><code>
+				 public 
+				float
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getAttDefDifferenceFactor">#</a>
+			<code><a href="source-class-Battleskill.html#251" title="Go to source code">getAttDefDifferenceFactor</a>( <span>integer <var>$difference</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Returns the damage modifier based on the difference of hero's attack stat and
+enemy's defense stat</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns the damage modifier based on the difference of hero's attack stat and
+enemy's defense stat</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$difference</var></dt>
+						<dd><code>integer</code></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>float</code><br />
+					</div>
+
+
 
 
 			</div>
@@ -409,7 +644,7 @@ Skill mechanics</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setBlocked">#</a>
-			<code><a href="source-class-Battleskill.html#144" title="Go to source code">setBlocked</a>( <span>boolean <var>$bool</var> = <span class="php-keyword1">true</span></span> )</code>
+			<code><a href="source-class-Battleskill.html#266" title="Go to source code">setBlocked</a>( <span>boolean <var>$bool</var> = <span class="php-keyword1">true</span></span> )</code>
 
 			<div class="description short">
 				
@@ -451,7 +686,7 @@ Skill mechanics</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getMsgResolved">#</a>
-			<code><a href="source-class-Battleskill.html#154" title="Go to source code">getMsgResolved</a>( )</code>
+			<code><a href="source-class-Battleskill.html#276" title="Go to source code">getMsgResolved</a>( )</code>
 
 			<div class="description short">
 				
@@ -494,7 +729,7 @@ BattleMessages</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getMsgIncreasedDuration">#</a>
-			<code><a href="source-class-Battleskill.html#162" title="Go to source code">getMsgIncreasedDuration</a>( )</code>
+			<code><a href="source-class-Battleskill.html#284" title="Go to source code">getMsgIncreasedDuration</a>( )</code>
 
 			<div class="description short">
 				
@@ -537,7 +772,7 @@ increased (instead of a new effect getting in place)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getPopup">#</a>
-			<code><a href="source-class-Battleskill.html#174" title="Go to source code">getPopup</a>( )</code>
+			<code><a href="source-class-Battleskill.html#296" title="Go to source code">getPopup</a>( )</code>
 
 			<div class="description short">
 				
@@ -576,7 +811,7 @@ Battleskill</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getLogDetails">#</a>
-			<code><a href="source-class-Battleskill.html#185" title="Go to source code">getLogDetails</a>( )</code>
+			<code><a href="source-class-Battleskill.html#307" title="Go to source code">getLogDetails</a>( )</code>
 
 			<div class="description short">
 				
@@ -615,7 +850,7 @@ popup</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_behaviors">#</a>
-			<code><a href="source-class-Battleskill.html#200" title="Go to source code">behaviors</a>( )</code>
+			<code><a href="source-class-Battleskill.html#322" title="Go to source code">behaviors</a>( )</code>
 
 			<div class="description short">
 				
@@ -656,7 +891,7 @@ popup</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_scopes">#</a>
-			<code><a href="source-class-Battleskill.html#211" title="Go to source code">scopes</a>( )</code>
+			<code><a href="source-class-Battleskill.html#333" title="Go to source code">scopes</a>( )</code>
 
 			<div class="description short">
 				
@@ -701,7 +936,7 @@ query.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_model">#</a>
-			<code><a href="source-class-Battleskill.html#231" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
+			<code><a href="source-class-Battleskill.html#353" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
 
 			<div class="description short">
 				

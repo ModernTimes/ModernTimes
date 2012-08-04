@@ -142,8 +142,8 @@
 
 	<div class="description">
 	
-<p>Gets attached to Character and Monster models to take care of certain
-battle-related tasks</p>
+<p>Gets attached to Character and Monster models. Provides event raisers for
+battles</p>
 
 	</div>
 
@@ -184,60 +184,7 @@ CModelBehavior
 
 		<h2>Methods summary</h2>
 		<table class="summary table table-bordered table-striped" id="methods">
-		<tr data-order="takeDamage" id="_takeDamage">
-
-			<td class="attributes"><code>
-				 public 
-				integer
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_takeDamage">#</a>
-			<code><a href="source-class-CombatantBehavior.html#12" title="Go to source code">takeDamage</a>( <span>integer <var>$damage</var></span>, <span>string <var>$damageType</var></span> )</code>
-
-			<div class="description short">
-				
-<p>returns how much damage the combatant actually suffered after damage
-reduction effects</p>
-
-			</div>
-
-			<div class="description detailed hidden">
-				
-<p>returns how much damage the combatant actually suffered after damage
-reduction effects</p>
-
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$damage</var></dt>
-						<dd><code>integer</code><br>$damage, how much damage the combatant is to take</dd>
-						<dt><var>$damageType</var></dt>
-						<dd><code>string</code><br> enum(normal|special)</dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code>integer</code><br />
-					</div>
-
-
-					<h4>Uses</h4>
-					<div class="list">
-							<code><code><a href="class-CombatantBehavior.html#_">CombatantBehavior::onBeforeTakingDamage()</a></code></code> <br />
-							<code><code><a href="class-CombatantBehavior.html#_">CombatantBehavior::onAfterTakingDamage()</a></code></code> <br />
-							<code><code><a href="class-CombatantTakeDamageEvent.html">CombatantTakeDamageEvent</a></code></code> <br />
-							CombatnatTakenDamageEvent<br />
-					</div>
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="onBeforeDealingDamage" id="_onBeforeDealingDamage">
+		<tr data-order="onBeforeTakeDamage" id="_onBeforeTakeDamage">
 
 			<td class="attributes"><code>
 				 public 
@@ -247,8 +194,8 @@ reduction effects</p>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_onBeforeDealingDamage">#</a>
-			<code><a href="source-class-CombatantBehavior.html#49" title="Go to source code">onBeforeDealingDamage</a>( <span>CEvent <var>$event</var></span> )</code>
+			<a class="anchor" href="#_onBeforeTakeDamage">#</a>
+			<code><a href="source-class-CombatantBehavior.html#12" title="Go to source code">onBeforeTakeDamage</a>( <span>CombatantTakeDamage <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -265,7 +212,7 @@ reduction effects</p>
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
+						<dd><code>CombatantTakeDamage</code></dd>
 					</dl></div>
 
 
@@ -275,7 +222,7 @@ reduction effects</p>
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="onAfterDealingDamage" id="_onAfterDealingDamage">
+		<tr data-order="onAfterTakenDamage" id="_onAfterTakenDamage">
 
 			<td class="attributes"><code>
 				 public 
@@ -285,8 +232,8 @@ reduction effects</p>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_onAfterDealingDamage">#</a>
-			<code><a href="source-class-CombatantBehavior.html#56" title="Go to source code">onAfterDealingDamage</a>( <span>CEvent <var>$event</var></span> )</code>
+			<a class="anchor" href="#_onAfterTakenDamage">#</a>
+			<code><a href="source-class-CombatantBehavior.html#19" title="Go to source code">onAfterTakenDamage</a>( <span>CombatantTakenDamage <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -303,95 +250,11 @@ reduction effects</p>
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
+						<dd><code>CombatantTakenDamage</code></dd>
 					</dl></div>
 
 
 
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="onBeforeTakingDamage" id="_onBeforeTakingDamage">
-
-			<td class="attributes"><code>
-				 public 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_onBeforeTakingDamage">#</a>
-			<code><a href="source-class-CombatantBehavior.html#63" title="Go to source code">onBeforeTakingDamage</a>( <span>CEvent <var>$event</var></span> )</code>
-
-			<div class="description short">
-				
-<p>Raises an event</p>
-
-			</div>
-
-			<div class="description detailed hidden">
-				
-<p>Raises an event</p>
-
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
-					</dl></div>
-
-
-
-					<h4>Used by</h4>
-					<div class="list">
-							<code><code><a href="class-CombatantBehavior.html#_">CombatantBehavior::takeDamage()</a></code></code> <br />
-					</div>
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="onAfterTakingDamage" id="_onAfterTakingDamage">
-
-			<td class="attributes"><code>
-				 public 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_onAfterTakingDamage">#</a>
-			<code><a href="source-class-CombatantBehavior.html#70" title="Go to source code">onAfterTakingDamage</a>( <span>CEvent <var>$event</var></span> )</code>
-
-			<div class="description short">
-				
-<p>Raises an event</p>
-
-			</div>
-
-			<div class="description detailed hidden">
-				
-<p>Raises an event</p>
-
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
-					</dl></div>
-
-
-
-					<h4>Used by</h4>
-					<div class="list">
-							<code><code><a href="class-CombatantBehavior.html#_">CombatantBehavior::takeDamage()</a></code></code> <br />
-					</div>
 
 
 			</div>

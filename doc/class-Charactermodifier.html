@@ -144,13 +144,25 @@
 couple of standard event listeners to stat calculation events in the Character
 model.</p>
 
-<p>implemented so far:</p>
+<p>Implemented so far:</p>
 
 <ul>
-	<li>dropCash/Favours/Kudos Abs/Perc</li>
+	<li>calcAttributes</li>
 
-	<li>dropItem Perc</li>
+	<li>calc combat stats (critChance, resistances, bonus damage)</li>
+
+	<li>dropCash/Favours/Kudos</li>
+
+	<li>dropItem chance</li>
 </ul>
+
+<p>If you add more event handlers, don't forget to add a line to
+detachFromCharacter()</p>
+
+<p>Can be "overridden" by specialness behavior classes for items, skills,
+etc.</p>
+
+<p>See BaseCharactermodifier for a list of attributes and related Models</p>
 
 	</div>
 
@@ -205,10 +217,7 @@ GxActiveRecord
 				<b>Used by:</b>
 				<code><code><a href="class-Encounter.html">Encounter</a></code></code> <br />
 				<b>Todo:</b>
-				gainXp/Resoluteness/Willpower/Cunning Abs/Perc If you add more event handlers,
-don't forget to add a line to detachFromCharacter() Can be "overridden" by
-specialness behavior classes for items, skills, etc. See BaseCharactermodifier
-for a list of attributes and related Models<br />
+				gainXp/Resoluteness/Willpower/Cunning Abs/Perc<br />
 		<b>Located at</b> <a href="source-class-Charactermodifier.html#6" title="Go to source code">protected/models/Charactermodifier.php</a><br />
 	</div>
 
@@ -226,7 +235,7 @@ for a list of attributes and related Models<br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#_attachToCharacter">#</a>
-			<code><a href="source-class-Charactermodifier.html#29" title="Go to source code">attachToCharacter</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$Character</var></span> )</code>
+			<code><a href="source-class-Charactermodifier.html#32" title="Go to source code">attachToCharacter</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$Character</var></span> )</code>
 
 			<div class="description short">
 				
@@ -267,7 +276,7 @@ for a list of attributes and related Models<br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#_detachFromCharacter">#</a>
-			<code><a href="source-class-Charactermodifier.html#66" title="Go to source code">detachFromCharacter</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$Character</var></span> )</code>
+			<code><a href="source-class-Charactermodifier.html#126" title="Go to source code">detachFromCharacter</a>( <span><code><a href="class-Character.html">Character</a></code> <var>$Character</var></span> )</code>
 
 			<div class="description short">
 				
@@ -305,7 +314,7 @@ for a list of attributes and related Models<br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnCalcHp">#</a>
-			<code><a href="source-class-Charactermodifier.html#86" title="Go to source code">reactToOnCalcHp</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Charactermodifier.html#168" title="Go to source code">reactToOnCalcHp</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -345,7 +354,7 @@ record's attributes</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnCalcEnergy">#</a>
-			<code><a href="source-class-Charactermodifier.html#95" title="Go to source code">reactToOnCalcEnergy</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Charactermodifier.html#177" title="Go to source code">reactToOnCalcEnergy</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -385,7 +394,7 @@ record's attributes</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnCalcResoluteness">#</a>
-			<code><a href="source-class-Charactermodifier.html#104" title="Go to source code">reactToOnCalcResoluteness</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Charactermodifier.html#186" title="Go to source code">reactToOnCalcResoluteness</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -425,7 +434,7 @@ record's attributes</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnCalcWillpower">#</a>
-			<code><a href="source-class-Charactermodifier.html#113" title="Go to source code">reactToOnCalcWillpower</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Charactermodifier.html#195" title="Go to source code">reactToOnCalcWillpower</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -465,19 +474,17 @@ record's attributes</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnCalcCunning">#</a>
-			<code><a href="source-class-Charactermodifier.html#122" title="Go to source code">reactToOnCalcCunning</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Charactermodifier.html#204" title="Go to source code">reactToOnCalcCunning</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
-<p>Basic event handler Adds bonusAbs und bonusPerc according to the Model
-record's attributes</p>
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>Basic event handler Adds bonusAbs und bonusPerc according to the Model
-record's attributes</p>
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
 
 
 
@@ -494,7 +501,7 @@ record's attributes</p>
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="reactToonGainCash" id="_reactToonGainCash">
+		<tr data-order="reactToOnCalcResistanceAbs" id="_reactToOnCalcResistanceAbs">
 
 			<td class="attributes"><code>
 				 public 
@@ -504,8 +511,692 @@ record's attributes</p>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_reactToonGainCash">#</a>
-			<code><a href="source-class-Charactermodifier.html#132" title="Go to source code">reactToonGainCash</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span>, <span>array <var>$acceptedSources</var> = <span class="php-keyword1">array</span>(<span class="php-quote">'battle'</span>)</span> )</code>
+			<a class="anchor" href="#_reactToOnCalcResistanceAbs">#</a>
+			<code><a href="source-class-Charactermodifier.html#214" title="Go to source code">reactToOnCalcResistanceAbs</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnCalcResistanceLevelNormal" id="_reactToOnCalcResistanceLevelNormal">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnCalcResistanceLevelNormal">#</a>
+			<code><a href="source-class-Charactermodifier.html#222" title="Go to source code">reactToOnCalcResistanceLevelNormal</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnCalcResistanceLevelEnvy" id="_reactToOnCalcResistanceLevelEnvy">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnCalcResistanceLevelEnvy">#</a>
+			<code><a href="source-class-Charactermodifier.html#230" title="Go to source code">reactToOnCalcResistanceLevelEnvy</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnCalcResistanceLevelGreed" id="_reactToOnCalcResistanceLevelGreed">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnCalcResistanceLevelGreed">#</a>
+			<code><a href="source-class-Charactermodifier.html#238" title="Go to source code">reactToOnCalcResistanceLevelGreed</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnCalcResistanceLevelGluttony" id="_reactToOnCalcResistanceLevelGluttony">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnCalcResistanceLevelGluttony">#</a>
+			<code><a href="source-class-Charactermodifier.html#246" title="Go to source code">reactToOnCalcResistanceLevelGluttony</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnCalcResistanceLevelLust" id="_reactToOnCalcResistanceLevelLust">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnCalcResistanceLevelLust">#</a>
+			<code><a href="source-class-Charactermodifier.html#254" title="Go to source code">reactToOnCalcResistanceLevelLust</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnCalcResistanceLevelPride" id="_reactToOnCalcResistanceLevelPride">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnCalcResistanceLevelPride">#</a>
+			<code><a href="source-class-Charactermodifier.html#262" title="Go to source code">reactToOnCalcResistanceLevelPride</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnCalcResistanceLevelSloth" id="_reactToOnCalcResistanceLevelSloth">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnCalcResistanceLevelSloth">#</a>
+			<code><a href="source-class-Charactermodifier.html#270" title="Go to source code">reactToOnCalcResistanceLevelSloth</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnCalcResistanceLevelWrath" id="_reactToOnCalcResistanceLevelWrath">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnCalcResistanceLevelWrath">#</a>
+			<code><a href="source-class-Charactermodifier.html#278" title="Go to source code">reactToOnCalcResistanceLevelWrath</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnCalcCritChance" id="_reactToOnCalcCritChance">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnCalcCritChance">#</a>
+			<code><a href="source-class-Charactermodifier.html#287" title="Go to source code">reactToOnCalcCritChance</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Basic event handler Adds bonusPerc</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Basic event handler Adds bonusPerc</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnCalcBonusDamageNormal" id="_reactToOnCalcBonusDamageNormal">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnCalcBonusDamageNormal">#</a>
+			<code><a href="source-class-Charactermodifier.html#296" title="Go to source code">reactToOnCalcBonusDamageNormal</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnCalcBonusDamageEnvy" id="_reactToOnCalcBonusDamageEnvy">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnCalcBonusDamageEnvy">#</a>
+			<code><a href="source-class-Charactermodifier.html#305" title="Go to source code">reactToOnCalcBonusDamageEnvy</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnCalcBonusDamageGreed" id="_reactToOnCalcBonusDamageGreed">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnCalcBonusDamageGreed">#</a>
+			<code><a href="source-class-Charactermodifier.html#314" title="Go to source code">reactToOnCalcBonusDamageGreed</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnCalcBonusDamageGluttony" id="_reactToOnCalcBonusDamageGluttony">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnCalcBonusDamageGluttony">#</a>
+			<code><a href="source-class-Charactermodifier.html#323" title="Go to source code">reactToOnCalcBonusDamageGluttony</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnCalcBonusDamageLust" id="_reactToOnCalcBonusDamageLust">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnCalcBonusDamageLust">#</a>
+			<code><a href="source-class-Charactermodifier.html#332" title="Go to source code">reactToOnCalcBonusDamageLust</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnCalcBonusDamagePride" id="_reactToOnCalcBonusDamagePride">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnCalcBonusDamagePride">#</a>
+			<code><a href="source-class-Charactermodifier.html#341" title="Go to source code">reactToOnCalcBonusDamagePride</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnCalcBonusDamageSloth" id="_reactToOnCalcBonusDamageSloth">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnCalcBonusDamageSloth">#</a>
+			<code><a href="source-class-Charactermodifier.html#350" title="Go to source code">reactToOnCalcBonusDamageSloth</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnCalcBonusDamageWrath" id="_reactToOnCalcBonusDamageWrath">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnCalcBonusDamageWrath">#</a>
+			<code><a href="source-class-Charactermodifier.html#359" title="Go to source code">reactToOnCalcBonusDamageWrath</a>( <span>CEvent <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Basic event handler Adds bonusAbs und bonusPerc</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code>CEvent</code><br> with BonusCollectorBehavior</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reactToOnGainCash" id="_reactToOnGainCash">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reactToOnGainCash">#</a>
+			<code><a href="source-class-Charactermodifier.html#370" title="Go to source code">reactToOnGainCash</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span>, <span>array <var>$acceptedSources</var> = <span class="php-keyword1">array</span>(<span class="php-quote">'battle'</span>)</span> )</code>
 
 			<div class="description short">
 				
@@ -536,7 +1227,7 @@ record's attributes Only reacts to gains from battles</p>
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="reactToonGainFavours" id="_reactToonGainFavours">
+		<tr data-order="reactToOnGainFavours" id="_reactToOnGainFavours">
 
 			<td class="attributes"><code>
 				 public 
@@ -546,8 +1237,8 @@ record's attributes Only reacts to gains from battles</p>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_reactToonGainFavours">#</a>
-			<code><a href="source-class-Charactermodifier.html#146" title="Go to source code">reactToonGainFavours</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span>, <span>array <var>$acceptedSources</var> = <span class="php-keyword1">array</span>(<span class="php-quote">'battle'</span>)</span> )</code>
+			<a class="anchor" href="#_reactToOnGainFavours">#</a>
+			<code><a href="source-class-Charactermodifier.html#384" title="Go to source code">reactToOnGainFavours</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span>, <span>array <var>$acceptedSources</var> = <span class="php-keyword1">array</span>(<span class="php-quote">'battle'</span>)</span> )</code>
 
 			<div class="description short">
 				
@@ -578,7 +1269,7 @@ record's attributes Only reacts to gains from battles</p>
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="reactToonGainKudos" id="_reactToonGainKudos">
+		<tr data-order="reactToOnGainKudos" id="_reactToOnGainKudos">
 
 			<td class="attributes"><code>
 				 public 
@@ -588,8 +1279,8 @@ record's attributes Only reacts to gains from battles</p>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_reactToonGainKudos">#</a>
-			<code><a href="source-class-Charactermodifier.html#160" title="Go to source code">reactToonGainKudos</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span>, <span>array <var>$acceptedSources</var> = <span class="php-keyword1">array</span>(<span class="php-quote">'battle'</span>)</span> )</code>
+			<a class="anchor" href="#_reactToOnGainKudos">#</a>
+			<code><a href="source-class-Charactermodifier.html#398" title="Go to source code">reactToOnGainKudos</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span>, <span>array <var>$acceptedSources</var> = <span class="php-keyword1">array</span>(<span class="php-quote">'battle'</span>)</span> )</code>
 
 			<div class="description short">
 				
@@ -631,7 +1322,7 @@ record's attributes Only reacts to gains from battles</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reactToOnCalcDropItemBonus">#</a>
-			<code><a href="source-class-Charactermodifier.html#175" title="Go to source code">reactToOnCalcDropItemBonus</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Charactermodifier.html#413" title="Go to source code">reactToOnCalcDropItemBonus</a>( <span>CEvent <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -671,7 +1362,7 @@ attributes</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_model">#</a>
-			<code><a href="source-class-Charactermodifier.html#185" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
+			<code><a href="source-class-Charactermodifier.html#423" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
 
 			<div class="description short">
 				

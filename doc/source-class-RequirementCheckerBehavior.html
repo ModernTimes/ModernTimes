@@ -285,7 +285,7 @@
 <a href="#148" id="148" class="l">148 </a>            }
 <a href="#149" id="149" class="l">149 </a>        }
 <a href="#150" id="150" class="l">150 </a>        <span class="php-keyword1">if</span>(<span class="php-var">$Requirement</span>-&gt;resoluteness &gt; <span class="php-num">0</span>) {
-<a href="#151" id="151" class="l">151 </a>            <span class="php-keyword1">if</span>(<span class="php-var">$Character</span>-&gt;getResolutenessBuffed() &lt; <span class="php-var">$Requirement</span>-&gt;resoluteness) {
+<a href="#151" id="151" class="l">151 </a>            <span class="php-keyword1">if</span>(<span class="php-var">$Character</span>-&gt;getResolutenessBase() &lt; <span class="php-var">$Requirement</span>-&gt;resoluteness) {
 <a href="#152" id="152" class="l">152 </a>                <span class="php-keyword1">if</span>(<span class="php-var">$generateMessages</span>) {
 <a href="#153" id="153" class="l">153 </a>                    EUserFlash::setErrorMessage(<span class="php-quote">&quot;You need to have &quot;</span> . <span class="php-var">$Requirement</span>-&gt;resoluteness . <span class="php-quote">&quot; resoluteness to do that&quot;</span>);
 <a href="#154" id="154" class="l">154 </a>                }
@@ -293,7 +293,7 @@
 <a href="#156" id="156" class="l">156 </a>            }
 <a href="#157" id="157" class="l">157 </a>        }
 <a href="#158" id="158" class="l">158 </a>        <span class="php-keyword1">if</span>(<span class="php-var">$Requirement</span>-&gt;willpower &gt; <span class="php-num">0</span>) {
-<a href="#159" id="159" class="l">159 </a>            <span class="php-keyword1">if</span>(<span class="php-var">$Character</span>-&gt;getWillpowerBuffed() &lt; <span class="php-var">$Requirement</span>-&gt;willpower) {
+<a href="#159" id="159" class="l">159 </a>            <span class="php-keyword1">if</span>(<span class="php-var">$Character</span>-&gt;getWillpowerBase() &lt; <span class="php-var">$Requirement</span>-&gt;willpower) {
 <a href="#160" id="160" class="l">160 </a>                <span class="php-keyword1">if</span>(<span class="php-var">$generateMessages</span>) {
 <a href="#161" id="161" class="l">161 </a>                    EUserFlash::setErrorMessage(<span class="php-quote">&quot;You need to have &quot;</span> . <span class="php-var">$Requirement</span>-&gt;willpower . <span class="php-quote">&quot; willpower to do that&quot;</span>);
 <a href="#162" id="162" class="l">162 </a>                }
@@ -301,7 +301,7 @@
 <a href="#164" id="164" class="l">164 </a>            }
 <a href="#165" id="165" class="l">165 </a>        }
 <a href="#166" id="166" class="l">166 </a>        <span class="php-keyword1">if</span>(<span class="php-var">$Requirement</span>-&gt;cunning &gt; <span class="php-num">0</span>) {
-<a href="#167" id="167" class="l">167 </a>            <span class="php-keyword1">if</span>(<span class="php-var">$Character</span>-&gt;getCunningBuffed() &lt; <span class="php-var">$Requirement</span>-&gt;cunning) {
+<a href="#167" id="167" class="l">167 </a>            <span class="php-keyword1">if</span>(<span class="php-var">$Character</span>-&gt;getCunningBase() &lt; <span class="php-var">$Requirement</span>-&gt;cunning) {
 <a href="#168" id="168" class="l">168 </a>                <span class="php-keyword1">if</span>(<span class="php-var">$generateMessages</span>) {
 <a href="#169" id="169" class="l">169 </a>                    EUserFlash::setErrorMessage(<span class="php-quote">&quot;You need to have &quot;</span> . <span class="php-var">$Requirement</span>-&gt;cunning . <span class="php-quote">&quot; cunning to do that&quot;</span>);
 <a href="#170" id="170" class="l">170 </a>                }
@@ -309,7 +309,7 @@
 <a href="#172" id="172" class="l">172 </a>            }
 <a href="#173" id="173" class="l">173 </a>        }
 <a href="#174" id="174" class="l">174 </a>        <span class="php-keyword1">if</span>(<span class="php-var">$Requirement</span>-&gt;mainstat &gt; <span class="php-num">0</span>) {
-<a href="#175" id="175" class="l">175 </a>            <span class="php-keyword1">if</span>(<span class="php-var">$Character</span>-&gt;getMainstatBuffed() &lt; <span class="php-var">$Requirement</span>-&gt;mainstat) {
+<a href="#175" id="175" class="l">175 </a>            <span class="php-keyword1">if</span>(<span class="php-var">$Character</span>-&gt;getMainstatBase() &lt; <span class="php-var">$Requirement</span>-&gt;mainstat) {
 <a href="#176" id="176" class="l">176 </a>                <span class="php-keyword1">if</span>(<span class="php-var">$generateMessages</span>) {
 <a href="#177" id="177" class="l">177 </a>                    EUserFlash::setErrorMessage(<span class="php-quote">&quot;You need to have &quot;</span> . <span class="php-var">$Requirement</span>-&gt;mainstat . <span class="php-quote">&quot; &quot;</span> . <span class="php-var">$Character</span>-&gt;getClassType() . <span class="php-quote">&quot; to do that&quot;</span>);
 <a href="#178" id="178" class="l">178 </a>                }

@@ -366,86 +366,87 @@
 <a href="#226" id="226" class="l">226 </a>        <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;blocks &amp;&amp;
 <a href="#227" id="227" class="l">227 </a>           <span class="php-var">$this</span>-&gt;active &amp;&amp;
 <a href="#228" id="228" class="l">228 </a>           <span class="php-var">$event</span>-&gt;sender-&gt;getCombatantString(<span class="php-var">$event</span>-&gt;hero) == <span class="php-var">$this</span>-&gt;enemyString &amp;&amp;
-<a href="#229" id="229" class="l">229 </a>           !<span class="php-var">$event</span>-&gt;action-&gt;blocked) {
-<a href="#230" id="230" class="l">230 </a>            
-<a href="#231" id="231" class="l">231 </a>            <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;blockChance != <span class="php-num">1</span>) {
-<a href="#232" id="232" class="l">232 </a>                <span class="php-var">$rand</span> = <span class="php-keyword2">mt_rand</span>(<span class="php-num">0</span>,<span class="php-num">100</span>);
-<a href="#233" id="233" class="l">233 </a>                <span class="php-keyword1">if</span>(<span class="php-var">$rand</span> &gt; <span class="php-var">$this</span>-&gt;blockChance * <span class="php-num">100</span>) {
-<a href="#234" id="234" class="l">234 </a>                    <span class="php-keyword1">return</span>;
-<a href="#235" id="235" class="l">235 </a>                }
-<a href="#236" id="236" class="l">236 </a>            }
-<a href="#237" id="237" class="l">237 </a>            
-<a href="#238" id="238" class="l">238 </a>            <span class="php-keyword1">if</span>(<span class="php-var">$event</span>-&gt;action-&gt;call(<span class="php-quote">&quot;setBlocked&quot;</span>)) {
-<a href="#239" id="239" class="l">239 </a>                <span class="php-var">$this</span>-&gt;blockNumberOfBlocks --;
-<a href="#240" id="240" class="l">240 </a>                <span class="php-var">$this</span>-&gt;charges --;
-<a href="#241" id="241" class="l">241 </a>                
-<a href="#242" id="242" class="l">242 </a>                <span class="php-var">$battleMsg</span> = <span class="php-keyword1">new</span> Battlemessage(<span class="php-keyword2">sprintf</span>(<span class="php-var">$this</span>-&gt;call(<span class="php-quote">&quot;getMsgBlock&quot;</span>), <span class="php-var">$event</span>-&gt;hero-&gt;name, <span class="php-var">$event</span>-&gt;action-&gt;name));
-<a href="#243" id="243" class="l">243 </a>                <span class="php-var">$event</span>-&gt;sender-&gt;<span class="php-keyword2">log</span>(<span class="php-var">$event</span>-&gt;hero, <span class="php-var">$battleMsg</span>);
-<a href="#244" id="244" class="l">244 </a>                        
-<a href="#245" id="245" class="l">245 </a>                <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;blockNumberOfBlocks == <span class="php-num">0</span>) {
-<a href="#246" id="246" class="l">246 </a>                    <span class="php-var">$this</span>-&gt;active = <span class="php-keyword1">false</span>;
-<a href="#247" id="247" class="l">247 </a>
-<a href="#248" id="248" class="l">248 </a>                    <span class="php-var">$battleMsg</span> = <span class="php-keyword1">new</span> Battlemessage(<span class="php-keyword2">sprintf</span>(<span class="php-var">$this</span>-&gt;msgExpire, <span class="php-var">$event</span>-&gt;hero-&gt;name));
-<a href="#249" id="249" class="l">249 </a>                    <span class="php-var">$event</span>-&gt;sender-&gt;<span class="php-keyword2">log</span>(<span class="php-var">$event</span>-&gt;hero, <span class="php-var">$battleMsg</span>);
-<a href="#250" id="250" class="l">250 </a>                }
-<a href="#251" id="251" class="l">251 </a>            }
-<a href="#252" id="252" class="l">252 </a>        }
-<a href="#253" id="253" class="l">253 </a>    }
-<a href="#254" id="254" class="l">254 </a>    
-<a href="#255" id="255" class="l">255 </a>    <span class="php-comment">/**
-</span><a href="#256" id="256" class="l">256 </a><span class="php-comment">     * Empty event handler. Only there to have a fallback function if
-</span><a href="#257" id="257" class="l">257 </a><span class="php-comment">     * a SpecialnessBehavior class does not provide it.
-</span><a href="#258" id="258" class="l">258 </a><span class="php-comment">     * &quot;Override&quot; and extend by SpecialnessBehavior classes as necessary
-</span><a href="#259" id="259" class="l">259 </a><span class="php-comment">     * @param CEvent $event 
-</span><a href="#260" id="260" class="l">260 </a><span class="php-comment">     */</span>
-<a href="#261" id="261" class="l">261 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> reactToOnAfterAction(<span class="php-var">$event</span>) { }
-<a href="#262" id="262" class="l">262 </a>    <span class="php-comment">/**
-</span><a href="#263" id="263" class="l">263 </a><span class="php-comment">     * Empty event handler. Only there to have a fallback function if
-</span><a href="#264" id="264" class="l">264 </a><span class="php-comment">     * a SpecialnessBehavior class does not provide it.
-</span><a href="#265" id="265" class="l">265 </a><span class="php-comment">     * &quot;Override&quot; and extend by SpecialnessBehavior classes as necessary
-</span><a href="#266" id="266" class="l">266 </a><span class="php-comment">     * @param BattleActionDamageEvent $event 
-</span><a href="#267" id="267" class="l">267 </a><span class="php-comment">     */</span>
-<a href="#268" id="268" class="l">268 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> reactToOnBeforeDealingDamage(<span class="php-var">$event</span>) { }
-<a href="#269" id="269" class="l">269 </a>    <span class="php-comment">/**
-</span><a href="#270" id="270" class="l">270 </a><span class="php-comment">     * Empty event handler. Only there to have a fallback function if
-</span><a href="#271" id="271" class="l">271 </a><span class="php-comment">     * a SpecialnessBehavior class does not provide it.
-</span><a href="#272" id="272" class="l">272 </a><span class="php-comment">     * &quot;Override&quot; and extend by SpecialnessBehavior classes as necessary
-</span><a href="#273" id="273" class="l">273 </a><span class="php-comment">     * @param CEvent $event 
-</span><a href="#274" id="274" class="l">274 </a><span class="php-comment">     */</span>
-<a href="#275" id="275" class="l">275 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> reactToOnAfterDealingDamage(<span class="php-var">$event</span>) { }
-<a href="#276" id="276" class="l">276 </a>    <span class="php-comment">/**
-</span><a href="#277" id="277" class="l">277 </a><span class="php-comment">     * Empty event handler. Only there to have a fallback function if
-</span><a href="#278" id="278" class="l">278 </a><span class="php-comment">     * a SpecialnessBehavior class does not provide it.
-</span><a href="#279" id="279" class="l">279 </a><span class="php-comment">     * &quot;Override&quot; and extend by SpecialnessBehavior classes as necessary
-</span><a href="#280" id="280" class="l">280 </a><span class="php-comment">     * @param CombatantTakeDamageEvent $event 
-</span><a href="#281" id="281" class="l">281 </a><span class="php-comment">     */</span>
-<a href="#282" id="282" class="l">282 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> reactToOnBeforeTakingDamage(<span class="php-var">$event</span>) { }
-<a href="#283" id="283" class="l">283 </a>    <span class="php-comment">/**
-</span><a href="#284" id="284" class="l">284 </a><span class="php-comment">     * Empty event handler. Only there to have a fallback function if
-</span><a href="#285" id="285" class="l">285 </a><span class="php-comment">     * a SpecialnessBehavior class does not provide it.
-</span><a href="#286" id="286" class="l">286 </a><span class="php-comment">     * &quot;Override&quot; and extend by SpecialnessBehavior classes as necessary
-</span><a href="#287" id="287" class="l">287 </a><span class="php-comment">     * @param CombatantTakenDamageEvent $event 
-</span><a href="#288" id="288" class="l">288 </a><span class="php-comment">     */</span>
-<a href="#289" id="289" class="l">289 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> reactToOnAfterTakingDamage(<span class="php-var">$event</span>) { }
-<a href="#290" id="290" class="l">290 </a>
-<a href="#291" id="291" class="l">291 </a>    <span class="php-comment">/**
-</span><a href="#292" id="292" class="l">292 </a><span class="php-comment">     * Returns a list of CBehaviors to be attached to this Model
-</span><a href="#293" id="293" class="l">293 </a><span class="php-comment">     * @link http://www.yiiframework.com/doc/api/CBehavior
-</span><a href="#294" id="294" class="l">294 </a><span class="php-comment">     * @return array
-</span><a href="#295" id="295" class="l">295 </a><span class="php-comment">     */</span>
-<a href="#296" id="296" class="l">296 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> behaviors() {
-<a href="#297" id="297" class="l">297 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">array</span>(<span class="php-quote">&quot;application.components.SpecialnessBehavior&quot;</span>);
-<a href="#298" id="298" class="l">298 </a>    }
-<a href="#299" id="299" class="l">299 </a>    <span class="php-comment">/**
-</span><a href="#300" id="300" class="l">300 </a><span class="php-comment">     * Factory method to get Model objects
-</span><a href="#301" id="301" class="l">301 </a><span class="php-comment">     * @link http://www.yiiframework.com/doc/api/CModel
-</span><a href="#302" id="302" class="l">302 </a><span class="php-comment">     * @param string $className
-</span><a href="#303" id="303" class="l">303 </a><span class="php-comment">     * @return CModel
-</span><a href="#304" id="304" class="l">304 </a><span class="php-comment">     */</span>
-<a href="#305" id="305" class="l">305 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> model(<span class="php-var">$className</span>=__CLASS__) {
-<a href="#306" id="306" class="l">306 </a>        <span class="php-keyword1">return</span> parent::model(<span class="php-var">$className</span>);
-<a href="#307" id="307" class="l">307 </a>    }
-<a href="#308" id="308" class="l">308 </a>}</code></pre>
+<a href="#229" id="229" class="l">229 </a>           !<span class="php-var">$event</span>-&gt;action-&gt;blocked &amp;&amp;
+<a href="#230" id="230" class="l">230 </a>           <span class="php-var">$event</span>-&gt;action-&gt;battlePhase == <span class="php-quote">&quot;offense&quot;</span>) {
+<a href="#231" id="231" class="l">231 </a>            
+<a href="#232" id="232" class="l">232 </a>            <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;blockChance != <span class="php-num">1</span>) {
+<a href="#233" id="233" class="l">233 </a>                <span class="php-var">$rand</span> = <span class="php-keyword2">mt_rand</span>(<span class="php-num">0</span>,<span class="php-num">100</span>);
+<a href="#234" id="234" class="l">234 </a>                <span class="php-keyword1">if</span>(<span class="php-var">$rand</span> &gt; <span class="php-var">$this</span>-&gt;blockChance * <span class="php-num">100</span>) {
+<a href="#235" id="235" class="l">235 </a>                    <span class="php-keyword1">return</span>;
+<a href="#236" id="236" class="l">236 </a>                }
+<a href="#237" id="237" class="l">237 </a>            }
+<a href="#238" id="238" class="l">238 </a>            
+<a href="#239" id="239" class="l">239 </a>            <span class="php-keyword1">if</span>(<span class="php-var">$event</span>-&gt;action-&gt;call(<span class="php-quote">&quot;setBlocked&quot;</span>)) {
+<a href="#240" id="240" class="l">240 </a>                <span class="php-var">$this</span>-&gt;blockNumberOfBlocks --;
+<a href="#241" id="241" class="l">241 </a>                <span class="php-var">$this</span>-&gt;charges --;
+<a href="#242" id="242" class="l">242 </a>                
+<a href="#243" id="243" class="l">243 </a>                <span class="php-var">$battleMsg</span> = <span class="php-keyword1">new</span> Battlemessage(<span class="php-keyword2">sprintf</span>(<span class="php-var">$this</span>-&gt;call(<span class="php-quote">&quot;getMsgBlock&quot;</span>), <span class="php-var">$event</span>-&gt;hero-&gt;name, <span class="php-var">$event</span>-&gt;action-&gt;name));
+<a href="#244" id="244" class="l">244 </a>                <span class="php-var">$event</span>-&gt;sender-&gt;<span class="php-keyword2">log</span>(<span class="php-var">$event</span>-&gt;hero, <span class="php-var">$battleMsg</span>);
+<a href="#245" id="245" class="l">245 </a>                        
+<a href="#246" id="246" class="l">246 </a>                <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;blockNumberOfBlocks == <span class="php-num">0</span>) {
+<a href="#247" id="247" class="l">247 </a>                    <span class="php-var">$this</span>-&gt;active = <span class="php-keyword1">false</span>;
+<a href="#248" id="248" class="l">248 </a>
+<a href="#249" id="249" class="l">249 </a>                    <span class="php-var">$battleMsg</span> = <span class="php-keyword1">new</span> Battlemessage(<span class="php-keyword2">sprintf</span>(<span class="php-var">$this</span>-&gt;msgExpire, <span class="php-var">$event</span>-&gt;hero-&gt;name));
+<a href="#250" id="250" class="l">250 </a>                    <span class="php-var">$event</span>-&gt;sender-&gt;<span class="php-keyword2">log</span>(<span class="php-var">$event</span>-&gt;hero, <span class="php-var">$battleMsg</span>);
+<a href="#251" id="251" class="l">251 </a>                }
+<a href="#252" id="252" class="l">252 </a>            }
+<a href="#253" id="253" class="l">253 </a>        }
+<a href="#254" id="254" class="l">254 </a>    }
+<a href="#255" id="255" class="l">255 </a>    
+<a href="#256" id="256" class="l">256 </a>    <span class="php-comment">/**
+</span><a href="#257" id="257" class="l">257 </a><span class="php-comment">     * Empty event handler. Only there to have a fallback function if
+</span><a href="#258" id="258" class="l">258 </a><span class="php-comment">     * a SpecialnessBehavior class does not provide it.
+</span><a href="#259" id="259" class="l">259 </a><span class="php-comment">     * &quot;Override&quot; and extend by SpecialnessBehavior classes as necessary
+</span><a href="#260" id="260" class="l">260 </a><span class="php-comment">     * @param CEvent $event 
+</span><a href="#261" id="261" class="l">261 </a><span class="php-comment">     */</span>
+<a href="#262" id="262" class="l">262 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> reactToOnAfterAction(<span class="php-var">$event</span>) { }
+<a href="#263" id="263" class="l">263 </a>    <span class="php-comment">/**
+</span><a href="#264" id="264" class="l">264 </a><span class="php-comment">     * Empty event handler. Only there to have a fallback function if
+</span><a href="#265" id="265" class="l">265 </a><span class="php-comment">     * a SpecialnessBehavior class does not provide it.
+</span><a href="#266" id="266" class="l">266 </a><span class="php-comment">     * &quot;Override&quot; and extend by SpecialnessBehavior classes as necessary
+</span><a href="#267" id="267" class="l">267 </a><span class="php-comment">     * @param BattleActionDamageEvent $event 
+</span><a href="#268" id="268" class="l">268 </a><span class="php-comment">     */</span>
+<a href="#269" id="269" class="l">269 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> reactToOnBeforeDealDamage(<span class="php-var">$event</span>) { }
+<a href="#270" id="270" class="l">270 </a>    <span class="php-comment">/**
+</span><a href="#271" id="271" class="l">271 </a><span class="php-comment">     * Empty event handler. Only there to have a fallback function if
+</span><a href="#272" id="272" class="l">272 </a><span class="php-comment">     * a SpecialnessBehavior class does not provide it.
+</span><a href="#273" id="273" class="l">273 </a><span class="php-comment">     * &quot;Override&quot; and extend by SpecialnessBehavior classes as necessary
+</span><a href="#274" id="274" class="l">274 </a><span class="php-comment">     * @param CEvent $event 
+</span><a href="#275" id="275" class="l">275 </a><span class="php-comment">     */</span>
+<a href="#276" id="276" class="l">276 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> reactToOnAfterDealtDamage(<span class="php-var">$event</span>) { }
+<a href="#277" id="277" class="l">277 </a>    <span class="php-comment">/**
+</span><a href="#278" id="278" class="l">278 </a><span class="php-comment">     * Empty event handler. Only there to have a fallback function if
+</span><a href="#279" id="279" class="l">279 </a><span class="php-comment">     * a SpecialnessBehavior class does not provide it.
+</span><a href="#280" id="280" class="l">280 </a><span class="php-comment">     * &quot;Override&quot; and extend by SpecialnessBehavior classes as necessary
+</span><a href="#281" id="281" class="l">281 </a><span class="php-comment">     * @param CombatantTakeDamageEvent $event 
+</span><a href="#282" id="282" class="l">282 </a><span class="php-comment">     */</span>
+<a href="#283" id="283" class="l">283 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> reactToOnBeforeTakingDamage(<span class="php-var">$event</span>) { }
+<a href="#284" id="284" class="l">284 </a>    <span class="php-comment">/**
+</span><a href="#285" id="285" class="l">285 </a><span class="php-comment">     * Empty event handler. Only there to have a fallback function if
+</span><a href="#286" id="286" class="l">286 </a><span class="php-comment">     * a SpecialnessBehavior class does not provide it.
+</span><a href="#287" id="287" class="l">287 </a><span class="php-comment">     * &quot;Override&quot; and extend by SpecialnessBehavior classes as necessary
+</span><a href="#288" id="288" class="l">288 </a><span class="php-comment">     * @param CombatantTakenDamageEvent $event 
+</span><a href="#289" id="289" class="l">289 </a><span class="php-comment">     */</span>
+<a href="#290" id="290" class="l">290 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> reactToOnAfterTakingDamage(<span class="php-var">$event</span>) { }
+<a href="#291" id="291" class="l">291 </a>
+<a href="#292" id="292" class="l">292 </a>    <span class="php-comment">/**
+</span><a href="#293" id="293" class="l">293 </a><span class="php-comment">     * Returns a list of CBehaviors to be attached to this Model
+</span><a href="#294" id="294" class="l">294 </a><span class="php-comment">     * @link http://www.yiiframework.com/doc/api/CBehavior
+</span><a href="#295" id="295" class="l">295 </a><span class="php-comment">     * @return array
+</span><a href="#296" id="296" class="l">296 </a><span class="php-comment">     */</span>
+<a href="#297" id="297" class="l">297 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> behaviors() {
+<a href="#298" id="298" class="l">298 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">array</span>(<span class="php-quote">&quot;application.components.SpecialnessBehavior&quot;</span>);
+<a href="#299" id="299" class="l">299 </a>    }
+<a href="#300" id="300" class="l">300 </a>    <span class="php-comment">/**
+</span><a href="#301" id="301" class="l">301 </a><span class="php-comment">     * Factory method to get Model objects
+</span><a href="#302" id="302" class="l">302 </a><span class="php-comment">     * @link http://www.yiiframework.com/doc/api/CModel
+</span><a href="#303" id="303" class="l">303 </a><span class="php-comment">     * @param string $className
+</span><a href="#304" id="304" class="l">304 </a><span class="php-comment">     * @return CModel
+</span><a href="#305" id="305" class="l">305 </a><span class="php-comment">     */</span>
+<a href="#306" id="306" class="l">306 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> model(<span class="php-var">$className</span>=__CLASS__) {
+<a href="#307" id="307" class="l">307 </a>        <span class="php-keyword1">return</span> parent::model(<span class="php-var">$className</span>);
+<a href="#308" id="308" class="l">308 </a>    }
+<a href="#309" id="309" class="l">309 </a>}</code></pre>
 	</div>
 
 	<div id="footer">

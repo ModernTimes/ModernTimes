@@ -221,7 +221,7 @@ CWidget
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="getColorPrefix" id="_getColorPrefix">
+		<tr data-order="addColor" id="_addColor">
 
 			<td class="attributes"><code>
 				 public 
@@ -231,19 +231,19 @@ CWidget
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_getColorPrefix">#</a>
-			<code><a href="source-class-CharactermodifierWidget.html#26" title="Go to source code">getColorPrefix</a>( <span>float <var>$number</var></span> )</code>
+			<a class="anchor" href="#_addColor">#</a>
+			<code><a href="source-class-CharactermodifierWidget.html#26" title="Go to source code">addColor</a>( <span>float <var>$number</var></span>, <span>string <var>$string</var></span>, <span>boolean <var>$plusSign</var> = <span class="php-keyword1">true</span></span> )</code>
 
 			<div class="description short">
 				
-<p>Returns a HTML prefix depending on $number Used by charactermodifier.php view
+<p>Returns a HTML mantle depending on $number Used by charactermodifier.php view
 file</p>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>Returns a HTML prefix depending on $number Used by charactermodifier.php view
+<p>Returns a HTML mantle depending on $number Used by charactermodifier.php view
 file</p>
 
 
@@ -252,6 +252,10 @@ file</p>
 					<div class="list"><dl>
 						<dt><var>$number</var></dt>
 						<dd><code>float</code></dd>
+						<dt><var>$string</var></dt>
+						<dd><code>string</code></dd>
+						<dt><var>$plusSign</var></dt>
+						<dd><code>boolean</code><br> whether a plus sign should be added for positive numbers</dd>
 					</dl></div>
 
 					<h4>Returns</h4>
