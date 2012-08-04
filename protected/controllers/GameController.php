@@ -34,7 +34,10 @@ class GameController extends Controller {
     public function actions() {
         return array(
             'map'              => 'application.controllers.actions.MapAction',
-            'quests'           => 'application.controllers.actions.QuestsAction',
+            
+            'quests'           => 'application.controllers.actions.quests.QuestsAction',
+            'acceptQuest'      => 'application.controllers.actions.quests.AcceptQuestAction',
+            'rejectQuest'      => 'application.controllers.actions.quests.RejectQuestAction',
             
             'useSkill'         => 'application.controllers.actions.UseSkillAction',
 
@@ -56,7 +59,6 @@ class GameController extends Controller {
             'buyItem'          => 'application.controllers.actions.shop.BuyItemAction',
 
             'consultantHQ'         => 'application.controllers.actions.consultant.ConsultantHQAction',
-            'consultantQuestGiver' => 'application.controllers.actions.consultant.ConsultantQuestGiverAction',
             
             /**
              * To test new features without having to mess around with actual

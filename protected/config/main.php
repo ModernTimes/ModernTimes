@@ -23,6 +23,7 @@ return array(
                 'application.controllers.actions.*',
                 'application.controllers.actions.battle.*',
                 'application.controllers.actions.inventory.*',
+                'application.controllers.actions.quests.*',
                 'application.controllers.actions.shop.*',
                 'application.controllers.actions.consultant.*',
 

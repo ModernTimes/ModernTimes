@@ -2,7 +2,7 @@
 /**
  * Retrieves quest data and renders the quests screen
  * 
- * @package Actions
+ * @package Actions.Quests
  */
 
 class QuestsAction extends CAction {
