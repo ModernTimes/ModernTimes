@@ -30,10 +30,17 @@ class Consultant1Quest extends CBehavior {
     /**
      * Attaches custom event handlers to a Character
      * @param Character $Character 
-     * @return void
      */
     public function attachToCharacter($Character) {
         $Character->onGainItem = array($this, 'reactToOnGainItem');
+    }
+    
+    /**
+     * Detaches custom event handlers from a Character
+     * @param Character $Character 
+     */
+    public function detachFromCharacter($Character) {
+        $Character->detachEventHandler("onGainItem", array($this, 'reactToOnGainItem'));
     }
     
     /**

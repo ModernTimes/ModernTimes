@@ -52,6 +52,14 @@ class Gluttony1Quest extends CBehavior {
     }
     
     /**
+     * Detaches custom event handlers from a Character
+     * @param Character $Character 
+     */
+    public function detachFromCharacter($Character) {
+        $Character->detachEventHandler("onGainEffect", array($this, 'reactToOnGainEffect'));
+    }
+    
+    /**
      * Checks if the Character gets high, stoned, or whatever else is needed
      * to complete this quest
      * @todo add 3 more severe forms of high, drunk, and sated

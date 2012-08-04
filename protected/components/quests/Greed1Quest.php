@@ -46,6 +46,14 @@ class Greed1Quest extends CBehavior {
     }
 
     /**
+     * Detaches custom event handlers from a Character
+     * @param Character $Character 
+     */
+    public function detachFromCharacter($Character) {
+        $Character->detachEventHandler("onGainCash", array($this, 'reactToOnGainCash'));
+    }
+
+    /**
      * Adds the amount of cash that the character gets to the quest counter
      * @param GainStatEvent $event 
      * @return void

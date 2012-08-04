@@ -56,6 +56,14 @@ class TestQuest extends CBehavior {
     }
 
     /**
+     * Detaches custom event handlers from a Character
+     * @param Character $Character 
+     */
+    public function detachFromCharacter($Character) {
+        $Character->detachEventHandler("onCalcHp", array($this, 'reactToOnCalcHp'));
+    }
+
+    /**
      * Custum event handler. This is what makes TestQuest special.
      * In this example, a quest counter is increased by 1 everytime the
      * Character record calculates its maxHp. Boring.
