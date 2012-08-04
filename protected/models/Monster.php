@@ -52,6 +52,33 @@ class Monster extends BaseMonster {
     }
     
     /**
+     * Returns how much damage the Monster actually suffered
+     * @uses onBeforeTakeDamage
+     * @uses onAfterTakenDamage
+     * @uses CombatantTakeDamageEvent
+     * @uses CombatnatTakenDamageEvent
+     * @param int $damage, how much damage the Monster is to take
+     * @param string $damageType enum(normal|vices)
+     * @return int 
+     */
+    public function takeDamage($damage, $damageType) {
+        // TakeDamageEvent, collect bonuses
+        $event = new CombatantTakeDamageEvent($this, $damage, $damageType);
+        $this->onBeforeTakeDamage($event);
+        
+        $damageAdjusted = floor($event->adjustStat($damage));
+        $damageAdjusted = max($damageAdjusted, 0);
+        
+        $this->decreaseHp($damageAdjusted);
+
+        // takeN damage event, notification only
+        $event = new CombatantTakenDamageEvent($this, $damageAdjusted, $damageType);
+        $this->onAfterTakenDamage($event);
+        
+        return $damageAdjusted;
+    }
+    
+    /**
      * Decides for each potential item drop whether it is indeed dropped or not
      * dropItemPerc are percentage point increasers/decreasers as usual
      * @param int $dropItemPerc bonus to the drop rate
@@ -130,21 +157,16 @@ class Monster extends BaseMonster {
     }
 
     /**
-     * Returns the Monster's attack value (for normal attacks)
+     * Returns the Monster's attack value
+     * @param string $stat enum(resoluteness|willpower). Included for
+     * compatibility reasons (Character->getAttack needs that param)
      * @return int
      */
-    public function getNormalAttack() {
+    public function getAttack($stat = "resoluteness") {
         return $this->attack;
     }
     /**
-     * Returns the Monster's special attack value (for special attacks)
-     * @return int
-     */
-    public function getSpecialAttack() {
-        return $this->attack;
-    }
-    /**
-     * Returns the Monster's defense value (against normal attacks)
+     * Returns the Monster's defense value
      * @return int
      */
     public function getDefense() {
@@ -157,6 +179,19 @@ class Monster extends BaseMonster {
     public function getHpMax() {
         return $this->hpMax;
     }
+    
+    /**
+     * Raises nothing, leaves $event unchanged
+     * @param CollectBonusEvent $event
+     * @param string $damageType enum (normal|vices) default normal
+     */
+    public function onCalcBonusDamage($event, $damageType = "normal") { }
+
+    /**
+     * Raises nothing, leaves $event unchanged
+     * @param CollectBonusEvent $event
+     */
+    public function onCalcCritChance($event) { }
     
     /**
      * Returns a list of CBehaviors to be attached to this Model
