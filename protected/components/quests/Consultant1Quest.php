@@ -54,13 +54,15 @@ class Consultant1Quest extends CBehavior {
     }
     
     /**
-     * Gives out the reward
+     * - Gives out the reward
+     * - Sets the CharacterQuest to visible
      * @param QuestChangeStateEvent $event 
      */
     public function reactToOnCompleted($event) {
         $this->owner->Character->gainCash(self::rewardCash, "quest");
         $this->owner->Character->update();
         
+        $this->owner->visible = 1;
         // Reset params and update CharacterQuest record
         $this->owner->reactToOnCompleted($event);
     }

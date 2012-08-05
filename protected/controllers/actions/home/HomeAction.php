@@ -1,13 +1,13 @@
 <?php
 /**
- * Consultant guild house
- * @package Actions.Consultant
+ * Home, sweet home
+ * @package Actions.Home
  */
 
-class ConsultantHQAction extends CAction {
+class HomeAction extends CAction {
 
     /**
-     * Quests to be displayed in the "project database"
+     * Quests to be displayed in the "personal todo list"
      * @var array of CharacterQuests
      */
     public $currentCharacterQuests = array();
@@ -17,19 +17,14 @@ class ConsultantHQAction extends CAction {
      */
     public function run() {
         $Character = CD();
-        if($Character->class != "consultant") {
-            EUserFlash::setMessage("True: In real life, every smart-aleck youngster can be a consultant. In this game, we have to be a bit more restrictive, though.");
-            $this->controller->redirect(array('index'));
-        }
-        // Tutorial quest completed
+        
         if(!$Character->hasQuestCompleted(1)) {
-            EUserFlash::setMessage("You've not even awake ...");
-            $this->controller->redirect(array('index'));
+            
         }
         
-        $consultantQuestIDs = array(9);
+        $personalQuestIDs = array(1);
         foreach($Character->characterQuests as $CharacterQuest) {
-            if(in_array($CharacterQuest->questID, $consultantQuestIDs)) {
+            if(in_array($CharacterQuest->questID, $personalQuestIDs)) {
                 if($CharacterQuest->isVisible() && 
                         !$CharacterQuest->isFinished()) {
 
@@ -41,8 +36,8 @@ class ConsultantHQAction extends CAction {
                 }
             }
         }
-
-        $this->controller->render('consultant/hq', array(
+        
+        $this->controller->render('home/home', array(
             "currentCharacterQuests" => $this->currentCharacterQuests
         ));
     }

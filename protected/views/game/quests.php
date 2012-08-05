@@ -11,8 +11,7 @@
     <?php 
     $ongoingTodos = 0;
     foreach($CharacterQuests as $CharacterQuest) {
-        if($CharacterQuest->state == "ongoing" ||
-                $CharacterQuest->state == "succeeded") {
+        if($CharacterQuest->isOngoing()) {
             
             $this->widget('QuestWidget', array(
                 "CharacterQuest" => $CharacterQuest
@@ -28,9 +27,7 @@
     <h2 align="center" style="margin: 1em 0 0.4em 0">Past projects</h2>
 
     <?php foreach($CharacterQuests as $CharacterQuest) {
-        if($CharacterQuest->state == "completed" ||
-                 $CharacterQuest->state == "failed" ||
-                 $CharacterQuest->state == "rejected") {
+        if($CharacterQuest->isFinished()) {
             
             $this->widget('QuestWidget', array(
                 "CharacterQuest" => $CharacterQuest

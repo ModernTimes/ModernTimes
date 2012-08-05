@@ -80,4 +80,14 @@ class Greed1Quest extends CBehavior {
         $CharacterEncounter->delay = 0;
         $CharacterEncounter->save();
     }
+    
+    /**
+     * Sets the CharacterQuest to visible
+     * @param QuestChangeStateEvent $event 
+     */
+    public function reactToOnCompleted($event) {
+        $this->owner->visible = 1;
+        // Reset params and update CharacterQuest record
+        $this->owner->reactToOnCompleted($event);
+    }
 }
