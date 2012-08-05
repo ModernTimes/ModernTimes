@@ -26,6 +26,10 @@ class UseSkillAction extends BattleAction {
                 EUserFlash::setErrorMessage("You haven't mastered that skill. Nice try, though.");
             } else {
                 $CharacterSkill->skill->call("resolveUsage", $Character);
+                
+                // Inform the world
+                $event = new UseSkillEvent($Character, $CharacterSkill->skill);
+                $Character->onUseSkill($event);
             }
         }
         

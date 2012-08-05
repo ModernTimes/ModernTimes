@@ -57,6 +57,10 @@ class UnequipAction extends CAction {
                      */
                     $Character->gainItem($Item, 1, "unequip");
 
+                    // Notify the world that something was unequipped
+                    $event = new EquipItemEvent($Character, $Item, $slot);
+                    $Character->onUnequipItem($event);
+                    
                     if(!$this->_childAction) {
                         $transaction->commit();
                     }
