@@ -62,6 +62,11 @@ class GameController extends Controller {
             'consultantHQ'         => 'application.controllers.actions.consultant.ConsultantHQAction',
             
             /**
+             * Quest specific stuff 
+             */
+            'questTutorialStartStep'    => 'application.controllers.actions.quests.tutorial.QuestTutorialStartStepAction',
+            
+            /**
              * To test new features without having to mess around with actual
              * game functions
              */
