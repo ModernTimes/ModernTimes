@@ -11,7 +11,8 @@
     <?php 
     $ongoingTodos = 0;
     foreach($CharacterQuests as $CharacterQuest) {
-        if($CharacterQuest->isOngoing()) {
+        if($CharacterQuest->isVisible() && 
+                $CharacterQuest->isOngoing()) {
             
             $this->widget('QuestWidget', array(
                 "CharacterQuest" => $CharacterQuest
@@ -27,7 +28,8 @@
     <h2 align="center" style="margin: 1em 0 0.4em 0">Past projects</h2>
 
     <?php foreach($CharacterQuests as $CharacterQuest) {
-        if($CharacterQuest->isFinished()) {
+        if($CharacterQuest->isVisible() && 
+                $CharacterQuest->isFinished()) {
             
             $this->widget('QuestWidget', array(
                 "CharacterQuest" => $CharacterQuest
