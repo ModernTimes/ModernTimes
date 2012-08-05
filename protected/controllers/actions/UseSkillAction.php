@@ -28,7 +28,7 @@ class UseSkillAction extends BattleAction {
                 $CharacterSkill->skill->call("resolveUsage", $Character);
                 
                 // Inform the world
-                $event = new UseSkillEvent($Character, $CharacterSkill->skill);
+                $event = new SkillEvent($Character, $CharacterSkill->skill);
                 $Character->onUseSkill($event);
             }
         }

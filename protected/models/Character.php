@@ -1410,7 +1410,7 @@ class Character extends BaseCharacter {
     }
     /**
      * Event raiser
-     * @param UseSkillEvent $event 
+     * @param SkillEvent $event 
      */
     public function onUseSkill($event) {
         $this->raiseEvent("onUseSkill", $event);

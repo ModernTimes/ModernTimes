@@ -6,7 +6,7 @@
  * @package Events 
  */
 
-class UseSkillEvent extends CEvent {
+class SkillEvent extends CEvent {
 
     /**
      * The Skill record that was used
