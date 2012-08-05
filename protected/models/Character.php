@@ -1396,6 +1396,28 @@ class Character extends BaseCharacter {
     
     /**
      * Event raiser
+     * @param EquipItemEvent $event 
+     */
+    public function onEquipItem($event) {
+        $this->raiseEvent("onEquipItem", $event);
+    }
+    /**
+     * Event raiser
+     * @param EquipItemEvent $event 
+     */
+    public function onUnequipItem($event) {
+        $this->raiseEvent("onUnequipItem", $event);
+    }
+    /**
+     * Event raiser
+     * @param UseSkillEvent $event 
+     */
+    public function onUseSkill($event) {
+        $this->raiseEvent("onUseSkill", $event);
+    }
+    
+    /**
+     * Event raiser
      * @param CEvent $event
      */
     public function onCalcDropItemBonus($event) {
