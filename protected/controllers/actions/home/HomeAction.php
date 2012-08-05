@@ -1,7 +1,7 @@
 <?php
 /**
  * Home, sweet home
- * @package Actions.Home
+ * @package Actions.Places
  */
 
 class HomeAction extends CAction {
@@ -18,27 +18,38 @@ class HomeAction extends CAction {
     public function run() {
         $Character = CD();
         
+        // Wake up tutorial quest in home
+        $tutorialQuestDisplay = "";
         if(!$Character->hasQuestCompleted(1)) {
+            $tutorialQuestDisplay = $this->controller->renderPartial(
+                    'home/questTutorial', 
+                    array("CharacterQuest" => $Character->getCharacterQuest(1)), 
+                    true);
             
-        }
-        
-        $personalQuestIDs = array(1);
-        foreach($Character->characterQuests as $CharacterQuest) {
-            if(in_array($CharacterQuest->questID, $personalQuestIDs)) {
-                if($CharacterQuest->isVisible() && 
-                        !$CharacterQuest->isFinished()) {
+            $this->controller->render('home/home', array(
+                "tutorialQuestDisplay" => $tutorialQuestDisplay
+            ));
+        } else {
 
-                    $this->currentCharacterQuests[] = $CharacterQuest;
+            $personalQuestIDs = array();
+            foreach($Character->characterQuests as $CharacterQuest) {
+                if(in_array($CharacterQuest->questID, $personalQuestIDs)) {
+                    if($CharacterQuest->isVisible() && 
+                            !$CharacterQuest->isFinished()) {
 
-                    if($CharacterQuest->state == "succeeded") {
-                        $CharacterQuest->quest->setState("completed");
+                        $this->currentCharacterQuests[] = $CharacterQuest;
+
+                        if($CharacterQuest->state == "succeeded") {
+                            $CharacterQuest->quest->setState("completed");
+                        }
                     }
                 }
             }
+
+            $this->controller->render('home/home', array(
+                "currentCharacterQuests" => $this->currentCharacterQuests,
+            ));
         }
         
-        $this->controller->render('home/home', array(
-            "currentCharacterQuests" => $this->currentCharacterQuests
-        ));
     }
 }
