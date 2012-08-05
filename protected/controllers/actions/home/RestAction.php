@@ -5,7 +5,7 @@
  *       have to be implemented.
  * @todo reduce duration of certain effects (drunk, high, etc.) 
  * (raise RestEvent and let these effects listen)
- * @package Actions
+ * @package Actions.Places.Home
  */
 
 class RestAction extends CAction {

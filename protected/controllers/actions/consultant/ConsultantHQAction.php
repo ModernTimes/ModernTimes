@@ -1,7 +1,7 @@
 <?php
 /**
  * Consultant guild house
- * @package Actions.Consultant
+ * @package Actions.Places
  */
 
 class ConsultantHQAction extends CAction {

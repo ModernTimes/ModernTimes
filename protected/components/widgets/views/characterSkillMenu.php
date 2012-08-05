@@ -12,7 +12,7 @@ if($hasSkills) { ?>
 
 <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        Use a skill
+        Skills
         <b class="caret"></b>
     </a>
     <ul class="dropdown-menu">
