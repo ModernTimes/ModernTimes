@@ -31,7 +31,7 @@ For new bootstrap extension. To be fixed later.
         <ul class="nav pull-left">
             <li><?php echo CHtml::link("London", array('game/map')); ?></li>
             <li><?php echo CHtml::link("Me", array('game/character')); ?></li>
-            <li><?php echo CHtml::link("My stuff", array('game/inventory')); ?></li>
+            <li><?php echo CHtml::link("Stuff", array('game/inventory')); ?></li>
             <li><?php echo CHtml::link("Todo", array('game/quests')); ?></li>
             <?php $this->widget("CharacterSkillMenuWidget"); ?>
         </ul>
