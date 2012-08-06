@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 01. Aug 2012 um 18:51
+-- Erstellungszeit: 06. Aug 2012 um 13:24
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -25,10 +25,11 @@ SET time_zone = "+00:00";
 --
 
 INSERT INTO `mt_monster` (`id`, `name`, `specialClass`, `hpMax`, `attack`, `defense`, `xp`, `dropCash`, `dropFavours`, `dropKudos`, `msgEncounter`) VALUES
-(1, 'Junior advertising specialist', '', 2, 4, 2, NULL, 5.0, 0.0, 1.0, ''),
-(2, 'Reception assistant', 'ReceptionistFemaleMonster', 1, 4, 1, NULL, 0.0, 0.0, 2.0, ''),
-(3, 'Middle management manager guy', '', 3, 5, 1, NULL, 3.0, 1.0, 1.0, ''),
-(4, 'Sales person coordinator', '', 2, 4, 1, NULL, 4.0, 0.5, 0.0, '');
+(1, 'Junior advertising specialist', '', 2, 4, 4, NULL, 5.0, 0.0, 1.0, ''),
+(2, 'Reception assistant', 'ReceptionistFemaleMonster', 1, 4, 4, NULL, 0.0, 0.0, 2.0, ''),
+(3, 'Middle management manager guy', '', 4, 5, 5, NULL, 3.0, 1.0, 1.0, ''),
+(4, 'Sales person coordinator', '', 2, 4, 4, NULL, 4.0, 0.5, 0.0, ''),
+(5, 'Jehovah''s Witness', '', 10, 1, 1, 1.0, 0.0, 0.0, 0.0, '%1$s rings at your door. You open. Stupid you.');
 
 --
 -- Daten für Tabelle `mt_monster_battleskills`
@@ -36,7 +37,8 @@ INSERT INTO `mt_monster` (`id`, `name`, `specialClass`, `hpMax`, `attack`, `defe
 
 INSERT INTO `mt_monster_battleskills` (`id`, `monsterID`, `battleskillID`, `prob`) VALUES
 (2, 1, 1, 0.340000),
-(3, 1, 6, 0.660000);
+(3, 1, 6, 0.660000),
+(4, 5, 9, 1.000000);
 
 --
 -- Daten für Tabelle `mt_monster_items`
