@@ -20,6 +20,7 @@ class EquipmentWidget extends CWidget {
     public function run() {
         // Get the active CharacterEquipment model
         $character = CD();
+        $character->loadEquipments();
         $this->equipment = $character->getEquipment();
         
         $this->render("equipment");
