@@ -950,7 +950,7 @@ class Character extends BaseCharacter {
      * @return CharacterQuests 
      */
     public function getCharacterQuest($quest) {
-        $this->loadQuests();
+        // $this->loadQuests();
         if(is_numeric($quest)) {
             $questID = $quest;
         } else {
