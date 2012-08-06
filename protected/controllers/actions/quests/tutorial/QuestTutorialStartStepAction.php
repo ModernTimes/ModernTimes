@@ -10,21 +10,16 @@
 class QuestTutorialStartStepAction extends CAction {
     
     /**
-     * Array with string identifiers for the steps involved in this quest
-     * @var array
-     */
-    private $_steps = array("inventory", "skills");
-    
-    /**
      * See above 
      */
     public function run($step) {
+        $Character = CD();
+        $CharacterQuest = $Character->getCharacterQuest(1);
+        
         // Valid step identifier?
-        if(!in_array($step, $this->_steps)) {
+        if(!in_array($step, $CharacterQuest->quest->getSteps())) {
             EUserFlash::setErrorMessage("Something went wrong. Shit happens.");
         } else {
-            $Character = CD();
-            $CharacterQuest = $Character->getCharacterQuest(1);
             if($CharacterQuest->state == 'completed') {
                 EUserFlash::setErrorMessage("You already woke up successfully. Remember?");
             } else {
@@ -33,7 +28,7 @@ class QuestTutorialStartStepAction extends CAction {
                     EUserFlash::setErrorMessage("You already remembered that.");
                 } else {
                     // Other step not completed yet?
-                    if(in_array($CharacterQuest->quest->params['currentStep'], $this->_steps)) {
+                    if(in_array($CharacterQuest->quest->params['currentStep'], $CharacterQuest->quest->getSteps())) {
                         EUserFlash::setErrorMessage($CharacterQuest->quest->getDescStatus());
                     } else {
 
