@@ -17,11 +17,27 @@ class BattleMonsterAction extends CAction {
     public $monsterID;
     
     /**
+     * Has to be set to true by some other action
+     * Prevents the action from being called by users directly
+     * @var bool
+     */
+    public $callFromWithinApplication = false;
+    
+    /**
      * Initializes the Battle record, starts the battle, spends a turn, 
      * and renders the battle view
      */
     public function run() {
         $Character = CD();
+        
+        /**
+         * Battles can't be started by the user directly
+         */
+        if($Character->ongoingBattleID == null && !$this->callFromWithinApplication) {
+            EUserFlash::setErrorMessage("Invalid choice", 'validate');
+            $this->controller->redirect('index');
+        }
+        
         $Character->loadSkillsets();
         
         $battle = new Battle;

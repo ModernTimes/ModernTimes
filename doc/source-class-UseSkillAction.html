@@ -8,7 +8,7 @@
 	<title>File protected/controllers/actions/UseSkillAction.php | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?3963278912"></script>
+	<script type="text/javascript" src="elementlist.js?1943147226"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -62,12 +62,18 @@
 						</li>
 				<li><a href="package-Actions.Character.html">Character</a>
 						</li>
-				<li><a href="package-Actions.Consultant.html">Consultant</a>
-						</li>
 				<li><a href="package-Actions.Inventory.html">Inventory</a>
 						</li>
-				<li><a href="package-Actions.Quests.html">Quests</a>
+				<li><a href="package-Actions.Places.html">Places<span></span></a>
+						<ul>
+				<li><a href="package-Actions.Places.Home.html">Home</a>
 						</li>
+							</ul></li>
+				<li><a href="package-Actions.Quests.html">Quests<span></span></a>
+						<ul>
+				<li><a href="package-Actions.Quests.Tutorial.html">Tutorial</a>
+						</li>
+							</ul></li>
 				<li><a href="package-Actions.Shopping.html">Shopping</a>
 						</li>
 							</ul></li>
@@ -124,7 +130,6 @@
 				<li><a href="class-GameController.html">GameController</a></li>
 				<li><a href="class-MapAction.html">MapAction</a></li>
 				<li><a href="class-MischiefAction.html">MischiefAction</a></li>
-				<li><a href="class-RestAction.html">RestAction</a></li>
 				<li><a href="class-TestAction.html">TestAction</a></li>
 				<li class="active"><a href="class-UseSkillAction.html">UseSkillAction</a></li>
 			</ul>
@@ -169,12 +174,16 @@
 <a href="#26" id="26" class="l">26 </a>                EUserFlash::setErrorMessage(<span class="php-quote">&quot;You haven't mastered that skill. Nice try, though.&quot;</span>);
 <a href="#27" id="27" class="l">27 </a>            } <span class="php-keyword1">else</span> {
 <a href="#28" id="28" class="l">28 </a>                <span class="php-var">$CharacterSkill</span>-&gt;skill-&gt;call(<span class="php-quote">&quot;resolveUsage&quot;</span>, <span class="php-var">$Character</span>);
-<a href="#29" id="29" class="l">29 </a>            }
-<a href="#30" id="30" class="l">30 </a>        }
-<a href="#31" id="31" class="l">31 </a>        
-<a href="#32" id="32" class="l">32 </a>        <span class="php-var">$this</span>-&gt;controller-&gt;redirect(<span class="php-quote">&quot;index&quot;</span>);
-<a href="#33" id="33" class="l">33 </a>    }
-<a href="#34" id="34" class="l">34 </a> }</code></pre>
+<a href="#29" id="29" class="l">29 </a>                
+<a href="#30" id="30" class="l">30 </a>                <span class="php-comment">// Inform the world</span>
+<a href="#31" id="31" class="l">31 </a>                <span class="php-var">$event</span> = <span class="php-keyword1">new</span> SkillEvent(<span class="php-var">$Character</span>, <span class="php-var">$CharacterSkill</span>-&gt;skill);
+<a href="#32" id="32" class="l">32 </a>                <span class="php-var">$Character</span>-&gt;onUseSkill(<span class="php-var">$event</span>);
+<a href="#33" id="33" class="l">33 </a>            }
+<a href="#34" id="34" class="l">34 </a>        }
+<a href="#35" id="35" class="l">35 </a>        
+<a href="#36" id="36" class="l">36 </a>        <span class="php-var">$this</span>-&gt;controller-&gt;redirect(<span class="php-quote">&quot;index&quot;</span>);
+<a href="#37" id="37" class="l">37 </a>    }
+<a href="#38" id="38" class="l">38 </a> }</code></pre>
 	</div>
 
 	<div id="footer">

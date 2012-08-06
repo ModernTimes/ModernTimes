@@ -57,10 +57,15 @@ class UnequipAction extends CAction {
                      */
                     $Character->gainItem($Item, 1, "unequip");
 
+                    EUserFlash::setMessage("You put away your " . $Item->name);
+                    
+                    // Notify the world that something was unequipped
+                    $event = new EquipItemEvent($Character, $Item, $slot);
+                    $Character->onUnequipItem($event);
+                    
                     if(!$this->_childAction) {
                         $transaction->commit();
                     }
-                    EUserFlash::setMessage("You put away your " . $Item->name);
 
                 } catch(Exception $e) {
                     // if childAction: let motherAction deal with this shit

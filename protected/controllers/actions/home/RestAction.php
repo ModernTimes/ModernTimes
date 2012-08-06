@@ -3,8 +3,9 @@
  * Rest in your home to regenerate hp and energy
  * @todo The effectiveness of resting depends on 135134 factors -- that all
  *       have to be implemented.
- * @todo reduce duration of certain effects (drunk, high, etc.)
- * @package Actions
+ * @todo reduce duration of certain effects (drunk, high, etc.) 
+ * (raise RestEvent and let these effects listen)
+ * @package Actions.Places.Home
  */
 
 class RestAction extends CAction {
@@ -23,6 +24,6 @@ class RestAction extends CAction {
         // Don't forget to trigger the character data updates before the redirect
         $this->controller->afterAction($this);
 
-        $this->controller->redirect(array('index'));
+        $this->controller->redirect(array('home'));
     }
 }

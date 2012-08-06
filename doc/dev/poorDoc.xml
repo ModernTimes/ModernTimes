@@ -15,6 +15,9 @@
 		<error severity="error" line="22" message="Missing documentation of the data type of constant Greed1Quest::cashToCollect" source="ApiGen.Documentation.Documentation"/>
 		<error severity="error" line="28" message="Missing documentation of the data type of constant Greed1Quest::mommonCallsEncounterID" source="ApiGen.Documentation.Documentation"/>
 	</file>
+	<file name="D:\Homepages\ModernTimes\protected\components\quests\TutorialQuest.php">
+		<error severity="error" line="24" message="Missing documentation of the data type of constant TutorialQuest::monsterID" source="ApiGen.Documentation.Documentation"/>
+	</file>
 	<file name="D:\Homepages\ModernTimes\protected\controllers\actions\quests\AcceptQuestAction.php">
 		<error severity="error" line="15" message="Missing documentation of parameter AcceptQuestAction::run()($redirect)" source="ApiGen.Documentation.Documentation"/>
 		<error severity="error" line="15" message="Missing documentation of parameter AcceptQuestAction::run()($questID)" source="ApiGen.Documentation.Documentation"/>
@@ -23,8 +26,14 @@
 		<error severity="error" line="13" message="Missing documentation of parameter RejectQuestAction::run()($redirect)" source="ApiGen.Documentation.Documentation"/>
 		<error severity="error" line="13" message="Missing documentation of parameter RejectQuestAction::run()($questID)" source="ApiGen.Documentation.Documentation"/>
 	</file>
+	<file name="D:\Homepages\ModernTimes\protected\controllers\actions\quests\tutorial\QuestTutorialStartStepAction.php">
+		<error severity="error" line="15" message="Missing documentation of parameter QuestTutorialStartStepAction::run()($step)" source="ApiGen.Documentation.Documentation"/>
+	</file>
 	<file name="D:\Homepages\ModernTimes\protected\controllers\actions\site\CreateCharacterAction.php">
-		<error severity="error" line="16" message="Missing documentation of the data type of constant CreateCharacterAction::maxNumberOfCharacters" source="ApiGen.Documentation.Documentation"/>
+		<error severity="error" line="18" message="Missing documentation of the data type of constant CreateCharacterAction::maxNumberOfCharacters" source="ApiGen.Documentation.Documentation"/>
+	</file>
+	<file name="D:\Homepages\ModernTimes\protected\models\Battle.php">
+		<error severity="error" line="548" message="Missing documentation of return value of method Battle::isWinner()" source="ApiGen.Documentation.Documentation"/>
 	</file>
 	<file name="D:\Homepages\ModernTimes\protected\models\Battleeffect.php">
 		<error severity="error" line="140" message="Missing documentation of method Battleeffect::getMsgBlock()" source="ApiGen.Documentation.Documentation"/>

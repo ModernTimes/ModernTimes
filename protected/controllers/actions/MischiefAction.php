@@ -84,6 +84,7 @@ class MischiefAction extends CAction {
         if($episode['type'] == 'monster') {
             $battleMonsterAction = new BattleMonsterAction($this->controller, "battleMonster");
             $battleMonsterAction->monsterID = $episode['id'];
+            $battleMonsterAction->callFromWithinApplication = true;
             $this->controller->runAction($battleMonsterAction);
         } else {
             $encounterAction = new EncounterAction($this->controller, "encounter");

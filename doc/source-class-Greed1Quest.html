@@ -8,7 +8,7 @@
 	<title>File protected/components/quests/Greed1Quest.php | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?3963278912"></script>
+	<script type="text/javascript" src="elementlist.js?1943147226"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -62,12 +62,18 @@
 						</li>
 				<li><a href="package-Actions.Character.html">Character</a>
 						</li>
-				<li><a href="package-Actions.Consultant.html">Consultant</a>
-						</li>
 				<li><a href="package-Actions.Inventory.html">Inventory</a>
 						</li>
-				<li><a href="package-Actions.Quests.html">Quests</a>
+				<li><a href="package-Actions.Places.html">Places<span></span></a>
+						<ul>
+				<li><a href="package-Actions.Places.Home.html">Home</a>
 						</li>
+							</ul></li>
+				<li><a href="package-Actions.Quests.html">Quests<span></span></a>
+						<ul>
+				<li><a href="package-Actions.Quests.Tutorial.html">Tutorial</a>
+						</li>
+							</ul></li>
 				<li><a href="package-Actions.Shopping.html">Shopping</a>
 						</li>
 							</ul></li>
@@ -123,7 +129,7 @@
 				<li><a href="class-Consultant1Quest.html">Consultant1Quest</a></li>
 				<li><a href="class-Gluttony1Quest.html">Gluttony1Quest</a></li>
 				<li class="active"><a href="class-Greed1Quest.html">Greed1Quest</a></li>
-				<li><a href="class-TestQuest.html">TestQuest</a></li>
+				<li><a href="class-TutorialQuest.html">TutorialQuest</a></li>
 			</ul>
 
 
@@ -220,7 +226,17 @@
 <a href="#80" id="80" class="l">80 </a>        <span class="php-var">$CharacterEncounter</span>-&gt;delay = <span class="php-num">0</span>;
 <a href="#81" id="81" class="l">81 </a>        <span class="php-var">$CharacterEncounter</span>-&gt;save();
 <a href="#82" id="82" class="l">82 </a>    }
-<a href="#83" id="83" class="l">83 </a>}</code></pre>
+<a href="#83" id="83" class="l">83 </a>    
+<a href="#84" id="84" class="l">84 </a>    <span class="php-comment">/**
+</span><a href="#85" id="85" class="l">85 </a><span class="php-comment">     * Sets the CharacterQuest to visible
+</span><a href="#86" id="86" class="l">86 </a><span class="php-comment">     * @param QuestChangeStateEvent $event 
+</span><a href="#87" id="87" class="l">87 </a><span class="php-comment">     */</span>
+<a href="#88" id="88" class="l">88 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> reactToOnCompleted(<span class="php-var">$event</span>) {
+<a href="#89" id="89" class="l">89 </a>        <span class="php-var">$this</span>-&gt;owner-&gt;visible = <span class="php-num">1</span>;
+<a href="#90" id="90" class="l">90 </a>        <span class="php-comment">// Reset params and update CharacterQuest record</span>
+<a href="#91" id="91" class="l">91 </a>        <span class="php-var">$this</span>-&gt;owner-&gt;reactToOnCompleted(<span class="php-var">$event</span>);
+<a href="#92" id="92" class="l">92 </a>    }
+<a href="#93" id="93" class="l">93 </a>}</code></pre>
 	</div>
 
 	<div id="footer">

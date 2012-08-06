@@ -26,8 +26,6 @@ class AcceptQuestAction extends CAction {
             if($CharacterQuest->state != "available") {
                 EUserFlash::setErrorMessage("You can't accept that project.");
             } else {
-                EUserFlash::setSuccessMessage("You accepted the following task: <b>" . 
-                        $CharacterQuest->quest->name . "</b>.<BR />Don't mess it up!");
                 $CharacterQuest->quest->setState("ongoing");
             }
         }

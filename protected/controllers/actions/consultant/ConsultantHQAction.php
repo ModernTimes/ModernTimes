@@ -1,7 +1,7 @@
 <?php
 /**
  * Consultant guild house
- * @package Actions.Consultant
+ * @package Actions.Places
  */
 
 class ConsultantHQAction extends CAction {
@@ -20,32 +20,29 @@ class ConsultantHQAction extends CAction {
         if($Character->class != "consultant") {
             EUserFlash::setMessage("True: In real life, every smart-aleck youngster can be a consultant. In this game, we have to be a bit more restrictive, though.");
             $this->controller->redirect(array('index'));
-        } else {
-            $consultantQuestIDs = array(9);
+        }
+        // Tutorial quest completed
+        if(!$Character->hasQuestCompleted(1)) {
+            EUserFlash::setMessage("You've not even awake ...");
+            $this->controller->redirect(array('index'));
+        }
+        
+        $consultantQuestIDs = array(9);
+        foreach($Character->characterQuests as $CharacterQuest) {
+            if(in_array($CharacterQuest->questID, $consultantQuestIDs)) {
+                if($CharacterQuest->isVisible() && 
+                        !$CharacterQuest->isFinished()) {
 
-            foreach($Character->characterQuests as $CharacterQuest) {
-                if(in_array($CharacterQuest->questID, $consultantQuestIDs)) {
-                    if($CharacterQuest->state == "available" ||
-                            $CharacterQuest->state == "succeeded" ||
-                            $CharacterQuest->state == "ongoing") {
+                    $this->currentCharacterQuests[] = $CharacterQuest;
 
-                        /**
-                         * Make sure to get all attributes, including those
-                         * that were left out in CharacterData
-                         */
-                        $CharacterQuest->quest->refresh();
-                        $this->currentCharacterQuests[] = $CharacterQuest;
-
-                        if($CharacterQuest->state == "succeeded") {
-                            $CharacterQuest->quest->setState("completed");
-                        }
+                    if($CharacterQuest->state == "succeeded") {
+                        $CharacterQuest->quest->setState("completed");
                     }
                 }
             }
-
-            $this->controller->render('consultant/hq', array(
-                "currentCharacterQuests" => $this->currentCharacterQuests
-            ));
         }
+        $this->controller->render('consultant/hq', array(
+            "currentCharacterQuests" => $this->currentCharacterQuests
+        ));
     }
 }

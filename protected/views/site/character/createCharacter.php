@@ -1,3 +1,5 @@
+<?php $this->widget('UserFlashesBasic'); ?>
+
 <h1>Create a new character</h1><BR />
 
 <p>In this development preview, you play a young bullshit artist who just hired at McBooz&Bain Consulting Group. As a bullshit artist, you rely on your babble skills to bury your enemies under a spate on highly sophisticated nonsense. Your cunning is legendary, and you can make quite a bit of money.</p>

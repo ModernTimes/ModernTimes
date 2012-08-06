@@ -17,6 +17,52 @@ Yii::import('application.models._base.BaseCharacterQuests');
 class CharacterQuests extends BaseCharacterQuests {
     
     /**
+     * Checks if the CharacterQuest is visible 
+     * @return bool
+     */
+    public function isVisible() {
+        return ($this->visible && $this->state != "unavailable");
+    }
+    
+    /**
+     * Checks if the CharacterState is finished
+     * @return boolean 
+     */
+    public function isFinished() {
+        if($this->state == "completed" ||
+                $this->state == "rejected" ||
+                $this->state == "failed") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * Checks if the CharacterQuest has started
+     * @return boolean 
+     */
+    public function hasStarted() {
+        if($this->state != "unavailable" &&
+                $this->state != "available") {
+            
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * Checks if CharacterQuest is ongoing
+     * @uses hasStarted
+     * @uses isFinished
+     * @return bool
+     */
+    public function isOngoing() {
+        return ($this->hasStarted() && !$this->isFinished());
+    }
+    
+    /**
      * Returns the declaration of named scopes. A named scope represents a query
      * criteria that can be chained together with other named scopes and applied
      * to a query.

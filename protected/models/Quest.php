@@ -97,7 +97,7 @@ class Quest extends BaseQuest {
      * @return string
      */
     public function getDesc() {
-        return "" . $this->desc . "<BR />" . $this->call('getDescStatus') . "";
+        return "" . $this->desc . $this->call('getDescStatus') . "";
     }
     /**
      * Quasi-abstract; "override" by SpecialnessBehavior classes.
@@ -283,15 +283,10 @@ class Quest extends BaseQuest {
     
     /**
      * Event handler
-     * Standard reaction: set visible = 0
+     * Quasi-abstract; "override" by SpecialnessBehavior classes.
      * @param QuestChangeStateEvent $event 
      */
-    public function reactToOnUnavailable($event) { 
-        if($this->CharacterQuest->visible = 1) {
-            $this->CharacterQuest->visible = 0;
-            $this->CharacterQuest->update();
-        }
-    }
+    public function reactToOnUnavailable($event) { }
     /**
      * Wrapper for reactToOnUnavailable which makes it possible to use
      * $this->call('reactToOnUnavailable') as a callback in initialize
@@ -336,23 +331,10 @@ class Quest extends BaseQuest {
 
     /**
      * Event handler
-     * Standard reaction: 
-     * - set visible = 1
-     * - generate flash message (disabled)
+     * Quasi-abstract; "override" by SpecialnessBehavior classes.
      * @param QuestChangeStateEvent $event 
      */
-    public function reactToOnOngoing($event) { 
-        if($this->CharacterQuest->visible = 0) {
-            $this->CharacterQuest->visible = 1;
-            $this->CharacterQuest->update();
-        }
-        /*
-        if(empty($this->desc)) {
-            $this->refresh();
-        }
-        EUserFlash::setMessage("You've started a new project:<BR />" . $this->call("getDesc"));
-        */
-    }
+    public function reactToOnOngoing($event) { }
     /**
      * Wrapper for reactToOnOngoing which makes it possible to use
      * $this->call('reactToOnOngoing') as a callback in initialize
@@ -365,8 +347,8 @@ class Quest extends BaseQuest {
     
     /**
      * Event handler
-     * Standard behavior:
-     * - generate flash message
+     * Standard behavior generates a flash message
+     * "Override", don't call after custom method
      * @param QuestChangeStateEvent $event 
      */
     public function reactToOnFailed($event) {
@@ -387,8 +369,8 @@ class Quest extends BaseQuest {
 
     /**
      * Event handler
-     * Standard behavior:
-     * - generate flash message
+     * Standard behavior generates a flash message.
+     * "Override", don't call after custom method
      * @param QuestChangeStateEvent $event 
      */
     public function reactToOnSucceeded($event) {
@@ -409,11 +391,10 @@ class Quest extends BaseQuest {
 
     /**
      * Event handler
-     * Resets $this->params, sets visible = 1, and saves $this->CharacterQuest
+     * Resets $this->params, then saves
      * @param QuestChangeStateEvent $event 
      */
     public function reactToOnCompleted($event) { 
-        $this->CharacterQuest->visible = 1;
         $this->owner->params = array();
         $this->saveParams();
     }

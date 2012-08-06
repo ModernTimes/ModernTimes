@@ -3,6 +3,8 @@
 /**
  * Handles the creation of a new character
  * 
+ * @todo handle permed skills from last run (once we can actually finish a run)
+ * 
  * @uses CreateCharacterForm
  * @package Actions.Character management
  */
@@ -74,13 +76,23 @@ class CreateCharacterAction extends CAction {
                      * QUESTS 
                      */
                     
+                    // Tutorial
+                    $TutorialQuest = new CharacterQuests();
+                    $TutorialQuest->characterID = $Character->id;
+                    $TutorialQuest->questID = 1;
+                    $TutorialQuest->state = 'ongoing';
+                    $TutorialQuest->visible = 1;
+                    $TutorialQuest->save();
+                    
+                    // Consultant1
                     $ConsultantQuest = new CharacterQuests();
                     $ConsultantQuest->characterID = $Character->id;
-                    $ConsultantQuest->questID = 7;
+                    $ConsultantQuest->questID = 9;
                     $ConsultantQuest->state = 'available';
                     $ConsultantQuest->visible = 0;
                     $ConsultantQuest->save();
                     
+                    // Vices
                     $GluttonyQuest = new CharacterQuests();
                     $GluttonyQuest->characterID = $Character->id;
                     $GluttonyQuest->questID = 2;
@@ -115,34 +127,31 @@ class CreateCharacterAction extends CAction {
                     $BabbleSkill->permed = 0;
                     $BabbleSkill->save();
 
-                    $ReferToEmployerSkill = new CharacterSkills();
+                    /**
+                    $ReferToEmployerSkill = new CharacterBattleskills();
                     $ReferToEmployerSkill->characterID = $Character->id;
-                    $ReferToEmployerSkill->skillID = 5;
+                    $ReferToEmployerSkill->battleskillID = 5;
                     $ReferToEmployerSkill->available = 1;
                     $ReferToEmployerSkill->permed = 0;
                     $ReferToEmployerSkill->save();
+                    */
 
                     $CharacterSkillset = new CharacterSkillsets();
                     $CharacterSkillset->characterID = $Character->id;
                     $CharacterSkillset->active = 1;
                     $CharacterSkillset->pos1ID = 2;
-                    $CharacterSkillset->pos2ID = 5;
+                    // $CharacterSkillset->pos2ID = 5;
                     $CharacterSkillset->save();
 
-                    $ExtramileSkill = new CharacterSkills();
-                    $ExtramileSkill->characterID = $Character->id;
-                    $ExtramileSkill->skillID = 1;
-                    $ExtramileSkill->available = 1;
-                    $ExtramileSkill->permed = 0;
-                    $ExtramileSkill->save();
+                    // First non-combat skill is provided by TutorialQuest
 
                     $transaction->commit();
                     
                     EUserFlash::setMessage("Character creation successful. Welcome to Modern Times!");
-                    $this->controller->redirect("../game/index");
+                    $this->controller->redirect(array("game/home"));
 
                 } catch(Exception $e) {
-                    // d($e);
+                    d($e);
                     $transaction->rollback();
                     EUserFlash::setErrorMessage("We really would have liked to create your character, but some weird database shit happened. We're looking into it, even though it's not fun. Promised.");
                 }                

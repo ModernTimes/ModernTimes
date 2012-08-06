@@ -10,7 +10,7 @@ class GainItemEvent extends CEvent {
 
     /**
      * The Items record that was added
-     * @var CharacterEffects
+     * @var Item
      */
     private $_Item;
     

@@ -111,11 +111,16 @@ class EquipAction extends CAction {
                             // Re-Attach event handlers
                             $Equipment->attachToCharacter($Character);
 
+                            EUserFlash::setMessage("You equipped your " . lcfirst($CharacterItem->item->name));
+                            
+                            // Notify the world that something was equipped
+                            $event = new EquipItemEvent($Character, $Item, $slot);
+                            $Character->onEquipItem($event);
+                            
                             // Don't forget to trigger the character data updates before the redirect
                             $this->controller->afterAction($this);
 
                             $transaction->commit();
-                            EUserFlash::setMessage("You equipped your " . lcfirst($CharacterItem->item->name));
 
                         } catch(Exception $e) {
                             $transaction->rollback();

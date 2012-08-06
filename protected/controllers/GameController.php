@@ -53,12 +53,19 @@ class GameController extends Controller {
             'useItem'          => 'application.controllers.actions.inventory.UseItemAction',
             'combineItems'     => 'application.controllers.actions.inventory.CombineItemsAction',
             
-            'rest'             => 'application.controllers.actions.RestAction',
+            'home'             => 'application.controllers.actions.home.HomeAction',
+            'rest'             => 'application.controllers.actions.home.RestAction',
             
             'shop'             => 'application.controllers.actions.shop.ShopAction',
             'buyItem'          => 'application.controllers.actions.shop.BuyItemAction',
 
             'consultantHQ'         => 'application.controllers.actions.consultant.ConsultantHQAction',
+            
+            /**
+             * Quest specific stuff 
+             */
+            'questTutorialStartStep'    => 'application.controllers.actions.quests.tutorial.QuestTutorialStartStepAction',
+            'questTutorialFight'    => 'application.controllers.actions.quests.tutorial.QuestTutorialFightAction',
             
             /**
              * To test new features without having to mess around with actual
