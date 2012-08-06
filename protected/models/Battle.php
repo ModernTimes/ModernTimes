@@ -132,8 +132,6 @@ class Battle extends BaseBattle {
             $this->combatantA->gainItems($loot);
 
             $this->combatantA->gainCash($this->combatantB->dropCash, "battle");
-            $this->combatantA->gainFavours($this->combatantB->dropFavours, "battle");
-            $this->combatantA->gainKudos($this->combatantB->dropKudos, "battle");
 
             /**
              * monster->xp can be defined to deviate from the standard

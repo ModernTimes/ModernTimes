@@ -48,19 +48,13 @@
     
     <?php
     /**
-     * Cash, favours, kudos 
+     * Cash
      */
     ?>
     <table cellspacing="3" style="margin: 0px 0px 4px 10px;">
         <tr>
             <td width="50"><img src="<? echo Yii::app()->getBaseUrl(); ?>/images/cash.png" width="24" height="24" style="vertical-align: middle" title="Cash"></td>
             <td style="font-size: 11pt"><span title="Cash"><?php echo number_format($this->character->cash); ?></span></td>
-        </tr><tr>
-            <td><img src="<? echo Yii::app()->getBaseUrl(); ?>/images/favours.png" width="24" height="24" style="vertical-align: middle" title="Favours"></td>
-            <td style="font-size: 11pt"><span title="Favours"><?php echo number_format($this->character->favours); ?></span></td>
-        </tr><tr>
-            <td><img src="<? echo Yii::app()->getBaseUrl(); ?>/images/kudos.png" width="24" height="24" style="vertical-align: middle" title="Kudos"></td>
-            <td style="font-size: 11pt"><span title="Kudos"><?php echo number_format($this->character->kudos); ?></span></td>
         </tr>
     </table>
     

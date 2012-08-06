@@ -9,10 +9,8 @@
  * - integer hpMax
  * - integer attack
  * - integer defense
- * - integer xp
- * - integer dropCash
- * - integer dropFavours
- * - integer dropKudos
+ * - string xp
+ * - string dropCash
  * - string msgEncounter
  *
  * - AreaMonsters areaMonsters
@@ -71,12 +69,13 @@ abstract class BaseMonster extends GxActiveRecord {
 	 */
 	public function rules() {
 		return array(
-			array('name, specialClass, hpMax, attack, defense, dropCash, dropFavours, dropKudos, msgEncounter', 'required'),
-			array('hpMax, attack, defense, xp, dropCash, dropFavours, dropKudos', 'numerical', 'integerOnly'=>true),
+			array('name, specialClass, hpMax, attack, defense, msgEncounter', 'required'),
+			array('hpMax, attack, defense', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			array('specialClass', 'length', 'max'=>50),
-			array('xp', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, name, specialClass, hpMax, attack, defense, xp, dropCash, dropFavours, dropKudos, msgEncounter', 'safe', 'on'=>'search'),
+			array('xp, dropCash', 'length', 'max'=>6),
+			array('xp, dropCash', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, name, specialClass, hpMax, attack, defense, xp, dropCash, msgEncounter', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -116,8 +115,6 @@ abstract class BaseMonster extends GxActiveRecord {
 			'defense' => Yii::t('app', 'Defense'),
 			'xp' => Yii::t('app', 'Xp'),
 			'dropCash' => Yii::t('app', 'Drop Cash'),
-			'dropFavours' => Yii::t('app', 'Drop Favours'),
-			'dropKudos' => Yii::t('app', 'Drop Kudos'),
 			'msgEncounter' => Yii::t('app', 'Msg Encounter'),
 			'areaMonsters' => null,
 			'monsterBattleskills' => null,
@@ -140,10 +137,8 @@ abstract class BaseMonster extends GxActiveRecord {
 		$criteria->compare('hpMax', $this->hpMax);
 		$criteria->compare('attack', $this->attack);
 		$criteria->compare('defense', $this->defense);
-		$criteria->compare('xp', $this->xp);
-		$criteria->compare('dropCash', $this->dropCash);
-		$criteria->compare('dropFavours', $this->dropFavours);
-		$criteria->compare('dropKudos', $this->dropKudos);
+		$criteria->compare('xp', $this->xp, true);
+		$criteria->compare('dropCash', $this->dropCash, true);
 		$criteria->compare('msgEncounter', $this->msgEncounter, true);
 
 		return new CActiveDataProvider($this, array(

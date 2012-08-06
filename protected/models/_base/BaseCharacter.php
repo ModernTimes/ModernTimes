@@ -20,8 +20,6 @@
  * - integer hp
  * - integer energy
  * - integer cash
- * - integer favours
- * - integer kudos
  *
  * - User user
  * - CharacterBattleskills characterBattleskills
@@ -88,12 +86,12 @@ abstract class BaseCharacter extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('userID, name', 'required'),
-			array('userID, active, ongoingBattleID, ongoingEncounterID, turns, badConscience, networkStrainedness, resolutenessSub, willpowerSub, cunningSub, hp, energy, cash, favours, kudos', 'numerical', 'integerOnly'=>true),
+			array('userID, active, ongoingBattleID, ongoingEncounterID, turns, badConscience, networkStrainedness, resolutenessSub, willpowerSub, cunningSub, hp, energy, cash', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			array('sex', 'length', 'max'=>6),
 			array('class', 'length', 'max'=>10),
-			array('active, sex, class, ongoingBattleID, ongoingEncounterID, turns, badConscience, networkStrainedness, resolutenessSub, willpowerSub, cunningSub, hp, energy, cash, favours, kudos', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, userID, active, name, sex, class, ongoingBattleID, ongoingEncounterID, turns, badConscience, networkStrainedness, resolutenessSub, willpowerSub, cunningSub, hp, energy, cash, favours, kudos', 'safe', 'on'=>'search'),
+			array('active, sex, class, ongoingBattleID, ongoingEncounterID, turns, badConscience, networkStrainedness, resolutenessSub, willpowerSub, cunningSub, hp, energy, cash', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, userID, active, name, sex, class, ongoingBattleID, ongoingEncounterID, turns, badConscience, networkStrainedness, resolutenessSub, willpowerSub, cunningSub, hp, energy, cash', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -150,8 +148,6 @@ abstract class BaseCharacter extends GxActiveRecord {
 			'hp' => Yii::t('app', 'Hp'),
 			'energy' => Yii::t('app', 'Energy'),
 			'cash' => Yii::t('app', 'Cash'),
-			'favours' => Yii::t('app', 'Favours'),
-			'kudos' => Yii::t('app', 'Kudos'),
 			'user' => null,
 			'characterBattleskills' => null,
 			'characterEffects' => null,
@@ -192,8 +188,6 @@ abstract class BaseCharacter extends GxActiveRecord {
 		$criteria->compare('hp', $this->hp);
 		$criteria->compare('energy', $this->energy);
 		$criteria->compare('cash', $this->cash);
-		$criteria->compare('favours', $this->favours);
-		$criteria->compare('kudos', $this->kudos);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

@@ -8,8 +8,6 @@
  * - integer item2ID
  * - integer itemResultID
  * - integer costCash
- * - integer costFavours
- * - integer costKudos
  * - integer costsTurn
  *
  * - CharacterRecipes characterRecipes
@@ -70,9 +68,9 @@ abstract class BaseRecipe extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('item1ID, item2ID, itemResultID', 'required'),
-			array('item1ID, item2ID, itemResultID, costCash, costFavours, costKudos, costsTurn', 'numerical', 'integerOnly'=>true),
-			array('costCash, costFavours, costKudos, costsTurn', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, item1ID, item2ID, itemResultID, costCash, costFavours, costKudos, costsTurn', 'safe', 'on'=>'search'),
+			array('item1ID, item2ID, itemResultID, costCash, costsTurn', 'numerical', 'integerOnly'=>true),
+			array('costCash, costsTurn', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, item1ID, item2ID, itemResultID, costCash, costsTurn', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -110,8 +108,6 @@ abstract class BaseRecipe extends GxActiveRecord {
 			'item2ID' => null,
 			'itemResultID' => null,
 			'costCash' => Yii::t('app', 'Cost Cash'),
-			'costFavours' => Yii::t('app', 'Cost Favours'),
-			'costKudos' => Yii::t('app', 'Cost Kudos'),
 			'costsTurn' => Yii::t('app', 'Costs Turn'),
 			'characterRecipes' => null,
 			'item1' => null,
@@ -134,8 +130,6 @@ abstract class BaseRecipe extends GxActiveRecord {
 		$criteria->compare('item2ID', $this->item2ID);
 		$criteria->compare('itemResultID', $this->itemResultID);
 		$criteria->compare('costCash', $this->costCash);
-		$criteria->compare('costFavours', $this->costFavours);
-		$criteria->compare('costKudos', $this->costKudos);
 		$criteria->compare('costsTurn', $this->costsTurn);
 
 		return new CActiveDataProvider($this, array(

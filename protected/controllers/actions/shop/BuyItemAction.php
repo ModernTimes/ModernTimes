@@ -84,12 +84,10 @@ class BuyItemAction extends CAction {
             $this->controller->redirect(array('index'));
         }
         
-        // Does the Character have enough resources to buy the stuff?
-        if($Character->cash < $ShopItem->cash * $n ||
-                $Character->favours < $ShopItem->favours * $n ||
-                $Character->kudos < $ShopItem->kudos * $n) {
+        // Does the Character have enough cash to buy the stuff?
+        if($Character->cash < $ShopItem->cash * $n) {
             
-            EUserFlash::setErrorMessage("You don't have enough resources to buy this.");
+            EUserFlash::setErrorMessage("You don't have enough cash to buy this.");
             $this->controller->redirect(array('shop', 'shopID' => $shopID));
         }
         
@@ -101,8 +99,6 @@ class BuyItemAction extends CAction {
         try {
             $Character->gainItem($ShopItem->item, $n);
             $Character->decreaseCash($ShopItem->cash * $n);
-            $Character->decreaseFavours($ShopItem->favours * $n);
-            $Character->decreaseKudos($ShopItem->kudos * $n);
             $Character->update();
             $transaction->commit();
        } catch(Exception $e) {

@@ -38,32 +38,12 @@ class Character extends BaseCharacter {
         return $this->gainResource('cash', $amount, $source);
     }
     /**
-     * Wrapper for gainResource
-     * @uses gainResource
-     * @param float $amount
-     * @param string $source enum(other|battle|encounter|quest|autosell) 
-     * @return int the actual amount of favours gained
-     */
-    public function gainFavours($amount = 0, $source = '') {
-        return $this->gainResource('favours', $amount, $source);
-    }
-    /**
-     * Wrapper for gainResource
-     * @uses gainResource
-     * @param float $amount
-     * @param string $source enum(other|battle|encounter|quest|autosell) 
-     * @return int the actual amount of kudos gained
-     */
-    public function gainKudos($amount = 0, $source = '') {
-        return $this->gainResource('kudos', $amount, $source);
-    }
-    /**
      * Gives resources to the character (or takes them away)
      * Before it actually does, it raises a GainingResource event, to which
      * other code elements can react, especially Model records with
      * CharacterModifierBehavior.
      * @uses GainStatEvent
-     * @param string $resource enum(cash|favours|kudos)
+     * @param string $resource enum(cash)
      * @param float $amount
      * @param string $source enum(other|battle|encounter|quest|autosell) 
      * Allows event handlers to react to gainStuff events only in case the
@@ -91,24 +71,7 @@ class Character extends BaseCharacter {
     public function increaseCash($amount = 0) {
         return $this->changeResource('cash', $amount);
     }
-    /**
-     * Wrapper for changeResource
-     * @uses changeResource
-     * @param float $amount
-     * @return int actual change in resource
-     */
-    public function increaseFavours($amount = 0) {
-        return $this->changeResource('favours', $amount);
-    }
-    /**
-     * Wrapper for changeResource
-     * @uses changeResource
-     * @param float $amount
-     * @return int actual change in resource
-     */
-    public function increaseKudos($amount = 0) {
-        return $this->changeResource('kudos', $amount);
-    }
+
     /**
      * Wrapper for changeResource
      * @uses changeResource
@@ -118,30 +81,13 @@ class Character extends BaseCharacter {
     public function decreaseCash($amount = 0) {
         return $this->changeResource('cash', -$amount);
     }
-    /**
-     * Wrapper for changeResource
-     * @uses changeResource
-     * @param float $amount
-     * @return int actual change in resource
-     */
-    public function decreaseFavours($amount = 0) {
-        return $this->changeResource('favours', -$amount);
-    }
-    /**
-     * Wrapper for changeResource
-     * @uses changeResource
-     * @param float $amount
-     * @return int actual change in resource
-     */
-    public function decreaseKudos($amount = 0) {
-        return $this->changeResource('kudos', -$amount);
-    }
+
     /**
      * Changes the indicated resource by $amount (which can be negative)
      * Also generates an EUserFlash message to inform the user about this
      * fortunate turn of events.
      * This is more of a setter method and does not raise any events.
-     * @param string $resource enum(cash|favours|kudos)
+     * @param string $resource enum(cash)
      * @param int $amount
      * @return int actual change in resource
      */
@@ -1341,20 +1287,6 @@ class Character extends BaseCharacter {
      */
     public function onGainCash($event) {
         $this->raiseEvent("onGainCash", $event);
-    }
-    /**
-     * Event raiser
-     * @param CEvent $event 
-     */
-    public function onGainFavours($event) {
-        $this->raiseEvent("onGainFavours", $event);
-    }
-    /**
-     * Event raiser
-     * @param CEvent $event 
-     */
-    public function onGainKudos($event) {
-        $this->raiseEvent("onGainKudos", $event);
     }
     /**
      * Event raiser

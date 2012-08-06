@@ -22,12 +22,6 @@
         if($ShopItem->cash > 0) {
             echo $ShopItem->cash . " <img src='" . Yii::app()->getBaseUrl() . "/images/cash.png' width='24' height='24' style='vertical-align: middle' title='Cash'><BR />";
         }
-        if($ShopItem->favours > 0) {
-            echo $ShopItem->favours . "<img src='" . Yii::app()->getBaseUrl() . "/images/favours.png' width='24' height='24' style='vertical-align: middle' title='Favours'><BR />";
-        }
-        if($ShopItem->kudos > 0) {
-            echo $ShopItem->kudos . " <img src='" . Yii::app()->getBaseUrl() . "/images/kudos.png' width='24' height='24' style='vertical-align: middle' title='Kudos'>";
-        }
         echo "</td><td>" .
                 "<a class='btn' href='./buyItem?shopID=" . $Shop->id . "&itemID=" . $ShopItem->itemID . "'>Buy</a>" .
              "</td></tr>";

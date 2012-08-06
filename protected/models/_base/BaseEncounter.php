@@ -10,14 +10,14 @@
  * - string msg
  * - integer costsTurn
  * - integer gainCash
- * - integer gainFavours
- * - integer gainKudos
  * - integer gainXp
  * - integer gainResoluteness
  * - integer gainWillpower
  * - integer gainCunning
  * - integer effectID
  * - integer effectDuration
+ * - integer questID
+ * - string questSetState
  *
  * - AreaEncounters areaEncounters
  * - CharacterEncounters characterEncounters
@@ -79,11 +79,12 @@ abstract class BaseEncounter extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('name, specialClass, msg', 'required'),
-			array('onetime, costsTurn, gainCash, gainFavours, gainKudos, gainXp, gainResoluteness, gainWillpower, gainCunning, effectID, effectDuration', 'numerical', 'integerOnly'=>true),
+			array('onetime, costsTurn, gainCash, gainXp, gainResoluteness, gainWillpower, gainCunning, effectID, effectDuration, questID', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			array('specialClass', 'length', 'max'=>50),
-			array('onetime, costsTurn, gainCash, gainFavours, gainKudos, gainXp, gainResoluteness, gainWillpower, gainCunning, effectID, effectDuration', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, name, specialClass, onetime, msg, costsTurn, gainCash, gainFavours, gainKudos, gainXp, gainResoluteness, gainWillpower, gainCunning, effectID, effectDuration', 'safe', 'on'=>'search'),
+			array('questSetState', 'length', 'max'=>11),
+			array('onetime, costsTurn, gainCash, gainXp, gainResoluteness, gainWillpower, gainCunning, effectID, effectDuration, questID, questSetState', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, name, specialClass, onetime, msg, costsTurn, gainCash, gainXp, gainResoluteness, gainWillpower, gainCunning, effectID, effectDuration, questID, questSetState', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -97,8 +98,8 @@ abstract class BaseEncounter extends GxActiveRecord {
 			'areaEncounters' => array(self::HAS_MANY, 'AreaEncounters', 'encounterID'),
 			'characterEncounters' => array(self::HAS_MANY, 'CharacterEncounters', 'encounterID'),
 			'effect' => array(self::BELONGS_TO, 'Effect', 'effectID'),
-			'encounterEncounters' => array(self::HAS_MANY, 'EncounterEncounters', 'toEncounterID'),
-			'encounterEncounters1' => array(self::HAS_MANY, 'EncounterEncounters', 'encounterID'),
+			'encounterEncounters' => array(self::HAS_MANY, 'EncounterEncounters', 'encounterID'),
+			'encounterEncounters1' => array(self::HAS_MANY, 'EncounterEncounters', 'toEncounterID'),
 			'encounterItems' => array(self::HAS_MANY, 'EncounterItems', 'encounterID'),
 		);
 	}
@@ -125,14 +126,14 @@ abstract class BaseEncounter extends GxActiveRecord {
 			'msg' => Yii::t('app', 'Msg'),
 			'costsTurn' => Yii::t('app', 'Costs Turn'),
 			'gainCash' => Yii::t('app', 'Gain Cash'),
-			'gainFavours' => Yii::t('app', 'Gain Favours'),
-			'gainKudos' => Yii::t('app', 'Gain Kudos'),
 			'gainXp' => Yii::t('app', 'Gain Xp'),
 			'gainResoluteness' => Yii::t('app', 'Gain Resoluteness'),
 			'gainWillpower' => Yii::t('app', 'Gain Willpower'),
 			'gainCunning' => Yii::t('app', 'Gain Cunning'),
 			'effectID' => null,
 			'effectDuration' => Yii::t('app', 'Effect Duration'),
+			'questID' => Yii::t('app', 'Quest'),
+			'questSetState' => Yii::t('app', 'Quest Set State'),
 			'areaEncounters' => null,
 			'characterEncounters' => null,
 			'effect' => null,
@@ -158,14 +159,14 @@ abstract class BaseEncounter extends GxActiveRecord {
 		$criteria->compare('msg', $this->msg, true);
 		$criteria->compare('costsTurn', $this->costsTurn);
 		$criteria->compare('gainCash', $this->gainCash);
-		$criteria->compare('gainFavours', $this->gainFavours);
-		$criteria->compare('gainKudos', $this->gainKudos);
 		$criteria->compare('gainXp', $this->gainXp);
 		$criteria->compare('gainResoluteness', $this->gainResoluteness);
 		$criteria->compare('gainWillpower', $this->gainWillpower);
 		$criteria->compare('gainCunning', $this->gainCunning);
 		$criteria->compare('effectID', $this->effectID);
 		$criteria->compare('effectDuration', $this->effectDuration);
+		$criteria->compare('questID', $this->questID);
+		$criteria->compare('questSetState', $this->questSetState, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

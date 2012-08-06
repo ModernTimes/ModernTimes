@@ -44,16 +44,14 @@ class AutosellAction extends CAction {
                             $CharacterItem->save();
                         }
 
-                        $gainCash = $Character->gainCash($CharacterItem->item->autosellCash);
-                        $gainFavours = $Character->gainFavours($CharacterItem->item->autosellFavours);
-                        $gainKudos = $Character->gainKudos($CharacterItem->item->autosellKudos);
+                        $gainCash = $Character->gainCash($CharacterItem->item->autosellCash, "autosell");
 
                         // Don't forget to trigger the character data updates before the redirect
                         $this->controller->afterAction($this);
 
                         $transaction->commit();
                         EUserFlash::setMessage("You sold 1 " . $CharacterItem->item->name . "." . 
-                                ($gainCash+$gainFavours+$gainKudos == 0
+                                ($gainCash == 0
                                     ? "<BR />You didn't think that you'd get something for that crap, did you?"
                                     : ""));
 

@@ -10,7 +10,7 @@ Yii::import('application.models._base.BaseCharactermodifier');
  * Implemented so far:
  * - calcAttributes
  * - calc combat stats (critChance, resistances, bonus damage)
- * - dropCash/Favours/Kudos
+ * - dropCash
  * - dropItem chance
  *
  * If you add more event handlers, don't forget to add a line to
@@ -54,12 +54,6 @@ class Charactermodifier extends BaseCharactermodifier {
         }
         if($this->dropCash != 0 || $this->dropCashPerc != 0) {
             $Character->onGainCash = array($this, 'reactToonGainCash');
-        }
-        if($this->dropFavours != 0 || $this->dropFavoursPerc != 0) {
-            $Character->onGainFavours = array($this, 'reactToonGainFavours');
-        }
-        if($this->dropKudos != 0 || $this->dropKudosPerc != 0) {
-            $Character->onGainKudos = array($this, 'reactToonGainKudos');
         }
         if($this->dropItemPerc != 0) {
             $Character->onCalcDropItemBonus = array($this, 'reactToOnCalcDropItemBonus');
@@ -137,8 +131,6 @@ class Charactermodifier extends BaseCharactermodifier {
         $Character->detachEventHandler("onCalcCunning", array($this, 'reactToOnCalcCunning'));
 
         $Character->detachEventHandler("onGainCash", array($this, 'reactToonGainCash'));
-        $Character->detachEventHandler("onGainFavours", array($this, 'reactToonGainFavours'));
-        $Character->detachEventHandler("onGainKudos", array($this, 'reactToonGainKudos'));
         
         $Character->detachEventHandler("onCalcDropItemBonus", array($this, 'reactToOnCalcDropItemBonus'));
         
@@ -379,34 +371,6 @@ class Charactermodifier extends BaseCharactermodifier {
         if(in_array($event->params['from'], $acceptedSources)) {
             $event->increaseBonusAbs($this->dropCash);
             $event->increaseBonusPerc($this->dropCashPerc);
-        }
-    }
-    /**
-     * Basic event handler
-     * Adds bonusAbs und bonusPerc according to the Model record's attributes
-     * Only reacts to gains from battles
-     * @param GainStatEvent $event with BonusCollectorBehavior
-     * @param array $acceptedSources list of scenarios in which the event observer
-     * should do its work
-     */
-    public function reactToOnGainFavours($event, $acceptedSources = array('battle')) {
-        if(in_array($event->params['from'], $acceptedSources)) {
-            $event->increaseBonusAbs($this->dropFavours);
-            $event->increaseBonusPerc($this->dropFavoursPerc);
-        }
-    }
-    /**
-     * Basic event handler
-     * Adds bonusAbs und bonusPerc according to the Model record's attributes
-     * Only reacts to gains from battles
-     * @param GainStatEvent $event with BonusCollectorBehavior
-     * @param array $acceptedSources list of scenarios in which the event observer
-     * should do its work
-     */
-    public function reactToOnGainKudos($event, $acceptedSources = array('battle')) {
-        if(in_array($event->params['from'], $acceptedSources)) {
-            $event->increaseBonusAbs($this->dropKudos);
-            $event->increaseBonusPerc($this->dropKudosPerc);
         }
     }
     

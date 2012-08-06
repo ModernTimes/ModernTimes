@@ -41,18 +41,6 @@ if($numberOfMessages > 0) {
                 'height' => 24,
                 'style' => "vertical-align: middle",
             ));
-        } elseif (strstr($key, "gainFavours")) { 
-            echo CHtml::image(Yii::app()->getBaseUrl() . "/images/favours.png", "Favours", array(
-                'width' => 24,
-                'height' => 24,
-                'style' => "vertical-align: middle",
-            ));
-        } elseif (strstr($key, "gainKudos")) { 
-            echo CHtml::image(Yii::app()->getBaseUrl() . "/images/kudos.png", "Kudos", array(
-                'width' => 24,
-                'height' => 24,
-                'style' => "vertical-align: middle",
-            ));
         } elseif (strstr($key, "gainLevel")) { ?>
             <span class="label label-success">Level</span>
         <?php } elseif (strstr($key, "gainHp")) { ?>

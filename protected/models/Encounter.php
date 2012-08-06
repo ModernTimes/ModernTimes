@@ -25,9 +25,7 @@ class Encounter extends BaseEncounter {
      * @param Character $Character
      */
     public function run($Character) {
-        $Character->gainCash($this->gainCash);
-        $Character->gainFavours($this->gainFavours);
-        $Character->gainKudos($this->gainKudos);
+        $Character->gainCash($this->gainCash, "encounter");
         
         $Character->gainXp($this->gainXp);
         $Character->gainResoluteness($this->gainResoluteness);

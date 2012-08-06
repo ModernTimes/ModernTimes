@@ -14,8 +14,6 @@
  * - integer autosellable
  * - string desc
  * - integer autosellCash
- * - integer autosellFavours
- * - integer autosellKudos
  * - integer useHp
  * - integer useEnergy
  * - integer useEffectID
@@ -91,12 +89,12 @@ abstract class BaseItem extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('name, specialClass, desc, useMsg', 'required'),
-			array('charactermodifierID, requirementID, usable, tradable, autosellable, autosellCash, autosellFavours, autosellKudos, useHp, useEnergy, useEffectID, useEffectDuration', 'numerical', 'integerOnly'=>true),
+			array('charactermodifierID, requirementID, usable, tradable, autosellable, autosellCash, useHp, useEnergy, useEffectID, useEffectDuration', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			array('specialClass', 'length', 'max'=>50),
 			array('type', 'length', 'max'=>9),
-			array('charactermodifierID, requirementID, type, usable, tradable, autosellable, autosellCash, autosellFavours, autosellKudos, useHp, useEnergy, useEffectID, useEffectDuration', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, name, specialClass, charactermodifierID, requirementID, type, usable, tradable, autosellable, desc, autosellCash, autosellFavours, autosellKudos, useHp, useEnergy, useEffectID, useEffectDuration, useMsg', 'safe', 'on'=>'search'),
+			array('charactermodifierID, requirementID, type, usable, tradable, autosellable, autosellCash, useHp, useEnergy, useEffectID, useEffectDuration', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, name, specialClass, charactermodifierID, requirementID, type, usable, tradable, autosellable, desc, autosellCash, useHp, useEnergy, useEffectID, useEffectDuration, useMsg', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -151,8 +149,6 @@ abstract class BaseItem extends GxActiveRecord {
 			'autosellable' => Yii::t('app', 'Autosellable'),
 			'desc' => Yii::t('app', 'Desc'),
 			'autosellCash' => Yii::t('app', 'Autosell Cash'),
-			'autosellFavours' => Yii::t('app', 'Autosell Favours'),
-			'autosellKudos' => Yii::t('app', 'Autosell Kudos'),
 			'useHp' => Yii::t('app', 'Use Hp'),
 			'useEnergy' => Yii::t('app', 'Use Energy'),
 			'useEffectID' => null,
@@ -196,8 +192,6 @@ abstract class BaseItem extends GxActiveRecord {
 		$criteria->compare('autosellable', $this->autosellable);
 		$criteria->compare('desc', $this->desc, true);
 		$criteria->compare('autosellCash', $this->autosellCash);
-		$criteria->compare('autosellFavours', $this->autosellFavours);
-		$criteria->compare('autosellKudos', $this->autosellKudos);
 		$criteria->compare('useHp', $this->useHp);
 		$criteria->compare('useEnergy', $this->useEnergy);
 		$criteria->compare('useEffectID', $this->useEffectID);
