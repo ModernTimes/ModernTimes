@@ -18,6 +18,19 @@
 class TutorialQuest extends CBehavior {
 
     /**
+     * ID of the spider that the player has to defeat
+     * @const int 
+     */
+    const monsterID = 5;
+    
+    
+    /**
+     * Array with string identifiers for the steps involved in this quest
+     * @var array
+     */
+    private $_steps = array("inventory", "skills", "battleskills");
+    
+    /**
      * Set the initial parameters for the Quest.
      * In this case: flags for each step
      */
@@ -27,6 +40,7 @@ class TutorialQuest extends CBehavior {
             $this->owner->params['prepInventory'] = 0;
             $this->owner->params['skills'] = 0;
             $this->owner->params['prepSkills'] = 0;
+            $this->owner->params['battleskills'] = 0;
             $this->owner->saveParams();
     }
     
@@ -36,16 +50,23 @@ class TutorialQuest extends CBehavior {
      * @return string
      */
     public function getDescStatus() {
-        switch($this->owner->params['currentStep']) {
-            case "inventory":
-                return "<BR />You remember having some things in your closet. Click on 'Stuff' in the navigation bar to have a closer look. You should probably put on some of the things you find there. Unless you want to paint the town nakedly.";
-                break;
-            case "skills":
-                return "<BR />You do have some talents, now that you think about it. Click on 'Skills' in the navigation bar, then click on your talent to see what happens.";
-                break;
-            default:
-                return "";
-                break;
+        if(!empty($this->owner->params['currentStep'])) {
+            switch($this->owner->params['currentStep']) {
+                case "inventory":
+                    return "<BR />You remember having some things in your closet. Click on 'Stuff' in the navigation bar to have a closer look. You should probably put on some of the things you find there. Unless you want to paint the town nakedly.";
+                    break;
+                case "skills":
+                    return "<BR />You do have some talents, now that you think about it. Click on 'Skills' in the navigation bar, then click on your talent to see what happens.";
+                    break;
+                case "battleskills":
+                    return "<BR /><span class='label label-important'>KNOCK</span> <span class='label label-important'>KNOCK</span> Seems like you have other worries than protecting yourself. Better pick yourself up and open the door. Oh, by the way: <button class='btn btn-mini'><i class='icon-time'></i></button> indicates that opening the door will cost you 1 turn. Every day, you will get 50 turns to spend as you please. You can see the number of remaining turns under your character's profile on the left.";
+                    break;
+                default:
+                    return "";
+                    break;
+            }
+        } else {
+            return "";
         }
     }
     
@@ -101,12 +122,18 @@ class TutorialQuest extends CBehavior {
     }
     
     /**
+     * Prepares the battleskills step by doing ... nothing
+     */
+    public function prepareStepBattleskills() { }
+    
+    /**
      * Attaches custom event handlers to a Character
      * @param Character $Character 
      */
     public function attachToCharacter($Character) {
         $Character->onEquipItem = array($this, 'reactToOnEquipItem');
         $Character->onUseSkill = array($this, 'reactToOnUseSkill');
+        $Character->onFinishedBattle = array($this, 'reactToOnFinishedBattle');
     }
     
     /**
@@ -116,10 +143,12 @@ class TutorialQuest extends CBehavior {
     public function detachFromCharacter($Character) {
         $Character->detachEventHandler("onEquipItem", array($this, 'reactToOnEquipItem'));
         $Character->detachEventHandler("onUseSkill", array($this, 'reactToOnUseSkill'));
+        $Character->detachEventHandler("onFinishedBattle", array($this, 'reactToOnFinishedBattle'));
     }
     
     /**
      * Checks whether the character equipped one of the starting items
+     * @uses completeStep
      * @uses Quest->saveParams
      * @param EquipItemEvent $event 
      */
@@ -130,7 +159,11 @@ class TutorialQuest extends CBehavior {
             if(in_array($Item->id, $startingItems)) {
                 if($this->completeStep("inventory")) {
                     EUserFlash::setSuccessMessage("Congratulations! You found your things.");
-                    $this->owner->saveParams();
+                    if($this->isFinished()) {
+                        $this->owner->setState("completed");
+                    } else {
+                        $this->owner->saveParams();
+                    }
                 }
             }
         }
@@ -138,6 +171,7 @@ class TutorialQuest extends CBehavior {
     
     /**
      * Checks whether the character used their basic non-combat skill
+     * @uses completeStep
      * @uses Quest->saveParams
      * @param UseSkillEvent $event 
      */
@@ -148,7 +182,36 @@ class TutorialQuest extends CBehavior {
             if(in_array($Skill->id, $startingSkills)) {
                 if($this->completeStep("skills")) {
                     EUserFlash::setSuccessMessage("Yeah, that's it. Did you notice that '" . $Skill->name . "' gave you an effect that makes you more powerful? Effects are displayed under your character's profile on the left. The little number next to the effect's name indicates how many turns the effect will last.  You can move your mouse over the effect's name to get further information.");
-                    $this->owner->saveParams();
+                    if($this->isFinished()) {
+                        $this->owner->setState("completed");
+                    } else {
+                        $this->owner->saveParams();
+                    }
+                }
+            }
+        }
+    }
+    
+    /**
+     * Checks if the character killed the spider under their bed
+     * @uses completeStep
+     * @uses Quest->saveParams
+     * @param UseSkillEvent $event 
+     */
+    public function reactToOnFinishedBattle($event) {
+        if(!$this->owner->params['battleskills']) {
+            $Battle = $event->getBattle();
+            if($Battle->isWinner($this->owner->Character) &&
+                    is_a($Battle->combatantB, "Monster") &&
+                    $Battle->combatantB->id == self::monsterID) {
+                
+                if($this->completeStep("battleskills")) {
+                    EUserFlash::setSuccessMessage("Great job! Look like you're not as groggy as it seemed.");
+                    if($this->isFinished()) {
+                        $this->owner->setState("completed");
+                    } else {
+                        $this->owner->saveParams();
+                    }
                 }
             }
         }
@@ -156,13 +219,58 @@ class TutorialQuest extends CBehavior {
     
     /**
      * Gives out all the rewards that the player hasn't collected yet
+     * @uses prepareStepInventory
+     * @uses prepareStepSkills
+     * @uses prepareStepBattleskills
      * @param QuestChangeStateEvent $event 
      */
     public function reactToOnCompleted($event) {
-        // Check which steps are still incomplete
+        if($this->isFinished()) {
+            EUserFlash::setSuccessMessage("Congratulations! You woke up successfully. Now that you're sober, you even remember that you have an appointment with your employer. The location is marked on your map. Just click on 'London' in the navigation bar to check it out.");
+        } else {
+            foreach($this->_steps as $step) {
+                call_user_func(array($this, "prepareStep" . ucfirst($step)));
+            }
+
+            EUserFlash::setSuccessMessage("Right. You're alive, and whatever you can't remember right now will surely come back to you when you need it. Actually, something IS coming back to you right now, namely the appointment you have with your employer. The location is marked on your map. Just click on 'London' in the navigation bar to check it out.");
+            
+            if($this->isFinished()) {
+                $this->owner->setState("completed");
+            }
+        }
         
         // Reset params and update CharacterQuest record
         $this->owner->reactToOnCompleted($event);
+    }
+    
+    /**
+     * Checks if all the steps in the quest have been completed
+     * @return boolean 
+     */
+    public function isFinished() {
+        foreach($this->_steps as $step) {
+            if(!$this->owner->CharacterQuest->quest->params[$step]) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Returns an array of string identifiers for the steps that are involved
+     * in this quest
+     * @return array 
+     */
+    public function getSteps() {
+        return $this->_steps;
+    }
+    
+    /**
+     * Basic getter
+     * @return int 
+     */
+    public function getMonsterID() {
+        return self::monsterID;
     }
     
 }
