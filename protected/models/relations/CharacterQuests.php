@@ -77,7 +77,8 @@ class CharacterQuests extends BaseCharacterQuests {
                         'alias' => 'characterQuestsQuest' . self::getScopeCounter(),
                         'scopes' => 'withRelated'
                     ),
-                )
+                ),
+                'order' => $this->getTableAlias(true) . ".`id` DESC"
             ),
         );
     }
