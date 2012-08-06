@@ -41,7 +41,6 @@ class ConsultantHQAction extends CAction {
                 }
             }
         }
-
         $this->controller->render('consultant/hq', array(
             "currentCharacterQuests" => $this->currentCharacterQuests
         ));

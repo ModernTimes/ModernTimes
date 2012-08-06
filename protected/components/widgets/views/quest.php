@@ -1,6 +1,5 @@
 <?php
 if(!empty($this->CharacterQuest)) {
-    
     echo "<div class='row well' style='margin: 5px'><div class='span" . 
             ($this->CharacterQuest->state == 'available' ? '9' : '12') . "'>";
     switch($this->CharacterQuest->state) {
