@@ -167,6 +167,13 @@ class Battle extends BaseBattle {
 
         $this->update();
         $this->reconstructCombatants();
+        
+        // Notify the world about this result
+        $event = new BattleEvent($this);
+        $this->combatantA->onFinishedBattle($event);
+        if($this->type == "pvp") {
+            $this->combatantB->onFinishedBattle($event);
+        }
     }
     
     /**
@@ -532,6 +539,25 @@ class Battle extends BaseBattle {
             return true;
         }
         return false;
+    }
+    
+    /**
+     * Checks if a given character is the winner of this battle
+     * @param mixed $character Character or int (ID of Character record)
+     */
+    public function isWinner($character) {
+        if(is_numeric($character)) {
+            $characterID = $character;
+        } else {
+            $characterID = $character->id;
+        }
+        if($this->winnerID == $characterID &&
+                $this->winnerType == "player") {
+            
+            return true;
+        } else {
+            return false;
+        }
     }
     
     /**

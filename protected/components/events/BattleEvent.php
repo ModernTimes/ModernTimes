@@ -42,6 +42,14 @@ class BattleEvent extends CEvent {
         
         parent::__construct($sender, $params);
     }
+    
+    /**
+     * Basic getter
+     * @return Battle 
+     */
+    public function getBattle() {
+        return $this->sender;
+    }
 }
 
 ?>

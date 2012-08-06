@@ -1193,6 +1193,13 @@ class Character extends BaseCharacter {
     }
     /**
      * Event raiser
+     * @param CEvent $event
+     */
+    public function onCalcDropItemBonus($event) {
+        $this->raiseEvent("onCalcDropItemBonus", $event);
+    }
+    /**
+     * Event raiser
      * @param CollectBonusEvent $event 
      */
     public function onCalcResistanceAbs($event) {
@@ -1415,14 +1422,14 @@ class Character extends BaseCharacter {
     public function onUseSkill($event) {
         $this->raiseEvent("onUseSkill", $event);
     }
-    
     /**
      * Event raiser
-     * @param CEvent $event
+     * @param BattleEvent $event 
      */
-    public function onCalcDropItemBonus($event) {
-        $this->raiseEvent("onCalcDropItemBonus", $event);
+    public function onFinishedBattle($event) {
+        $this->raiseEvent("onFinishedBattle", $event);
     }
+    
     
     /**
      * BACKGROUND STUFF
