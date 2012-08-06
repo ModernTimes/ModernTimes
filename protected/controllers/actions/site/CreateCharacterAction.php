@@ -89,7 +89,7 @@ class CreateCharacterAction extends CAction {
                     $ConsultantQuest->characterID = $Character->id;
                     $ConsultantQuest->questID = 9;
                     $ConsultantQuest->state = 'available';
-                    $ConsultantQuest->visible = 0;
+                    $ConsultantQuest->visible = 1;
                     $ConsultantQuest->save();
                     
                     // Vices
@@ -147,7 +147,7 @@ class CreateCharacterAction extends CAction {
 
                     $transaction->commit();
                     
-                    EUserFlash::setMessage("Character creation successful. Welcome to Modern Times!");
+                    EUserFlash::setSuccessMessage("Welcome to Modern Times!");
                     $this->controller->redirect(array("game/home"));
 
                 } catch(Exception $e) {
