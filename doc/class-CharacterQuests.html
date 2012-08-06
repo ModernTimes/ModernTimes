@@ -7,7 +7,7 @@
 	<title>Class CharacterQuests | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?3963278912"></script>
+	<script type="text/javascript" src="elementlist.js?1943147226"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -60,12 +60,18 @@
 						</li>
 				<li><a href="package-Actions.Character.html">Character</a>
 						</li>
-				<li><a href="package-Actions.Consultant.html">Consultant</a>
-						</li>
 				<li><a href="package-Actions.Inventory.html">Inventory</a>
 						</li>
-				<li><a href="package-Actions.Quests.html">Quests</a>
+				<li><a href="package-Actions.Places.html">Places<span></span></a>
+						<ul>
+				<li><a href="package-Actions.Places.Home.html">Home</a>
 						</li>
+							</ul></li>
+				<li><a href="package-Actions.Quests.html">Quests<span></span></a>
+						<ul>
+				<li><a href="package-Actions.Quests.Tutorial.html">Tutorial</a>
+						</li>
+							</ul></li>
 				<li><a href="package-Actions.Shopping.html">Shopping</a>
 						</li>
 							</ul></li>
@@ -210,13 +216,174 @@ GxActiveRecord
 				<b>Used by:</b>
 				<code><code><a href="class-QuestWidget.html">QuestWidget</a></code></code> <br />
 				<b>Used by:</b>
-				<code><code><a href="class-TestQuest.html">TestQuest</a></code></code> <br />
+				<code><code><a href="class-TutorialQuest.html">TutorialQuest</a></code></code> <br />
 		<b>Located at</b> <a href="source-class-CharacterQuests.html#6" title="Go to source code">protected/models/relations/CharacterQuests.php</a><br />
 	</div>
 
 
 		<h2>Methods summary</h2>
 		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="isVisible" id="_isVisible">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_isVisible">#</a>
+			<code><a href="source-class-CharacterQuests.html#19" title="Go to source code">isVisible</a>( )</code>
+
+			<div class="description short">
+				
+<p>Checks if the CharacterQuest is visible</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Checks if the CharacterQuest is visible</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="isFinished" id="_isFinished">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_isFinished">#</a>
+			<code><a href="source-class-CharacterQuests.html#27" title="Go to source code">isFinished</a>( )</code>
+
+			<div class="description short">
+				
+<p>Checks if the CharacterState is finished</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Checks if the CharacterState is finished</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br />
+					</div>
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-CharacterQuests.html#_">CharacterQuests::isOngoing()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="hasStarted" id="_hasStarted">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_hasStarted">#</a>
+			<code><a href="source-class-CharacterQuests.html#41" title="Go to source code">hasStarted</a>( )</code>
+
+			<div class="description short">
+				
+<p>Checks if the CharacterQuest has started</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Checks if the CharacterQuest has started</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br />
+					</div>
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-CharacterQuests.html#_">CharacterQuests::isOngoing()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="isOngoing" id="_isOngoing">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_isOngoing">#</a>
+			<code><a href="source-class-CharacterQuests.html#55" title="Go to source code">isOngoing</a>( )</code>
+
+			<div class="description short">
+				
+<p>Checks if CharacterQuest is ongoing</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Checks if CharacterQuest is ongoing</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br />
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-CharacterQuests.html#_">CharacterQuests::hasStarted()</a></code></code> <br />
+							<code><code><a href="class-CharacterQuests.html#_">CharacterQuests::isFinished()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="scopes" id="_scopes">
 
 			<td class="attributes"><code>
@@ -228,7 +395,7 @@ GxActiveRecord
 
 			<td class="name"><div>
 			<a class="anchor" href="#_scopes">#</a>
-			<code><a href="source-class-CharacterQuests.html#19" title="Go to source code">scopes</a>( )</code>
+			<code><a href="source-class-CharacterQuests.html#65" title="Go to source code">scopes</a>( )</code>
 
 			<div class="description short">
 				
@@ -273,7 +440,7 @@ query.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_model">#</a>
-			<code><a href="source-class-CharacterQuests.html#39" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
+			<code><a href="source-class-CharacterQuests.html#85" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
 
 			<div class="description short">
 				
