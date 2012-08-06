@@ -28,15 +28,18 @@ if($battle->state == "resolved") { ?>
 if($battle->state == "resolved") { ?>
     <center><table style="width: 66%"><tr><td width="50%" align="center">
     <?php if(!empty(Yii::app()->session['lastArea']) && $battle->isUserWinner()) { ?>
-        <div class="btn-group"><span class="btn">1 <i class='icon-time'></i></span>
-            <?php echo CHtml::link("Do more mischief at " . Yii::app()->session['lastArea']['name'], array('game/mischief', 'areaID' => Yii::app()->session['lastArea']['id']), array('class'=>'btn btn-warning')); ?>
-        </div>
+            <a href="<?php echo CHtml::normalizeUrl(array(
+                'mischief', 
+                'areaID' => Yii::app()->session['lastArea']['id'])); ?>">
+        <div class='btn-group'>
+            <button class="btn">1 <i class='icon-time'></i></button>
+                <button class='btn btn-warning'><?php echo Yii::app()->session['lastArea']['name']; ?></button>
+        </div></a>
     <?php } ?>
     </td><td width="50%" align="center">
 
-    <div class="btn-group"><!--<span class="btn"><i class='icon-road'></i>&nbsp;</span>-->
-        <?php echo CHtml::link("Back to London", array('game/map'), array('class'=>'btn btn-success')); ?>
-    </div>
+    <?php echo CHtml::link("Back to " . Yii::app()->tools->getLastPlaceName(), Yii::app()->tools->getLastPlaceID(), array('class'=>'btn btn-success')); ?>
+        
     </td></tr></table></center>
     
     <hr style="margin-bottom: 30px; margin-top: 45px; border-style: dashed; border-width: 1px; border-color: black">

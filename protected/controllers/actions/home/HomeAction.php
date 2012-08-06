@@ -18,6 +18,12 @@ class HomeAction extends CAction {
     public function run() {
         $Character = CD();
         
+        // Will be used in some view files
+        Yii::app()->session['lastPlace'] = array(
+            'id'   => array("home"),
+            'name' => "Home, sweet home",
+        );
+        
         // Wake up tutorial quest in home
         $tutorialQuestDisplay = "";
         if(!$Character->hasQuestCompleted(1)) {

@@ -16,6 +16,12 @@ class ConsultantHQAction extends CAction {
      * See above
      */
     public function run() {
+        // Will be used in some view files
+        Yii::app()->session['lastPlace'] = array(
+            'id'   => array("consultantHQ"),
+            'name' => "McBooz&Bain Consulting Group",
+        );
+        
         $Character = CD();
         if($Character->class != "consultant") {
             EUserFlash::setMessage("True: In real life, every smart-aleck youngster can be a consultant. In this game, we have to be a bit more restrictive, though.");

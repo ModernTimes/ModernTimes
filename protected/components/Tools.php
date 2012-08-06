@@ -26,6 +26,47 @@ class Tools extends CApplicationComponent {
         }
         return $number;
     }
+    
+    /**
+     * Returns information about the last place as an array:
+     * id (actionID), name
+     * default: id: map, name: London
+     * @return array
+     */
+    function getLastPlace() {
+        if(!empty(Yii::app()->session['lastPlace'])) {
+            return Yii::app()->session['lastPlace'];
+        } else {
+            return array(
+                "id" => array("map"), 
+                "name" => "London"
+            );
+        }
+    }
+    /**
+     * Returns the actionID of the last place visited by the character
+     * default: array(map)
+     * @return array
+     */
+    function getLastPlaceID() {
+        if(!empty(Yii::app()->session['lastPlace'])) {
+            return Yii::app()->session['lastPlace']['id'];
+        } else {
+            return array("map");
+        }
+    }
+    /**
+     * Returns the name of the last place visited by the character
+     * default: London
+     * @return string
+     */
+    function getLastPlaceName() {
+        if(!empty(Yii::app()->session['lastPlace'])) {
+            return Yii::app()->session['lastPlace']['name'];
+        } else {
+            return "London";
+        }
+    }
 
     /**
      * - Decreases the number of available turns by 1

@@ -19,6 +19,12 @@ class MapAction extends CAction {
     public function run() {
         // Will be used in some view files and redirect commands
         // Yii::app()->session['lastMapPosition'] = array();
+        
+        // Will be used in some view files
+        Yii::app()->session['lastPlace'] = array(
+            'id'   => array("map"),
+            'name' => "London",
+        );
 
         $Character = CD();
         $Markers = Marker::model()->withRelated()->findAll();

@@ -20,11 +20,12 @@ class GameController extends Controller {
     public $layout='//layouts/g_sidebar_standard';
 
     /**
-     * The standard action for the game controller,
-     * in this case MapAction
+     * The standard action for the game controller.
+     * Redirect to last place (in session), or to map if no last place is
+     * defined
      */
     public function actionIndex() {
-        $this->redirect(array('map'));
+        $this->redirect(Yii::app()->tools->getLastPlaceID());
     }
 
     /**
