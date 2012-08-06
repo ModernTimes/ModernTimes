@@ -62,6 +62,10 @@ class DeleteCharacterAction extends CAction {
                             'characterID=:characterID',
                             array(':characterID' => $Character->id)
                         );
+                        $numberOfCharacterRecipesDeleted = CharacterRecipes::model()->deleteAll(
+                            'characterID=:characterID',
+                            array(':characterID' => $Character->id)
+                        );
                         $numberOfCharacterSkillsDeleted = CharacterSkills::model()->deleteAll(
                             'characterID=:characterID',
                             array(':characterID' => $Character->id)
@@ -77,6 +81,7 @@ class DeleteCharacterAction extends CAction {
                         EUserFlash::setMessage("R.I.P. - " . $Character->name . ", a former " . $Character->getTitle() . ".");
                     } catch(Exception $e) {
                         $transaction->rollback();
+                        d($e);
                         EUserFlash::setErrorMessage("We really would have liked to 
                             kill your character, but some weird database shit 
                             happened. We promise to look into it, even if it's boring.
