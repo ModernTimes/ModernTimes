@@ -127,18 +127,20 @@ class CreateCharacterAction extends CAction {
                     $BabbleSkill->permed = 0;
                     $BabbleSkill->save();
 
+                    /**
                     $ReferToEmployerSkill = new CharacterBattleskills();
                     $ReferToEmployerSkill->characterID = $Character->id;
                     $ReferToEmployerSkill->battleskillID = 5;
                     $ReferToEmployerSkill->available = 1;
                     $ReferToEmployerSkill->permed = 0;
                     $ReferToEmployerSkill->save();
+                    */
 
                     $CharacterSkillset = new CharacterSkillsets();
                     $CharacterSkillset->characterID = $Character->id;
                     $CharacterSkillset->active = 1;
                     $CharacterSkillset->pos1ID = 2;
-                    $CharacterSkillset->pos2ID = 5;
+                    // $CharacterSkillset->pos2ID = 5;
                     $CharacterSkillset->save();
 
                     // First non-combat skill is provided by TutorialQuest
