@@ -19,7 +19,7 @@ class Greed1Quest extends CBehavior {
      * How much cash the Character has to collect in order to complete the quest
      * @const int 
      */
-    const cashToCollect = 2000;
+    const cashToCollect = 200000;
     
     /**
      * Encounter record id of Mommon saying hello the first time

@@ -131,8 +131,6 @@ class Battle extends BaseBattle {
             $loot = $this->combatantB->dropItems($this->combatantA->getDropItemPerc());
             $this->combatantA->gainItems($loot);
 
-            $this->combatantA->gainCash($this->combatantB->dropCash, "battle");
-
             /**
              * monster->xp can be defined to deviate from the standard
              * attack / 2 xp reward

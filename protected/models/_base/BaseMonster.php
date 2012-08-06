@@ -10,7 +10,6 @@
  * - integer attack
  * - integer defense
  * - string xp
- * - string dropCash
  * - string msgEncounter
  *
  * - AreaMonsters areaMonsters
@@ -73,9 +72,9 @@ abstract class BaseMonster extends GxActiveRecord {
 			array('hpMax, attack, defense', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			array('specialClass', 'length', 'max'=>50),
-			array('xp, dropCash', 'length', 'max'=>6),
-			array('xp, dropCash', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, name, specialClass, hpMax, attack, defense, xp, dropCash, msgEncounter', 'safe', 'on'=>'search'),
+			array('xp', 'length', 'max'=>6),
+			array('xp', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, name, specialClass, hpMax, attack, defense, xp, msgEncounter', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -114,7 +113,6 @@ abstract class BaseMonster extends GxActiveRecord {
 			'attack' => Yii::t('app', 'Attack'),
 			'defense' => Yii::t('app', 'Defense'),
 			'xp' => Yii::t('app', 'Xp'),
-			'dropCash' => Yii::t('app', 'Drop Cash'),
 			'msgEncounter' => Yii::t('app', 'Msg Encounter'),
 			'areaMonsters' => null,
 			'monsterBattleskills' => null,
@@ -138,7 +136,6 @@ abstract class BaseMonster extends GxActiveRecord {
 		$criteria->compare('attack', $this->attack);
 		$criteria->compare('defense', $this->defense);
 		$criteria->compare('xp', $this->xp, true);
-		$criteria->compare('dropCash', $this->dropCash, true);
 		$criteria->compare('msgEncounter', $this->msgEncounter, true);
 
 		return new CActiveDataProvider($this, array(
