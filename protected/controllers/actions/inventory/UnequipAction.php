@@ -57,7 +57,7 @@ class UnequipAction extends CAction {
                      */
                     $Character->gainItem($Item, 1, "unequip");
 
-                    EUserFlash::setMessage("You put away your " . $Item->name);
+                    EUserFlash::setSuccessMessage("You put away your " . $Item->name);
                     
                     // Notify the world that something was unequipped
                     $event = new EquipItemEvent($Character, $Item, $slot);

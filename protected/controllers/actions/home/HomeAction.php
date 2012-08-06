@@ -27,6 +27,7 @@ class HomeAction extends CAction {
         // Wake up tutorial quest in home
         $tutorialQuestDisplay = "";
         if(!$Character->hasQuestCompleted(1)) {
+            $Character->loadQuests();
             $tutorialQuestDisplay = $this->controller->renderPartial(
                     'home/questTutorial', 
                     array("CharacterQuest" => $Character->getCharacterQuest(1)), 

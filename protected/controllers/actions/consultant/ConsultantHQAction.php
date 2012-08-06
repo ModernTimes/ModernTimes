@@ -24,16 +24,17 @@ class ConsultantHQAction extends CAction {
         
         $Character = CD();
         if($Character->class != "consultant") {
-            EUserFlash::setMessage("True: In real life, every smart-aleck youngster can be a consultant. In this game, we have to be a bit more restrictive, though.");
+            EUserFlash::setErrorMessage("True: In real life, every smart-aleck youngster can be a consultant. In this game, we have to be a bit more restrictive, though.");
             $this->controller->redirect(array('index'));
         }
         // Tutorial quest completed
         if(!$Character->hasQuestCompleted(1)) {
-            EUserFlash::setMessage("You've not even awake ...");
+            EUserFlash::setErrorMessage("You've not even awake ...");
             $this->controller->redirect(array('index'));
         }
         
         $consultantQuestIDs = array(9);
+        $Character->loadQuests();
         foreach($Character->characterQuests as $CharacterQuest) {
             if(in_array($CharacterQuest->questID, $consultantQuestIDs)) {
                 if($CharacterQuest->isVisible() && 

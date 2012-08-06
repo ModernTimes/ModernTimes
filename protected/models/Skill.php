@@ -26,7 +26,7 @@ class Skill extends BaseSkill {
             $Character->decreaseEnergy($this->costEnergy);
             $Character->update();
             $this->call("createEffects", $Character);
-            EUserFlash::setMessage($this->msgResolved);
+            EUserFlash::setSuccessMessage($this->msgResolved);
         }
     }
     
