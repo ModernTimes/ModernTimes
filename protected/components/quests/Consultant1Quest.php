@@ -52,6 +52,22 @@ class Consultant1Quest extends CBehavior {
             $this->owner->setState("succeeded");
         }
     }
+
+    /**
+     * Generates a user message
+     * @param QuestChangeStateEvent $event 
+     */
+    public function reactToOnOngoing($event) {
+        EUserFlash::setSuccessMessage("You agreed to make your very own PowerPoint presentation. Your client, an undisclosed insurance company, is marked on your map.");
+    }
+    
+    /**
+     * Generates a user message
+     * @param QuestChangeStateEvent $event 
+     */
+    public function reactToOnSucceeded($event) {
+        EUserFlash::setSuccessMessage("Wow -- you actually made your very own first PowerPoint presentation. Make sure to tell your boss about it!");
+    }
     
     /**
      * - Gives out the reward
@@ -59,10 +75,11 @@ class Consultant1Quest extends CBehavior {
      * @param QuestChangeStateEvent $event 
      */
     public function reactToOnCompleted($event) {
+        EUserFlash::setSuccessMessage("Nice presentation, little grasshopper! Don't forget to equip your new weapon when you go to your next client.");
+        
         $this->owner->Character->gainCash(self::rewardCash, "quest");
         $this->owner->Character->update();
         
-        $this->owner->visible = 1;
         // Reset params and update CharacterQuest record
         $this->owner->reactToOnCompleted($event);
     }

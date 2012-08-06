@@ -347,8 +347,8 @@ class Quest extends BaseQuest {
     
     /**
      * Event handler
-     * Standard behavior:
-     * - generate flash message
+     * Standard behavior generates a flash message
+     * "Override", don't call after custom method
      * @param QuestChangeStateEvent $event 
      */
     public function reactToOnFailed($event) {
@@ -369,8 +369,8 @@ class Quest extends BaseQuest {
 
     /**
      * Event handler
-     * Standard behavior:
-     * - generate flash message
+     * Standard behavior generates a flash message.
+     * "Override", don't call after custom method
      * @param QuestChangeStateEvent $event 
      */
     public function reactToOnSucceeded($event) {
