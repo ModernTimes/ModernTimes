@@ -134,17 +134,17 @@ class Monster extends BaseMonster {
      * @return string 
      */
     public function createFirstRoundCombatMessage() {
+        if(!empty($this->msgEncounter)) {
+            return sprintf($this->msgEncounter, $this->name);
+        }
+        
         $msgs = array(
             "A " . $this->name . " sneaks up on you.",
             "A wild " . $this->name . " appears.",
             "You're engaging in an epic battle with a " . $this->name . ".",
         );
-        $ret = $msgs[mt_rand(0,count($msgs)-1)];
-    
-        if(!empty($this->msgEncounter)) {
-            $ret .= " " . $this->msgEncounter;
-        }
-        return $ret;
+        
+        return $msgs[mt_rand(0,count($msgs)-1)];
     }
     
     /**
