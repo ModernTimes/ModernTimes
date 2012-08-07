@@ -29,8 +29,8 @@ class MischiefAction extends CAction {
                 $encounterAction = new EncounterAction($this->controller, "encounter");
                 $encounterAction->encounter = $CharacterEncounter->encounter;
                 $encounterAction->callFromWithinApplication = true;
-                $this->controller->runAction($encounterAction);
                 $CharacterEncounter->delete();
+                $this->controller->runAction($encounterAction);
                 return;
             }
         }
