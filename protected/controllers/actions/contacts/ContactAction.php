@@ -11,17 +11,28 @@ class ContactAction extends CAction {
      * See above
      */
     public function run($charactercontactID) {
-        $character = CD();
-        $character->loadContacts();
+        // positive integer
+        $validSyntax = (!empty($charactercontactID)
+                        // are all characters digits? rules out decimal numbers
+                        && ctype_digit($charactercontactID)
+                        && $charactercontactID > 0);
+        if(!$validSyntax) {
+            EUserFlash::setErrorMessage("Something went wrong. Shit happens.");
+            $this->controller->redirect(array("contacts"));
+        } else {
+            $Character = CD();
+            $CharacterContact = CharacterContacts::model()->findByPk($charactercontactID);
+            
+            if($CharacterContact->characterID != $Character->id) {
+                EUserFlash::setErrorMessage("That contact does not belong to you.");
+                $this->controller->redirect(array("contacts"));
+            } else {
 
-        foreach($character->characterContacts as $CharacterContact) {
-            if($CharacterContact->id == $charactercontactID) {
-                break;
+                $this->controller->render("contact", array(
+                    'Character' => $Character,
+                    'CharacterContact' => $CharacterContact
+                ));
             }
         }
-        
-        $this->controller->render("contact", array(
-            'CharacterContact' => $CharacterContact
-        ));
     }
 }
