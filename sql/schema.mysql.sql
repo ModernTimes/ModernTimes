@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 07. Aug 2012 um 11:55
+-- Erstellungszeit: 07. Aug 2012 um 14:56
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `mt_battle` (
   KEY `combatantBID` (`combatantBID`),
   KEY `state` (`state`),
   KEY `winnerID` (`winnerID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=230 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=246 ;
 
 -- --------------------------------------------------------
 
@@ -311,6 +311,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_contacts` (
   `characterID` int(11) NOT NULL,
   `contactID` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
+  `sex` enum('male','female') DEFAULT NULL,
   `befriendable` tinyint(1) NOT NULL DEFAULT '0',
   `befriended` tinyint(1) NOT NULL DEFAULT '0',
   `bribable` tinyint(1) NOT NULL DEFAULT '0',
@@ -320,14 +321,14 @@ CREATE TABLE IF NOT EXISTS `mt_character_contacts` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `contactID` (`contactID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_contacts`:
---   `characterID`
---       `mt_character` -> `id`
 --   `contactID`
 --       `mt_contact` -> `id`
+--   `characterID`
+--       `mt_character` -> `id`
 --
 
 -- --------------------------------------------------------
@@ -459,7 +460,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_items` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `itemID` (`itemID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=65 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=66 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_items`:
@@ -617,10 +618,11 @@ CREATE TABLE IF NOT EXISTS `mt_contact` (
   `specialClass` varchar(100) NOT NULL,
   `areaOfInfluence` enum('populace','finance','realEconomy','police','underworld','bureaucracy','press','society') DEFAULT 'populace',
   `levelOfInfluence` tinyint(4) NOT NULL DEFAULT '1',
+  `befriendable` decimal(4,3) NOT NULL DEFAULT '1.000',
   `bribable` decimal(4,3) NOT NULL DEFAULT '0.000',
   `seducible` decimal(4,3) NOT NULL DEFAULT '0.000',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -856,14 +858,24 @@ CREATE TABLE IF NOT EXISTS `mt_monster` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `specialClass` varchar(50) NOT NULL,
+  `sex` enum('male','female') DEFAULT NULL,
+  `contactID` int(11) DEFAULT NULL,
+  `contactProb` decimal(4,3) NOT NULL DEFAULT '0.000',
   `hpMax` int(11) NOT NULL,
   `attack` int(11) NOT NULL,
   `defense` int(11) NOT NULL,
   `xp` decimal(6,1) DEFAULT NULL,
   `msgEncounter` tinytext NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
+  UNIQUE KEY `name` (`name`),
+  KEY `contactID` (`contactID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- RELATIONEN DER TABELLE `mt_monster`:
+--   `contactID`
+--       `mt_contact` -> `id`
+--
 
 -- --------------------------------------------------------
 
@@ -1187,8 +1199,8 @@ ALTER TABLE `mt_character_battleskills`
 -- Constraints der Tabelle `mt_character_contacts`
 --
 ALTER TABLE `mt_character_contacts`
-  ADD CONSTRAINT `mt_character_contacts_ibfk_2` FOREIGN KEY (`characterID`) REFERENCES `mt_character` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `mt_character_contacts_ibfk_1` FOREIGN KEY (`contactID`) REFERENCES `mt_contact` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `mt_character_contacts_ibfk_1` FOREIGN KEY (`contactID`) REFERENCES `mt_contact` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `mt_character_contacts_ibfk_2` FOREIGN KEY (`characterID`) REFERENCES `mt_character` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `mt_character_effects`
@@ -1317,6 +1329,12 @@ ALTER TABLE `mt_item`
 --
 ALTER TABLE `mt_marker`
   ADD CONSTRAINT `mt_marker_ibfk_1` FOREIGN KEY (`requirementID`) REFERENCES `mt_requirement` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints der Tabelle `mt_monster`
+--
+ALTER TABLE `mt_monster`
+  ADD CONSTRAINT `mt_monster_ibfk_1` FOREIGN KEY (`contactID`) REFERENCES `mt_contact` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `mt_monster_battleskills`
