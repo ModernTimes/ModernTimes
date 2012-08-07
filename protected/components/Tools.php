@@ -191,34 +191,34 @@ class Tools extends CApplicationComponent {
     }
     
     /**
-     * Returns the possessive pronoun for a given character
-     * @param Character $character, default is the active character
-     * @return string "his" or "her"
+     * Returns the possessive pronoun for a given sex
+     * @param string $sex enum(male|female|null)
+     * @return string enum(his|her|their)
      */
-    public function getPossessivePronoun($character = null) {
-        if(empty($character)) {
-            $character = CD();
-        }
-        if($character->sex == 'male') {
-            return "his";
-        } else {
-            return "her";
+    public function getPossessivePronoun($sex = null) {
+        switch($sex) {
+            case "male":
+                return "his";
+            case "female":
+                return "her";
+            default:
+                return "their";
         }
     }
     
     /**
-     * Returns the personal pronoun for a given character
-     * @param Character $character, default is the active character
-     * @return string "he" or "she"
+     * Returns the personal pronoun for a given sex
+     * @param string $sex enum(male|female|null)
+     * @return string enum (he|she|they)
      */
-    public function getPersonalPronoun($character = null) {
-        if(empty($character)) {
-            $character = CD();
-        }
-        if($character->sex == 'male') {
-            return "he";
-        } else {
-            return "she";
+    public function getPersonalPronoun($sex = null) {
+        switch($sex) {
+            case "male":
+                return "he";
+            case "female":
+                return "she";
+            default:
+                return "they";
         }
     }
     

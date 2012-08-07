@@ -77,7 +77,7 @@ class BabbleComboEffect extends CBehavior {
             
                     $this->owner->active = false;
 
-                    $battleMsg = new Battlemessage($event->hero . " loses " . Yii::app()->tools->getPossessivePronoun($event->hero) . " babble momentum");
+                    $battleMsg = new Battlemessage($event->hero . " loses " . Yii::app()->tools->getPossessivePronoun($event->hero->sex) . " babble momentum");
                     $event->sender->log($event->hero, $battleMsg);
             }
             
@@ -92,7 +92,7 @@ class BabbleComboEffect extends CBehavior {
                     $battleMsg->msg = $event->hero->name . " builds up some babble momentum";
                     $event->sender->log($event->hero, $battleMsg);
                 } else {
-                    // $battleMsg->msg = $event->hero->name . " increases " . Yii::app()->tools->getPossessivePronoun($event->hero) . " babble momentum";
+                    // $battleMsg->msg = $event->hero->name . " increases " . Yii::app()->tools->getPossessivePronoun($event->hero->sex) . " babble momentum";
                     // $event->sender->log($event->hero, $battleMsg);
                 }
             }
