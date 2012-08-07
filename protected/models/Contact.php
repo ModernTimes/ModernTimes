@@ -30,7 +30,7 @@ class Contact extends BaseContact {
      * @param string $name Name to apply to CharacterContact. Default null
      * @return CharacterContacts
      */
-    public function getCharacterContact($sex = null, $name = null) {
+    public function createCharacterContact($sex = null, $name = null) {
         $CharacterContact = new CharacterContacts();
         $CharacterContact->contactID = $this->id;
         $CharacterContact->contact = $this;

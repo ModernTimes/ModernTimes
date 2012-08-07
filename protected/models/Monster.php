@@ -112,7 +112,7 @@ class Monster extends BaseMonster {
         $prob = max(0, min(1, $this->contactProb + $dropContactPerc / 100));
         $rand = mt_rand(0, 1000);
         if($rand <= $prob * 1000) {
-            return $this->contact->getCharacterContact($this->sex, $this->name);
+            return $this->contact->createCharacterContact($this->sex, $this->name);
         }
         return null;
     }
