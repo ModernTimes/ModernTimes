@@ -762,6 +762,55 @@ class Character extends BaseCharacter {
     }
     
     /**
+     * Lazy loading of CharacterContacts records
+     */
+    public function loadContacts() {
+        if(!$this->hasRelated("characterContacts")) {
+            $characterContacts = CharacterContacts::model()->with(array(
+                'contact' => array(
+                )
+            ))->findAll(
+                't.characterID=:characterID', 
+                array(':characterID'=>$this->id));
+            $this->characterContacts = $characterContacts;
+        }
+    }
+    /**
+     * Returns the CharacterContacts records that belong to a given contact
+     * returns array() if no CharacterItems record is found
+     * @param mixed $contact Contact or int (ID of a Contact record)
+     * @return array of CharacterItems records (or empty)
+     */
+    public function getCharacterContact($contact) {
+        $this->loadContacts();
+        if(is_numeric($contact)) {
+            $contactID = $contact;
+        } else {
+            $contactID = $contact->id;
+        }
+        
+        $ret = array();
+        foreach($this->characterContacts as $characterContact) {
+            if($characterContact->contactID == $contactID) {
+                $ret[] = $characterContact;
+            }
+        }
+        
+        return $ret;
+    }
+    
+    /**
+     * Checks if the character has a contact of the given type
+     * @uses getCharacterContact
+     * @param mixed $contact Contact or int (ID of a Contact record)
+     * @return boolean 
+     */
+    public function hasContact($contact) {
+        $n = count($this->getCharacterContact($contact));
+        return ($n > 0);
+    }
+    
+    /**
      * Lazy loading of CharacterRecipes records
      */
     public function loadRecipes() {
