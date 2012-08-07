@@ -1264,14 +1264,14 @@ class Character extends BaseCharacter {
     }
     /**
      * Event raiser
-     * @param CEvent $event
+     * @param CollectBonusEvent $event
      */
     public function onCalcDropItemBonus($event) {
         $this->raiseEvent("onCalcDropItemBonus", $event);
     }
     /**
      * Event raiser
-     * @param CEvent $event
+     * @param CollectBonusEvent $event
      */
     public function onCalcDropContactBonus($event) {
         $this->raiseEvent("onCalcDropContactBonus", $event);

@@ -49,6 +49,10 @@ if(!empty($this->Charactermodifier)) {
         echo $this->addColor($this->Charactermodifier->dropItemPerc,
              $this->Charactermodifier->dropItemPerc. "% chance to find items") . "<BR />";
     }
+    if($this->Charactermodifier->dropContactPerc != 0) {
+        echo $this->addColor($this->Charactermodifier->dropContactPerc,
+             $this->Charactermodifier->dropContactPerc. "% chance to get your opponent's contact details") . "<BR />";
+    }
     
     if($this->Charactermodifier->critChancePerc != 0) {
         echo $this->addColor($this->Charactermodifier->critChancePerc,

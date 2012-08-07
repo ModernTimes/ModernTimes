@@ -55,8 +55,12 @@ class Charactermodifier extends BaseCharactermodifier {
         if($this->dropCash != 0 || $this->dropCashPerc != 0) {
             $Character->onGainCash = array($this, 'reactToonGainCash');
         }
+        
         if($this->dropItemPerc != 0) {
             $Character->onCalcDropItemBonus = array($this, 'reactToOnCalcDropItemBonus');
+        }
+        if($this->dropContactPerc != 0) {
+            $Character->onCalcDropContactBonus = array($this, 'reactToOnCalcDropContactBonus');
         }
         
         if($this->critChancePerc != 0) {
@@ -133,6 +137,7 @@ class Charactermodifier extends BaseCharactermodifier {
         $Character->detachEventHandler("onGainCash", array($this, 'reactToonGainCash'));
         
         $Character->detachEventHandler("onCalcDropItemBonus", array($this, 'reactToOnCalcDropItemBonus'));
+        $Character->detachEventHandler("onCalcDropContactBonus", array($this, 'reactToOnCalcDropContactBonus'));
         
         $Character->detachEventHandler("onCalcResistanceAbs", array($this, 'reactToOnCalcResistanceAbs'));
         $Character->detachEventHandler("onCalcResistanceLevelNormal", array($this, 'reactToOnCalcResistanceLevelNormal'));
@@ -381,6 +386,14 @@ class Charactermodifier extends BaseCharactermodifier {
      */
     public function reactToOnCalcDropItemBonus($event) {
         $event->increaseBonusPerc($this->dropItemPerc);
+    }
+    /**
+     * Basic event handler
+     * Adds bonusPerc according to the Model record's attributes
+     * @param CEvent $event with BonusCollectorBehavior
+     */
+    public function reactToOnCalcDropContactBonus($event) {
+        $event->increaseBonusPerc($this->dropContactPerc);
     }
     
     

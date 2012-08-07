@@ -17,6 +17,7 @@
  * - integer dropCash
  * - integer dropCashPerc
  * - integer dropItemPerc
+ * - integer dropContactPerc
  * - integer critChancePerc
  * - integer damageNormalAbs
  * - integer damageNormalPerc
@@ -100,9 +101,9 @@ abstract class BaseCharactermodifier extends GxActiveRecord {
 	 */
 	public function rules() {
 		return array(
-			array('hp, hpPerc, energy, energyPerc, resoluteness, resolutenessPerc, willpower, willpowerPerc, cunning, cunningPerc, dropCash, dropCashPerc, dropItemPerc, critChancePerc, damageNormalAbs, damageNormalPerc, damageEnvyAbs, damageEnvyPerc, damageGreedAbs, damageGreedPerc, damageGluttonyAbs, damageGluttonyPerc, damageLustAbs, damageLustPerc, damagePrideAbs, damagePridePerc, damageSlothAbs, damageSlothPerc, damageWrathAbs, damageWrathPerc, resistanceAbs, resistanceLevelNormal, resistanceLevelEnvy, resistanceLevelGreed, resistanceLevelGluttony, resistanceLevelLust, resistanceLevelPride, resistanceLevelSloth, resistanceLevelWrath', 'numerical', 'integerOnly'=>true),
-			array('hp, hpPerc, energy, energyPerc, resoluteness, resolutenessPerc, willpower, willpowerPerc, cunning, cunningPerc, dropCash, dropCashPerc, dropItemPerc, critChancePerc, damageNormalAbs, damageNormalPerc, damageEnvyAbs, damageEnvyPerc, damageGreedAbs, damageGreedPerc, damageGluttonyAbs, damageGluttonyPerc, damageLustAbs, damageLustPerc, damagePrideAbs, damagePridePerc, damageSlothAbs, damageSlothPerc, damageWrathAbs, damageWrathPerc, resistanceAbs, resistanceLevelNormal, resistanceLevelEnvy, resistanceLevelGreed, resistanceLevelGluttony, resistanceLevelLust, resistanceLevelPride, resistanceLevelSloth, resistanceLevelWrath', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, hp, hpPerc, energy, energyPerc, resoluteness, resolutenessPerc, willpower, willpowerPerc, cunning, cunningPerc, dropCash, dropCashPerc, dropItemPerc, critChancePerc, damageNormalAbs, damageNormalPerc, damageEnvyAbs, damageEnvyPerc, damageGreedAbs, damageGreedPerc, damageGluttonyAbs, damageGluttonyPerc, damageLustAbs, damageLustPerc, damagePrideAbs, damagePridePerc, damageSlothAbs, damageSlothPerc, damageWrathAbs, damageWrathPerc, resistanceAbs, resistanceLevelNormal, resistanceLevelEnvy, resistanceLevelGreed, resistanceLevelGluttony, resistanceLevelLust, resistanceLevelPride, resistanceLevelSloth, resistanceLevelWrath', 'safe', 'on'=>'search'),
+			array('hp, hpPerc, energy, energyPerc, resoluteness, resolutenessPerc, willpower, willpowerPerc, cunning, cunningPerc, dropCash, dropCashPerc, dropItemPerc, dropContactPerc, critChancePerc, damageNormalAbs, damageNormalPerc, damageEnvyAbs, damageEnvyPerc, damageGreedAbs, damageGreedPerc, damageGluttonyAbs, damageGluttonyPerc, damageLustAbs, damageLustPerc, damagePrideAbs, damagePridePerc, damageSlothAbs, damageSlothPerc, damageWrathAbs, damageWrathPerc, resistanceAbs, resistanceLevelNormal, resistanceLevelEnvy, resistanceLevelGreed, resistanceLevelGluttony, resistanceLevelLust, resistanceLevelPride, resistanceLevelSloth, resistanceLevelWrath', 'numerical', 'integerOnly'=>true),
+			array('hp, hpPerc, energy, energyPerc, resoluteness, resolutenessPerc, willpower, willpowerPerc, cunning, cunningPerc, dropCash, dropCashPerc, dropItemPerc, dropContactPerc, critChancePerc, damageNormalAbs, damageNormalPerc, damageEnvyAbs, damageEnvyPerc, damageGreedAbs, damageGreedPerc, damageGluttonyAbs, damageGluttonyPerc, damageLustAbs, damageLustPerc, damagePrideAbs, damagePridePerc, damageSlothAbs, damageSlothPerc, damageWrathAbs, damageWrathPerc, resistanceAbs, resistanceLevelNormal, resistanceLevelEnvy, resistanceLevelGreed, resistanceLevelGluttony, resistanceLevelLust, resistanceLevelPride, resistanceLevelSloth, resistanceLevelWrath', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, hp, hpPerc, energy, energyPerc, resoluteness, resolutenessPerc, willpower, willpowerPerc, cunning, cunningPerc, dropCash, dropCashPerc, dropItemPerc, dropContactPerc, critChancePerc, damageNormalAbs, damageNormalPerc, damageEnvyAbs, damageEnvyPerc, damageGreedAbs, damageGreedPerc, damageGluttonyAbs, damageGluttonyPerc, damageLustAbs, damageLustPerc, damagePrideAbs, damagePridePerc, damageSlothAbs, damageSlothPerc, damageWrathAbs, damageWrathPerc, resistanceAbs, resistanceLevelNormal, resistanceLevelEnvy, resistanceLevelGreed, resistanceLevelGluttony, resistanceLevelLust, resistanceLevelPride, resistanceLevelSloth, resistanceLevelWrath', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -148,6 +149,7 @@ abstract class BaseCharactermodifier extends GxActiveRecord {
 			'dropCash' => Yii::t('app', 'Drop Cash'),
 			'dropCashPerc' => Yii::t('app', 'Drop Cash Perc'),
 			'dropItemPerc' => Yii::t('app', 'Drop Item Perc'),
+			'dropContactPerc' => Yii::t('app', 'Drop Contact Perc'),
 			'critChancePerc' => Yii::t('app', 'Crit Chance Perc'),
 			'damageNormalAbs' => Yii::t('app', 'Damage Normal Abs'),
 			'damageNormalPerc' => Yii::t('app', 'Damage Normal Perc'),
@@ -203,6 +205,7 @@ abstract class BaseCharactermodifier extends GxActiveRecord {
 		$criteria->compare('dropCash', $this->dropCash);
 		$criteria->compare('dropCashPerc', $this->dropCashPerc);
 		$criteria->compare('dropItemPerc', $this->dropItemPerc);
+		$criteria->compare('dropContactPerc', $this->dropContactPerc);
 		$criteria->compare('critChancePerc', $this->critChancePerc);
 		$criteria->compare('damageNormalAbs', $this->damageNormalAbs);
 		$criteria->compare('damageNormalPerc', $this->damageNormalPerc);
