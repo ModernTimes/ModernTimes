@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 07. Aug 2012 um 17:27
+-- Erstellungszeit: 07. Aug 2012 um 19:29
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `mt_battle` (
   KEY `combatantBID` (`combatantBID`),
   KEY `state` (`state`),
   KEY `winnerID` (`winnerID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=258 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=272 ;
 
 -- --------------------------------------------------------
 
@@ -322,7 +322,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_contacts` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `contactID` (`contactID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_contacts`:
@@ -461,7 +461,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_items` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `itemID` (`itemID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=66 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=68 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_items`:
@@ -925,6 +925,21 @@ CREATE TABLE IF NOT EXISTS `mt_monster_items` (
 --   `monsterID`
 --       `mt_monster` -> `id`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `mt_name`
+--
+
+CREATE TABLE IF NOT EXISTS `mt_name` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` enum('boy','girl','surname') NOT NULL DEFAULT 'surname',
+  `name` varchar(15) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  KEY `type` (`type`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=353 ;
 
 -- --------------------------------------------------------
 
