@@ -38,6 +38,10 @@ class DeleteCharacterAction extends CAction {
                             'characterID=:characterID',
                             array(':characterID' => $Character->id)
                         );
+                        $numberOfCharacterContactsDeleted = CharacterContacts::model()->deleteAll(
+                            'characterID=:characterID',
+                            array(':characterID' => $Character->id)
+                        );
                         $numberOfCharacterEffectsDeleted = CharacterEffects::model()->deleteAll(
                             'characterID=:characterID',
                             array(':characterID' => $Character->id)
