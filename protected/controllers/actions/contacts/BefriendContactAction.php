@@ -42,6 +42,7 @@ class BefriendContactAction extends CAction {
         try {
 
             Yii::app()->tools->spendTurn();
+            $Character->save();
             
             $CharacterContact->befriended = 1;
             $CharacterContact->save();
