@@ -258,12 +258,13 @@
         return url;
     }
     function getActionButton(action) {
-        var ret = "<BR />&nbsp;<BR />";
+        var ret = "<BR />&nbsp;<BR /><a href='" + getLinkUrl(action) + "' class='nounderline'>";
         if(action.turn) { ret = ret + "<div class='btn-group'>"; }
-        ret = ret + "<div class='btn-group'><a href='" + getLinkUrl(action) + "'>";
-        if(action.turn) { ret = ret + "<span class='btn'><i class='icon-time'></i>&nbsp;</span>"; } 
-        ret = ret + "<span class='btn btn-warning'>" + action.name + "</span></a>";
+        ret = ret + "<div class='btn-group'>";
+        if(action.turn) { ret = ret + "<button class='btn'><i class='icon-time'></i>&nbsp;</button>"; } 
+        ret = ret + "<button class='btn btn-primary'>" + action.name + "</button>";
         if(action.turn) { ret = ret + "</div>";} 
+        ret = ret + "</a>";
         return ret;
     }
 

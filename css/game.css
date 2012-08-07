@@ -2,3 +2,7 @@ span.label {
     position: relative;
     top: -2px;
 }
+
+.nounderline {
+    text-decoration: none !important;
+}

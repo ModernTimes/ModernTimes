@@ -30,7 +30,7 @@ if($battle->state == "resolved") { ?>
     <?php if(!empty(Yii::app()->session['lastArea']) && $battle->isUserWinner()) { ?>
             <a href="<?php echo CHtml::normalizeUrl(array(
                 'mischief', 
-                'areaID' => Yii::app()->session['lastArea']['id'])); ?>">
+                'areaID' => Yii::app()->session['lastArea']['id'])); ?>" class="nounderline">
         <div class='btn-group'>
             <button class="btn">1 <i class='icon-time'></i></button>
                 <button class='btn btn-warning'><?php echo Yii::app()->session['lastArea']['name']; ?></button>
