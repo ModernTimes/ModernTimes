@@ -25,6 +25,7 @@ class Contact extends BaseContact {
     /**
      * Factory-style
      * Stamps out a specific contact based on the attributes of this record
+     * @uses Name::createName
      * @param mixed $sex enum(male|female) or null
      * @return CharacterContacts
      */
@@ -40,7 +41,7 @@ class Contact extends BaseContact {
         $CharacterContact->sex = $sex;
         
         // Name depends on sex
-        $CharacterContact->name = $this->call("createName", $sex);
+        $CharacterContact->name = Name::createName($sex);
         
         // Bribable, befriendable, etc?
         foreach($this->treatments as $treatment) {
@@ -58,22 +59,12 @@ class Contact extends BaseContact {
     }
     
     /**
-     * Creates a random name based on record attributes
-     * @todo "random name based on record attributes"
-     * @param string $sex enum[male|female)
-     * return string 
-     */
-    public function createName($sex) {
-        return ($sex == "male" ? "Max Mustermann" : "Maxine Musterfrau");
-    }
-    
-    /**
      * Returns a string representation of the contact 
      * @return string
      */
     public function getTitle() {
-        $ret = $this->getLevelOfInfluenceLabel() . $this->getAreaOfInfluenceLabel();
-        $ret = Yii::app()->tools->addIndefArticle($ret);
+        $ret = ucfirst($this->getLevelOfInfluenceLabel()) . $this->getAreaOfInfluenceLabel();
+        // $ret = Yii::app()->tools->addIndefArticle($ret);
         return $ret;
     }
     
