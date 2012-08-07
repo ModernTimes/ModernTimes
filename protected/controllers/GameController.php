@@ -25,7 +25,7 @@ class GameController extends Controller {
      * defined
      */
     public function actionIndex() {
-        $this->redirect(Yii::app()->tools->getLastPlaceID());
+        $this->redirect(Yii::app()->tools->getLastPlaceRoute());
     }
 
     /**

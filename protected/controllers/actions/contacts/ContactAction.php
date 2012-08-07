@@ -28,6 +28,11 @@ class ContactAction extends CAction {
                 $this->controller->redirect(array("contacts"));
             } else {
 
+                Yii::app()->session['lastPlace'] = array(
+                    'route' => array("contact", "charactercontactID" => $charactercontactID),
+                    'name'  => "Contact: " . $CharacterContact->name
+                );
+                
                 $this->controller->render("contact", array(
                     'Character' => $Character,
                     'CharacterContact' => $CharacterContact

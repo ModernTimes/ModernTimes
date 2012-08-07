@@ -11,6 +11,10 @@ class QuestsAction extends CAction {
      * see above
      */
     public function run() {
+        Yii::app()->session['lastPlace'] = array(
+            'route' => array("quests"), 'name' => "your todos"
+        );
+        
         $Character = CD();
         $Character->loadQuests();
 

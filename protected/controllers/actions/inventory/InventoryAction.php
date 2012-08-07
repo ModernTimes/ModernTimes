@@ -12,6 +12,10 @@ class InventoryAction extends CAction {
      * See above
      */
     public function run() {
+        Yii::app()->session['lastPlace'] = array(
+            'route' => array("inventory"), 'name' => "your stuff"
+        );
+
         $character = CD();
         $character->loadItems();
         $character->loadRecipes();

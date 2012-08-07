@@ -44,13 +44,13 @@ class Tools extends CApplicationComponent {
         }
     }
     /**
-     * Returns the actionID of the last place visited by the character
-     * default: array(map)
+     * Returns a Yii route to the last safe action
+     * default: array('map')
      * @return array
      */
-    function getLastPlaceID() {
+    function getLastPlaceRoute() {
         if(!empty(Yii::app()->session['lastPlace'])) {
-            return Yii::app()->session['lastPlace']['id'];
+            return Yii::app()->session['lastPlace']['route'];
         } else {
             return array("map");
         }
