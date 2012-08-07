@@ -23,6 +23,7 @@
  *
  * - User user
  * - CharacterBattleskills characterBattleskills
+ * - CharacterContacts characterContacts
  * - CharacterEffects characterEffects
  * - CharacterEncounters characterEncounters
  * - CharacterEquipments characterEquipments
@@ -104,6 +105,7 @@ abstract class BaseCharacter extends GxActiveRecord {
 		return array(
 			'user' => array(self::BELONGS_TO, 'User', 'userID'),
 			'characterBattleskills' => array(self::HAS_MANY, 'CharacterBattleskills', 'characterID'),
+			'characterContacts' => array(self::HAS_MANY, 'CharacterContacts', 'characterID'),
 			'characterEffects' => array(self::HAS_MANY, 'CharacterEffects', 'characterID'),
 			'characterEncounters' => array(self::HAS_MANY, 'CharacterEncounters', 'characterID'),
 			'characterEquipments' => array(self::HAS_MANY, 'CharacterEquipments', 'characterID'),
@@ -150,6 +152,7 @@ abstract class BaseCharacter extends GxActiveRecord {
 			'cash' => Yii::t('app', 'Cash'),
 			'user' => null,
 			'characterBattleskills' => null,
+			'characterContacts' => null,
 			'characterEffects' => null,
 			'characterEncounters' => null,
 			'characterEquipments' => null,
