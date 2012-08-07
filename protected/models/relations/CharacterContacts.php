@@ -16,6 +16,26 @@ Yii::import('application.models._base.BaseCharacterContacts');
 class CharacterContacts extends BaseCharacterContacts {
     
     /**
+     * array with string representations of potential treatments of contacts
+     * @var array
+     */
+    public $treatments = array("befriendable", "bribable", "seducible");
+    
+    /**
+     * Returns an array with string identifiers of possible treatments
+     * @return array
+     */
+    public function getPossibleTreatments() {
+        $possibleTreatments = array();
+        foreach($this->treatments as $treatment) {
+            if($this->{$treatment}) {
+                $possibleTreatments[] = $treatment;
+            }
+        }
+        return $possibleTreatments;
+    }
+    
+    /**
      * Factory method to get Model objects
      * @link http://www.yiiframework.com/doc/api/CModel
      * @param string $className

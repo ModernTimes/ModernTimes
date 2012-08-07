@@ -881,7 +881,7 @@ class Character extends BaseCharacter {
         $event = new ContactEvent($this, $characterContact);
         $this->onGainContact($event);
         
-        EUserFlash::setSuccessMessage("You got the contact details of <b>" . $characterContact->name . "</b>, " . $characterContact->contact->getTitle(), 'gainContact id:' . $characterContact->contact->id);
+        EUserFlash::setSuccessMessage("You got the contact details of <b>" . $characterContact->name . "</b>, " . lcfirst($characterContact->contact->getTitle()), 'gainContact id:' . $characterContact->contact->id);
         
         return true;
     }

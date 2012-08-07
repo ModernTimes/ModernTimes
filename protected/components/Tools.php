@@ -222,6 +222,21 @@ class Tools extends CApplicationComponent {
         }
     }
     
+    /**
+     * Returns a pronoun for the given sex in object form
+     * @param string $sex enum(male|female|null)
+     * @return string enum (him|her|them)
+     */
+    public function getObjectPronoun($sex = null) {
+        switch($sex) {
+            case "male":
+                return "him";
+            case "female":
+                return "her";
+            default:
+                return "them";
+        }
+    }    
     
     /**
      * Adds "a " or "an " to a string based on the first letter of $string
