@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 07. Aug 2012 um 19:29
+-- Erstellungszeit: 07. Aug 2012 um 19:42
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `mt_battle` (
   KEY `combatantBID` (`combatantBID`),
   KEY `state` (`state`),
   KEY `winnerID` (`winnerID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=272 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=273 ;
 
 -- --------------------------------------------------------
 
@@ -322,7 +322,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_contacts` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `contactID` (`contactID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_contacts`:
@@ -857,7 +857,7 @@ CREATE TABLE IF NOT EXISTS `mt_marker` (
 
 CREATE TABLE IF NOT EXISTS `mt_monster` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
+  `title` varchar(100) NOT NULL,
   `specialClass` varchar(50) NOT NULL,
   `sex` enum('male','female') DEFAULT NULL,
   `contactID` int(11) DEFAULT NULL,
@@ -868,7 +868,7 @@ CREATE TABLE IF NOT EXISTS `mt_monster` (
   `xp` decimal(6,1) DEFAULT NULL,
   `msgEncounter` tinytext NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`),
+  UNIQUE KEY `name` (`title`),
   KEY `contactID` (`contactID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 

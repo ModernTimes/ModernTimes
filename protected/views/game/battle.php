@@ -84,9 +84,9 @@ if($battle->state == "resolved") { ?>
                         </td>
                         <td width="<?php echo ($avatar ? "50" : "55"); ?>%" style="padding-left: 10px;">
                             <h<?php echo (strlen($battle->combatantB->name) > 25 ? "3" : "2"); ?> align="center"><?php echo ($battle->type == 'monster' ? ucfirst($battle->combatantB->name) : $battle->combatantB->name); ?></h<?php echo (strlen($battle->combatantB->name) > 25 ? "3" : "2"); ?>>
-                            <?php if($battle->type == 'pvp') { ?>
+                            
                                 <p align="center"><?php echo $battle->combatantB->getTitle(); ?></p>
-                            <?php } ?>
+                            
                         </td>
                         <?php if($avatar) { ?>
                             <td width="15%"><img src="<? echo Yii::app()->getBaseUrl(); ?>/images/monsters/<?php echo $battle->combatantB->id . "-" . $battle->combatantB->sex; ?>.png" width="64" height="64"></td>

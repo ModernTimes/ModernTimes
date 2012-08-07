@@ -26,10 +26,11 @@ class Contact extends BaseContact {
      * Factory-style
      * Stamps out a specific contact based on the attributes of this record
      * @uses Name::createName
-     * @param mixed $sex enum(male|female) or null
+     * @param string $sex enum(male|female) default null
+     * @param string $name Name to apply to CharacterContact. Default null
      * @return CharacterContacts
      */
-    public function getCharacterContact($sex = null) {
+    public function getCharacterContact($sex = null, $name = null) {
         $CharacterContact = new CharacterContacts();
         $CharacterContact->contactID = $this->id;
         $CharacterContact->contact = $this;
@@ -40,8 +41,11 @@ class Contact extends BaseContact {
         }
         $CharacterContact->sex = $sex;
         
-        // Name depends on sex
-        $CharacterContact->name = Name::createName($sex);
+        // Name
+        if(empty($name)) {
+            $name = Name::createName($sex);
+        }
+        $CharacterContact->name = $name;
         
         // Bribable, befriendable, etc?
         foreach($this->treatments as $treatment) {
