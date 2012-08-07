@@ -373,14 +373,11 @@ class Character extends BaseCharacter {
      * @return int actual xp gain
      */
     public function increaseXp($xp) {
-        $actualXpGain = 0;
         $cA = $this->getClassAttributes();
-        $actualXpGain += $this->increaseResoluteness($xp * $cA[$this->class]['resoluteness'], false);
-        $actualXpGain += $this->increaseWillpower($xp * $cA[$this->class]['willpower'], false);
-        $actualXpGain += $this->increaseCunning($xp * $cA[$this->class]['cunning'], false);
-        if($actualXpGain > 0) {
-            EUserFlash::setSuccessMessage($actualXpGain . " experience points", 'gainStat gainXP');
-        }
+        $actualXpGain = 0;
+        $actualXpGain += $this->increaseResoluteness($xp * $cA[$this->class]['resoluteness'], true);
+        $actualXpGain += $this->increaseWillpower($xp * $cA[$this->class]['willpower'], true);
+        $actualXpGain += $this->increaseCunning($xp * $cA[$this->class]['cunning'], true);
         return $actualXpGain;
     }
     
@@ -437,7 +434,7 @@ class Character extends BaseCharacter {
             $this->{$stat . "Sub"} += $amount;
 
             if($generateMsg) {
-                EUserFlash::setSuccessMessage("Your gained " . (int) $amount . " " . $stat, 'gainStat gainSubstat gain' . ucfirst($stat));
+                EUserFlash::setSuccessMessage("Your gained " . $amount . " " . self::getSubstatLabel($stat), 'gainStat gainSubstat gain' . ucfirst($stat));
             }
 
             if(call_user_func(array($this, "get" . ucfirst($stat) . "Base")) > $statBefore) {
@@ -450,6 +447,19 @@ class Character extends BaseCharacter {
         return $amount;
     }
     
+    /**
+     * Returns a random label for any substat
+     * @param string $stat enum(resoluteness|willpower|cunning)
+     */
+    public static function getSubstatLabel($stat) {
+        $substatLabels = array(
+            "resoluteness" => array("ruthlessness", "thick-headedness"),
+            "willpower" => array("conation", "volition"),
+            "cunning" => array("sneakiness", "craftiness", "guile"),
+        );
+        shuffle($substatLabels[$stat]);
+        return $substatLabels[$stat][0];
+    }
     
     /**
      * RETRIEVAL OF CHARACTER DATA

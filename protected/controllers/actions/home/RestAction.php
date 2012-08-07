@@ -14,7 +14,7 @@ class RestAction extends CAction {
      * See above
      */
     public function run() {
-        EUserFlash::setMessage("You rest.", '');
+        EUserFlash::setSuccessMessage("You rest.", '');
         
         CD()->increaseHp(15);
         CD()->increaseEnergy(15);

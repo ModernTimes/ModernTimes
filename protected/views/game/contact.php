@@ -1,7 +1,7 @@
 <?php 
 /**
- * @uses ContactWidget
- */ 
+ *  
+ */
 ?>
 <div class="hero-unit" style="padding: 0px; margin: 0px; background: none">
 

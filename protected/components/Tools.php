@@ -187,7 +187,16 @@ class Tools extends CApplicationComponent {
      * @return string 
      */
     public function getResistanceLevelLabel($level) {
-        return "Level " . $level;
+        switch($level) {
+            case 1:
+                return "Minimal";
+            case 2:
+                return "Some";
+            case 3:
+                return "OKish";
+            default:
+                return "Superb";
+        }
     }
     
     /**
