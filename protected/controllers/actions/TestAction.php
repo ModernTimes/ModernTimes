@@ -13,7 +13,9 @@ class TestAction extends CAction {
      * Your action logic 
      */
     public function run() {
+        $Character = CD();
         
+        $this->controller->forward("index");
     }
 }
 
