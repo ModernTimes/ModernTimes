@@ -55,6 +55,7 @@ class GameController extends Controller {
             'combineItems'     => 'application.controllers.actions.inventory.CombineItemsAction',
             
             'contacts'         => 'application.controllers.actions.contacts.ContactsAction',
+            'contact'          => 'application.controllers.actions.contacts.ContactAction',
             
             'home'             => 'application.controllers.actions.home.HomeAction',
             'rest'             => 'application.controllers.actions.home.RestAction',

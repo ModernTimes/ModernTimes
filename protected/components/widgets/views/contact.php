@@ -60,7 +60,7 @@ if(!empty($this->CharacterContact)) {
         $displayHTML = $this->CharacterContact->name;
     }
     
-    echo CHtml::link($displayHTML, "#", array(
+    echo CHtml::link($displayHTML, array("contact", "charactercontactID" => $this->CharacterContact->id), array(
         'class'=>'', 
         'data-title'=>$this->CharacterContact->name, 
         'data-content'=>$popup,
