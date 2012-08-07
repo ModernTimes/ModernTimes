@@ -130,6 +130,9 @@ class Battle extends BaseBattle {
         if($this->type == "monster" && $this->combatantB->hp <= 0) {
             $loot = $this->combatantB->dropItems($this->combatantA->getDropItemPerc());
             $this->combatantA->gainItems($loot);
+            
+            $contact = $this->combatantB->dropContact($this->combatantA->getDropContactPerc());
+            $this->combatantA->gainContact($contact, "battle");
 
             /**
              * monster->xp can be defined to deviate from the standard

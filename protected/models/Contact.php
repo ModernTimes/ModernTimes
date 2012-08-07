@@ -17,13 +17,63 @@ Yii::import('application.components.contacts.*');
 class Contact extends BaseContact {
     
     /**
+     * array with string representations of potential treatments of contacts
+     * @var array
+     */
+    public $treatments = array("befriendable", "bribable", "seducible");
+    
+    /**
+     * Factory-style
+     * Stamps out a specific contact based on the attributes of this record
+     * @param mixed $sex enum(male|female) or null
+     * @return CharacterContacts
+     */
+    public function getCharacterContact($sex = null) {
+        $CharacterContact = new CharacterContacts();
+        $CharacterContact->contactID = $this->id;
+        $CharacterContact->contact = $this;
+        
+        // Sex
+        if(empty($sex)) {
+            $sex = (mt_rand(0,1) ? "female" : "male");
+        }
+        $CharacterContact->sex = $sex;
+        
+        // Name depends on sex
+        $CharacterContact->name = $this->call("createName", $sex);
+        
+        // Bribable, befriendable, etc?
+        foreach($this->treatments as $treatment) {
+            if($this->{$treatment} == 0) {
+            } elseif ($this->{$treatment} == 1) {
+                $CharacterContact->{$treatment} = 1;
+            } else {
+                $rand = mt_rand(0, 1000);
+                if($rand <= $this->{$treatment} * 1000) {
+                    $CharacterContact->{$treatment} = 1;
+                }
+            }
+        }
+        return $CharacterContact;
+    }
+    
+    /**
+     * Creates a random name based on record attributes
+     * @todo "random name based on record attributes"
+     * @param string $sex enum[male|female)
+     * return string 
+     */
+    public function createName($sex) {
+        return ($sex == "male" ? "Max Mustermann" : "Maxine Musterfrau");
+    }
+    
+    /**
      * Returns a string representation of the contact 
      * @return string
      */
     public function getTitle() {
         $ret = $this->getLevelOfInfluenceLabel() . $this->getAreaOfInfluenceLabel();
-        $vowels = array('a', 'e', 'i', 'o', 'u');
-        $ret = (in_array(substr($ret, 0, 1), $vowels) ? "An " : "A ") . $ret;
+        $ret = Yii::app()->tools->addIndefArticle($ret);
         return $ret;
     }
     

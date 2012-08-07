@@ -222,4 +222,16 @@ class Tools extends CApplicationComponent {
         }
     }
     
+    
+    /**
+     * Adds "a " or "an " to a string based on the first letter of $string
+     * @param string $string
+     * @return string
+     */
+    public function addIndefArticle($string) {
+        $vowels = array('a', 'e', 'i', 'o', 'u');
+        return (in_array(substr($string, 0, 1), $vowels) ? "an " : "a ") . $string;
+        
+    }
+    
 }

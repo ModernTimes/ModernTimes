@@ -117,6 +117,20 @@ class Character extends BaseCharacter {
     }
     
     /**
+     * Returns the cumulative bonus to contact drop chances by raising a
+     * CalcDropItemBonus event, which is then modified by everything that
+     * affects this stat, especially Model records with
+     * CharacterModifierBehavior.
+     * @uses CollectBonusEvent
+     * @return float bonus in percentage points
+     */ 
+    public function getDropContactPerc() {
+        $event = new CollectBonusEvent($this);
+        $this->onCalcDropContactBonus($event);
+        return $event->getBonusPerc();
+    }
+    
+    /**
      * Wrapper for gainItem. Allows handling of multiple Items.
      * @uses gainItem
      * @param array $items several Items
@@ -140,7 +154,6 @@ class Character extends BaseCharacter {
      */
     public function gainItem($Item, $n = 1, $source = "other") {
         if(!is_a($Item, "Item")) {
-            // @todo nice exception
             return false;
         }
        
@@ -157,7 +170,43 @@ class Character extends BaseCharacter {
         }
         return true;
     }
-
+    /**
+     * Wrapper for gainContact. Allows handling of multiple Contacts.
+     * @uses gainContact
+     * @param array $contact several Contacts
+     * @param string $source enum(other|battle|encounter|quest) 
+     */
+    public function gainContacts($contacts, $source = "other") {
+        if(!is_array($contacts) || empty($contacts)) { return; }
+        
+        foreach($contacts as $contact) {
+            $this->gainContact($contact, $source);
+        }
+    }
+    /**
+     * Adds a contact (or characterContact) to the character's address book
+     * @uses addCharacterContact
+     * @uses Contact->getCharacterContact
+     * @param mixed $Contact Contact or CharacterContacts
+     * @param string $source enum(other|battle|encounter|quest) 
+     * @return bool success?
+     */
+    public function gainContact($Contact, $source = "other") {
+        if(!is_a($Contact, "Contact") && !is_a($Contact, "CharacterContacts")) {
+            return false;
+        }
+        if(is_a($Contact, "Contact")) {
+            $CharacterContact = $Contact->getCharacterContact();
+        } else {
+            $CharacterContact = $Contact;
+        }
+        
+        $this->addCharacterContact($CharacterContact);
+        $CharacterContact->save();
+        
+        return true;
+    }
+    
     /**
      * Wrapper for changeHp
      * @uses changeHp
@@ -809,6 +858,33 @@ class Character extends BaseCharacter {
         $n = count($this->getCharacterContact($contact));
         return ($n > 0);
     }
+    /**
+     * Adds a CharacterContacts record to the Character record
+     * @uses onGainContact
+     * @uses ContactEvent
+     * @todo Flash message only if the Character record represents the current
+     * user's character
+     * @uses CharacterContacts
+     * @param CharacterContacts $characterContact
+     * @return bool success or not
+     */
+    public function addCharacterContact($characterContact) {
+        $characterContact->characterID = $this->id;
+        /**
+         * Remember: $this->characterContacts is NOT a real property, but the 
+         * result of a function call!
+         */
+        $charContacts = $this->characterContacts;
+        $charContacts[] = $characterContact;
+        $this->characterContacts = $charContacts;
+        
+        $event = new ContactEvent($this, $characterContact);
+        $this->onGainContact($event);
+        
+        EUserFlash::setSuccessMessage("You got the contact details of <b>" . $characterContact->name . "</b>, " . $characterContact->contact->getTitle(), 'gainContact id:' . $characterContact->contact->id);
+        
+        return true;
+    }
     
     /**
      * Lazy loading of CharacterRecipes records
@@ -1195,6 +1271,13 @@ class Character extends BaseCharacter {
     }
     /**
      * Event raiser
+     * @param CEvent $event
+     */
+    public function onCalcDropContactBonus($event) {
+        $this->raiseEvent("onCalcDropContactBonus", $event);
+    }
+    /**
+     * Event raiser
      * @param CollectBonusEvent $event 
      */
     public function onCalcResistanceAbs($event) {
@@ -1380,6 +1463,14 @@ class Character extends BaseCharacter {
      */
     public function onGainItem($event) {
         $this->raiseEvent("onGainItem", $event);
+    }
+
+    /**
+     * Event raiser
+     * @param ContactEvent $event 
+     */
+    public function onGainContact($event) {
+        $this->raiseEvent("onGainContact", $event);
     }
     
     /**

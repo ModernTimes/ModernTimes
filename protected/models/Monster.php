@@ -87,13 +87,28 @@ class Monster extends BaseMonster {
     public function dropItems($dropItemPerc = 0) {
         $loot = array();
         foreach($this->monsterItems as $monsterItem) {
-            $prob = max(0, min(1, $monsterItem->prob * (($dropItemPerc + 100) / 100)));
+            $prob = max(0, min(1, $monsterItem->prob + ($dropItemPerc / 100)));
             $rand = mt_rand(0, 1000000);
             if($rand <= $prob * 1000000) {
                 $loot[] = $monsterItem->item;
             }
         }
         return $loot;
+    }
+    
+    /**
+     * Decides whether the monster drops its contact details
+     * dropContactPerc are percentage point increasers/decreasers as usual
+     * @param int $dropContactPerc bonus to the drop rate
+     * @return mixed CharacterContacts record or null
+     */
+    public function dropContact($dropContactPerc = 0) {
+        $prob = max(0, min(1, $this->contactProb + $dropContactPerc / 100));
+        $rand = mt_rand(0, 1000);
+        if($rand <= $prob * 1000) {
+            return $this->contact->getCharacterContact($this->sex);
+        }
+        return null;
     }
     
     /**
