@@ -38,7 +38,7 @@ if($battle->state == "resolved") { ?>
     <?php } ?>
     </td><td width="50%" align="center">
 
-    <?php echo CHtml::link("Back to " . Yii::app()->tools->getLastPlaceName(), Yii::app()->tools->getLastPlaceID(), array('class'=>'btn btn-success')); ?>
+    <?php echo CHtml::link("Back to " . Yii::app()->tools->getLastPlaceName(), Yii::app()->tools->getLastPlaceRoute(), array('class'=>'btn btn-success')); ?>
         
     </td></tr></table></center>
     
