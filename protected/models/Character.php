@@ -840,7 +840,7 @@ class Character extends BaseCharacter {
      * @param mixed $contact Contact or int (ID of a Contact record)
      * @return array of CharacterItems records (or empty)
      */
-    public function getCharacterContact($contact) {
+    public function getCharacterContacts($contact) {
         $this->loadContacts();
         if(is_numeric($contact)) {
             $contactID = $contact;
@@ -860,14 +860,35 @@ class Character extends BaseCharacter {
     
     /**
      * Checks if the character has a contact of the given type
-     * @uses getCharacterContact
+     * @uses getCharacterContacts
      * @param mixed $contact Contact or int (ID of a Contact record)
      * @return boolean 
      */
     public function hasContact($contact) {
-        $n = count($this->getCharacterContact($contact));
+        $n = count($this->getCharacterContacts($contact));
         return ($n > 0);
     }
+    
+    /**
+     * Checks whether a given CharacterContact belongs to this character
+     * @param mixed $CharacterContact or int (ID of a CharacterContact record)
+     * @return bool
+     */
+    public function hasCharacterContact($contact) {
+        $this->loadContacts();
+        if(is_numeric($contact)) {
+            $contactID = $contact;
+        } else {
+            $contactID = $contact->id;
+        }
+        foreach($this->characterContacts as $CharacterContact) {
+            if($CharacterContact->characterID == $this->id) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     /**
      * Adds a CharacterContacts record to the Character record
      * @uses onGainContact

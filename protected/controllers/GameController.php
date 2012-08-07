@@ -56,6 +56,7 @@ class GameController extends Controller {
             
             'contacts'         => 'application.controllers.actions.contacts.ContactsAction',
             'contact'          => 'application.controllers.actions.contacts.ContactAction',
+            'befriendContact'  => 'application.controllers.actions.contacts.BefriendContactAction',
             
             'home'             => 'application.controllers.actions.home.HomeAction',
             'rest'             => 'application.controllers.actions.home.RestAction',

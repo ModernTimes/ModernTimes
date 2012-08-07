@@ -72,8 +72,9 @@ class Tools extends CApplicationComponent {
      * - Decreases the number of available turns by 1
      * - Reduces the duration of active effects by 1
      * - Reduces the delay of encounters in the encounter queue by 1
-     * @todo ask for Character record in parameters to make dependency injection
-     * and spending turns on other characters possible
+     * @todo Rework! Add spendTurn method in Character. Let that method raise an
+     * onSpendTurn event. Let characterEffects and characterEncounters hook 
+     * into onSpendTurn.
      */
     function spendTurn () {
         $Character = CD();
