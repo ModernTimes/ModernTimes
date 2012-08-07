@@ -124,6 +124,9 @@ class Monster extends BaseMonster {
     public function getReadyForBattle() {
         $this->hp = $this->hpMax;
         $this->energy = 0;
+        if(empty($this->sex)) {
+            $this->sex = (mt_rand(0,1) ? "female" : "male");
+        }
     }
     
     

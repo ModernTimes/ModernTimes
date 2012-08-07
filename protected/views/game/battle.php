@@ -69,7 +69,7 @@ if($battle->state == "resolved") { ?>
             <td><h1 align="center">vs</h1></td>
 
             <?php 
-                $avatar = $battle->type == "monster" && file_exists(Yii::app()->getBasePath() . "/../images/monsters/" . $battle->combatantB->id . ".png");
+                $avatar = $battle->type == "monster" && file_exists(Yii::app()->getBasePath() . "/../images/monsters/" . $battle->combatantB->id . "-" . $battle->combatantB->sex . ".png");
             ?>
             <td width="45%" style="padding-left: 10px"><table width="100%">
                     <tr>
@@ -89,7 +89,7 @@ if($battle->state == "resolved") { ?>
                             <?php } ?>
                         </td>
                         <?php if($avatar) { ?>
-                            <td width="15%"><img src="<? echo Yii::app()->getBaseUrl(); ?>/images/monsters/<?php echo $battle->combatantB->id; ?>.png" width="64" height="64"></td>
+                            <td width="15%"><img src="<? echo Yii::app()->getBaseUrl(); ?>/images/monsters/<?php echo $battle->combatantB->id . "-" . $battle->combatantB->sex; ?>.png" width="64" height="64"></td>
                         <?php } ?>
                     </tr>
                 </table>
