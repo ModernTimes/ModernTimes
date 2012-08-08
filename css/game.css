@@ -2,3 +2,12 @@ span.label {
     position: relative;
     top: -2px;
 }
+
+.nounderline {
+    text-decoration: none !important;
+}
+
+.icon-cash {
+    background-image: url("../images/cash.png");
+    background-position: center center;
+}

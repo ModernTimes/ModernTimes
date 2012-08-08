@@ -22,8 +22,7 @@ class MapAction extends CAction {
         
         // Will be used in some view files
         Yii::app()->session['lastPlace'] = array(
-            'id'   => array("map"),
-            'name' => "London",
+            'route' => array("map"), 'name' => "London",
         );
 
         $Character = CD();

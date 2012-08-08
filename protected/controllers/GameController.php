@@ -25,7 +25,7 @@ class GameController extends Controller {
      * defined
      */
     public function actionIndex() {
-        $this->redirect(Yii::app()->tools->getLastPlaceID());
+        $this->redirect(Yii::app()->tools->getLastPlaceRoute());
     }
 
     /**
@@ -53,6 +53,11 @@ class GameController extends Controller {
             'unequip'          => 'application.controllers.actions.inventory.UnequipAction',
             'useItem'          => 'application.controllers.actions.inventory.UseItemAction',
             'combineItems'     => 'application.controllers.actions.inventory.CombineItemsAction',
+            
+            'contacts'         => 'application.controllers.actions.contacts.ContactsAction',
+            'contact'          => 'application.controllers.actions.contacts.ContactAction',
+            'exploitContact'   => 'application.controllers.actions.contacts.ExploitContactAction',
+            'befriendContact'  => 'application.controllers.actions.contacts.BefriendContactAction',
             
             'home'             => 'application.controllers.actions.home.HomeAction',
             'rest'             => 'application.controllers.actions.home.RestAction',

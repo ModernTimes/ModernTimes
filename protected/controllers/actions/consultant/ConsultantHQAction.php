@@ -16,10 +16,8 @@ class ConsultantHQAction extends CAction {
      * See above
      */
     public function run() {
-        // Will be used in some view files
         Yii::app()->session['lastPlace'] = array(
-            'id'   => array("consultantHQ"),
-            'name' => "McBooz&Bain Consulting Group",
+            'route' => array("consultantHQ"), 'name' => "McBooz&Bain Consulting Group",
         );
         
         $Character = CD();

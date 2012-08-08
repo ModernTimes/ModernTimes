@@ -17,6 +17,7 @@
  * - Area areas
  * - AreaEncounters areaEncounters
  * - AreaMonsters areaMonsters
+ * - ContactFavors contactFavors
  * - Item items
  * - Marker markers
  * - Quest quest
@@ -93,6 +94,7 @@ abstract class BaseRequirement extends GxActiveRecord {
 			'areas' => array(self::HAS_MANY, 'Area', 'requirementID'),
 			'areaEncounters' => array(self::HAS_MANY, 'AreaEncounters', 'requirementID'),
 			'areaMonsters' => array(self::HAS_MANY, 'AreaMonsters', 'requirementID'),
+			'contactFavors' => array(self::HAS_MANY, 'ContactFavors', 'requirementID'),
 			'items' => array(self::HAS_MANY, 'Item', 'requirementID'),
 			'markers' => array(self::HAS_MANY, 'Marker', 'requirementID'),
 			'quest' => array(self::BELONGS_TO, 'Quest', 'questID'),
@@ -128,6 +130,7 @@ abstract class BaseRequirement extends GxActiveRecord {
 			'areas' => null,
 			'areaEncounters' => null,
 			'areaMonsters' => null,
+			'contactFavors' => null,
 			'items' => null,
 			'markers' => null,
 			'quest' => null,

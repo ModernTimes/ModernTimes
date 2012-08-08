@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 06. Aug 2012 um 15:12
+-- Erstellungszeit: 08. Aug 2012 um 15:50
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `mt_battle` (
   KEY `combatantBID` (`combatantBID`),
   KEY `state` (`state`),
   KEY `winnerID` (`winnerID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=174 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=294 ;
 
 -- --------------------------------------------------------
 
@@ -212,11 +212,19 @@ CREATE TABLE IF NOT EXISTS `mt_character` (
   `hp` int(11) NOT NULL DEFAULT '0',
   `energy` int(11) NOT NULL DEFAULT '0',
   `cash` int(11) NOT NULL DEFAULT '0',
+  `kudosPopulace` smallint(6) NOT NULL DEFAULT '0',
+  `kudosFinance` smallint(6) NOT NULL DEFAULT '0',
+  `kudosRealEconomy` smallint(6) NOT NULL DEFAULT '0',
+  `kudosPolice` smallint(6) NOT NULL DEFAULT '0',
+  `kudosUnderworld` smallint(6) NOT NULL DEFAULT '0',
+  `kudosSociety` smallint(6) NOT NULL DEFAULT '0',
+  `kudosPress` smallint(6) NOT NULL DEFAULT '0',
+  `kudosBureaucracy` smallint(6) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `userID` (`userID`),
   KEY `active` (`active`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character`:
@@ -245,6 +253,7 @@ CREATE TABLE IF NOT EXISTS `mt_charactermodifier` (
   `dropCash` tinyint(4) NOT NULL DEFAULT '0',
   `dropCashPerc` tinyint(4) NOT NULL DEFAULT '0',
   `dropItemPerc` tinyint(4) NOT NULL DEFAULT '0',
+  `dropContactPerc` tinyint(4) NOT NULL DEFAULT '0',
   `critChancePerc` tinyint(4) NOT NULL DEFAULT '0',
   `damageNormalAbs` tinyint(4) NOT NULL DEFAULT '0',
   `damageNormalPerc` tinyint(4) NOT NULL DEFAULT '0',
@@ -272,7 +281,7 @@ CREATE TABLE IF NOT EXISTS `mt_charactermodifier` (
   `resistanceLevelSloth` tinyint(4) NOT NULL DEFAULT '0',
   `resistanceLevelWrath` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 -- --------------------------------------------------------
 
@@ -290,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_battleskills` (
   KEY `characterID` (`characterID`),
   KEY `battleskillID` (`battleskillID`),
   KEY `available` (`available`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_battleskills`:
@@ -298,6 +307,37 @@ CREATE TABLE IF NOT EXISTS `mt_character_battleskills` (
 --       `mt_character` -> `id`
 --   `battleskillID`
 --       `mt_battleskill` -> `id`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `mt_character_contacts`
+--
+
+CREATE TABLE IF NOT EXISTS `mt_character_contacts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `characterID` int(11) NOT NULL,
+  `contactID` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `sex` enum('male','female') DEFAULT NULL,
+  `befriendable` tinyint(1) NOT NULL DEFAULT '0',
+  `befriended` tinyint(1) NOT NULL DEFAULT '0',
+  `bribable` tinyint(1) NOT NULL DEFAULT '0',
+  `bribed` tinyint(1) NOT NULL DEFAULT '0',
+  `seducible` tinyint(1) NOT NULL DEFAULT '0',
+  `seduced` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `characterID` (`characterID`),
+  KEY `contactID` (`contactID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
+
+--
+-- RELATIONEN DER TABELLE `mt_character_contacts`:
+--   `contactID`
+--       `mt_contact` -> `id`
+--   `characterID`
+--       `mt_character` -> `id`
 --
 
 -- --------------------------------------------------------
@@ -315,7 +355,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_effects` (
   KEY `characterID` (`characterID`),
   KEY `effectID` (`effectID`),
   KEY `turns` (`turns`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_effects`:
@@ -339,7 +379,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_encounters` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `encounterID` (`encounterID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_encounters`:
@@ -372,7 +412,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_equipments` (
   KEY `accessoryAID` (`accessoryAID`),
   KEY `accessoryBID` (`accessoryBID`),
   KEY `accessoryCID` (`accessoryCID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_equipments`:
@@ -429,7 +469,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_items` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `itemID` (`itemID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=52 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=70 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_items`:
@@ -455,7 +495,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_quests` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `questID` (`questID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_quests`:
@@ -479,7 +519,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_recipes` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `recipeID` (`recipeID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_recipes`:
@@ -505,7 +545,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_skills` (
   KEY `characterID` (`characterID`),
   KEY `skillID` (`skillID`),
   KEY `available` (`available`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_skills`:
@@ -548,7 +588,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_skillsets` (
   KEY `pos8ID` (`pos8ID`),
   KEY `pos9ID` (`pos9ID`),
   KEY `pos10ID` (`pos10ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_skillsets`:
@@ -574,6 +614,46 @@ CREATE TABLE IF NOT EXISTS `mt_character_skillsets` (
 --       `mt_battleskill` -> `id`
 --   `pos8ID`
 --       `mt_battleskill` -> `id`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `mt_contact`
+--
+
+CREATE TABLE IF NOT EXISTS `mt_contact` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `specialClass` varchar(100) NOT NULL,
+  `areaOfInfluence` enum('populace','finance','realEconomy','police','underworld','bureaucracy','press','society') DEFAULT 'populace',
+  `levelOfInfluence` tinyint(4) NOT NULL DEFAULT '1',
+  `befriendable` decimal(4,3) NOT NULL DEFAULT '1.000',
+  `bribable` decimal(4,3) NOT NULL DEFAULT '0.000',
+  `seducible` decimal(4,3) NOT NULL DEFAULT '0.000',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `mt_contact_favors`
+--
+
+CREATE TABLE IF NOT EXISTS `mt_contact_favors` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `contactID` int(11) NOT NULL,
+  `favorID` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `contactID` (`contactID`),
+  KEY `favorID` (`favorID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- RELATIONEN DER TABELLE `mt_contact_favors`:
+--   `favorID`
+--       `mt_favor` -> `id`
+--   `contactID`
+--       `mt_contact` -> `id`
 --
 
 -- --------------------------------------------------------
@@ -682,6 +762,36 @@ CREATE TABLE IF NOT EXISTS `mt_encounter_items` (
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `mt_favor`
+--
+
+CREATE TABLE IF NOT EXISTS `mt_favor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `specialClass` varchar(100) NOT NULL,
+  `generalFavor` tinyint(1) NOT NULL DEFAULT '0',
+  `requirementID` int(11) DEFAULT NULL,
+  `requirementBefriended` tinyint(1) NOT NULL DEFAULT '0',
+  `requirementBribed` tinyint(1) NOT NULL DEFAULT '0',
+  `requirementSeduced` tinyint(1) NOT NULL DEFAULT '0',
+  `requirementHideIfFails` tinyint(1) NOT NULL DEFAULT '1',
+  `badConscience` tinyint(4) DEFAULT NULL,
+  `desc` tinytext NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  KEY `requirementID` (`requirementID`),
+  KEY `generalFavor` (`generalFavor`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- RELATIONEN DER TABELLE `mt_favor`:
+--   `requirementID`
+--       `mt_requirement` -> `id`
+--
+
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `mt_item`
 --
 
@@ -760,17 +870,26 @@ CREATE TABLE IF NOT EXISTS `mt_marker` (
 
 CREATE TABLE IF NOT EXISTS `mt_monster` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
+  `title` varchar(100) NOT NULL,
   `specialClass` varchar(50) NOT NULL,
+  `sex` enum('male','female') DEFAULT NULL,
+  `contactID` int(11) DEFAULT NULL,
+  `contactProb` decimal(4,3) NOT NULL DEFAULT '0.000',
   `hpMax` int(11) NOT NULL,
   `attack` int(11) NOT NULL,
   `defense` int(11) NOT NULL,
   `xp` decimal(6,1) DEFAULT NULL,
-  `dropCash` decimal(6,1) NOT NULL DEFAULT '0.0',
   `msgEncounter` tinytext NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
+  UNIQUE KEY `name` (`title`),
+  KEY `contactID` (`contactID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- RELATIONEN DER TABELLE `mt_monster`:
+--   `contactID`
+--       `mt_contact` -> `id`
+--
 
 -- --------------------------------------------------------
 
@@ -819,6 +938,21 @@ CREATE TABLE IF NOT EXISTS `mt_monster_items` (
 --   `monsterID`
 --       `mt_monster` -> `id`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `mt_name`
+--
+
+CREATE TABLE IF NOT EXISTS `mt_name` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` enum('boy','girl','surname') NOT NULL DEFAULT 'surname',
+  `name` varchar(15) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  KEY `type` (`type`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=353 ;
 
 -- --------------------------------------------------------
 
@@ -1091,6 +1225,13 @@ ALTER TABLE `mt_character_battleskills`
   ADD CONSTRAINT `mt_character_battleskills_ibfk_2` FOREIGN KEY (`battleskillID`) REFERENCES `mt_battleskill` (`id`) ON UPDATE CASCADE;
 
 --
+-- Constraints der Tabelle `mt_character_contacts`
+--
+ALTER TABLE `mt_character_contacts`
+  ADD CONSTRAINT `mt_character_contacts_ibfk_1` FOREIGN KEY (`contactID`) REFERENCES `mt_contact` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `mt_character_contacts_ibfk_2` FOREIGN KEY (`characterID`) REFERENCES `mt_character` (`id`) ON UPDATE CASCADE;
+
+--
 -- Constraints der Tabelle `mt_character_effects`
 --
 ALTER TABLE `mt_character_effects`
@@ -1166,6 +1307,13 @@ ALTER TABLE `mt_character_skillsets`
   ADD CONSTRAINT `mt_character_skillsets_ibfk_9` FOREIGN KEY (`pos8ID`) REFERENCES `mt_battleskill` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
+-- Constraints der Tabelle `mt_contact_favors`
+--
+ALTER TABLE `mt_contact_favors`
+  ADD CONSTRAINT `mt_contact_favors_ibfk_1` FOREIGN KEY (`favorID`) REFERENCES `mt_favor` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `mt_contact_favors_ibfk_2` FOREIGN KEY (`contactID`) REFERENCES `mt_contact` (`id`) ON UPDATE CASCADE;
+
+--
 -- Constraints der Tabelle `mt_effect`
 --
 ALTER TABLE `mt_effect`
@@ -1192,6 +1340,12 @@ ALTER TABLE `mt_encounter_items`
   ADD CONSTRAINT `mt_encounter_items_ibfk_2` FOREIGN KEY (`itemID`) REFERENCES `mt_item` (`id`) ON UPDATE CASCADE;
 
 --
+-- Constraints der Tabelle `mt_favor`
+--
+ALTER TABLE `mt_favor`
+  ADD CONSTRAINT `mt_favor_ibfk_1` FOREIGN KEY (`requirementID`) REFERENCES `mt_requirement` (`id`) ON UPDATE CASCADE;
+
+--
 -- Constraints der Tabelle `mt_item`
 --
 ALTER TABLE `mt_item`
@@ -1204,6 +1358,12 @@ ALTER TABLE `mt_item`
 --
 ALTER TABLE `mt_marker`
   ADD CONSTRAINT `mt_marker_ibfk_1` FOREIGN KEY (`requirementID`) REFERENCES `mt_requirement` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints der Tabelle `mt_monster`
+--
+ALTER TABLE `mt_monster`
+  ADD CONSTRAINT `mt_monster_ibfk_1` FOREIGN KEY (`contactID`) REFERENCES `mt_contact` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `mt_monster_battleskills`

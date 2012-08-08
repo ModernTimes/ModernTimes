@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 06. Aug 2012 um 16:30
+-- Erstellungszeit: 07. Aug 2012 um 19:43
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -24,12 +24,12 @@ SET time_zone = "+00:00";
 -- Daten für Tabelle `mt_monster`
 --
 
-INSERT INTO `mt_monster` (`id`, `name`, `specialClass`, `hpMax`, `attack`, `defense`, `xp`, `msgEncounter`) VALUES
-(1, 'Junior advertising specialist', '', 2, 4, 4, NULL, ''),
-(2, 'Reception assistant', 'ReceptionistFemaleMonster', 1, 4, 4, NULL, ''),
-(3, 'Middle management manager guy', '', 4, 5, 5, NULL, ''),
-(4, 'Sales person coordinator', '', 2, 4, 4, NULL, ''),
-(5, 'Jehovah''s Witness', '', 7, 3, 0, 1.0, '%1$s rings at your door. You open. Stupid you.');
+INSERT INTO `mt_monster` (`id`, `title`, `specialClass`, `sex`, `contactID`, `contactProb`, `hpMax`, `attack`, `defense`, `xp`, `msgEncounter`) VALUES
+(1, 'Junior advertising specialist', '', 'male', 1, 0.050, 2, 4, 4, NULL, ''),
+(2, 'Receptionist', 'ReceptionistMonster', NULL, 1, 0.050, 1, 4, 4, NULL, ''),
+(3, 'Middle management manager guy', '', 'male', 1, 0.050, 4, 5, 5, NULL, ''),
+(4, 'Sales person coordinator', '', 'male', 1, 0.050, 2, 4, 4, NULL, ''),
+(5, 'Jehovah''s Witness', '', NULL, NULL, 0.000, 7, 3, 0, 1.0, '%1$s rings at your door. You open. Stupid you.');
 
 --
 -- Daten für Tabelle `mt_monster_battleskills`

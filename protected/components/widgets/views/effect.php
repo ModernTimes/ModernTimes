@@ -16,7 +16,8 @@ if(!empty($this->effect)) {
     if(empty($popup)) {
         $popup = "<p>" . $this->effect->desc . "</p>";
         if(!empty($this->effect->charactermodifier)) {
-            $popup .= $this->widget('CharactermodifierWidget', 
+            $popup .= "<BR />" . 
+                    $this->widget('CharactermodifierWidget', 
                     array("Charactermodifier" => $this->effect->charactermodifier), 
                     true);
         }

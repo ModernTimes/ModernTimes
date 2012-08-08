@@ -29,6 +29,8 @@ class RequirementCheckerBehavior extends CModelBehavior {
             return true;
         }
         
+        $meetsRequirements = true;
+        
         if(!empty($Requirement->questID)) {
             $characterQuest = $Character->getCharacterQuest($Requirement->questID);
             switch($Requirement->questState) {
@@ -38,7 +40,7 @@ class RequirementCheckerBehavior extends CModelBehavior {
                             EUserFlash::setErrorMessage("Only for characters 
                                 who cannot start the quest \"" . $Requirement->quest->name . "\"");
                         }
-                        return false;
+                        $meetsRequirements = false;
                     }
                     break;
                 case "available":
@@ -47,7 +49,7 @@ class RequirementCheckerBehavior extends CModelBehavior {
                             EUserFlash::setErrorMessage("Only for characters 
                                 who can start the quest \"" . $Requirement->quest->name . "\"");
                         }
-                        return false;
+                        $meetsRequirements = false;
                     }
                     break;
                 case "ongoing":
@@ -56,7 +58,7 @@ class RequirementCheckerBehavior extends CModelBehavior {
                             EUserFlash::setErrorMessage("Only for characters 
                                 who are currently doing the quest \"" . $Requirement->quest->name . "\"");
                         }
-                        return false;
+                        $meetsRequirements = false;
                     }
                     break;
                 case "failed":
@@ -65,7 +67,7 @@ class RequirementCheckerBehavior extends CModelBehavior {
                             EUserFlash::setErrorMessage("Only for characters 
                                 who have failed in the quest \"" . $Requirement->quest->name . "\"");
                         }
-                        return false;
+                        $meetsRequirements = false;
                     }
                     break;
                 case "rejected":
@@ -74,7 +76,7 @@ class RequirementCheckerBehavior extends CModelBehavior {
                             EUserFlash::setErrorMessage("Only for characters 
                                 who have rejected the quest \"" . $Requirement->quest->name . "\"");
                         }
-                        return false;
+                        $meetsRequirements = false;
                     }
                     break;
                 // started = anything besides available and unavailable
@@ -86,7 +88,7 @@ class RequirementCheckerBehavior extends CModelBehavior {
                             EUserFlash::setErrorMessage("Only for characters 
                                 who have started the quest \"" . $Requirement->quest->name . "\"");
                         }
-                        return false;
+                        $meetsRequirements = false;
                     }
                     break;
                 // default = completed
@@ -96,7 +98,7 @@ class RequirementCheckerBehavior extends CModelBehavior {
                             EUserFlash::setErrorMessage("Only for characters 
                                 who have completed the quest \"" . $Requirement->quest->name . "\"");
                         }
-                        return false;
+                        $meetsRequirements = false;
                     }
                     break;
             }
@@ -109,7 +111,7 @@ class RequirementCheckerBehavior extends CModelBehavior {
                     if($generateMessages) {
                         EUserFlash::setErrorMessage("Only " . $Requirement->class . "s can do that");
                     }
-                    return false;
+                    $meetsRequirements = false;
                 }
                 break;
             case "resoluteness":
@@ -119,7 +121,7 @@ class RequirementCheckerBehavior extends CModelBehavior {
                     if($generateMessages) {
                         EUserFlash::setErrorMessage(ucfirst($Character->class) . "s can't do that");
                     }
-                    return false;
+                    $meetsRequirements = false;
                 }
                 break;
             default:
@@ -132,7 +134,7 @@ class RequirementCheckerBehavior extends CModelBehavior {
                     if($generateMessages) {
                         EUserFlash::setErrorMessage("Only for " . $Requirement->sex . " characters");
                     }
-                    return false;
+                    $meetsRequirements = false;
                 }
                 break;
             default:
@@ -144,7 +146,7 @@ class RequirementCheckerBehavior extends CModelBehavior {
                 if($generateMessages) {
                     EUserFlash::setErrorMessage("You need to be level " . $Requirement->level . " to do that");
                 }
-                return false;
+                $meetsRequirements = false;
             }
         }
         if($Requirement->resoluteness > 0) {
@@ -152,7 +154,7 @@ class RequirementCheckerBehavior extends CModelBehavior {
                 if($generateMessages) {
                     EUserFlash::setErrorMessage("You need to have " . $Requirement->resoluteness . " resoluteness to do that");
                 }
-                return false;
+                $meetsRequirements = false;
             }
         }
         if($Requirement->willpower > 0) {
@@ -160,7 +162,7 @@ class RequirementCheckerBehavior extends CModelBehavior {
                 if($generateMessages) {
                     EUserFlash::setErrorMessage("You need to have " . $Requirement->willpower . " willpower to do that");
                 }
-                return false;
+                $meetsRequirements = false;
             }
         }
         if($Requirement->cunning > 0) {
@@ -168,7 +170,7 @@ class RequirementCheckerBehavior extends CModelBehavior {
                 if($generateMessages) {
                     EUserFlash::setErrorMessage("You need to have " . $Requirement->cunning . " cunning to do that");
                 }
-                return false;
+                $meetsRequirements = false;
             }
         }
         if($Requirement->mainstat > 0) {
@@ -176,10 +178,10 @@ class RequirementCheckerBehavior extends CModelBehavior {
                 if($generateMessages) {
                     EUserFlash::setErrorMessage("You need to have " . $Requirement->mainstat . " " . $Character->getClassType() . " to do that");
                 }
-                return false;
+                $meetsRequirements = false;
             }
         }
         
-        return true;
+        return $meetsRequirements;
     }
 }

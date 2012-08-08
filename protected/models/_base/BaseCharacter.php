@@ -20,9 +20,18 @@
  * - integer hp
  * - integer energy
  * - integer cash
+ * - integer kudosPopulace
+ * - integer kudosFinance
+ * - integer kudosRealEconomy
+ * - integer kudosPolice
+ * - integer kudosUnderworld
+ * - integer kudosSociety
+ * - integer kudosPress
+ * - integer kudosBureaucracy
  *
  * - User user
  * - CharacterBattleskills characterBattleskills
+ * - CharacterContacts characterContacts
  * - CharacterEffects characterEffects
  * - CharacterEncounters characterEncounters
  * - CharacterEquipments characterEquipments
@@ -86,12 +95,12 @@ abstract class BaseCharacter extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('userID, name', 'required'),
-			array('userID, active, ongoingBattleID, ongoingEncounterID, turns, badConscience, networkStrainedness, resolutenessSub, willpowerSub, cunningSub, hp, energy, cash', 'numerical', 'integerOnly'=>true),
+			array('userID, active, ongoingBattleID, ongoingEncounterID, turns, badConscience, networkStrainedness, resolutenessSub, willpowerSub, cunningSub, hp, energy, cash, kudosPopulace, kudosFinance, kudosRealEconomy, kudosPolice, kudosUnderworld, kudosSociety, kudosPress, kudosBureaucracy', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			array('sex', 'length', 'max'=>6),
 			array('class', 'length', 'max'=>10),
-			array('active, sex, class, ongoingBattleID, ongoingEncounterID, turns, badConscience, networkStrainedness, resolutenessSub, willpowerSub, cunningSub, hp, energy, cash', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, userID, active, name, sex, class, ongoingBattleID, ongoingEncounterID, turns, badConscience, networkStrainedness, resolutenessSub, willpowerSub, cunningSub, hp, energy, cash', 'safe', 'on'=>'search'),
+			array('active, sex, class, ongoingBattleID, ongoingEncounterID, turns, badConscience, networkStrainedness, resolutenessSub, willpowerSub, cunningSub, hp, energy, cash, kudosPopulace, kudosFinance, kudosRealEconomy, kudosPolice, kudosUnderworld, kudosSociety, kudosPress, kudosBureaucracy', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, userID, active, name, sex, class, ongoingBattleID, ongoingEncounterID, turns, badConscience, networkStrainedness, resolutenessSub, willpowerSub, cunningSub, hp, energy, cash, kudosPopulace, kudosFinance, kudosRealEconomy, kudosPolice, kudosUnderworld, kudosSociety, kudosPress, kudosBureaucracy', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -104,6 +113,7 @@ abstract class BaseCharacter extends GxActiveRecord {
 		return array(
 			'user' => array(self::BELONGS_TO, 'User', 'userID'),
 			'characterBattleskills' => array(self::HAS_MANY, 'CharacterBattleskills', 'characterID'),
+			'characterContacts' => array(self::HAS_MANY, 'CharacterContacts', 'characterID'),
 			'characterEffects' => array(self::HAS_MANY, 'CharacterEffects', 'characterID'),
 			'characterEncounters' => array(self::HAS_MANY, 'CharacterEncounters', 'characterID'),
 			'characterEquipments' => array(self::HAS_MANY, 'CharacterEquipments', 'characterID'),
@@ -148,8 +158,17 @@ abstract class BaseCharacter extends GxActiveRecord {
 			'hp' => Yii::t('app', 'Hp'),
 			'energy' => Yii::t('app', 'Energy'),
 			'cash' => Yii::t('app', 'Cash'),
+			'kudosPopulace' => Yii::t('app', 'Kudos Populace'),
+			'kudosFinance' => Yii::t('app', 'Kudos Finance'),
+			'kudosRealEconomy' => Yii::t('app', 'Kudos Real Economy'),
+			'kudosPolice' => Yii::t('app', 'Kudos Police'),
+			'kudosUnderworld' => Yii::t('app', 'Kudos Underworld'),
+			'kudosSociety' => Yii::t('app', 'Kudos Society'),
+			'kudosPress' => Yii::t('app', 'Kudos Press'),
+			'kudosBureaucracy' => Yii::t('app', 'Kudos Bureaucracy'),
 			'user' => null,
 			'characterBattleskills' => null,
+			'characterContacts' => null,
 			'characterEffects' => null,
 			'characterEncounters' => null,
 			'characterEquipments' => null,
@@ -188,6 +207,14 @@ abstract class BaseCharacter extends GxActiveRecord {
 		$criteria->compare('hp', $this->hp);
 		$criteria->compare('energy', $this->energy);
 		$criteria->compare('cash', $this->cash);
+		$criteria->compare('kudosPopulace', $this->kudosPopulace);
+		$criteria->compare('kudosFinance', $this->kudosFinance);
+		$criteria->compare('kudosRealEconomy', $this->kudosRealEconomy);
+		$criteria->compare('kudosPolice', $this->kudosPolice);
+		$criteria->compare('kudosUnderworld', $this->kudosUnderworld);
+		$criteria->compare('kudosSociety', $this->kudosSociety);
+		$criteria->compare('kudosPress', $this->kudosPress);
+		$criteria->compare('kudosBureaucracy', $this->kudosBureaucracy);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

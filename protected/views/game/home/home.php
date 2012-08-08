@@ -19,7 +19,7 @@ if(!empty($tutorialQuestDisplay)) {
         echo "<p>You don't have any personal projects right now.</p>";
     }
 
-    echo "<a href='" . CHtml::normalizeUrl(array('rest')) . "'><div class='btn-group'>
+    echo "<a href='" . CHtml::normalizeUrl(array('rest')) . "' class='nounderline'><div class='btn-group'>
             <button class='btn btn-large'><i class='icon-time'></i>&nbsp;</button>
             <button class='btn btn-large btn-success'>Rest</button>
         </div></a>";

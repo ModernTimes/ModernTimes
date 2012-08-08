@@ -28,9 +28,15 @@ class BabbleConsultantSpeakSkill extends BabbleSkillType {
      * Returns a string that can be used as the message in a BattleMessage
      * @see BattleMessage
      * @uses BabbleSkillType->getBabbleBullshit
+     * @param mixed $hero Character or Monster
+     * @param mixed $enemy Character or Monster
      * @return string
      */
-    public function getMsgResolved() {
-         return "%1\$s takes a deep breath: \"" . $this->getBabbleBullshit() . "\"";
+    public function getMsgResolved($hero, $enemy = null) {
+         return $this->owner->parseMsg(
+                 "%1\$s takes a deep breath: \"" . $this->getBabbleBullshit() . "\"",
+                 $hero,
+                 $enemy
+                );
     }
 }

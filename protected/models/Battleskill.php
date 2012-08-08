@@ -116,9 +116,9 @@ class Battleskill extends BaseBattleskill {
             if($log) {
                 $battleMsg = new Battlemessage("", $this);
                 if($result == "added") {
-                    $battleMsg->msg = sprintf($this->call("getMsgResolved"), $hero->name);
+                    $battleMsg->msg = $this->call("getMsgResolved", $hero, $enemy);
                 } elseif($result == "increasedDuration") {
-                    $battleMsg->msg = sprintf($this->call("getMsgIncreasedDuration"), $hero->name);
+                    $battleMsg->msg = $this->call("getMsgIncreasedDuration", $hero, $enemy);
                 }
                 $battleMsg->setResult("effect", $Battleeffect);
                 $battle->log($hero, $battleMsg);
@@ -175,7 +175,7 @@ class Battleskill extends BaseBattleskill {
             $battleMsg = new Battlemessage(
                     ($critFactor > 1
                         ? "<span class='label label-important'>Critical Hit!</span> " : "") . 
-                    sprintf($this->call("getMsgResolved"), $hero->name), 
+                    $this->call("getMsgResolved", $hero, $enemy), 
                     $this);
             $battleMsg->setResult("damage", $damageDone, $damageType);
             $battle->log($hero, $battleMsg);
@@ -274,23 +274,56 @@ class Battleskill extends BaseBattleskill {
     }
     
     /**
-     * Basic getter
-     * msgResolved is usually used as the main message in BattleMessages
+     * Basic version. Parses $this->msgResolved
+     * MsgResolved is usually used as the main message in BattleMessages
+     * @param mixed $hero Character or Monster
+     * @param mixed $enemy Character or Monster
      * @return string
      */
-    public function getMsgResolved() {
-        return $this->msgResolved;
+    public function getMsgResolved($hero, $enemy) {
+        return self::parseMsg($this->msgResolved, $hero, $enemy);
     }
+    
     /**
+     * Basic version. Parses $this->effectMsgIncreasedEffect
+     * MsgResolved is usually used as the main message in BattleMessages
      * There might be a different message in case the duration of an effect
      * was increased (instead of a new effect getting in place)
+     * @param mixed $hero Character or Monster
+     * @param mixed $enemy Character or Monster
      * @uses getMsgResolved
      * @return string
      */
-    public function getMsgIncreasedDuration() {
+    public function getMsgIncreasedDuration($hero, $enemy) {
         return (!empty($this->effectMsgIncreasedDuration) ? 
-                    $this->effectMsgIncreasedDuration :
-                    $this->getMsgResolved());
+                    self::parseMsg($this->effectMsgIncreasedDuration, $hero, $enemy) :
+                    $this->call("getMsgResolved", $hero, $enemy));
+    }
+    
+    /**
+     * Parses a msg so that hero's and enemy's names and sexes are
+     * considered appropriately
+     * - %1$s: hero's name
+     * - %2$s: personal pronoun for hero
+     * - %3$s: possessive pronoun for hero
+     * - %4$s: objective pronoun for hero
+     * - %5$s: enemy's name
+     * - %6$s: personal pronoun for enemy
+     * - %7$s: possessive pronoun for enemy
+     * - %8$s: objective pronoun for enemy
+     * @param string $msg
+     * @param mixed $hero
+     * @param mixed $enemy 
+     */
+    static function parseMsg($msg, $hero, $enemy) {
+        return sprintf($msg, $hero->name, 
+                             _personal($hero->sex),
+                             _possessive($hero->sex),
+                             _objective($hero->sex),
+                             $enemy->name, 
+                             _personal($enemy->sex),
+                             _possessive($enemy->sex),
+                             _objective($enemy->sex));
     }
 
     /**

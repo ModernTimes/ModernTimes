@@ -10,6 +10,29 @@
 class Tools extends CApplicationComponent {
     
     /**
+     * Called by Yii preloader
+     * Used to initialize aliases for Yii::app()->tools->getXPronoun
+     * @return void
+     */
+    public function init() {
+        if (!function_exists('_personal')) {
+            function _personal($sex = null) {
+                return Yii::app()->tools->getPersonalPronoun($sex);
+            }
+        }
+        if (!function_exists('_possessive')) {
+            function _possessive($sex = null) {
+                return Yii::app()->tools->getPossessivePronoun($sex);
+            }
+        }
+        if (!function_exists('_objective')) {
+            function _objective($sex = null) {
+                return Yii::app()->tools->getObjectPronoun($sex);
+            }
+        }
+    }
+    
+    /**
      * returns an integer number adjacent to $number
      * 3.38 has a 38% chance to return 4 and a 62% chance to return 3.
      * @param float $number
@@ -44,13 +67,13 @@ class Tools extends CApplicationComponent {
         }
     }
     /**
-     * Returns the actionID of the last place visited by the character
-     * default: array(map)
+     * Returns a Yii route to the last safe action
+     * default: array('map')
      * @return array
      */
-    function getLastPlaceID() {
+    function getLastPlaceRoute() {
         if(!empty(Yii::app()->session['lastPlace'])) {
-            return Yii::app()->session['lastPlace']['id'];
+            return Yii::app()->session['lastPlace']['route'];
         } else {
             return array("map");
         }
@@ -72,8 +95,9 @@ class Tools extends CApplicationComponent {
      * - Decreases the number of available turns by 1
      * - Reduces the duration of active effects by 1
      * - Reduces the delay of encounters in the encounter queue by 1
-     * @todo ask for Character record in parameters to make dependency injection
-     * and spending turns on other characters possible
+     * @todo Rework! Add spendTurn method in Character. Let that method raise an
+     * onSpendTurn event. Let characterEffects and characterEncounters hook 
+     * into onSpendTurn.
      */
     function spendTurn () {
         $Character = CD();
@@ -187,39 +211,75 @@ class Tools extends CApplicationComponent {
      * @return string 
      */
     public function getResistanceLevelLabel($level) {
-        return "Level " . $level;
-    }
-    
-    /**
-     * Returns the possessive pronoun for a given character
-     * @param Character $character, default is the active character
-     * @return string "his" or "her"
-     */
-    public function getPossessivePronoun($character = null) {
-        if(empty($character)) {
-            $character = CD();
-        }
-        if($character->sex == 'male') {
-            return "his";
-        } else {
-            return "her";
+        switch($level) {
+            case 1:
+                return "Minimal";
+            case 2:
+                return "Some";
+            case 3:
+                return "OKish";
+            default:
+                return "Superb";
         }
     }
     
     /**
-     * Returns the personal pronoun for a given character
-     * @param Character $character, default is the active character
-     * @return string "he" or "she"
+     * Returns the possessive pronoun for a given sex
+     * @param string $sex enum(male|female|null)
+     * @return string enum(his|her|their)
      */
-    public function getPersonalPronoun($character = null) {
-        if(empty($character)) {
-            $character = CD();
+    public function getPossessivePronoun($sex = null) {
+        switch($sex) {
+            case "male":
+                return "his";
+            case "female":
+                return "her";
+            default:
+                return "their";
         }
-        if($character->sex == 'male') {
-            return "he";
-        } else {
-            return "she";
+    }
+    
+    /**
+     * Returns the personal pronoun for a given sex
+     * @param string $sex enum(male|female|null)
+     * @return string enum (he|she|they)
+     */
+    public function getPersonalPronoun($sex = null) {
+        switch($sex) {
+            case "male":
+                return "he";
+            case "female":
+                return "she";
+            default:
+                return "they";
         }
+    }
+    
+    /**
+     * Returns a pronoun for the given sex in object form
+     * @param string $sex enum(male|female|null)
+     * @return string enum (him|her|them)
+     */
+    public function getObjectPronoun($sex = null) {
+        switch($sex) {
+            case "male":
+                return "him";
+            case "female":
+                return "her";
+            default:
+                return "them";
+        }
+    }    
+    
+    /**
+     * Adds "a " or "an " to a string based on the first letter of $string
+     * @param string $string
+     * @return string
+     */
+    public function addIndefArticle($string) {
+        $vowels = array('a', 'e', 'i', 'o', 'u');
+        return (in_array(substr($string, 0, 1), $vowels) ? "an " : "a ") . $string;
+        
     }
     
 }

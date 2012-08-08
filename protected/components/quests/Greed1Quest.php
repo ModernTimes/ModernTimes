@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Mammon waits until the Character collects 2.000 cash, 
- * which completes the quest.
+ * Mammon waits until the Character exploits their contacts for cash a
+ * number of times.
  * 
  * This Quest is added for new Characters (state = unavailable).
  * 
@@ -16,10 +16,16 @@
 class Greed1Quest extends CBehavior {
 
     /**
-     * How much cash the Character has to collect in order to complete the quest
+     * How often the Character has to exploit a contact for cash
      * @const int 
      */
-    const cashToCollect = 200000;
+    const numberOfFavors = 20;
+    
+    /**
+     * ID of the "Ask for cash" favor
+     * @const int 
+     */
+    const favorID = 2;
     
     /**
      * Encounter record id of Mommon saying hello the first time
@@ -32,7 +38,7 @@ class Greed1Quest extends CBehavior {
      * In this case: a counter
      */
     public function setInitialParams() {
-            $this->owner->params['cashCollected'] = 0;
+            $this->owner->params['n'] = 0;
             $this->owner->saveParams();
     }
 
@@ -42,7 +48,7 @@ class Greed1Quest extends CBehavior {
      * @return void
      */
     public function attachToCharacter($Character) {
-        $Character->onGainCash = array($this, 'reactToOnGainCash');
+        $Character->onExploit = array($this, 'reactToOnExploit');
     }
 
     /**
@@ -50,18 +56,19 @@ class Greed1Quest extends CBehavior {
      * @param Character $Character 
      */
     public function detachFromCharacter($Character) {
-        $Character->detachEventHandler("onGainCash", array($this, 'reactToOnGainCash'));
+        $Character->detachEventHandler("onExploit", array($this, 'reactToOnExploit'));
     }
 
     /**
-     * Adds the amount of cash that the character gets to the quest counter
-     * @param GainStatEvent $event 
+     * Checks if the Character exploited for cash, and if so, increases n by 1
+     * @param ExploitEvent $event 
      * @return void
      */
-    public function reactToOnGainCash($event) { 
-        if($event->getAmount() > 0) {
-            $this->owner->params['cashCollected'] += $event->getAmount();
-            if($this->owner->params['cashCollected'] >= self::cashToCollect) {
+    public function reactToOnExploit($event) { 
+        $Favor = $event->getFavor();
+        if($Favor->id == self::favorID) {
+            $this->owner->params['n'] ++;
+            if($this->owner->params['n'] >= self::numberOfFavors) {
                 $this->owner->setState("succeeded");
             } else {
                 $this->owner->saveParams();

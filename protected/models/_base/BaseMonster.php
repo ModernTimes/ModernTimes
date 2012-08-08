@@ -4,8 +4,11 @@
  * Properties and related Models:
  *
  * - integer id
- * - string name
+ * - string title
  * - string specialClass
+ * - string sex
+ * - integer contactID
+ * - string contactProb
  * - integer hpMax
  * - integer attack
  * - integer defense
@@ -13,6 +16,7 @@
  * - string msgEncounter
  *
  * - AreaMonsters areaMonsters
+ * - Contact contact
  * - MonsterBattleskills monsterBattleskills
  * - MonsterItems monsterItems
  * <br>
@@ -59,7 +63,7 @@ abstract class BaseMonster extends GxActiveRecord {
 	 * @return mixed
 	 */
 	public static function representingColumn() {
-		return 'name';
+		return 'title';
 	}
 
 	/**
@@ -68,13 +72,14 @@ abstract class BaseMonster extends GxActiveRecord {
 	 */
 	public function rules() {
 		return array(
-			array('name, specialClass, hpMax, attack, defense, msgEncounter', 'required'),
-			array('hpMax, attack, defense', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>100),
+			array('title, specialClass, hpMax, attack, defense, msgEncounter', 'required'),
+			array('contactID, hpMax, attack, defense', 'numerical', 'integerOnly'=>true),
+			array('title', 'length', 'max'=>100),
 			array('specialClass', 'length', 'max'=>50),
-			array('xp', 'length', 'max'=>6),
-			array('xp', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, name, specialClass, hpMax, attack, defense, xp, msgEncounter', 'safe', 'on'=>'search'),
+			array('sex, xp', 'length', 'max'=>6),
+			array('contactProb', 'length', 'max'=>4),
+			array('sex, contactID, contactProb, xp', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, title, specialClass, sex, contactID, contactProb, hpMax, attack, defense, xp, msgEncounter', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -86,6 +91,7 @@ abstract class BaseMonster extends GxActiveRecord {
 	public function relations() {
 		return array(
 			'areaMonsters' => array(self::HAS_MANY, 'AreaMonsters', 'monsterID'),
+			'contact' => array(self::BELONGS_TO, 'Contact', 'contactID'),
 			'monsterBattleskills' => array(self::HAS_MANY, 'MonsterBattleskills', 'monsterID'),
 			'monsterItems' => array(self::HAS_MANY, 'MonsterItems', 'monsterID'),
 		);
@@ -107,14 +113,18 @@ abstract class BaseMonster extends GxActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => Yii::t('app', 'ID'),
-			'name' => Yii::t('app', 'Name'),
+			'title' => Yii::t('app', 'Title'),
 			'specialClass' => Yii::t('app', 'Special Class'),
+			'sex' => Yii::t('app', 'Sex'),
+			'contactID' => null,
+			'contactProb' => Yii::t('app', 'Contact Prob'),
 			'hpMax' => Yii::t('app', 'Hp Max'),
 			'attack' => Yii::t('app', 'Attack'),
 			'defense' => Yii::t('app', 'Defense'),
 			'xp' => Yii::t('app', 'Xp'),
 			'msgEncounter' => Yii::t('app', 'Msg Encounter'),
 			'areaMonsters' => null,
+			'contact' => null,
 			'monsterBattleskills' => null,
 			'monsterItems' => null,
 		);
@@ -130,8 +140,11 @@ abstract class BaseMonster extends GxActiveRecord {
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id);
-		$criteria->compare('name', $this->name, true);
+		$criteria->compare('title', $this->title, true);
 		$criteria->compare('specialClass', $this->specialClass, true);
+		$criteria->compare('sex', $this->sex, true);
+		$criteria->compare('contactID', $this->contactID);
+		$criteria->compare('contactProb', $this->contactProb, true);
 		$criteria->compare('hpMax', $this->hpMax);
 		$criteria->compare('attack', $this->attack);
 		$criteria->compare('defense', $this->defense);

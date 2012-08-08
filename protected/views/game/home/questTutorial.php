@@ -42,7 +42,7 @@ if($CharacterQuest->quest->params['currentStep'] == 'overview') {
 
 // Step battleskills requires fighting a monster ...
 if($CharacterQuest->quest->params['currentStep'] == 'battleskills') {
-    echo "<a href='./questTutorialFight'>
+    echo "<a href='./questTutorialFight' class='nounderline'>
           <div class='btn-group' style='margin: 40px 10px 10px 100px'>
             <button class='btn btn-large'><i class='icon-time'></i>&nbsp;</button>
             <button class='btn btn-large btn-danger'>Open the door</button>

@@ -48,6 +48,11 @@ class ShopAction extends CAction {
                     $this->controller->redirect(array('index'));
                 } else {
                     
+                    Yii::app()->session['lastPlace'] = array(
+                        'route' => array("shop", "shopID" => $shopID),
+                        'name'  => $Shop->name
+                    );
+                    
                     $this->controller->render("shop", array(
                         "Shop" => $Shop,
                     ));

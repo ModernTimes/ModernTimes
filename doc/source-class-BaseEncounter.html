@@ -8,7 +8,7 @@
 	<title>File protected/models/_base/BaseEncounter.php | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?1943147226"></script>
+	<script type="text/javascript" src="elementlist.js?461552865"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -62,6 +62,8 @@
 						</li>
 				<li><a href="package-Actions.Character.html">Character</a>
 						</li>
+				<li><a href="package-Actions.Contacts.html">Contacts</a>
+						</li>
 				<li><a href="package-Actions.Inventory.html">Inventory</a>
 						</li>
 				<li><a href="package-Actions.Places.html">Places<span></span></a>
@@ -94,6 +96,8 @@
 				<li><a href="package-Events.Behaviors.html">Behaviors</a>
 						</li>
 							</ul></li>
+				<li><a href="package-Favors.html">Favors</a>
+						</li>
 				<li><a href="package-Items.html">Items</a>
 						</li>
 				<li><a href="package-Monsters.html">Monsters</a>
@@ -134,6 +138,7 @@
 				<li><a href="class-BaseBattleskill.html">BaseBattleskill</a></li>
 				<li><a href="class-BaseCharacter.html">BaseCharacter</a></li>
 				<li><a href="class-BaseCharacterBattleskills.html">BaseCharacterBattleskills</a></li>
+				<li><a href="class-BaseCharacterContacts.html">BaseCharacterContacts</a></li>
 				<li><a href="class-BaseCharacterEffects.html">BaseCharacterEffects</a></li>
 				<li><a href="class-BaseCharacterEncounters.html">BaseCharacterEncounters</a></li>
 				<li><a href="class-BaseCharacterEquipments.html">BaseCharacterEquipments</a></li>
@@ -144,16 +149,20 @@
 				<li><a href="class-BaseCharacterRecipes.html">BaseCharacterRecipes</a></li>
 				<li><a href="class-BaseCharacterSkills.html">BaseCharacterSkills</a></li>
 				<li><a href="class-BaseCharacterSkillsets.html">BaseCharacterSkillsets</a></li>
+				<li><a href="class-BaseContact.html">BaseContact</a></li>
+				<li><a href="class-BaseContactFavors.html">BaseContactFavors</a></li>
 				<li><a href="class-BaseEffect.html">BaseEffect</a></li>
 				<li class="active"><a href="class-BaseEncounter.html">BaseEncounter</a></li>
 				<li><a href="class-BaseEncounterEncounters.html">BaseEncounterEncounters</a></li>
 				<li><a href="class-BaseEncounterItems.html">BaseEncounterItems</a></li>
+				<li><a href="class-BaseFavor.html">BaseFavor</a></li>
 				<li><a href="class-BaseItem.html">BaseItem</a></li>
 				<li><a href="class-BaseMarker.html">BaseMarker</a></li>
 				<li><a href="class-BaseMonster.html">BaseMonster</a></li>
 				<li><a href="class-BaseMonsterBattleskills.html">BaseMonsterBattleskills</a></li>
 				<li><a href="class-BaseMonsterItems.html">BaseMonsterItems</a></li>
 				<li><a href="class-BaseMonsterSkills.html">BaseMonsterSkills</a></li>
+				<li><a href="class-BaseName.html">BaseName</a></li>
 				<li><a href="class-BaseQuest.html">BaseQuest</a></li>
 				<li><a href="class-BaseRecipe.html">BaseRecipe</a></li>
 				<li><a href="class-BaseRequirement.html">BaseRequirement</a></li>
@@ -186,14 +195,14 @@
 </span><a href="#10" id="10" class="l"> 10 </a><span class="php-comment"> * - string msg
 </span><a href="#11" id="11" class="l"> 11 </a><span class="php-comment"> * - integer costsTurn
 </span><a href="#12" id="12" class="l"> 12 </a><span class="php-comment"> * - integer gainCash
-</span><a href="#13" id="13" class="l"> 13 </a><span class="php-comment"> * - integer gainFavours
-</span><a href="#14" id="14" class="l"> 14 </a><span class="php-comment"> * - integer gainKudos
-</span><a href="#15" id="15" class="l"> 15 </a><span class="php-comment"> * - integer gainXp
-</span><a href="#16" id="16" class="l"> 16 </a><span class="php-comment"> * - integer gainResoluteness
-</span><a href="#17" id="17" class="l"> 17 </a><span class="php-comment"> * - integer gainWillpower
-</span><a href="#18" id="18" class="l"> 18 </a><span class="php-comment"> * - integer gainCunning
-</span><a href="#19" id="19" class="l"> 19 </a><span class="php-comment"> * - integer effectID
-</span><a href="#20" id="20" class="l"> 20 </a><span class="php-comment"> * - integer effectDuration
+</span><a href="#13" id="13" class="l"> 13 </a><span class="php-comment"> * - integer gainXp
+</span><a href="#14" id="14" class="l"> 14 </a><span class="php-comment"> * - integer gainResoluteness
+</span><a href="#15" id="15" class="l"> 15 </a><span class="php-comment"> * - integer gainWillpower
+</span><a href="#16" id="16" class="l"> 16 </a><span class="php-comment"> * - integer gainCunning
+</span><a href="#17" id="17" class="l"> 17 </a><span class="php-comment"> * - integer effectID
+</span><a href="#18" id="18" class="l"> 18 </a><span class="php-comment"> * - integer effectDuration
+</span><a href="#19" id="19" class="l"> 19 </a><span class="php-comment"> * - integer questID
+</span><a href="#20" id="20" class="l"> 20 </a><span class="php-comment"> * - string questSetState
 </span><a href="#21" id="21" class="l"> 21 </a><span class="php-comment"> *
 </span><a href="#22" id="22" class="l"> 22 </a><span class="php-comment"> * - AreaEncounters areaEncounters
 </span><a href="#23" id="23" class="l"> 23 </a><span class="php-comment"> * - CharacterEncounters characterEncounters
@@ -255,99 +264,100 @@
 <a href="#79" id="79" class="l"> 79 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> rules() {
 <a href="#80" id="80" class="l"> 80 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">array</span>(
 <a href="#81" id="81" class="l"> 81 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'name, specialClass, msg'</span>, <span class="php-quote">'required'</span>),
-<a href="#82" id="82" class="l"> 82 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'onetime, costsTurn, gainCash, gainFavours, gainKudos, gainXp, gainResoluteness, gainWillpower, gainCunning, effectID, effectDuration'</span>, <span class="php-quote">'numerical'</span>, <span class="php-quote">'integerOnly'</span>=&gt;<span class="php-keyword1">true</span>),
+<a href="#82" id="82" class="l"> 82 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'onetime, costsTurn, gainCash, gainXp, gainResoluteness, gainWillpower, gainCunning, effectID, effectDuration, questID'</span>, <span class="php-quote">'numerical'</span>, <span class="php-quote">'integerOnly'</span>=&gt;<span class="php-keyword1">true</span>),
 <a href="#83" id="83" class="l"> 83 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'name'</span>, <span class="php-quote">'length'</span>, <span class="php-quote">'max'</span>=&gt;<span class="php-num">100</span>),
 <a href="#84" id="84" class="l"> 84 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'specialClass'</span>, <span class="php-quote">'length'</span>, <span class="php-quote">'max'</span>=&gt;<span class="php-num">50</span>),
-<a href="#85" id="85" class="l"> 85 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'onetime, costsTurn, gainCash, gainFavours, gainKudos, gainXp, gainResoluteness, gainWillpower, gainCunning, effectID, effectDuration'</span>, <span class="php-quote">'default'</span>, <span class="php-quote">'setOnEmpty'</span> =&gt; <span class="php-keyword1">true</span>, <span class="php-quote">'value'</span> =&gt; <span class="php-keyword1">null</span>),
-<a href="#86" id="86" class="l"> 86 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'id, name, specialClass, onetime, msg, costsTurn, gainCash, gainFavours, gainKudos, gainXp, gainResoluteness, gainWillpower, gainCunning, effectID, effectDuration'</span>, <span class="php-quote">'safe'</span>, <span class="php-quote">'on'</span>=&gt;<span class="php-quote">'search'</span>),
-<a href="#87" id="87" class="l"> 87 </a>        );
-<a href="#88" id="88" class="l"> 88 </a>    }
-<a href="#89" id="89" class="l"> 89 </a>
-<a href="#90" id="90" class="l"> 90 </a>    <span class="php-comment">/**
-</span><a href="#91" id="91" class="l"> 91 </a><span class="php-comment">     * Returns an array of the form 
-</span><a href="#92" id="92" class="l"> 92 </a><span class="php-comment">     * &quot;relationAttributeName&quot; =&gt; array(BELONGS_TO|HAS_MANY, foreign Model, foreign attribute (key))
-</span><a href="#93" id="93" class="l"> 93 </a><span class="php-comment">     * @return array
-</span><a href="#94" id="94" class="l"> 94 </a><span class="php-comment">     */</span>
-<a href="#95" id="95" class="l"> 95 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> relations() {
-<a href="#96" id="96" class="l"> 96 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">array</span>(
-<a href="#97" id="97" class="l"> 97 </a>            <span class="php-quote">'areaEncounters'</span> =&gt; <span class="php-keyword1">array</span>(self::HAS_MANY, <span class="php-quote">'AreaEncounters'</span>, <span class="php-quote">'encounterID'</span>),
-<a href="#98" id="98" class="l"> 98 </a>            <span class="php-quote">'characterEncounters'</span> =&gt; <span class="php-keyword1">array</span>(self::HAS_MANY, <span class="php-quote">'CharacterEncounters'</span>, <span class="php-quote">'encounterID'</span>),
-<a href="#99" id="99" class="l"> 99 </a>            <span class="php-quote">'effect'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Effect'</span>, <span class="php-quote">'effectID'</span>),
-<a href="#100" id="100" class="l">100 </a>            <span class="php-quote">'encounterEncounters'</span> =&gt; <span class="php-keyword1">array</span>(self::HAS_MANY, <span class="php-quote">'EncounterEncounters'</span>, <span class="php-quote">'toEncounterID'</span>),
-<a href="#101" id="101" class="l">101 </a>            <span class="php-quote">'encounterEncounters1'</span> =&gt; <span class="php-keyword1">array</span>(self::HAS_MANY, <span class="php-quote">'EncounterEncounters'</span>, <span class="php-quote">'encounterID'</span>),
-<a href="#102" id="102" class="l">102 </a>            <span class="php-quote">'encounterItems'</span> =&gt; <span class="php-keyword1">array</span>(self::HAS_MANY, <span class="php-quote">'EncounterItems'</span>, <span class="php-quote">'encounterID'</span>),
-<a href="#103" id="103" class="l">103 </a>        );
-<a href="#104" id="104" class="l">104 </a>    }
-<a href="#105" id="105" class="l">105 </a>
-<a href="#106" id="106" class="l">106 </a>    <span class="php-comment">/**
-</span><a href="#107" id="107" class="l">107 </a><span class="php-comment">     * Returns an array that specifies pivotModel configurations
-</span><a href="#108" id="108" class="l">108 </a><span class="php-comment">     * @return array
-</span><a href="#109" id="109" class="l">109 </a><span class="php-comment">     */</span>
-<a href="#110" id="110" class="l">110 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> pivotModels() {
-<a href="#111" id="111" class="l">111 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">array</span>(
-<a href="#112" id="112" class="l">112 </a>        );
-<a href="#113" id="113" class="l">113 </a>    }
-<a href="#114" id="114" class="l">114 </a>
-<a href="#115" id="115" class="l">115 </a>    <span class="php-comment">/**
-</span><a href="#116" id="116" class="l">116 </a><span class="php-comment">     * Returns an array with attributeLabels for the Model's attributes
-</span><a href="#117" id="117" class="l">117 </a><span class="php-comment">     * @return array
-</span><a href="#118" id="118" class="l">118 </a><span class="php-comment">     */</span>
-<a href="#119" id="119" class="l">119 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> attributeLabels() {
-<a href="#120" id="120" class="l">120 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">array</span>(
-<a href="#121" id="121" class="l">121 </a>            <span class="php-quote">'id'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'ID'</span>),
-<a href="#122" id="122" class="l">122 </a>            <span class="php-quote">'name'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Name'</span>),
-<a href="#123" id="123" class="l">123 </a>            <span class="php-quote">'specialClass'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Special Class'</span>),
-<a href="#124" id="124" class="l">124 </a>            <span class="php-quote">'onetime'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Onetime'</span>),
-<a href="#125" id="125" class="l">125 </a>            <span class="php-quote">'msg'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Msg'</span>),
-<a href="#126" id="126" class="l">126 </a>            <span class="php-quote">'costsTurn'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Costs Turn'</span>),
-<a href="#127" id="127" class="l">127 </a>            <span class="php-quote">'gainCash'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Gain Cash'</span>),
-<a href="#128" id="128" class="l">128 </a>            <span class="php-quote">'gainFavours'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Gain Favours'</span>),
-<a href="#129" id="129" class="l">129 </a>            <span class="php-quote">'gainKudos'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Gain Kudos'</span>),
-<a href="#130" id="130" class="l">130 </a>            <span class="php-quote">'gainXp'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Gain Xp'</span>),
-<a href="#131" id="131" class="l">131 </a>            <span class="php-quote">'gainResoluteness'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Gain Resoluteness'</span>),
-<a href="#132" id="132" class="l">132 </a>            <span class="php-quote">'gainWillpower'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Gain Willpower'</span>),
-<a href="#133" id="133" class="l">133 </a>            <span class="php-quote">'gainCunning'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Gain Cunning'</span>),
-<a href="#134" id="134" class="l">134 </a>            <span class="php-quote">'effectID'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#135" id="135" class="l">135 </a>            <span class="php-quote">'effectDuration'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Effect Duration'</span>),
-<a href="#136" id="136" class="l">136 </a>            <span class="php-quote">'areaEncounters'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#137" id="137" class="l">137 </a>            <span class="php-quote">'characterEncounters'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#138" id="138" class="l">138 </a>            <span class="php-quote">'effect'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#139" id="139" class="l">139 </a>            <span class="php-quote">'encounterEncounters'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#140" id="140" class="l">140 </a>            <span class="php-quote">'encounterEncounters1'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#141" id="141" class="l">141 </a>            <span class="php-quote">'encounterItems'</span> =&gt; <span class="php-keyword1">null</span>,
-<a href="#142" id="142" class="l">142 </a>        );
-<a href="#143" id="143" class="l">143 </a>    }
-<a href="#144" id="144" class="l">144 </a>
-<a href="#145" id="145" class="l">145 </a>    <span class="php-comment">/**
-</span><a href="#146" id="146" class="l">146 </a><span class="php-comment">     * Returns a CActiveDataProvider, fed with search criteria based
-</span><a href="#147" id="147" class="l">147 </a><span class="php-comment">     * on the object's attributes
-</span><a href="#148" id="148" class="l">148 </a><span class="php-comment">     * @return CActiveDataProvider
-</span><a href="#149" id="149" class="l">149 </a><span class="php-comment">     * @link http://www.yiiframework.com/doc/api/CActiveDataProvider
-</span><a href="#150" id="150" class="l">150 </a><span class="php-comment">     */</span>
-<a href="#151" id="151" class="l">151 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> search() {
-<a href="#152" id="152" class="l">152 </a>        <span class="php-var">$criteria</span> = <span class="php-keyword1">new</span> CDbCriteria;
-<a href="#153" id="153" class="l">153 </a>
-<a href="#154" id="154" class="l">154 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'id'</span>, <span class="php-var">$this</span>-&gt;id);
-<a href="#155" id="155" class="l">155 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'name'</span>, <span class="php-var">$this</span>-&gt;name, <span class="php-keyword1">true</span>);
-<a href="#156" id="156" class="l">156 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'specialClass'</span>, <span class="php-var">$this</span>-&gt;specialClass, <span class="php-keyword1">true</span>);
-<a href="#157" id="157" class="l">157 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'onetime'</span>, <span class="php-var">$this</span>-&gt;onetime);
-<a href="#158" id="158" class="l">158 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'msg'</span>, <span class="php-var">$this</span>-&gt;msg, <span class="php-keyword1">true</span>);
-<a href="#159" id="159" class="l">159 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'costsTurn'</span>, <span class="php-var">$this</span>-&gt;costsTurn);
-<a href="#160" id="160" class="l">160 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'gainCash'</span>, <span class="php-var">$this</span>-&gt;gainCash);
-<a href="#161" id="161" class="l">161 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'gainFavours'</span>, <span class="php-var">$this</span>-&gt;gainFavours);
-<a href="#162" id="162" class="l">162 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'gainKudos'</span>, <span class="php-var">$this</span>-&gt;gainKudos);
-<a href="#163" id="163" class="l">163 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'gainXp'</span>, <span class="php-var">$this</span>-&gt;gainXp);
-<a href="#164" id="164" class="l">164 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'gainResoluteness'</span>, <span class="php-var">$this</span>-&gt;gainResoluteness);
-<a href="#165" id="165" class="l">165 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'gainWillpower'</span>, <span class="php-var">$this</span>-&gt;gainWillpower);
-<a href="#166" id="166" class="l">166 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'gainCunning'</span>, <span class="php-var">$this</span>-&gt;gainCunning);
-<a href="#167" id="167" class="l">167 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'effectID'</span>, <span class="php-var">$this</span>-&gt;effectID);
-<a href="#168" id="168" class="l">168 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'effectDuration'</span>, <span class="php-var">$this</span>-&gt;effectDuration);
-<a href="#169" id="169" class="l">169 </a>
-<a href="#170" id="170" class="l">170 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> CActiveDataProvider(<span class="php-var">$this</span>, <span class="php-keyword1">array</span>(
-<a href="#171" id="171" class="l">171 </a>            <span class="php-quote">'criteria'</span> =&gt; <span class="php-var">$criteria</span>,
-<a href="#172" id="172" class="l">172 </a>        ));
-<a href="#173" id="173" class="l">173 </a>    }
-<a href="#174" id="174" class="l">174 </a>}</code></pre>
+<a href="#85" id="85" class="l"> 85 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'questSetState'</span>, <span class="php-quote">'length'</span>, <span class="php-quote">'max'</span>=&gt;<span class="php-num">11</span>),
+<a href="#86" id="86" class="l"> 86 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'onetime, costsTurn, gainCash, gainXp, gainResoluteness, gainWillpower, gainCunning, effectID, effectDuration, questID, questSetState'</span>, <span class="php-quote">'default'</span>, <span class="php-quote">'setOnEmpty'</span> =&gt; <span class="php-keyword1">true</span>, <span class="php-quote">'value'</span> =&gt; <span class="php-keyword1">null</span>),
+<a href="#87" id="87" class="l"> 87 </a>            <span class="php-keyword1">array</span>(<span class="php-quote">'id, name, specialClass, onetime, msg, costsTurn, gainCash, gainXp, gainResoluteness, gainWillpower, gainCunning, effectID, effectDuration, questID, questSetState'</span>, <span class="php-quote">'safe'</span>, <span class="php-quote">'on'</span>=&gt;<span class="php-quote">'search'</span>),
+<a href="#88" id="88" class="l"> 88 </a>        );
+<a href="#89" id="89" class="l"> 89 </a>    }
+<a href="#90" id="90" class="l"> 90 </a>
+<a href="#91" id="91" class="l"> 91 </a>    <span class="php-comment">/**
+</span><a href="#92" id="92" class="l"> 92 </a><span class="php-comment">     * Returns an array of the form 
+</span><a href="#93" id="93" class="l"> 93 </a><span class="php-comment">     * &quot;relationAttributeName&quot; =&gt; array(BELONGS_TO|HAS_MANY, foreign Model, foreign attribute (key))
+</span><a href="#94" id="94" class="l"> 94 </a><span class="php-comment">     * @return array
+</span><a href="#95" id="95" class="l"> 95 </a><span class="php-comment">     */</span>
+<a href="#96" id="96" class="l"> 96 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> relations() {
+<a href="#97" id="97" class="l"> 97 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">array</span>(
+<a href="#98" id="98" class="l"> 98 </a>            <span class="php-quote">'areaEncounters'</span> =&gt; <span class="php-keyword1">array</span>(self::HAS_MANY, <span class="php-quote">'AreaEncounters'</span>, <span class="php-quote">'encounterID'</span>),
+<a href="#99" id="99" class="l"> 99 </a>            <span class="php-quote">'characterEncounters'</span> =&gt; <span class="php-keyword1">array</span>(self::HAS_MANY, <span class="php-quote">'CharacterEncounters'</span>, <span class="php-quote">'encounterID'</span>),
+<a href="#100" id="100" class="l">100 </a>            <span class="php-quote">'effect'</span> =&gt; <span class="php-keyword1">array</span>(self::BELONGS_TO, <span class="php-quote">'Effect'</span>, <span class="php-quote">'effectID'</span>),
+<a href="#101" id="101" class="l">101 </a>            <span class="php-quote">'encounterEncounters'</span> =&gt; <span class="php-keyword1">array</span>(self::HAS_MANY, <span class="php-quote">'EncounterEncounters'</span>, <span class="php-quote">'encounterID'</span>),
+<a href="#102" id="102" class="l">102 </a>            <span class="php-quote">'encounterEncounters1'</span> =&gt; <span class="php-keyword1">array</span>(self::HAS_MANY, <span class="php-quote">'EncounterEncounters'</span>, <span class="php-quote">'toEncounterID'</span>),
+<a href="#103" id="103" class="l">103 </a>            <span class="php-quote">'encounterItems'</span> =&gt; <span class="php-keyword1">array</span>(self::HAS_MANY, <span class="php-quote">'EncounterItems'</span>, <span class="php-quote">'encounterID'</span>),
+<a href="#104" id="104" class="l">104 </a>        );
+<a href="#105" id="105" class="l">105 </a>    }
+<a href="#106" id="106" class="l">106 </a>
+<a href="#107" id="107" class="l">107 </a>    <span class="php-comment">/**
+</span><a href="#108" id="108" class="l">108 </a><span class="php-comment">     * Returns an array that specifies pivotModel configurations
+</span><a href="#109" id="109" class="l">109 </a><span class="php-comment">     * @return array
+</span><a href="#110" id="110" class="l">110 </a><span class="php-comment">     */</span>
+<a href="#111" id="111" class="l">111 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> pivotModels() {
+<a href="#112" id="112" class="l">112 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">array</span>(
+<a href="#113" id="113" class="l">113 </a>        );
+<a href="#114" id="114" class="l">114 </a>    }
+<a href="#115" id="115" class="l">115 </a>
+<a href="#116" id="116" class="l">116 </a>    <span class="php-comment">/**
+</span><a href="#117" id="117" class="l">117 </a><span class="php-comment">     * Returns an array with attributeLabels for the Model's attributes
+</span><a href="#118" id="118" class="l">118 </a><span class="php-comment">     * @return array
+</span><a href="#119" id="119" class="l">119 </a><span class="php-comment">     */</span>
+<a href="#120" id="120" class="l">120 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> attributeLabels() {
+<a href="#121" id="121" class="l">121 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">array</span>(
+<a href="#122" id="122" class="l">122 </a>            <span class="php-quote">'id'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'ID'</span>),
+<a href="#123" id="123" class="l">123 </a>            <span class="php-quote">'name'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Name'</span>),
+<a href="#124" id="124" class="l">124 </a>            <span class="php-quote">'specialClass'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Special Class'</span>),
+<a href="#125" id="125" class="l">125 </a>            <span class="php-quote">'onetime'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Onetime'</span>),
+<a href="#126" id="126" class="l">126 </a>            <span class="php-quote">'msg'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Msg'</span>),
+<a href="#127" id="127" class="l">127 </a>            <span class="php-quote">'costsTurn'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Costs Turn'</span>),
+<a href="#128" id="128" class="l">128 </a>            <span class="php-quote">'gainCash'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Gain Cash'</span>),
+<a href="#129" id="129" class="l">129 </a>            <span class="php-quote">'gainXp'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Gain Xp'</span>),
+<a href="#130" id="130" class="l">130 </a>            <span class="php-quote">'gainResoluteness'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Gain Resoluteness'</span>),
+<a href="#131" id="131" class="l">131 </a>            <span class="php-quote">'gainWillpower'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Gain Willpower'</span>),
+<a href="#132" id="132" class="l">132 </a>            <span class="php-quote">'gainCunning'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Gain Cunning'</span>),
+<a href="#133" id="133" class="l">133 </a>            <span class="php-quote">'effectID'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#134" id="134" class="l">134 </a>            <span class="php-quote">'effectDuration'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Effect Duration'</span>),
+<a href="#135" id="135" class="l">135 </a>            <span class="php-quote">'questID'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Quest'</span>),
+<a href="#136" id="136" class="l">136 </a>            <span class="php-quote">'questSetState'</span> =&gt; Yii::t(<span class="php-quote">'app'</span>, <span class="php-quote">'Quest Set State'</span>),
+<a href="#137" id="137" class="l">137 </a>            <span class="php-quote">'areaEncounters'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#138" id="138" class="l">138 </a>            <span class="php-quote">'characterEncounters'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#139" id="139" class="l">139 </a>            <span class="php-quote">'effect'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#140" id="140" class="l">140 </a>            <span class="php-quote">'encounterEncounters'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#141" id="141" class="l">141 </a>            <span class="php-quote">'encounterEncounters1'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#142" id="142" class="l">142 </a>            <span class="php-quote">'encounterItems'</span> =&gt; <span class="php-keyword1">null</span>,
+<a href="#143" id="143" class="l">143 </a>        );
+<a href="#144" id="144" class="l">144 </a>    }
+<a href="#145" id="145" class="l">145 </a>
+<a href="#146" id="146" class="l">146 </a>    <span class="php-comment">/**
+</span><a href="#147" id="147" class="l">147 </a><span class="php-comment">     * Returns a CActiveDataProvider, fed with search criteria based
+</span><a href="#148" id="148" class="l">148 </a><span class="php-comment">     * on the object's attributes
+</span><a href="#149" id="149" class="l">149 </a><span class="php-comment">     * @return CActiveDataProvider
+</span><a href="#150" id="150" class="l">150 </a><span class="php-comment">     * @link http://www.yiiframework.com/doc/api/CActiveDataProvider
+</span><a href="#151" id="151" class="l">151 </a><span class="php-comment">     */</span>
+<a href="#152" id="152" class="l">152 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> search() {
+<a href="#153" id="153" class="l">153 </a>        <span class="php-var">$criteria</span> = <span class="php-keyword1">new</span> CDbCriteria;
+<a href="#154" id="154" class="l">154 </a>
+<a href="#155" id="155" class="l">155 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'id'</span>, <span class="php-var">$this</span>-&gt;id);
+<a href="#156" id="156" class="l">156 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'name'</span>, <span class="php-var">$this</span>-&gt;name, <span class="php-keyword1">true</span>);
+<a href="#157" id="157" class="l">157 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'specialClass'</span>, <span class="php-var">$this</span>-&gt;specialClass, <span class="php-keyword1">true</span>);
+<a href="#158" id="158" class="l">158 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'onetime'</span>, <span class="php-var">$this</span>-&gt;onetime);
+<a href="#159" id="159" class="l">159 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'msg'</span>, <span class="php-var">$this</span>-&gt;msg, <span class="php-keyword1">true</span>);
+<a href="#160" id="160" class="l">160 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'costsTurn'</span>, <span class="php-var">$this</span>-&gt;costsTurn);
+<a href="#161" id="161" class="l">161 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'gainCash'</span>, <span class="php-var">$this</span>-&gt;gainCash);
+<a href="#162" id="162" class="l">162 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'gainXp'</span>, <span class="php-var">$this</span>-&gt;gainXp);
+<a href="#163" id="163" class="l">163 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'gainResoluteness'</span>, <span class="php-var">$this</span>-&gt;gainResoluteness);
+<a href="#164" id="164" class="l">164 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'gainWillpower'</span>, <span class="php-var">$this</span>-&gt;gainWillpower);
+<a href="#165" id="165" class="l">165 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'gainCunning'</span>, <span class="php-var">$this</span>-&gt;gainCunning);
+<a href="#166" id="166" class="l">166 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'effectID'</span>, <span class="php-var">$this</span>-&gt;effectID);
+<a href="#167" id="167" class="l">167 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'effectDuration'</span>, <span class="php-var">$this</span>-&gt;effectDuration);
+<a href="#168" id="168" class="l">168 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'questID'</span>, <span class="php-var">$this</span>-&gt;questID);
+<a href="#169" id="169" class="l">169 </a>        <span class="php-var">$criteria</span>-&gt;compare(<span class="php-quote">'questSetState'</span>, <span class="php-var">$this</span>-&gt;questSetState, <span class="php-keyword1">true</span>);
+<a href="#170" id="170" class="l">170 </a>
+<a href="#171" id="171" class="l">171 </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> CActiveDataProvider(<span class="php-var">$this</span>, <span class="php-keyword1">array</span>(
+<a href="#172" id="172" class="l">172 </a>            <span class="php-quote">'criteria'</span> =&gt; <span class="php-var">$criteria</span>,
+<a href="#173" id="173" class="l">173 </a>        ));
+<a href="#174" id="174" class="l">174 </a>    }
+<a href="#175" id="175" class="l">175 </a>}</code></pre>
 	</div>
 
 	<div id="footer">

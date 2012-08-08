@@ -8,7 +8,7 @@
 	<title>File protected/controllers/actions/inventory/InventoryAction.php | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?1943147226"></script>
+	<script type="text/javascript" src="elementlist.js?461552865"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -62,6 +62,8 @@
 						</li>
 				<li><a href="package-Actions.Character.html">Character</a>
 						</li>
+				<li><a href="package-Actions.Contacts.html">Contacts</a>
+						</li>
 				<li class="active"><a href="package-Actions.Inventory.html">Inventory</a>
 						</li>
 				<li><a href="package-Actions.Places.html">Places<span></span></a>
@@ -94,6 +96,8 @@
 				<li><a href="package-Events.Behaviors.html">Behaviors</a>
 						</li>
 							</ul></li>
+				<li><a href="package-Favors.html">Favors</a>
+						</li>
 				<li><a href="package-Items.html">Items</a>
 						</li>
 				<li><a href="package-Monsters.html">Monsters</a>
@@ -160,16 +164,20 @@
 </span><a href="#12" id="12" class="l">12 </a><span class="php-comment">     * See above
 </span><a href="#13" id="13" class="l">13 </a><span class="php-comment">     */</span>
 <a href="#14" id="14" class="l">14 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> run() {
-<a href="#15" id="15" class="l">15 </a>        <span class="php-var">$character</span> = CD();
-<a href="#16" id="16" class="l">16 </a>        <span class="php-var">$character</span>-&gt;loadItems();
-<a href="#17" id="17" class="l">17 </a>        <span class="php-var">$character</span>-&gt;loadRecipes();
+<a href="#15" id="15" class="l">15 </a>        Yii::app()-&gt;session[<span class="php-quote">'lastPlace'</span>] = <span class="php-keyword1">array</span>(
+<a href="#16" id="16" class="l">16 </a>            <span class="php-quote">'route'</span> =&gt; <span class="php-keyword1">array</span>(<span class="php-quote">&quot;inventory&quot;</span>), <span class="php-quote">'name'</span> =&gt; <span class="php-quote">&quot;your stuff&quot;</span>
+<a href="#17" id="17" class="l">17 </a>        );
 <a href="#18" id="18" class="l">18 </a>
-<a href="#19" id="19" class="l">19 </a>        <span class="php-var">$this</span>-&gt;controller-&gt;render(<span class="php-quote">&quot;inventory&quot;</span>, <span class="php-keyword1">array</span>(
-<a href="#20" id="20" class="l">20 </a>            <span class="php-quote">'CharacterItems'</span> =&gt; <span class="php-var">$character</span>-&gt;characterItems,
-<a href="#21" id="21" class="l">21 </a>            <span class="php-quote">'CharacterRecipes'</span> =&gt; <span class="php-var">$character</span>-&gt;characterRecipes,
-<a href="#22" id="22" class="l">22 </a>        ));
-<a href="#23" id="23" class="l">23 </a>    }
-<a href="#24" id="24" class="l">24 </a>}</code></pre>
+<a href="#19" id="19" class="l">19 </a>        <span class="php-var">$character</span> = CD();
+<a href="#20" id="20" class="l">20 </a>        <span class="php-var">$character</span>-&gt;loadItems();
+<a href="#21" id="21" class="l">21 </a>        <span class="php-var">$character</span>-&gt;loadRecipes();
+<a href="#22" id="22" class="l">22 </a>
+<a href="#23" id="23" class="l">23 </a>        <span class="php-var">$this</span>-&gt;controller-&gt;render(<span class="php-quote">&quot;inventory&quot;</span>, <span class="php-keyword1">array</span>(
+<a href="#24" id="24" class="l">24 </a>            <span class="php-quote">'CharacterItems'</span> =&gt; <span class="php-var">$character</span>-&gt;characterItems,
+<a href="#25" id="25" class="l">25 </a>            <span class="php-quote">'CharacterRecipes'</span> =&gt; <span class="php-var">$character</span>-&gt;characterRecipes,
+<a href="#26" id="26" class="l">26 </a>        ));
+<a href="#27" id="27" class="l">27 </a>    }
+<a href="#28" id="28" class="l">28 </a>}</code></pre>
 	</div>
 
 	<div id="footer">

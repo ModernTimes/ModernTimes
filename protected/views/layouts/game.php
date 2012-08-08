@@ -4,8 +4,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
 
-        <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/game.css" rel="stylesheet">
-            
 <?php 
 /**
 For new bootstrap extension. To be fixed later.
@@ -20,6 +18,7 @@ For new bootstrap extension. To be fixed later.
 ?>
         
         <title><?php echo CHtml::encode($this->pageTitle); ?> - The Game</title>
+        <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/game.css" rel="stylesheet">
 </head>
 
 <body style="padding-top: 40px;">
@@ -32,6 +31,7 @@ For new bootstrap extension. To be fixed later.
             <li><?php echo CHtml::link("London", array('game/map')); ?></li>
             <li><?php echo CHtml::link("Me", array('game/character')); ?></li>
             <li><?php echo CHtml::link("Stuff", array('game/inventory')); ?></li>
+            <li><?php echo CHtml::link("Contacts", array('game/contacts')); ?></li>
             <li><?php echo CHtml::link("Todo", array('game/quests')); ?></li>
             <?php $this->widget("CharacterSkillMenuWidget"); ?>
         </ul>

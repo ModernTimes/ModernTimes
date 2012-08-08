@@ -30,7 +30,7 @@ if($battle->state == "resolved") { ?>
     <?php if(!empty(Yii::app()->session['lastArea']) && $battle->isUserWinner()) { ?>
             <a href="<?php echo CHtml::normalizeUrl(array(
                 'mischief', 
-                'areaID' => Yii::app()->session['lastArea']['id'])); ?>">
+                'areaID' => Yii::app()->session['lastArea']['id'])); ?>" class="nounderline">
         <div class='btn-group'>
             <button class="btn">1 <i class='icon-time'></i></button>
                 <button class='btn btn-warning'><?php echo Yii::app()->session['lastArea']['name']; ?></button>
@@ -38,7 +38,7 @@ if($battle->state == "resolved") { ?>
     <?php } ?>
     </td><td width="50%" align="center">
 
-    <?php echo CHtml::link("Back to " . Yii::app()->tools->getLastPlaceName(), Yii::app()->tools->getLastPlaceID(), array('class'=>'btn btn-success')); ?>
+    <?php echo CHtml::link("Back to " . Yii::app()->tools->getLastPlaceName(), Yii::app()->tools->getLastPlaceRoute(), array('class'=>'btn btn-success')); ?>
         
     </td></tr></table></center>
     
@@ -69,7 +69,7 @@ if($battle->state == "resolved") { ?>
             <td><h1 align="center">vs</h1></td>
 
             <?php 
-                $avatar = $battle->type == "monster" && file_exists(Yii::app()->getBasePath() . "/../images/monsters/" . $battle->combatantB->id . ".png");
+                $avatar = $battle->type == "monster" && file_exists(Yii::app()->getBasePath() . "/../images/monsters/" . $battle->combatantB->id . "-" . $battle->combatantB->sex . ".png");
             ?>
             <td width="45%" style="padding-left: 10px"><table width="100%">
                     <tr>
@@ -84,12 +84,12 @@ if($battle->state == "resolved") { ?>
                         </td>
                         <td width="<?php echo ($avatar ? "50" : "55"); ?>%" style="padding-left: 10px;">
                             <h<?php echo (strlen($battle->combatantB->name) > 25 ? "3" : "2"); ?> align="center"><?php echo ($battle->type == 'monster' ? ucfirst($battle->combatantB->name) : $battle->combatantB->name); ?></h<?php echo (strlen($battle->combatantB->name) > 25 ? "3" : "2"); ?>>
-                            <?php if($battle->type == 'pvp') { ?>
+                            
                                 <p align="center"><?php echo $battle->combatantB->getTitle(); ?></p>
-                            <?php } ?>
+                            
                         </td>
                         <?php if($avatar) { ?>
-                            <td width="15%"><img src="<? echo Yii::app()->getBaseUrl(); ?>/images/monsters/<?php echo $battle->combatantB->id; ?>.png" width="64" height="64"></td>
+                            <td width="15%"><img src="<? echo Yii::app()->getBaseUrl(); ?>/images/monsters/<?php echo $battle->combatantB->id . "-" . $battle->combatantB->sex; ?>.png" width="64" height="64"></td>
                         <?php } ?>
                     </tr>
                 </table>

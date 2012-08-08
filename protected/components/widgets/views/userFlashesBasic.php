@@ -36,11 +36,7 @@ if($numberOfMessages > 0) {
                 <span class="label label-success">Item</span>
             <?php }
         } elseif (strstr($key, "gainCash")) { 
-            echo CHtml::image(Yii::app()->getBaseUrl() . "/images/cash.png", "Cash", array(
-                'width' => 24,
-                'height' => 24,
-                'style' => "vertical-align: middle",
-            ));
+            echo "<i class='icon-cash'></i>";
         } elseif (strstr($key, "gainLevel")) { ?>
             <span class="label label-success">Level</span>
         <?php } elseif (strstr($key, "gainHp")) { ?>

@@ -31,11 +31,21 @@ class Character extends BaseCharacter {
      * Wrapper for gainResource
      * @uses gainResource
      * @param float $amount
-     * @param string $source enum(other|battle|encounter|quest|autosell) 
+     * @param string $source enum(other|exploitation|encounter|quest|autosell) 
      * @return int the actual amount of cash gained
      */
     public function gainCash($amount = 0, $source = '') {
         return $this->gainResource('cash', $amount, $source);
+    }
+    /**
+     * Wrapper for gainResource
+     * @uses gainResource
+     * @param float $amount
+     * @param string $source enum(other|exploitation|encounter|quest) 
+     * @return int the actual amount of badConscience gained
+     */
+    public function gainBadConscience($amount = 0, $source = '') {
+        return $this->gainResource('badConscience', $amount, $source);
     }
     /**
      * Gives resources to the character (or takes them away)
@@ -45,7 +55,7 @@ class Character extends BaseCharacter {
      * @uses GainStatEvent
      * @param string $resource enum(cash)
      * @param float $amount
-     * @param string $source enum(other|battle|encounter|quest|autosell) 
+     * @param string $source enum(other|exploitation|encounter|quest|autosell) 
      * Allows event handlers to react to gainStuff events only in case the
      * resources come from a certain source
      * @return int the actual amount of resource gained
@@ -60,6 +70,30 @@ class Character extends BaseCharacter {
         $amount = max(0, $event->adjustStat($amount));
         
         return call_user_func(array($this, "increase" . ucfirst($resource)), $amount);
+    }
+    /**
+     * Gives kudos to the character (or takes it away)
+     * Before it actually does, it raises a GainKudosAREA event, to which
+     * other code elements can react, especially Model records with
+     * CharacterModifierBehavior.
+     * @uses GainStatEvent
+     * @param string $areaOfInfluence enum(populace|finance|realEconomy|etc.)
+     * @param float $amount
+     * @param string $source enum(other|exploitation|encounter|quest) 
+     * Allows event handlers to react to gainStuff events only in case 
+     * kudos come from a certain source
+     * @return int the actual amount of kudos gained
+     */
+    public function gainKudos($areaOfInfluence, $amount = 0, $source = '') {
+        $event = new GainStatEvent($this, array(
+            'amount' => $amount,
+            'source'   => $source
+        ));
+        call_user_func(array($this, "onGainKudos" . ucfirst($areaOfInfluence)), $event);
+
+        $amount = max(0, $event->adjustStat($amount));
+        
+        return call_user_func(array($this, "increaseKudos"), $areaOfInfluence, $amount);
     }
     
     /**
@@ -83,11 +117,53 @@ class Character extends BaseCharacter {
     }
 
     /**
+     * Wrapper for changeResource
+     * @uses changeResource
+     * @param string $areaOfInfluence enum(populace|finance|realEconomy|etc.)
+     * @param float $amount
+     * @return int the actual kudos increase
+     */
+    public function increaseKudos($areaOfInfluence, $amount = 0) {
+        return $this->changeResource("kudos" . ucfirst($areaOfInfluence), $amount);
+    }
+
+    /**
+     * Wrapper for changeResource
+     * @uses changeResource
+     * @param string $areaOfInfluence enum(populace|finance|realEconomy|etc.)
+     * @param float $amount
+     * @return int the actual kudos increase
+     */
+    public function decreaseKudos($areaOfInfluence, $amount = 0) {
+        return $this->changeResource("kudos" . ucfirst($areaOfInfluence), -$amount);
+    }
+    
+    /**
+     * Wrapper for changeResource
+     * @uses changeResource
+     * @param float $amount
+     * @return int the actual badConscience increase
+     */
+    public function increaseBadConscience($amount = 0) {
+        return $this->changeResource("badConscience", $amount);
+    }
+
+    /**
+     * Wrapper for changeResource
+     * @uses changeResource
+     * @param float $amount
+     * @return int the actual badConscience increase
+     */
+    public function decreaseBadConscience($amount = 0) {
+        return $this->changeResource("badConscience", -$amount);
+    }
+    
+    /**
      * Changes the indicated resource by $amount (which can be negative)
      * Also generates an EUserFlash message to inform the user about this
      * fortunate turn of events.
      * This is more of a setter method and does not raise any events.
-     * @param string $resource enum(cash)
+     * @param string $resource enum(cash|kudosAREA)
      * @param int $amount
      * @return int actual change in resource
      */
@@ -102,6 +178,8 @@ class Character extends BaseCharacter {
         return $amount;
     }
     
+
+    
     /**
      * Returns the cumulative bonus to item drop chances by raising a
      * CalcDropItemBonus event, which is then modified by everything that
@@ -113,6 +191,20 @@ class Character extends BaseCharacter {
     public function getDropItemPerc() {
         $event = new CollectBonusEvent($this);
         $this->onCalcDropItemBonus($event);
+        return $event->getBonusPerc();
+    }
+    
+    /**
+     * Returns the cumulative bonus to contact drop chances by raising a
+     * CalcDropItemBonus event, which is then modified by everything that
+     * affects this stat, especially Model records with
+     * CharacterModifierBehavior.
+     * @uses CollectBonusEvent
+     * @return float bonus in percentage points
+     */ 
+    public function getDropContactPerc() {
+        $event = new CollectBonusEvent($this);
+        $this->onCalcDropContactBonus($event);
         return $event->getBonusPerc();
     }
     
@@ -140,7 +232,6 @@ class Character extends BaseCharacter {
      */
     public function gainItem($Item, $n = 1, $source = "other") {
         if(!is_a($Item, "Item")) {
-            // @todo nice exception
             return false;
         }
        
@@ -157,7 +248,43 @@ class Character extends BaseCharacter {
         }
         return true;
     }
-
+    /**
+     * Wrapper for gainContact. Allows handling of multiple Contacts.
+     * @uses gainContact
+     * @param array $contact several Contacts
+     * @param string $source enum(other|battle|encounter|quest) 
+     */
+    public function gainContacts($contacts, $source = "other") {
+        if(!is_array($contacts) || empty($contacts)) { return; }
+        
+        foreach($contacts as $contact) {
+            $this->gainContact($contact, $source);
+        }
+    }
+    /**
+     * Adds a contact (or characterContact) to the character's address book
+     * @uses addCharacterContact
+     * @uses Contact->getCharacterContact
+     * @param mixed $Contact Contact or CharacterContacts
+     * @param string $source enum(other|battle|encounter|quest) 
+     * @return bool success?
+     */
+    public function gainContact($Contact, $source = "other") {
+        if(!is_a($Contact, "Contact") && !is_a($Contact, "CharacterContacts")) {
+            return false;
+        }
+        if(is_a($Contact, "Contact")) {
+            $CharacterContact = $Contact->getCharacterContact();
+        } else {
+            $CharacterContact = $Contact;
+        }
+        
+        $this->addCharacterContact($CharacterContact);
+        $CharacterContact->save();
+        
+        return true;
+    }
+    
     /**
      * Wrapper for changeHp
      * @uses changeHp
@@ -324,14 +451,11 @@ class Character extends BaseCharacter {
      * @return int actual xp gain
      */
     public function increaseXp($xp) {
-        $actualXpGain = 0;
         $cA = $this->getClassAttributes();
-        $actualXpGain += $this->increaseResoluteness($xp * $cA[$this->class]['resoluteness'], false);
-        $actualXpGain += $this->increaseWillpower($xp * $cA[$this->class]['willpower'], false);
-        $actualXpGain += $this->increaseCunning($xp * $cA[$this->class]['cunning'], false);
-        if($actualXpGain > 0) {
-            EUserFlash::setSuccessMessage($actualXpGain . " experience points", 'gainStat gainXP');
-        }
+        $actualXpGain = 0;
+        $actualXpGain += $this->increaseResoluteness($xp * $cA[$this->class]['resoluteness'], true);
+        $actualXpGain += $this->increaseWillpower($xp * $cA[$this->class]['willpower'], true);
+        $actualXpGain += $this->increaseCunning($xp * $cA[$this->class]['cunning'], true);
         return $actualXpGain;
     }
     
@@ -388,7 +512,7 @@ class Character extends BaseCharacter {
             $this->{$stat . "Sub"} += $amount;
 
             if($generateMsg) {
-                EUserFlash::setSuccessMessage("Your gained " . (int) $amount . " " . $stat, 'gainStat gainSubstat gain' . ucfirst($stat));
+                EUserFlash::setSuccessMessage("Your gained " . $amount . " " . self::getSubstatLabel($stat), 'gainStat gainSubstat gain' . ucfirst($stat));
             }
 
             if(call_user_func(array($this, "get" . ucfirst($stat) . "Base")) > $statBefore) {
@@ -401,6 +525,19 @@ class Character extends BaseCharacter {
         return $amount;
     }
     
+    /**
+     * Returns a random label for any substat
+     * @param string $stat enum(resoluteness|willpower|cunning)
+     */
+    public static function getSubstatLabel($stat) {
+        $substatLabels = array(
+            "resoluteness" => array("ruthlessness", "thick-headedness"),
+            "willpower" => array("conation", "volition"),
+            "cunning" => array("sneakiness", "craftiness", "guile"),
+        );
+        shuffle($substatLabels[$stat]);
+        return $substatLabels[$stat][0];
+    }
     
     /**
      * RETRIEVAL OF CHARACTER DATA
@@ -511,6 +648,25 @@ class Character extends BaseCharacter {
         if($this->getClassType() == 'willpower') {
             $buffed = floor($buffed * 1.3);
         }
+        return $buffed;
+    }
+    
+    /**
+     * Returns the Character's buffed maximum badConscience score
+     * In order to determine bonuses, it raises a CalcBadConscience
+     * event, to which other code elements can react, especially Model records 
+     * with CharacterModifierBehavior.
+     * @uses CollectBonusEvent
+     * @uses adjustStat
+     * @return int
+     */ 
+    public function getBadConscienceMax() {
+        $event = new CollectBonusEvent($this);
+        call_user_func(array($this, "onCalcBadConscience"), $event);
+
+        $base = 15;
+        $buffed = max(1, $event->adjustStat($base));
+
         return $buffed;
     }
     
@@ -759,6 +915,103 @@ class Character extends BaseCharacter {
     public function hasItem($item) {
         $characterItem = $this->getCharacterItem($item);
         return ($characterItem->n > 0);
+    }
+    
+    /**
+     * Lazy loading of CharacterContacts records
+     */
+    public function loadContacts() {
+        if(!$this->hasRelated("characterContacts")) {
+            $characterContacts = CharacterContacts::model()->with(array(
+                'contact' => array(
+                )
+            ))->findAll(
+                't.characterID=:characterID', 
+                array(':characterID'=>$this->id));
+            $this->characterContacts = $characterContacts;
+        }
+    }
+    /**
+     * Returns the CharacterContacts records that belong to a given contact
+     * returns array() if no CharacterItems record is found
+     * @param mixed $contact Contact or int (ID of a Contact record)
+     * @return array of CharacterItems records (or empty)
+     */
+    public function getCharacterContacts($contact) {
+        $this->loadContacts();
+        if(is_numeric($contact)) {
+            $contactID = $contact;
+        } else {
+            $contactID = $contact->id;
+        }
+        
+        $ret = array();
+        foreach($this->characterContacts as $characterContact) {
+            if($characterContact->contactID == $contactID) {
+                $ret[] = $characterContact;
+            }
+        }
+        
+        return $ret;
+    }
+    
+    /**
+     * Checks if the character has a contact of the given type
+     * @uses getCharacterContacts
+     * @param mixed $contact Contact or int (ID of a Contact record)
+     * @return boolean 
+     */
+    public function hasContact($contact) {
+        $n = count($this->getCharacterContacts($contact));
+        return ($n > 0);
+    }
+    
+    /**
+     * Checks whether a given CharacterContact belongs to this character
+     * @param mixed $CharacterContact or int (ID of a CharacterContact record)
+     * @return bool
+     */
+    public function hasCharacterContact($contact) {
+        $this->loadContacts();
+        if(is_numeric($contact)) {
+            $contactID = $contact;
+        } else {
+            $contactID = $contact->id;
+        }
+        foreach($this->characterContacts as $CharacterContact) {
+            if($CharacterContact->characterID == $this->id) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Adds a CharacterContacts record to the Character record
+     * @uses onGainContact
+     * @uses ContactEvent
+     * @todo Flash message only if the Character record represents the current
+     * user's character
+     * @uses CharacterContacts
+     * @param CharacterContacts $characterContact
+     * @return bool success or not
+     */
+    public function addCharacterContact($characterContact) {
+        $characterContact->characterID = $this->id;
+        /**
+         * Remember: $this->characterContacts is NOT a real property, but the 
+         * result of a function call!
+         */
+        $charContacts = $this->characterContacts;
+        $charContacts[] = $characterContact;
+        $this->characterContacts = $charContacts;
+        
+        $event = new ContactEvent($this, $characterContact);
+        $this->onGainContact($event);
+        
+        EUserFlash::setSuccessMessage("You got the contact details of <b>" . $characterContact->name . "</b>, " . lcfirst($characterContact->contact->getTitle()), 'gainContact id:' . $characterContact->contact->id);
+        
+        return true;
     }
     
     /**
@@ -1116,6 +1369,14 @@ class Character extends BaseCharacter {
     public function onCalcEnergy($event) {
         $this->raiseEvent("onCalcEnergy", $event);
     }
+    /** 
+     * Event raiser
+     * @param CollectBonusEvent $event 
+     */
+    public function onCalcBadConscience($event) {
+        $this->raiseEvent("onCalcBadConscience", $event);
+    }
+    
     /**
      * Event raiser
      * @param CollectBonusEvent $event 
@@ -1139,10 +1400,17 @@ class Character extends BaseCharacter {
     }
     /**
      * Event raiser
-     * @param CEvent $event
+     * @param CollectBonusEvent $event
      */
     public function onCalcDropItemBonus($event) {
         $this->raiseEvent("onCalcDropItemBonus", $event);
+    }
+    /**
+     * Event raiser
+     * @param CollectBonusEvent $event
+     */
+    public function onCalcDropContactBonus($event) {
+        $this->raiseEvent("onCalcDropContactBonus", $event);
     }
     /**
      * Event raiser
@@ -1283,35 +1551,99 @@ class Character extends BaseCharacter {
     
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param GainStatEvent $event 
      */
     public function onGainCash($event) {
         $this->raiseEvent("onGainCash", $event);
     }
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param GainStatEvent $event 
+     */
+    public function onGainBadConscience($event) {
+        $this->raiseEvent("onGainBadConscience", $event);
+    }
+    /**
+     * Event raiser
+     * @param GainStatEvent $event 
+     */
+    public function onGainKudosPopulace($event) {
+        $this->raiseEvent("onGainKudosPopulace", $event);
+    }
+    /**
+     * Event raiser
+     * @param GainStatEvent $event 
+     */
+    public function onGainKudosFinance($event) {
+        $this->raiseEvent("onGainKudosFinance", $event);
+    }
+    /**
+     * Event raiser
+     * @param GainStatEvent $event 
+     */
+    public function onGainKudosRealEconomy($event) {
+        $this->raiseEvent("onGainKudosRealEconomy", $event);
+    }
+    /**
+     * Event raiser
+     * @param GainStatEvent $event 
+     */
+    public function onGainKudosPolice($event) {
+        $this->raiseEvent("onGainKudosPolice", $event);
+    }
+    /**
+     * Event raiser
+     * @param GainStatEvent $event 
+     */
+    public function onGainKudosUnderworld($event) {
+        $this->raiseEvent("onGainKudosUnderworld", $event);
+    }
+    /**
+     * Event raiser
+     * @param GainStatEvent $event 
+     */
+    public function onGainKudosSociety($event) {
+        $this->raiseEvent("onGainKudosSociety", $event);
+    }
+    /**
+     * Event raiser
+     * @param GainStatEvent $event 
+     */
+    public function onGainKudosPress($event) {
+        $this->raiseEvent("onGainKudosPress", $event);
+    }
+    /**
+     * Event raiser
+     * @param GainStatEvent $event 
+     */
+    public function onGainKudosBureaucracy($event) {
+        $this->raiseEvent("onGainKudosBureaucracy", $event);
+    }
+    
+    /**
+     * Event raiser
+     * @param GainStatEvent $event 
      */
     public function onGainXp($event) {
         $this->raiseEvent("onGainXp", $event);
     }
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param GainStatEvent $event 
      */
     public function onGainResoluteness($event) {
         $this->raiseEvent("onGainResoluteness", $event);
     }
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param GainStatEvent $event 
      */
     public function onGainWillpower($event) {
         $this->raiseEvent("onGainWillpower", $event);
     }
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param GainStatEvent $event 
      */
     public function onGainCunning($event) {
         $this->raiseEvent("onGainCunning", $event);
@@ -1331,6 +1663,14 @@ class Character extends BaseCharacter {
      */
     public function onGainItem($event) {
         $this->raiseEvent("onGainItem", $event);
+    }
+
+    /**
+     * Event raiser
+     * @param ContactEvent $event 
+     */
+    public function onGainContact($event) {
+        $this->raiseEvent("onGainContact", $event);
     }
     
     /**
@@ -1362,6 +1702,13 @@ class Character extends BaseCharacter {
         $this->raiseEvent("onFinishedBattle", $event);
     }
     
+    /**
+     * Event raiser
+     * @param ExploitEvent $event 
+     */
+    public function onExploit($event) {
+        $this->raiseEvent("onExploit", $event);
+    }
     
     /**
      * BACKGROUND STUFF

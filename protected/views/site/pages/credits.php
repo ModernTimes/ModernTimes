@@ -18,6 +18,7 @@ $this->breadcrumbs=array(
 <p>We also use some icons and graphics:</p>
 
 <ul>
+    <li>Glyphicons by <a href="http://glyphicons.com" target="_blank">Glyphicons Free</a></li>
     <li>Google Maps Icons: http://mapicons.nicolasmollet.com</li>
     <li>Political characters: http://www.iconshock.com/</li>
     <li>Some of the avatar graphics: http://www.aha-soft.com</li>
