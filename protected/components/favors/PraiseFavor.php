@@ -11,6 +11,7 @@ class PraiseFavor extends CBehavior {
      * See above
      * @param Character $Character
      * @param CharacterContacts $CharacterContact 
+     * @return bool success
      */
     public function resolve($Character, $CharacterContact) {
         $Character->gainKudos(
@@ -32,6 +33,8 @@ class PraiseFavor extends CBehavior {
             $CharacterContact->contact->getAreaOfInfluenceLabel2() . ". " .
             $this->owner->byebye($CharacterContact)
         );
+        
+        return true;
     }
     
     /**

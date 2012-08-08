@@ -22,9 +22,11 @@ class Favor extends BaseFavor {
      * Handles Character asking CharacterContact for this favor
      * @param Character $Character
      * @param CharacterContacts $CharacterContact
+     * @return bool success
      */
     public function resolve($Character, $CharacterContact) {
         EUserFlash::setErrorMessage("This favor has not been implemented yet");
+        return false;
     }
     
     /**

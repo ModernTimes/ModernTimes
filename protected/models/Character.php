@@ -1702,6 +1702,13 @@ class Character extends BaseCharacter {
         $this->raiseEvent("onFinishedBattle", $event);
     }
     
+    /**
+     * Event raiser
+     * @param ExploitEvent $event 
+     */
+    public function onExploit($event) {
+        $this->raiseEvent("onExploit", $event);
+    }
     
     /**
      * BACKGROUND STUFF

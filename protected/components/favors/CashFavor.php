@@ -11,6 +11,7 @@ class CashFavor extends CBehavior {
      * See above
      * @param Character $Character
      * @param CharacterContacts $CharacterContact 
+     * @return bool success
      */
     public function resolve($Character, $CharacterContact) {
         $Character->gainCash(
@@ -30,6 +31,8 @@ class CashFavor extends CBehavior {
             _possessive($CharacterContact->sex) . " money. " . 
             $this->owner->byebye($CharacterContact)
         );
+        
+        return true;
     }
     
     /**
