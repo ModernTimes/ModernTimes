@@ -7,7 +7,7 @@
 	<title>Class Battleskill | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?1943147226"></script>
+	<script type="text/javascript" src="elementlist.js?461552865"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -60,6 +60,8 @@
 						</li>
 				<li><a href="package-Actions.Character.html">Character</a>
 						</li>
+				<li><a href="package-Actions.Contacts.html">Contacts</a>
+						</li>
 				<li><a href="package-Actions.Inventory.html">Inventory</a>
 						</li>
 				<li><a href="package-Actions.Places.html">Places<span></span></a>
@@ -92,6 +94,8 @@
 				<li><a href="package-Events.Behaviors.html">Behaviors</a>
 						</li>
 							</ul></li>
+				<li><a href="package-Favors.html">Favors</a>
+						</li>
 				<li><a href="package-Items.html">Items</a>
 						</li>
 				<li><a href="package-Monsters.html">Monsters</a>
@@ -126,10 +130,13 @@
 			<ul>
 				<li><a href="class-Area.html">Area</a></li>
 				<li class="active"><a href="class-Battleskill.html">Battleskill</a></li>
+				<li><a href="class-Contact.html">Contact</a></li>
 				<li><a href="class-Effect.html">Effect</a></li>
 				<li><a href="class-Encounter.html">Encounter</a></li>
+				<li><a href="class-Favor.html">Favor</a></li>
 				<li><a href="class-Item.html">Item</a></li>
 				<li><a href="class-Marker.html">Marker</a></li>
+				<li><a href="class-Name.html">Name</a></li>
 				<li><a href="class-Quest.html">Quest</a></li>
 				<li><a href="class-Recipe.html">Recipe</a></li>
 				<li><a href="class-Requirement.html">Requirement</a></li>
@@ -694,22 +701,29 @@ enemy's defense stat</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getMsgResolved">#</a>
-			<code><a href="source-class-Battleskill.html#276" title="Go to source code">getMsgResolved</a>( )</code>
+			<code><a href="source-class-Battleskill.html#276" title="Go to source code">getMsgResolved</a>( <span>mixed <var>$hero</var></span>, <span>mixed <var>$enemy</var></span> )</code>
 
 			<div class="description short">
 				
-<p>Basic getter msgResolved is usually used as the main message in
-BattleMessages</p>
+<p>Basic version. Parses $this-&gt;msgResolved MsgResolved is usually used as
+the main message in BattleMessages</p>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>Basic getter msgResolved is usually used as the main message in
-BattleMessages</p>
+<p>Basic version. Parses $this-&gt;msgResolved MsgResolved is usually used as
+the main message in BattleMessages</p>
 
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$hero</var></dt>
+						<dd><code>mixed</code><br> Character or Monster</dd>
+						<dt><var>$enemy</var></dt>
+						<dd><code>mixed</code><br> Character or Monster</dd>
+					</dl></div>
 
 					<h4>Returns</h4>
 					<div class="list">
@@ -737,22 +751,33 @@ BattleMessages</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getMsgIncreasedDuration">#</a>
-			<code><a href="source-class-Battleskill.html#284" title="Go to source code">getMsgIncreasedDuration</a>( )</code>
+			<code><a href="source-class-Battleskill.html#287" title="Go to source code">getMsgIncreasedDuration</a>( <span>mixed <var>$hero</var></span>, <span>mixed <var>$enemy</var></span> )</code>
 
 			<div class="description short">
 				
-<p>There might be a different message in case the duration of an effect was
-increased (instead of a new effect getting in place)</p>
+<p>Basic version. Parses $this-&gt;effectMsgIncreasedEffect MsgResolved is
+usually used as the main message in BattleMessages There might be a different
+message in case the duration of an effect was increased (instead of a new effect
+getting in place)</p>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>There might be a different message in case the duration of an effect was
-increased (instead of a new effect getting in place)</p>
+<p>Basic version. Parses $this-&gt;effectMsgIncreasedEffect MsgResolved is
+usually used as the main message in BattleMessages There might be a different
+message in case the duration of an effect was increased (instead of a new effect
+getting in place)</p>
 
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$hero</var></dt>
+						<dd><code>mixed</code><br> Character or Monster</dd>
+						<dt><var>$enemy</var></dt>
+						<dd><code>mixed</code><br> Character or Monster</dd>
+					</dl></div>
 
 					<h4>Returns</h4>
 					<div class="list">
@@ -769,6 +794,86 @@ increased (instead of a new effect getting in place)</p>
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="parseMsg" id="_parseMsg">
+
+			<td class="attributes"><code>
+				 public static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_parseMsg">#</a>
+			<code><a href="source-class-Battleskill.html#303" title="Go to source code">parseMsg</a>( <span>string <var>$msg</var></span>, <span>mixed <var>$hero</var></span>, <span>mixed <var>$enemy</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Parses a msg so that hero's and enemy's names and sexes are considered
+appropriately</p>
+
+<ul>
+	<li>%1$s: hero's name</li>
+
+	<li>%2$s: personal pronoun for hero</li>
+
+	<li>%3$s: possessive pronoun for hero</li>
+
+	<li>%4$s: objective pronoun for hero</li>
+
+	<li>%5$s: enemy's name</li>
+
+	<li>%6$s: personal pronoun for enemy</li>
+
+	<li>%7$s: possessive pronoun for enemy</li>
+
+	<li>%8$s: objective pronoun for enemy</li>
+</ul>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Parses a msg so that hero's and enemy's names and sexes are considered
+appropriately</p>
+
+<ul>
+	<li>%1$s: hero's name</li>
+
+	<li>%2$s: personal pronoun for hero</li>
+
+	<li>%3$s: possessive pronoun for hero</li>
+
+	<li>%4$s: objective pronoun for hero</li>
+
+	<li>%5$s: enemy's name</li>
+
+	<li>%6$s: personal pronoun for enemy</li>
+
+	<li>%7$s: possessive pronoun for enemy</li>
+
+	<li>%8$s: objective pronoun for enemy</li>
+</ul>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$msg</var></dt>
+						<dd><code>string</code></dd>
+						<dt><var>$hero</var></dt>
+						<dd><code>mixed</code></dd>
+						<dt><var>$enemy</var></dt>
+						<dd><code>mixed</code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="getPopup" id="_getPopup">
 
 			<td class="attributes"><code>
@@ -780,7 +885,7 @@ increased (instead of a new effect getting in place)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getPopup">#</a>
-			<code><a href="source-class-Battleskill.html#296" title="Go to source code">getPopup</a>( )</code>
+			<code><a href="source-class-Battleskill.html#329" title="Go to source code">getPopup</a>( )</code>
 
 			<div class="description short">
 				
@@ -819,7 +924,7 @@ Battleskill</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getLogDetails">#</a>
-			<code><a href="source-class-Battleskill.html#307" title="Go to source code">getLogDetails</a>( )</code>
+			<code><a href="source-class-Battleskill.html#340" title="Go to source code">getLogDetails</a>( )</code>
 
 			<div class="description short">
 				
@@ -858,7 +963,7 @@ popup</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_behaviors">#</a>
-			<code><a href="source-class-Battleskill.html#322" title="Go to source code">behaviors</a>( )</code>
+			<code><a href="source-class-Battleskill.html#355" title="Go to source code">behaviors</a>( )</code>
 
 			<div class="description short">
 				
@@ -899,7 +1004,7 @@ popup</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_scopes">#</a>
-			<code><a href="source-class-Battleskill.html#333" title="Go to source code">scopes</a>( )</code>
+			<code><a href="source-class-Battleskill.html#366" title="Go to source code">scopes</a>( )</code>
 
 			<div class="description short">
 				
@@ -944,7 +1049,7 @@ query.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_model">#</a>
-			<code><a href="source-class-Battleskill.html#353" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
+			<code><a href="source-class-Battleskill.html#386" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
 
 			<div class="description short">
 				

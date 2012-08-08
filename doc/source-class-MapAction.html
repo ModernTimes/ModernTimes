@@ -8,7 +8,7 @@
 	<title>File protected/controllers/actions/MapAction.php | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?1943147226"></script>
+	<script type="text/javascript" src="elementlist.js?461552865"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -62,6 +62,8 @@
 						</li>
 				<li><a href="package-Actions.Character.html">Character</a>
 						</li>
+				<li><a href="package-Actions.Contacts.html">Contacts</a>
+						</li>
 				<li><a href="package-Actions.Inventory.html">Inventory</a>
 						</li>
 				<li><a href="package-Actions.Places.html">Places<span></span></a>
@@ -94,6 +96,8 @@
 				<li><a href="package-Events.Behaviors.html">Behaviors</a>
 						</li>
 							</ul></li>
+				<li><a href="package-Favors.html">Favors</a>
+						</li>
 				<li><a href="package-Items.html">Items</a>
 						</li>
 				<li><a href="package-Monsters.html">Monsters</a>
@@ -167,16 +171,21 @@
 <a href="#19" id="19" class="l">19 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> run() {
 <a href="#20" id="20" class="l">20 </a>        <span class="php-comment">// Will be used in some view files and redirect commands</span>
 <a href="#21" id="21" class="l">21 </a>        <span class="php-comment">// Yii::app()-&gt;session['lastMapPosition'] = array();</span>
-<a href="#22" id="22" class="l">22 </a>
-<a href="#23" id="23" class="l">23 </a>        <span class="php-var">$Character</span> = CD();
-<a href="#24" id="24" class="l">24 </a>        <span class="php-var">$Markers</span> = Marker::model()-&gt;withRelated()-&gt;findAll();
-<a href="#25" id="25" class="l">25 </a>                
-<a href="#26" id="26" class="l">26 </a>        <span class="php-var">$this</span>-&gt;controller-&gt;render(<span class="php-quote">&quot;gmap&quot;</span>, <span class="php-keyword1">array</span>(
-<a href="#27" id="27" class="l">27 </a>            <span class="php-quote">'Markers'</span> =&gt; <span class="php-var">$Markers</span>,
-<a href="#28" id="28" class="l">28 </a>            <span class="php-quote">'Character'</span> =&gt; <span class="php-var">$Character</span>
-<a href="#29" id="29" class="l">29 </a>        ));
-<a href="#30" id="30" class="l">30 </a>    }
-<a href="#31" id="31" class="l">31 </a>}</code></pre>
+<a href="#22" id="22" class="l">22 </a>        
+<a href="#23" id="23" class="l">23 </a>        <span class="php-comment">// Will be used in some view files</span>
+<a href="#24" id="24" class="l">24 </a>        Yii::app()-&gt;session[<span class="php-quote">'lastPlace'</span>] = <span class="php-keyword1">array</span>(
+<a href="#25" id="25" class="l">25 </a>            <span class="php-quote">'route'</span> =&gt; <span class="php-keyword1">array</span>(<span class="php-quote">&quot;map&quot;</span>), <span class="php-quote">'name'</span> =&gt; <span class="php-quote">&quot;London&quot;</span>,
+<a href="#26" id="26" class="l">26 </a>        );
+<a href="#27" id="27" class="l">27 </a>
+<a href="#28" id="28" class="l">28 </a>        <span class="php-var">$Character</span> = CD();
+<a href="#29" id="29" class="l">29 </a>        <span class="php-var">$Markers</span> = Marker::model()-&gt;withRelated()-&gt;findAll();
+<a href="#30" id="30" class="l">30 </a>                
+<a href="#31" id="31" class="l">31 </a>        <span class="php-var">$this</span>-&gt;controller-&gt;render(<span class="php-quote">&quot;gmap&quot;</span>, <span class="php-keyword1">array</span>(
+<a href="#32" id="32" class="l">32 </a>            <span class="php-quote">'Markers'</span> =&gt; <span class="php-var">$Markers</span>,
+<a href="#33" id="33" class="l">33 </a>            <span class="php-quote">'Character'</span> =&gt; <span class="php-var">$Character</span>
+<a href="#34" id="34" class="l">34 </a>        ));
+<a href="#35" id="35" class="l">35 </a>    }
+<a href="#36" id="36" class="l">36 </a>}</code></pre>
 	</div>
 
 	<div id="footer">

@@ -8,7 +8,7 @@
 	<title>File protected/controllers/actions/inventory/UnequipAction.php | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?1943147226"></script>
+	<script type="text/javascript" src="elementlist.js?461552865"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -62,6 +62,8 @@
 						</li>
 				<li><a href="package-Actions.Character.html">Character</a>
 						</li>
+				<li><a href="package-Actions.Contacts.html">Contacts</a>
+						</li>
 				<li class="active"><a href="package-Actions.Inventory.html">Inventory</a>
 						</li>
 				<li><a href="package-Actions.Places.html">Places<span></span></a>
@@ -94,6 +96,8 @@
 				<li><a href="package-Events.Behaviors.html">Behaviors</a>
 						</li>
 							</ul></li>
+				<li><a href="package-Favors.html">Favors</a>
+						</li>
 				<li><a href="package-Items.html">Items</a>
 						</li>
 				<li><a href="package-Monsters.html">Monsters</a>
@@ -205,7 +209,7 @@
 </span><a href="#57" id="57" class="l">57 </a><span class="php-comment">                     */</span>
 <a href="#58" id="58" class="l">58 </a>                    <span class="php-var">$Character</span>-&gt;gainItem(<span class="php-var">$Item</span>, <span class="php-num">1</span>, <span class="php-quote">&quot;unequip&quot;</span>);
 <a href="#59" id="59" class="l">59 </a>
-<a href="#60" id="60" class="l">60 </a>                    EUserFlash::setMessage(<span class="php-quote">&quot;You put away your &quot;</span> . <span class="php-var">$Item</span>-&gt;name);
+<a href="#60" id="60" class="l">60 </a>                    EUserFlash::setSuccessMessage(<span class="php-quote">&quot;You put away your &quot;</span> . <span class="php-var">$Item</span>-&gt;name);
 <a href="#61" id="61" class="l">61 </a>                    
 <a href="#62" id="62" class="l">62 </a>                    <span class="php-comment">// Notify the world that something was unequipped</span>
 <a href="#63" id="63" class="l">63 </a>                    <span class="php-var">$event</span> = <span class="php-keyword1">new</span> EquipItemEvent(<span class="php-var">$Character</span>, <span class="php-var">$Item</span>, <span class="php-var">$slot</span>);

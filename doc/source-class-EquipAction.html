@@ -8,7 +8,7 @@
 	<title>File protected/controllers/actions/inventory/EquipAction.php | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?1943147226"></script>
+	<script type="text/javascript" src="elementlist.js?461552865"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -62,6 +62,8 @@
 						</li>
 				<li><a href="package-Actions.Character.html">Character</a>
 						</li>
+				<li><a href="package-Actions.Contacts.html">Contacts</a>
+						</li>
 				<li class="active"><a href="package-Actions.Inventory.html">Inventory</a>
 						</li>
 				<li><a href="package-Actions.Places.html">Places<span></span></a>
@@ -94,6 +96,8 @@
 				<li><a href="package-Events.Behaviors.html">Behaviors</a>
 						</li>
 							</ul></li>
+				<li><a href="package-Favors.html">Favors</a>
+						</li>
 				<li><a href="package-Items.html">Items</a>
 						</li>
 				<li><a href="package-Monsters.html">Monsters</a>
@@ -259,7 +263,7 @@
 <a href="#111" id="111" class="l">111 </a>                            <span class="php-comment">// Re-Attach event handlers</span>
 <a href="#112" id="112" class="l">112 </a>                            <span class="php-var">$Equipment</span>-&gt;attachToCharacter(<span class="php-var">$Character</span>);
 <a href="#113" id="113" class="l">113 </a>
-<a href="#114" id="114" class="l">114 </a>                            EUserFlash::setMessage(<span class="php-quote">&quot;You equipped your &quot;</span> . <span class="php-keyword2">lcfirst</span>(<span class="php-var">$CharacterItem</span>-&gt;item-&gt;name));
+<a href="#114" id="114" class="l">114 </a>                            EUserFlash::setSuccessMessage(<span class="php-quote">&quot;You equipped your &quot;</span> . <span class="php-keyword2">lcfirst</span>(<span class="php-var">$CharacterItem</span>-&gt;item-&gt;name));
 <a href="#115" id="115" class="l">115 </a>                            
 <a href="#116" id="116" class="l">116 </a>                            <span class="php-comment">// Notify the world that something was equipped</span>
 <a href="#117" id="117" class="l">117 </a>                            <span class="php-var">$event</span> = <span class="php-keyword1">new</span> EquipItemEvent(<span class="php-var">$Character</span>, <span class="php-var">$Item</span>, <span class="php-var">$slot</span>);

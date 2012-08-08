@@ -7,7 +7,7 @@
 	<title>Class Character | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?1943147226"></script>
+	<script type="text/javascript" src="elementlist.js?461552865"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -60,6 +60,8 @@
 						</li>
 				<li><a href="package-Actions.Character.html">Character</a>
 						</li>
+				<li><a href="package-Actions.Contacts.html">Contacts</a>
+						</li>
 				<li><a href="package-Actions.Inventory.html">Inventory</a>
 						</li>
 				<li><a href="package-Actions.Places.html">Places<span></span></a>
@@ -92,6 +94,8 @@
 				<li><a href="package-Events.Behaviors.html">Behaviors</a>
 						</li>
 							</ul></li>
+				<li><a href="package-Favors.html">Favors</a>
+						</li>
 				<li><a href="package-Items.html">Items</a>
 						</li>
 				<li><a href="package-Monsters.html">Monsters</a>
@@ -244,7 +248,7 @@ code base for calls of these methods that can be beautified<br />
 						<dt><var>$amount</var></dt>
 						<dd><code>float</code></dd>
 						<dt><var>$source</var></dt>
-						<dd><code>string</code><br> enum(other|battle|encounter|quest|autosell)</dd>
+						<dd><code>string</code><br> enum(other|exploitation|encounter|quest|autosell)</dd>
 					</dl></div>
 
 					<h4>Returns</h4>
@@ -262,7 +266,7 @@ code base for calls of these methods that can be beautified<br />
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="gainFavours" id="_gainFavours">
+		<tr data-order="gainBadConscience" id="_gainBadConscience">
 
 			<td class="attributes"><code>
 				 public 
@@ -272,8 +276,8 @@ code base for calls of these methods that can be beautified<br />
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_gainFavours">#</a>
-			<code><a href="source-class-Character.html#40" title="Go to source code">gainFavours</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span>, <span>string <var>$source</var> = <span class="php-quote">''</span></span> )</code>
+			<a class="anchor" href="#_gainBadConscience">#</a>
+			<code><a href="source-class-Character.html#40" title="Go to source code">gainBadConscience</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span>, <span>string <var>$source</var> = <span class="php-quote">''</span></span> )</code>
 
 			<div class="description short">
 				
@@ -292,12 +296,12 @@ code base for calls of these methods that can be beautified<br />
 						<dt><var>$amount</var></dt>
 						<dd><code>float</code></dd>
 						<dt><var>$source</var></dt>
-						<dd><code>string</code><br> enum(other|battle|encounter|quest|autosell)</dd>
+						<dd><code>string</code><br> enum(other|exploitation|encounter|quest)</dd>
 					</dl></div>
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code>integer</code><br>the actual amount of favours gained<br />
+						<code>integer</code><br>the actual amount of badConscience gained<br />
 					</div>
 
 
@@ -321,26 +325,33 @@ code base for calls of these methods that can be beautified<br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#_gainKudos">#</a>
-			<code><a href="source-class-Character.html#50" title="Go to source code">gainKudos</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span>, <span>string <var>$source</var> = <span class="php-quote">''</span></span> )</code>
+			<code><a href="source-class-Character.html#74" title="Go to source code">gainKudos</a>( <span>string <var>$areaOfInfluence</var></span>, <span>float <var>$amount</var> = <span class="php-num">0</span></span>, <span>string <var>$source</var> = <span class="php-quote">''</span></span> )</code>
 
 			<div class="description short">
 				
-<p>Wrapper for gainResource</p>
+<p>Gives kudos to the character (or takes it away) Before it actually does, it
+raises a GainKudosAREA event, to which other code elements can react, especially
+Model records with CharacterModifierBehavior.</p>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>Wrapper for gainResource</p>
+<p>Gives kudos to the character (or takes it away) Before it actually does, it
+raises a GainKudosAREA event, to which other code elements can react, especially
+Model records with CharacterModifierBehavior.</p>
 
 
 
 					<h4>Parameters</h4>
 					<div class="list"><dl>
+						<dt><var>$areaOfInfluence</var></dt>
+						<dd><code>string</code><br> enum(populace|finance|realEconomy|etc.)</dd>
 						<dt><var>$amount</var></dt>
 						<dd><code>float</code></dd>
 						<dt><var>$source</var></dt>
-						<dd><code>string</code><br> enum(other|battle|encounter|quest|autosell)</dd>
+						<dd><code>string</code><br> enum(other|exploitation|encounter|quest) Allows event handlers to react to
+gainStuff events only in case kudos come from a certain source</dd>
 					</dl></div>
 
 					<h4>Returns</h4>
@@ -351,7 +362,7 @@ code base for calls of these methods that can be beautified<br />
 
 					<h4>Uses</h4>
 					<div class="list">
-							gainResource<br />
+							<code><code><a href="class-GainStatEvent.html">GainStatEvent</a></code></code> <br />
 					</div>
 
 
@@ -369,7 +380,7 @@ code base for calls of these methods that can be beautified<br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#_increaseCash">#</a>
-			<code><a href="source-class-Character.html#85" title="Go to source code">increaseCash</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span> )</code>
+			<code><a href="source-class-Character.html#99" title="Go to source code">increaseCash</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span> )</code>
 
 			<div class="description short">
 				
@@ -404,7 +415,7 @@ code base for calls of these methods that can be beautified<br />
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="increaseFavours" id="_increaseFavours">
+		<tr data-order="decreaseCash" id="_decreaseCash">
 
 			<td class="attributes"><code>
 				 public 
@@ -414,8 +425,8 @@ code base for calls of these methods that can be beautified<br />
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_increaseFavours">#</a>
-			<code><a href="source-class-Character.html#94" title="Go to source code">increaseFavours</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span> )</code>
+			<a class="anchor" href="#_decreaseCash">#</a>
+			<code><a href="source-class-Character.html#109" title="Go to source code">decreaseCash</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span> )</code>
 
 			<div class="description short">
 				
@@ -461,7 +472,7 @@ code base for calls of these methods that can be beautified<br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#_increaseKudos">#</a>
-			<code><a href="source-class-Character.html#103" title="Go to source code">increaseKudos</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span> )</code>
+			<code><a href="source-class-Character.html#119" title="Go to source code">increaseKudos</a>( <span>string <var>$areaOfInfluence</var></span>, <span>float <var>$amount</var> = <span class="php-num">0</span></span> )</code>
 
 			<div class="description short">
 				
@@ -477,105 +488,15 @@ code base for calls of these methods that can be beautified<br />
 
 					<h4>Parameters</h4>
 					<div class="list"><dl>
+						<dt><var>$areaOfInfluence</var></dt>
+						<dd><code>string</code><br> enum(populace|finance|realEconomy|etc.)</dd>
 						<dt><var>$amount</var></dt>
 						<dd><code>float</code></dd>
 					</dl></div>
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code>integer</code><br>actual change in resource<br />
-					</div>
-
-
-					<h4>Uses</h4>
-					<div class="list">
-							changeResource<br />
-					</div>
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="decreaseCash" id="_decreaseCash">
-
-			<td class="attributes"><code>
-				 public 
-				integer
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_decreaseCash">#</a>
-			<code><a href="source-class-Character.html#112" title="Go to source code">decreaseCash</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span> )</code>
-
-			<div class="description short">
-				
-<p>Wrapper for changeResource</p>
-
-			</div>
-
-			<div class="description detailed hidden">
-				
-<p>Wrapper for changeResource</p>
-
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$amount</var></dt>
-						<dd><code>float</code></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code>integer</code><br>actual change in resource<br />
-					</div>
-
-
-					<h4>Uses</h4>
-					<div class="list">
-							changeResource<br />
-					</div>
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="decreaseFavours" id="_decreaseFavours">
-
-			<td class="attributes"><code>
-				 public 
-				integer
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_decreaseFavours">#</a>
-			<code><a href="source-class-Character.html#121" title="Go to source code">decreaseFavours</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span> )</code>
-
-			<div class="description short">
-				
-<p>Wrapper for changeResource</p>
-
-			</div>
-
-			<div class="description detailed hidden">
-				
-<p>Wrapper for changeResource</p>
-
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$amount</var></dt>
-						<dd><code>float</code></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<code>integer</code><br>actual change in resource<br />
+						<code>integer</code><br>the actual kudos increase<br />
 					</div>
 
 
@@ -599,7 +520,55 @@ code base for calls of these methods that can be beautified<br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#_decreaseKudos">#</a>
-			<code><a href="source-class-Character.html#130" title="Go to source code">decreaseKudos</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span> )</code>
+			<code><a href="source-class-Character.html#130" title="Go to source code">decreaseKudos</a>( <span>string <var>$areaOfInfluence</var></span>, <span>float <var>$amount</var> = <span class="php-num">0</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for changeResource</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for changeResource</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$areaOfInfluence</var></dt>
+						<dd><code>string</code><br> enum(populace|finance|realEconomy|etc.)</dd>
+						<dt><var>$amount</var></dt>
+						<dd><code>float</code></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br>the actual kudos increase<br />
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							changeResource<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="increaseBadConscience" id="_increaseBadConscience">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_increaseBadConscience">#</a>
+			<code><a href="source-class-Character.html#141" title="Go to source code">increaseBadConscience</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span> )</code>
 
 			<div class="description short">
 				
@@ -621,7 +590,53 @@ code base for calls of these methods that can be beautified<br />
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code>integer</code><br>actual change in resource<br />
+						<code>integer</code><br>the actual badConscience increase<br />
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							changeResource<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="decreaseBadConscience" id="_decreaseBadConscience">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_decreaseBadConscience">#</a>
+			<code><a href="source-class-Character.html#151" title="Go to source code">decreaseBadConscience</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for changeResource</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for changeResource</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$amount</var></dt>
+						<dd><code>float</code></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br>the actual badConscience increase<br />
 					</div>
 
 
@@ -645,7 +660,7 @@ code base for calls of these methods that can be beautified<br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getDropItemPerc">#</a>
-			<code><a href="source-class-Character.html#159" title="Go to source code">getDropItemPerc</a>( )</code>
+			<code><a href="source-class-Character.html#183" title="Go to source code">getDropItemPerc</a>( )</code>
 
 			<div class="description short">
 				
@@ -679,6 +694,51 @@ stat, especially Model records with CharacterModifierBehavior.</p>
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="getDropContactPerc" id="_getDropContactPerc">
+
+			<td class="attributes"><code>
+				 public 
+				float
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getDropContactPerc">#</a>
+			<code><a href="source-class-Character.html#197" title="Go to source code">getDropContactPerc</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns the cumulative bonus to contact drop chances by raising a
+CalcDropItemBonus event, which is then modified by everything that affects this
+stat, especially Model records with CharacterModifierBehavior.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns the cumulative bonus to contact drop chances by raising a
+CalcDropItemBonus event, which is then modified by everything that affects this
+stat, especially Model records with CharacterModifierBehavior.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>float</code><br>bonus in percentage points<br />
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="gainItems" id="_gainItems">
 
 			<td class="attributes"><code>
@@ -690,7 +750,7 @@ stat, especially Model records with CharacterModifierBehavior.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_gainItems">#</a>
-			<code><a href="source-class-Character.html#173" title="Go to source code">gainItems</a>( <span>array <var>$items</var></span>, <span>string <var>$source</var> = <span class="php-quote">&quot;other&quot;</span></span> )</code>
+			<code><a href="source-class-Character.html#211" title="Go to source code">gainItems</a>( <span>array <var>$items</var></span>, <span>string <var>$source</var> = <span class="php-quote">&quot;other&quot;</span></span> )</code>
 
 			<div class="description short">
 				
@@ -734,7 +794,7 @@ stat, especially Model records with CharacterModifierBehavior.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_gainItem">#</a>
-			<code><a href="source-class-Character.html#186" title="Go to source code">gainItem</a>( <span><code><a href="class-Item.html">Item</a></code> <var>$Item</var></span>, <span>integer <var>$n</var> = <span class="php-num">1</span></span>, <span>string <var>$source</var> = <span class="php-quote">&quot;other&quot;</span></span> )</code>
+			<code><a href="source-class-Character.html#224" title="Go to source code">gainItem</a>( <span><code><a href="class-Item.html">Item</a></code> <var>$Item</var></span>, <span>integer <var>$n</var> = <span class="php-num">1</span></span>, <span>string <var>$source</var> = <span class="php-quote">&quot;other&quot;</span></span> )</code>
 
 			<div class="description short">
 				
@@ -778,6 +838,103 @@ stat, especially Model records with CharacterModifierBehavior.</p>
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="gainContacts" id="_gainContacts">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_gainContacts">#</a>
+			<code><a href="source-class-Character.html#251" title="Go to source code">gainContacts</a>( <span>array <var>$contacts</var></span>, <span>string <var>$source</var> = <span class="php-quote">&quot;other&quot;</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Wrapper for gainContact. Allows handling of multiple Contacts.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Wrapper for gainContact. Allows handling of multiple Contacts.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$contacts</var></dt>
+						<dd><code>array</code><br>$contact several Contacts</dd>
+						<dt><var>$source</var></dt>
+						<dd><code>string</code><br> enum(other|battle|encounter|quest)</dd>
+					</dl></div>
+
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::gainContact()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="gainContact" id="_gainContact">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_gainContact">#</a>
+			<code><a href="source-class-Character.html#264" title="Go to source code">gainContact</a>( <span>mixed <var>$Contact</var></span>, <span>string <var>$source</var> = <span class="php-quote">&quot;other&quot;</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Adds a contact (or characterContact) to the character's address book</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Adds a contact (or characterContact) to the character's address book</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$Contact</var></dt>
+						<dd><code>mixed</code><br> Contact or CharacterContacts</dd>
+						<dt><var>$source</var></dt>
+						<dd><code>string</code><br> enum(other|battle|encounter|quest)</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br>success?<br />
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::addCharacterContact()</a></code></code> <br />
+							Contact-&gt;getCharacterContact<br />
+					</div>
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::gainContacts()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="decreaseHp" id="_decreaseHp">
 
 			<td class="attributes"><code>
@@ -789,7 +946,7 @@ stat, especially Model records with CharacterModifierBehavior.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_decreaseHp">#</a>
-			<code><a href="source-class-Character.html#215" title="Go to source code">decreaseHp</a>( <span>integer <var>$amount</var></span> )</code>
+			<code><a href="source-class-Character.html#288" title="Go to source code">decreaseHp</a>( <span>integer <var>$amount</var></span> )</code>
 
 			<div class="description short">
 				
@@ -835,7 +992,7 @@ stat, especially Model records with CharacterModifierBehavior.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_increaseHp">#</a>
-			<code><a href="source-class-Character.html#224" title="Go to source code">increaseHp</a>( <span>integer <var>$amount</var></span> )</code>
+			<code><a href="source-class-Character.html#297" title="Go to source code">increaseHp</a>( <span>integer <var>$amount</var></span> )</code>
 
 			<div class="description short">
 				
@@ -881,7 +1038,7 @@ stat, especially Model records with CharacterModifierBehavior.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_changeHp">#</a>
-			<code><a href="source-class-Character.html#234" title="Go to source code">changeHp</a>( <span>integer <var>$amount</var></span> )</code>
+			<code><a href="source-class-Character.html#307" title="Go to source code">changeHp</a>( <span>integer <var>$amount</var></span> )</code>
 
 			<div class="description short">
 				
@@ -934,7 +1091,7 @@ user about healing</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_decreaseEnergy">#</a>
-			<code><a href="source-class-Character.html#261" title="Go to source code">decreaseEnergy</a>( <span>integer <var>$amount</var></span> )</code>
+			<code><a href="source-class-Character.html#334" title="Go to source code">decreaseEnergy</a>( <span>integer <var>$amount</var></span> )</code>
 
 			<div class="description short">
 				
@@ -980,7 +1137,7 @@ user about healing</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_increaseEnergy">#</a>
-			<code><a href="source-class-Character.html#270" title="Go to source code">increaseEnergy</a>( <span>integer <var>$amount</var></span> )</code>
+			<code><a href="source-class-Character.html#343" title="Go to source code">increaseEnergy</a>( <span>integer <var>$amount</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1026,7 +1183,7 @@ user about healing</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_changeEnergy">#</a>
-			<code><a href="source-class-Character.html#280" title="Go to source code">changeEnergy</a>( <span>integer <var>$amount</var></span> )</code>
+			<code><a href="source-class-Character.html#353" title="Go to source code">changeEnergy</a>( <span>integer <var>$amount</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1075,7 +1232,7 @@ the user about energy boosts</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_gainXp">#</a>
-			<code><a href="source-class-Character.html#306" title="Go to source code">gainXp</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span>, <span>string <var>$from</var> = <span class="php-quote">''</span></span> )</code>
+			<code><a href="source-class-Character.html#379" title="Go to source code">gainXp</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span>, <span>string <var>$from</var> = <span class="php-quote">''</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1123,7 +1280,7 @@ the user about energy boosts</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_gainResoluteness">#</a>
-			<code><a href="source-class-Character.html#316" title="Go to source code">gainResoluteness</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span>, <span>string <var>$from</var> = <span class="php-quote">''</span></span> )</code>
+			<code><a href="source-class-Character.html#389" title="Go to source code">gainResoluteness</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span>, <span>string <var>$from</var> = <span class="php-quote">''</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1171,7 +1328,7 @@ the user about energy boosts</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_gainWillpower">#</a>
-			<code><a href="source-class-Character.html#326" title="Go to source code">gainWillpower</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span>, <span>string <var>$from</var> = <span class="php-quote">''</span></span> )</code>
+			<code><a href="source-class-Character.html#399" title="Go to source code">gainWillpower</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span>, <span>string <var>$from</var> = <span class="php-quote">''</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1219,7 +1376,7 @@ the user about energy boosts</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_gainCunning">#</a>
-			<code><a href="source-class-Character.html#336" title="Go to source code">gainCunning</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span>, <span>string <var>$from</var> = <span class="php-quote">''</span></span> )</code>
+			<code><a href="source-class-Character.html#409" title="Go to source code">gainCunning</a>( <span>float <var>$amount</var> = <span class="php-num">0</span></span>, <span>string <var>$from</var> = <span class="php-quote">''</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1267,7 +1424,7 @@ the user about energy boosts</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_increaseXp">#</a>
-			<code><a href="source-class-Character.html#371" title="Go to source code">increaseXp</a>( <span>float <var>$xp</var></span> )</code>
+			<code><a href="source-class-Character.html#444" title="Go to source code">increaseXp</a>( <span>float <var>$xp</var></span> )</code>
 
 			<div class="description short">
 				
@@ -1317,7 +1474,7 @@ class</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_increaseResoluteness">#</a>
-			<code><a href="source-class-Character.html#392" title="Go to source code">increaseResoluteness</a>( <span>float <var>$amount</var></span>, <span>boolean <var>$generateMsg</var> = <span class="php-keyword1">true</span></span> )</code>
+			<code><a href="source-class-Character.html#462" title="Go to source code">increaseResoluteness</a>( <span>float <var>$amount</var></span>, <span>boolean <var>$generateMsg</var> = <span class="php-keyword1">true</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1369,7 +1526,7 @@ class</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_increaseWillpower">#</a>
-			<code><a href="source-class-Character.html#402" title="Go to source code">increaseWillpower</a>( <span>float <var>$amount</var></span>, <span>boolean <var>$generateMsg</var> = <span class="php-keyword1">true</span></span> )</code>
+			<code><a href="source-class-Character.html#472" title="Go to source code">increaseWillpower</a>( <span>float <var>$amount</var></span>, <span>boolean <var>$generateMsg</var> = <span class="php-keyword1">true</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1421,7 +1578,7 @@ class</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_increaseCunning">#</a>
-			<code><a href="source-class-Character.html#412" title="Go to source code">increaseCunning</a>( <span>float <var>$amount</var></span>, <span>boolean <var>$generateMsg</var> = <span class="php-keyword1">true</span></span> )</code>
+			<code><a href="source-class-Character.html#482" title="Go to source code">increaseCunning</a>( <span>float <var>$amount</var></span>, <span>boolean <var>$generateMsg</var> = <span class="php-keyword1">true</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1462,6 +1619,44 @@ class</p>
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="getSubstatLabel" id="_getSubstatLabel">
+
+			<td class="attributes"><code>
+				 public static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getSubstatLabel">#</a>
+			<code><a href="source-class-Character.html#528" title="Go to source code">getSubstatLabel</a>( <span>string <var>$stat</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Returns a random label for any substat</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns a random label for any substat</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$stat</var></dt>
+						<dd><code>string</code><br> enum(resoluteness|willpower|cunning)</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="getResolutenessBuffed" id="_getResolutenessBuffed">
 
 			<td class="attributes"><code>
@@ -1473,7 +1668,7 @@ class</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getResolutenessBuffed">#</a>
-			<code><a href="source-class-Character.html#463" title="Go to source code">getResolutenessBuffed</a>( )</code>
+			<code><a href="source-class-Character.html#546" title="Go to source code">getResolutenessBuffed</a>( )</code>
 
 			<div class="description short">
 				
@@ -1518,7 +1713,7 @@ class</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getWillpowerBuffed">#</a>
-			<code><a href="source-class-Character.html#471" title="Go to source code">getWillpowerBuffed</a>( )</code>
+			<code><a href="source-class-Character.html#554" title="Go to source code">getWillpowerBuffed</a>( )</code>
 
 			<div class="description short">
 				
@@ -1563,7 +1758,7 @@ class</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getCunningBuffed">#</a>
-			<code><a href="source-class-Character.html#479" title="Go to source code">getCunningBuffed</a>( )</code>
+			<code><a href="source-class-Character.html#562" title="Go to source code">getCunningBuffed</a>( )</code>
 
 			<div class="description short">
 				
@@ -1608,7 +1803,7 @@ class</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getResolutenessBase">#</a>
-			<code><a href="source-class-Character.html#507" title="Go to source code">getResolutenessBase</a>( )</code>
+			<code><a href="source-class-Character.html#590" title="Go to source code">getResolutenessBase</a>( )</code>
 
 			<div class="description short">
 				
@@ -1649,7 +1844,7 @@ class</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getWillpowerBase">#</a>
-			<code><a href="source-class-Character.html#514" title="Go to source code">getWillpowerBase</a>( )</code>
+			<code><a href="source-class-Character.html#597" title="Go to source code">getWillpowerBase</a>( )</code>
 
 			<div class="description short">
 				
@@ -1690,7 +1885,7 @@ class</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getCunningBase">#</a>
-			<code><a href="source-class-Character.html#521" title="Go to source code">getCunningBase</a>( )</code>
+			<code><a href="source-class-Character.html#604" title="Go to source code">getCunningBase</a>( )</code>
 
 			<div class="description short">
 				
@@ -1731,7 +1926,7 @@ class</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getHpMax">#</a>
-			<code><a href="source-class-Character.html#529" title="Go to source code">getHpMax</a>( )</code>
+			<code><a href="source-class-Character.html#612" title="Go to source code">getHpMax</a>( )</code>
 
 			<div class="description short">
 				
@@ -1777,7 +1972,7 @@ especially Model records with CharacterModifierBehavior.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getEnergyMax">#</a>
-			<code><a href="source-class-Character.html#550" title="Go to source code">getEnergyMax</a>( )</code>
+			<code><a href="source-class-Character.html#633" title="Go to source code">getEnergyMax</a>( )</code>
 
 			<div class="description short">
 				
@@ -1811,6 +2006,52 @@ react, especially Model records with CharacterModifierBehavior.</p>
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="getBadConscienceMax" id="_getBadConscienceMax">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getBadConscienceMax">#</a>
+			<code><a href="source-class-Character.html#654" title="Go to source code">getBadConscienceMax</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns the Character's buffed maximum badConscience score In order to
+determine bonuses, it raises a CalcBadConscience event, to which other code
+elements can react, especially Model records with CharacterModifierBehavior.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns the Character's buffed maximum badConscience score In order to
+determine bonuses, it raises a CalcBadConscience event, to which other code
+elements can react, especially Model records with CharacterModifierBehavior.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>integer</code><br />
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code></code> <br />
+							adjustStat<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="getLevel" id="_getLevel">
 
 			<td class="attributes"><code>
@@ -1822,7 +2063,7 @@ react, especially Model records with CharacterModifierBehavior.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getLevel">#</a>
-			<code><a href="source-class-Character.html#571" title="Go to source code">getLevel</a>( )</code>
+			<code><a href="source-class-Character.html#673" title="Go to source code">getLevel</a>( )</code>
 
 			<div class="description short">
 				
@@ -1865,7 +2106,7 @@ react, especially Model records with CharacterModifierBehavior.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getLevelProgress">#</a>
-			<code><a href="source-class-Character.html#585" title="Go to source code">getLevelProgress</a>( )</code>
+			<code><a href="source-class-Character.html#687" title="Go to source code">getLevelProgress</a>( )</code>
 
 			<div class="description short">
 				
@@ -1902,7 +2143,7 @@ react, especially Model records with CharacterModifierBehavior.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getMainstatBase">#</a>
-			<code><a href="source-class-Character.html#598" title="Go to source code">getMainstatBase</a>( )</code>
+			<code><a href="source-class-Character.html#700" title="Go to source code">getMainstatBase</a>( )</code>
 
 			<div class="description short">
 				
@@ -1947,7 +2188,7 @@ depending on the Character's class's main stat</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getMainstatBuffed">#</a>
-			<code><a href="source-class-Character.html#609" title="Go to source code">getMainstatBuffed</a>( )</code>
+			<code><a href="source-class-Character.html#711" title="Go to source code">getMainstatBuffed</a>( )</code>
 
 			<div class="description short">
 				
@@ -1992,7 +2233,7 @@ depending on the Character's class's main stat</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getMainstatSub">#</a>
-			<code><a href="source-class-Character.html#620" title="Go to source code">getMainstatSub</a>( )</code>
+			<code><a href="source-class-Character.html#722" title="Go to source code">getMainstatSub</a>( )</code>
 
 			<div class="description short">
 				
@@ -2037,7 +2278,7 @@ on the Character's class's main stat</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_takeDamage">#</a>
-			<code><a href="source-class-Character.html#636" title="Go to source code">takeDamage</a>( <span>integer <var>$damage</var></span>, <span>string <var>$damageType</var></span> )</code>
+			<code><a href="source-class-Character.html#738" title="Go to source code">takeDamage</a>( <span>integer <var>$damage</var></span>, <span>string <var>$damageType</var></span> )</code>
 
 			<div class="description short">
 				
@@ -2088,7 +2329,7 @@ on the Character's class's main stat</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getResistanceLevel">#</a>
-			<code><a href="source-class-Character.html#685" title="Go to source code">getResistanceLevel</a>( <span>string <var>$damageType</var> = <span class="php-quote">&quot;normal&quot;</span></span> )</code>
+			<code><a href="source-class-Character.html#787" title="Go to source code">getResistanceLevel</a>( <span>string <var>$damageType</var> = <span class="php-quote">&quot;normal&quot;</span></span> )</code>
 
 			<div class="description short">
 				
@@ -2136,7 +2377,7 @@ percentage based and has diminishing returns based on resistance levels</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getResistanceModifier">#</a>
-			<code><a href="source-class-Character.html#699" title="Go to source code">getResistanceModifier</a>( <span>integer <var>$resistanceLevel</var></span> )</code>
+			<code><a href="source-class-Character.html#801" title="Go to source code">getResistanceModifier</a>( <span>integer <var>$resistanceLevel</var></span> )</code>
 
 			<div class="description short">
 				
@@ -2184,7 +2425,7 @@ type</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getAttack">#</a>
-			<code><a href="source-class-Character.html#710" title="Go to source code">getAttack</a>( <span>string <var>$stat</var> = <span class="php-quote">&quot;resoluteness&quot;</span></span> )</code>
+			<code><a href="source-class-Character.html#812" title="Go to source code">getAttack</a>( <span>string <var>$stat</var> = <span class="php-quote">&quot;resoluteness&quot;</span></span> )</code>
 
 			<div class="description short">
 				
@@ -2226,7 +2467,7 @@ type</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getDefense">#</a>
-			<code><a href="source-class-Character.html#729" title="Go to source code">getDefense</a>( )</code>
+			<code><a href="source-class-Character.html#831" title="Go to source code">getDefense</a>( )</code>
 
 			<div class="description short">
 				
@@ -2263,7 +2504,7 @@ type</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_createFirstRoundCombatMessage">#</a>
-			<code><a href="source-class-Character.html#741" title="Go to source code">createFirstRoundCombatMessage</a>( )</code>
+			<code><a href="source-class-Character.html#843" title="Go to source code">createFirstRoundCombatMessage</a>( )</code>
 
 			<div class="description short">
 				
@@ -2304,7 +2545,7 @@ type</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getTitle">#</a>
-			<code><a href="source-class-Character.html#749" title="Go to source code">getTitle</a>( )</code>
+			<code><a href="source-class-Character.html#851" title="Go to source code">getTitle</a>( )</code>
 
 			<div class="description short">
 				
@@ -2345,7 +2586,7 @@ type</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_loadItems">#</a>
-			<code><a href="source-class-Character.html#758" title="Go to source code">loadItems</a>( )</code>
+			<code><a href="source-class-Character.html#860" title="Go to source code">loadItems</a>( )</code>
 
 			<div class="description short">
 				
@@ -2378,7 +2619,7 @@ type</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getCharacterItem">#</a>
-			<code><a href="source-class-Character.html#777" title="Go to source code">getCharacterItem</a>( <span>mixed <var>$item</var></span> )</code>
+			<code><a href="source-class-Character.html#879" title="Go to source code">getCharacterItem</a>( <span>mixed <var>$item</var></span> )</code>
 
 			<div class="description short">
 				
@@ -2426,7 +2667,7 @@ record with n = 0 if no CharacterItems record is found</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_hasItem">#</a>
-			<code><a href="source-class-Character.html#807" title="Go to source code">hasItem</a>( <span>mixed <var>$item</var></span> )</code>
+			<code><a href="source-class-Character.html#909" title="Go to source code">hasItem</a>( <span>mixed <var>$item</var></span> )</code>
 
 			<div class="description short">
 				
@@ -2461,6 +2702,232 @@ record with n = 0 if no CharacterItems record is found</p>
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="loadContacts" id="_loadContacts">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_loadContacts">#</a>
+			<code><a href="source-class-Character.html#920" title="Go to source code">loadContacts</a>( )</code>
+
+			<div class="description short">
+				
+<p>Lazy loading of CharacterContacts records</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Lazy loading of CharacterContacts records</p>
+
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getCharacterContacts" id="_getCharacterContacts">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getCharacterContacts">#</a>
+			<code><a href="source-class-Character.html#934" title="Go to source code">getCharacterContacts</a>( <span>mixed <var>$contact</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Returns the CharacterContacts records that belong to a given contact returns
+array() if no CharacterItems record is found</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns the CharacterContacts records that belong to a given contact returns
+array() if no CharacterItems record is found</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$contact</var></dt>
+						<dd><code>mixed</code><br> Contact or int (ID of a Contact record)</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>array</code><br>of CharacterItems records (or empty)<br />
+					</div>
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::hasContact()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="hasContact" id="_hasContact">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_hasContact">#</a>
+			<code><a href="source-class-Character.html#958" title="Go to source code">hasContact</a>( <span>mixed <var>$contact</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Checks if the character has a contact of the given type</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Checks if the character has a contact of the given type</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$contact</var></dt>
+						<dd><code>mixed</code><br> Contact or int (ID of a Contact record)</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br />
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::getCharacterContacts()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="hasCharacterContact" id="_hasCharacterContact">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_hasCharacterContact">#</a>
+			<code><a href="source-class-Character.html#969" title="Go to source code">hasCharacterContact</a>( <span>mixed <var>$contact</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Checks whether a given CharacterContact belongs to this character</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Checks whether a given CharacterContact belongs to this character</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$contact</var></dt>
+						<dd><code>mixed</code><br>$CharacterContact or int (ID of a CharacterContact record)</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="addCharacterContact" id="_addCharacterContact">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_addCharacterContact">#</a>
+			<code><a href="source-class-Character.html#989" title="Go to source code">addCharacterContact</a>( <span><code><a href="class-CharacterContacts.html">CharacterContacts</a></code> <var>$characterContact</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Adds a CharacterContacts record to the Character record</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Adds a CharacterContacts record to the Character record</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$characterContact</var></dt>
+						<dd><code><code><a href="class-CharacterContacts.html">CharacterContacts</a></code></code></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br>success or not<br />
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::onGainContact()</a></code></code> <br />
+							<code><code><a href="class-ContactEvent.html">ContactEvent</a></code></code> <br />
+							<code><code><a href="class-CharacterContacts.html">CharacterContacts</a></code></code> <br />
+					</div>
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::gainContact()</a></code></code> <br />
+					</div>
+					<h4>Todo</h4>
+					<div class="list">
+							Flash message only if the Character record represents the current user's
+character<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="loadRecipes" id="_loadRecipes">
 
 			<td class="attributes"><code>
@@ -2472,7 +2939,7 @@ record with n = 0 if no CharacterItems record is found</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_loadRecipes">#</a>
-			<code><a href="source-class-Character.html#818" title="Go to source code">loadRecipes</a>( )</code>
+			<code><a href="source-class-Character.html#1017" title="Go to source code">loadRecipes</a>( )</code>
 
 			<div class="description short">
 				
@@ -2505,7 +2972,7 @@ record with n = 0 if no CharacterItems record is found</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getCharacterRecipe">#</a>
-			<code><a href="source-class-Character.html#852" title="Go to source code">getCharacterRecipe</a>( <span>mixed <var>$recipe</var></span> )</code>
+			<code><a href="source-class-Character.html#1051" title="Go to source code">getCharacterRecipe</a>( <span>mixed <var>$recipe</var></span> )</code>
 
 			<div class="description short">
 				
@@ -2551,7 +3018,7 @@ record with n = 0 if no CharacterItems record is found</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_hasRecipe">#</a>
-			<code><a href="source-class-Character.html#880" title="Go to source code">hasRecipe</a>( <span>mixed <var>$recipe</var></span> )</code>
+			<code><a href="source-class-Character.html#1079" title="Go to source code">hasRecipe</a>( <span>mixed <var>$recipe</var></span> )</code>
 
 			<div class="description short">
 				
@@ -2597,7 +3064,7 @@ record with n = 0 if no CharacterItems record is found</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_loadSkillsets">#</a>
-			<code><a href="source-class-Character.html#891" title="Go to source code">loadSkillsets</a>( )</code>
+			<code><a href="source-class-Character.html#1090" title="Go to source code">loadSkillsets</a>( )</code>
 
 			<div class="description short">
 				
@@ -2630,7 +3097,7 @@ record with n = 0 if no CharacterItems record is found</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_loadQuests">#</a>
-			<code><a href="source-class-Character.html#912" title="Go to source code">loadQuests</a>( )</code>
+			<code><a href="source-class-Character.html#1111" title="Go to source code">loadQuests</a>( )</code>
 
 			<div class="description short">
 				
@@ -2663,7 +3130,7 @@ record with n = 0 if no CharacterItems record is found</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getCharacterQuest">#</a>
-			<code><a href="source-class-Character.html#945" title="Go to source code">getCharacterQuest</a>( <span>mixed <var>$quest</var></span> )</code>
+			<code><a href="source-class-Character.html#1144" title="Go to source code">getCharacterQuest</a>( <span>mixed <var>$quest</var></span> )</code>
 
 			<div class="description short">
 				
@@ -2711,7 +3178,7 @@ new record with state = unavailable if no CharacterQuests record is found</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_hasQuestCompleted">#</a>
-			<code><a href="source-class-Character.html#976" title="Go to source code">hasQuestCompleted</a>( <span>mixed <var>$quest</var></span> )</code>
+			<code><a href="source-class-Character.html#1175" title="Go to source code">hasQuestCompleted</a>( <span>mixed <var>$quest</var></span> )</code>
 
 			<div class="description short">
 				
@@ -2757,7 +3224,7 @@ new record with state = unavailable if no CharacterQuests record is found</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getCharacterEffect">#</a>
-			<code><a href="source-class-Character.html#987" title="Go to source code">getCharacterEffect</a>( <span>mixed <var>$effect</var></span> )</code>
+			<code><a href="source-class-Character.html#1186" title="Go to source code">getCharacterEffect</a>( <span>mixed <var>$effect</var></span> )</code>
 
 			<div class="description short">
 				
@@ -2807,7 +3274,7 @@ turns = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_hasEffect">#</a>
-			<code><a href="source-class-Character.html#1017" title="Go to source code">hasEffect</a>( <span>mixed <var>$effect</var></span> )</code>
+			<code><a href="source-class-Character.html#1216" title="Go to source code">hasEffect</a>( <span>mixed <var>$effect</var></span> )</code>
 
 			<div class="description short">
 				
@@ -2853,7 +3320,7 @@ turns = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_addCharacterEffect">#</a>
-			<code><a href="source-class-Character.html#1028" title="Go to source code">addCharacterEffect</a>( <span><code><a href="class-CharacterEffects.html">CharacterEffects</a></code> <var>$characterEffect</var></span> )</code>
+			<code><a href="source-class-Character.html#1227" title="Go to source code">addCharacterEffect</a>( <span><code><a href="class-CharacterEffects.html">CharacterEffects</a></code> <var>$characterEffect</var></span> )</code>
 
 			<div class="description short">
 				
@@ -2902,7 +3369,7 @@ character<br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getCharacterSkill">#</a>
-			<code><a href="source-class-Character.html#1053" title="Go to source code">getCharacterSkill</a>( <span>mixed <var>$skill</var></span> )</code>
+			<code><a href="source-class-Character.html#1252" title="Go to source code">getCharacterSkill</a>( <span>mixed <var>$skill</var></span> )</code>
 
 			<div class="description short">
 				
@@ -2950,7 +3417,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_hasSkill">#</a>
-			<code><a href="source-class-Character.html#1083" title="Go to source code">hasSkill</a>( <span>mixed <var>$skill</var></span> )</code>
+			<code><a href="source-class-Character.html#1282" title="Go to source code">hasSkill</a>( <span>mixed <var>$skill</var></span> )</code>
 
 			<div class="description short">
 				
@@ -2996,7 +3463,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getFamiliar">#</a>
-			<code><a href="source-class-Character.html#1094" title="Go to source code">getFamiliar</a>( )</code>
+			<code><a href="source-class-Character.html#1293" title="Go to source code">getFamiliar</a>( )</code>
 
 			<div class="description short">
 				
@@ -3037,7 +3504,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_loadEquipments">#</a>
-			<code><a href="source-class-Character.html#1114" title="Go to source code">loadEquipments</a>( )</code>
+			<code><a href="source-class-Character.html#1313" title="Go to source code">loadEquipments</a>( )</code>
 
 			<div class="description short">
 				
@@ -3070,7 +3537,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getEquipment">#</a>
-			<code><a href="source-class-Character.html#1127" title="Go to source code">getEquipment</a>( )</code>
+			<code><a href="source-class-Character.html#1326" title="Go to source code">getEquipment</a>( )</code>
 
 			<div class="description short">
 				
@@ -3111,7 +3578,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getSkillset">#</a>
-			<code><a href="source-class-Character.html#1141" title="Go to source code">getSkillset</a>( )</code>
+			<code><a href="source-class-Character.html#1340" title="Go to source code">getSkillset</a>( )</code>
 
 			<div class="description short">
 				
@@ -3152,7 +3619,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcHp">#</a>
-			<code><a href="source-class-Character.html#1159" title="Go to source code">onCalcHp</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1358" title="Go to source code">onCalcHp</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -3190,7 +3657,45 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcEnergy">#</a>
-			<code><a href="source-class-Character.html#1166" title="Go to source code">onCalcEnergy</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1365" title="Go to source code">onCalcEnergy</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onCalcBadConscience" id="_onCalcBadConscience">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onCalcBadConscience">#</a>
+			<code><a href="source-class-Character.html#1372" title="Go to source code">onCalcBadConscience</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -3228,7 +3733,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcResoluteness">#</a>
-			<code><a href="source-class-Character.html#1173" title="Go to source code">onCalcResoluteness</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1380" title="Go to source code">onCalcResoluteness</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -3266,7 +3771,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcWillpower">#</a>
-			<code><a href="source-class-Character.html#1180" title="Go to source code">onCalcWillpower</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1387" title="Go to source code">onCalcWillpower</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -3304,7 +3809,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcCunning">#</a>
-			<code><a href="source-class-Character.html#1187" title="Go to source code">onCalcCunning</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1394" title="Go to source code">onCalcCunning</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -3342,7 +3847,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcDropItemBonus">#</a>
-			<code><a href="source-class-Character.html#1194" title="Go to source code">onCalcDropItemBonus</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1401" title="Go to source code">onCalcDropItemBonus</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -3359,7 +3864,45 @@ new record will be created with available = 0)</p>
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
+						<dd><code><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onCalcDropContactBonus" id="_onCalcDropContactBonus">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onCalcDropContactBonus">#</a>
+			<code><a href="source-class-Character.html#1408" title="Go to source code">onCalcDropContactBonus</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code></code></dd>
 					</dl></div>
 
 
@@ -3380,7 +3923,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcResistanceAbs">#</a>
-			<code><a href="source-class-Character.html#1201" title="Go to source code">onCalcResistanceAbs</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1415" title="Go to source code">onCalcResistanceAbs</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -3418,7 +3961,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcResistanceLevelNormal">#</a>
-			<code><a href="source-class-Character.html#1208" title="Go to source code">onCalcResistanceLevelNormal</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1422" title="Go to source code">onCalcResistanceLevelNormal</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -3456,7 +3999,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcResistanceLevelEnvy">#</a>
-			<code><a href="source-class-Character.html#1215" title="Go to source code">onCalcResistanceLevelEnvy</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1429" title="Go to source code">onCalcResistanceLevelEnvy</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -3494,7 +4037,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcResistanceLevelGreed">#</a>
-			<code><a href="source-class-Character.html#1222" title="Go to source code">onCalcResistanceLevelGreed</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1436" title="Go to source code">onCalcResistanceLevelGreed</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -3532,7 +4075,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcResistanceLevelGluttony">#</a>
-			<code><a href="source-class-Character.html#1229" title="Go to source code">onCalcResistanceLevelGluttony</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1443" title="Go to source code">onCalcResistanceLevelGluttony</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -3570,7 +4113,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcResistanceLevelLust">#</a>
-			<code><a href="source-class-Character.html#1236" title="Go to source code">onCalcResistanceLevelLust</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1450" title="Go to source code">onCalcResistanceLevelLust</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -3608,7 +4151,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcResistanceLevelPride">#</a>
-			<code><a href="source-class-Character.html#1243" title="Go to source code">onCalcResistanceLevelPride</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1457" title="Go to source code">onCalcResistanceLevelPride</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -3646,7 +4189,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcResistanceLevelSloth">#</a>
-			<code><a href="source-class-Character.html#1250" title="Go to source code">onCalcResistanceLevelSloth</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1464" title="Go to source code">onCalcResistanceLevelSloth</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -3684,7 +4227,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcResistanceLevelWrath">#</a>
-			<code><a href="source-class-Character.html#1257" title="Go to source code">onCalcResistanceLevelWrath</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1471" title="Go to source code">onCalcResistanceLevelWrath</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -3722,7 +4265,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcCritChance">#</a>
-			<code><a href="source-class-Character.html#1265" title="Go to source code">onCalcCritChance</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1479" title="Go to source code">onCalcCritChance</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -3760,7 +4303,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcBonusDamage">#</a>
-			<code><a href="source-class-Character.html#1273" title="Go to source code">onCalcBonusDamage</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span>, <span>string <var>$damageType</var> = <span class="php-quote">&quot;normal&quot;</span></span> )</code>
+			<code><a href="source-class-Character.html#1487" title="Go to source code">onCalcBonusDamage</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span>, <span>string <var>$damageType</var> = <span class="php-quote">&quot;normal&quot;</span></span> )</code>
 
 			<div class="description short">
 				
@@ -3800,7 +4343,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcBonusDamageNormal">#</a>
-			<code><a href="source-class-Character.html#1281" title="Go to source code">onCalcBonusDamageNormal</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1495" title="Go to source code">onCalcBonusDamageNormal</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -3838,7 +4381,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcBonusDamageEnvy">#</a>
-			<code><a href="source-class-Character.html#1288" title="Go to source code">onCalcBonusDamageEnvy</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1502" title="Go to source code">onCalcBonusDamageEnvy</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -3876,7 +4419,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcBonusDamageGreed">#</a>
-			<code><a href="source-class-Character.html#1295" title="Go to source code">onCalcBonusDamageGreed</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1509" title="Go to source code">onCalcBonusDamageGreed</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -3914,7 +4457,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcBonusDamageGluttony">#</a>
-			<code><a href="source-class-Character.html#1302" title="Go to source code">onCalcBonusDamageGluttony</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1516" title="Go to source code">onCalcBonusDamageGluttony</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -3952,7 +4495,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcBonusDamageLust">#</a>
-			<code><a href="source-class-Character.html#1309" title="Go to source code">onCalcBonusDamageLust</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1523" title="Go to source code">onCalcBonusDamageLust</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -3990,7 +4533,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcBonusDamagePride">#</a>
-			<code><a href="source-class-Character.html#1316" title="Go to source code">onCalcBonusDamagePride</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1530" title="Go to source code">onCalcBonusDamagePride</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -4028,7 +4571,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcBonusDamageSloth">#</a>
-			<code><a href="source-class-Character.html#1323" title="Go to source code">onCalcBonusDamageSloth</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1537" title="Go to source code">onCalcBonusDamageSloth</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -4066,7 +4609,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCalcBonusDamageWrath">#</a>
-			<code><a href="source-class-Character.html#1330" title="Go to source code">onCalcBonusDamageWrath</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1544" title="Go to source code">onCalcBonusDamageWrath</a>( <span><code><a href="class-CollectBonusEvent.html">CollectBonusEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -4104,7 +4647,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onGainCash">#</a>
-			<code><a href="source-class-Character.html#1338" title="Go to source code">onGainCash</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1552" title="Go to source code">onGainCash</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -4121,7 +4664,7 @@ new record will be created with available = 0)</p>
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
+						<dd><code><code><a href="class-GainStatEvent.html">GainStatEvent</a></code></code></dd>
 					</dl></div>
 
 
@@ -4131,7 +4674,7 @@ new record will be created with available = 0)</p>
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="onGainFavours" id="_onGainFavours">
+		<tr data-order="onGainBadConscience" id="_onGainBadConscience">
 
 			<td class="attributes"><code>
 				 public 
@@ -4141,8 +4684,8 @@ new record will be created with available = 0)</p>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_onGainFavours">#</a>
-			<code><a href="source-class-Character.html#1345" title="Go to source code">onGainFavours</a>( <span>CEvent <var>$event</var></span> )</code>
+			<a class="anchor" href="#_onGainBadConscience">#</a>
+			<code><a href="source-class-Character.html#1559" title="Go to source code">onGainBadConscience</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -4159,7 +4702,7 @@ new record will be created with available = 0)</p>
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
+						<dd><code><code><a href="class-GainStatEvent.html">GainStatEvent</a></code></code></dd>
 					</dl></div>
 
 
@@ -4169,7 +4712,7 @@ new record will be created with available = 0)</p>
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="onGainKudos" id="_onGainKudos">
+		<tr data-order="onGainKudosPopulace" id="_onGainKudosPopulace">
 
 			<td class="attributes"><code>
 				 public 
@@ -4179,8 +4722,8 @@ new record will be created with available = 0)</p>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_onGainKudos">#</a>
-			<code><a href="source-class-Character.html#1352" title="Go to source code">onGainKudos</a>( <span>CEvent <var>$event</var></span> )</code>
+			<a class="anchor" href="#_onGainKudosPopulace">#</a>
+			<code><a href="source-class-Character.html#1566" title="Go to source code">onGainKudosPopulace</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -4197,7 +4740,273 @@ new record will be created with available = 0)</p>
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
+						<dd><code><code><a href="class-GainStatEvent.html">GainStatEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onGainKudosFinance" id="_onGainKudosFinance">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onGainKudosFinance">#</a>
+			<code><a href="source-class-Character.html#1573" title="Go to source code">onGainKudosFinance</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-GainStatEvent.html">GainStatEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onGainKudosRealEconomy" id="_onGainKudosRealEconomy">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onGainKudosRealEconomy">#</a>
+			<code><a href="source-class-Character.html#1580" title="Go to source code">onGainKudosRealEconomy</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-GainStatEvent.html">GainStatEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onGainKudosPolice" id="_onGainKudosPolice">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onGainKudosPolice">#</a>
+			<code><a href="source-class-Character.html#1587" title="Go to source code">onGainKudosPolice</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-GainStatEvent.html">GainStatEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onGainKudosUnderworld" id="_onGainKudosUnderworld">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onGainKudosUnderworld">#</a>
+			<code><a href="source-class-Character.html#1594" title="Go to source code">onGainKudosUnderworld</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-GainStatEvent.html">GainStatEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onGainKudosSociety" id="_onGainKudosSociety">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onGainKudosSociety">#</a>
+			<code><a href="source-class-Character.html#1601" title="Go to source code">onGainKudosSociety</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-GainStatEvent.html">GainStatEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onGainKudosPress" id="_onGainKudosPress">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onGainKudosPress">#</a>
+			<code><a href="source-class-Character.html#1608" title="Go to source code">onGainKudosPress</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-GainStatEvent.html">GainStatEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="onGainKudosBureaucracy" id="_onGainKudosBureaucracy">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onGainKudosBureaucracy">#</a>
+			<code><a href="source-class-Character.html#1615" title="Go to source code">onGainKudosBureaucracy</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-GainStatEvent.html">GainStatEvent</a></code></code></dd>
 					</dl></div>
 
 
@@ -4218,7 +5027,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onGainXp">#</a>
-			<code><a href="source-class-Character.html#1359" title="Go to source code">onGainXp</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1623" title="Go to source code">onGainXp</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -4235,7 +5044,7 @@ new record will be created with available = 0)</p>
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
+						<dd><code><code><a href="class-GainStatEvent.html">GainStatEvent</a></code></code></dd>
 					</dl></div>
 
 
@@ -4256,7 +5065,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onGainResoluteness">#</a>
-			<code><a href="source-class-Character.html#1366" title="Go to source code">onGainResoluteness</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1630" title="Go to source code">onGainResoluteness</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -4273,7 +5082,7 @@ new record will be created with available = 0)</p>
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
+						<dd><code><code><a href="class-GainStatEvent.html">GainStatEvent</a></code></code></dd>
 					</dl></div>
 
 
@@ -4294,7 +5103,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onGainWillpower">#</a>
-			<code><a href="source-class-Character.html#1373" title="Go to source code">onGainWillpower</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1637" title="Go to source code">onGainWillpower</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -4311,7 +5120,7 @@ new record will be created with available = 0)</p>
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
+						<dd><code><code><a href="class-GainStatEvent.html">GainStatEvent</a></code></code></dd>
 					</dl></div>
 
 
@@ -4332,7 +5141,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onGainCunning">#</a>
-			<code><a href="source-class-Character.html#1380" title="Go to source code">onGainCunning</a>( <span>CEvent <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1644" title="Go to source code">onGainCunning</a>( <span><code><a href="class-GainStatEvent.html">GainStatEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -4349,7 +5158,7 @@ new record will be created with available = 0)</p>
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$event</var></dt>
-						<dd><code>CEvent</code></dd>
+						<dd><code><code><a href="class-GainStatEvent.html">GainStatEvent</a></code></code></dd>
 					</dl></div>
 
 
@@ -4370,7 +5179,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onGainEffect">#</a>
-			<code><a href="source-class-Character.html#1388" title="Go to source code">onGainEffect</a>( <span><code><a href="class-GainEffectEvent.html">GainEffectEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1652" title="Go to source code">onGainEffect</a>( <span><code><a href="class-GainEffectEvent.html">GainEffectEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -4408,7 +5217,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onGainItem">#</a>
-			<code><a href="source-class-Character.html#1396" title="Go to source code">onGainItem</a>( <span><code><a href="class-GainItemEvent.html">GainItemEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1660" title="Go to source code">onGainItem</a>( <span><code><a href="class-GainItemEvent.html">GainItemEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -4439,6 +5248,48 @@ new record will be created with available = 0)</p>
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="onGainContact" id="_onGainContact">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onGainContact">#</a>
+			<code><a href="source-class-Character.html#1668" title="Go to source code">onGainContact</a>( <span><code><a href="class-ContactEvent.html">ContactEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-ContactEvent.html">ContactEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-Character.html#_">Character::addCharacterContact()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="onEquipItem" id="_onEquipItem">
 
 			<td class="attributes"><code>
@@ -4450,7 +5301,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onEquipItem">#</a>
-			<code><a href="source-class-Character.html#1404" title="Go to source code">onEquipItem</a>( <span><code><a href="class-EquipItemEvent.html">EquipItemEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1676" title="Go to source code">onEquipItem</a>( <span><code><a href="class-EquipItemEvent.html">EquipItemEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -4488,7 +5339,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onUnequipItem">#</a>
-			<code><a href="source-class-Character.html#1411" title="Go to source code">onUnequipItem</a>( <span><code><a href="class-EquipItemEvent.html">EquipItemEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1683" title="Go to source code">onUnequipItem</a>( <span><code><a href="class-EquipItemEvent.html">EquipItemEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -4526,7 +5377,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onUseSkill">#</a>
-			<code><a href="source-class-Character.html#1418" title="Go to source code">onUseSkill</a>( <span><code><a href="class-SkillEvent.html">SkillEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1690" title="Go to source code">onUseSkill</a>( <span><code><a href="class-SkillEvent.html">SkillEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -4564,7 +5415,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onFinishedBattle">#</a>
-			<code><a href="source-class-Character.html#1425" title="Go to source code">onFinishedBattle</a>( <span><code><a href="class-BattleEvent.html">BattleEvent</a></code> <var>$event</var></span> )</code>
+			<code><a href="source-class-Character.html#1697" title="Go to source code">onFinishedBattle</a>( <span><code><a href="class-BattleEvent.html">BattleEvent</a></code> <var>$event</var></span> )</code>
 
 			<div class="description short">
 				
@@ -4591,6 +5442,44 @@ new record will be created with available = 0)</p>
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="onExploit" id="_onExploit">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_onExploit">#</a>
+			<code><a href="source-class-Character.html#1705" title="Go to source code">onExploit</a>( <span><code><a href="class-ExploitEvent.html">ExploitEvent</a></code> <var>$event</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Event raiser</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Event raiser</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$event</var></dt>
+						<dd><code><code><a href="class-ExploitEvent.html">ExploitEvent</a></code></code></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="getClassAttributes" id="_getClassAttributes">
 
 			<td class="attributes"><code>
@@ -4602,7 +5491,7 @@ new record will be created with available = 0)</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getClassAttributes">#</a>
-			<code><a href="source-class-Character.html#1438" title="Go to source code">getClassAttributes</a>( )</code>
+			<code><a href="source-class-Character.html#1717" title="Go to source code">getClassAttributes</a>( )</code>
 
 			<div class="description short">
 				
@@ -4645,7 +5534,7 @@ all the Character classes</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getClassType">#</a>
-			<code><a href="source-class-Character.html#1455" title="Go to source code">getClassType</a>( )</code>
+			<code><a href="source-class-Character.html#1734" title="Go to source code">getClassType</a>( )</code>
 
 			<div class="description short">
 				
@@ -4688,7 +5577,7 @@ getting 50% of the substat gains</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_behaviors">#</a>
-			<code><a href="source-class-Character.html#1466" title="Go to source code">behaviors</a>( )</code>
+			<code><a href="source-class-Character.html#1745" title="Go to source code">behaviors</a>( )</code>
 
 			<div class="description short">
 				
@@ -4730,7 +5619,7 @@ getting 50% of the substat gains</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_model">#</a>
-			<code><a href="source-class-Character.html#1479" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
+			<code><a href="source-class-Character.html#1758" title="Go to source code">model</a>( <span>string <var>$className</var> = __CLASS__</span> )</code>
 
 			<div class="description short">
 				

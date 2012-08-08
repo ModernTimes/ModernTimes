@@ -8,7 +8,7 @@
 	<title>File protected/controllers/actions/shop/BuyItemAction.php | Modern Times Documentation</title>
 
 	<script type="text/javascript" src="resources/combined.js?2920561138"></script>
-	<script type="text/javascript" src="elementlist.js?1943147226"></script>
+	<script type="text/javascript" src="elementlist.js?461552865"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?4106897399" />
 
@@ -62,6 +62,8 @@
 						</li>
 				<li><a href="package-Actions.Character.html">Character</a>
 						</li>
+				<li><a href="package-Actions.Contacts.html">Contacts</a>
+						</li>
 				<li><a href="package-Actions.Inventory.html">Inventory</a>
 						</li>
 				<li><a href="package-Actions.Places.html">Places<span></span></a>
@@ -94,6 +96,8 @@
 				<li><a href="package-Events.Behaviors.html">Behaviors</a>
 						</li>
 							</ul></li>
+				<li><a href="package-Favors.html">Favors</a>
+						</li>
 				<li><a href="package-Items.html">Items</a>
 						</li>
 				<li><a href="package-Monsters.html">Monsters</a>
@@ -228,37 +232,33 @@
 <a href="#84" id="84" class="l"> 84 </a>            <span class="php-var">$this</span>-&gt;controller-&gt;redirect(<span class="php-keyword1">array</span>(<span class="php-quote">'index'</span>));
 <a href="#85" id="85" class="l"> 85 </a>        }
 <a href="#86" id="86" class="l"> 86 </a>        
-<a href="#87" id="87" class="l"> 87 </a>        <span class="php-comment">// Does the Character have enough resources to buy the stuff?</span>
-<a href="#88" id="88" class="l"> 88 </a>        <span class="php-keyword1">if</span>(<span class="php-var">$Character</span>-&gt;cash &lt; <span class="php-var">$ShopItem</span>-&gt;cash * <span class="php-var">$n</span> ||
-<a href="#89" id="89" class="l"> 89 </a>                <span class="php-var">$Character</span>-&gt;favours &lt; <span class="php-var">$ShopItem</span>-&gt;favours * <span class="php-var">$n</span> ||
-<a href="#90" id="90" class="l"> 90 </a>                <span class="php-var">$Character</span>-&gt;kudos &lt; <span class="php-var">$ShopItem</span>-&gt;kudos * <span class="php-var">$n</span>) {
-<a href="#91" id="91" class="l"> 91 </a>            
-<a href="#92" id="92" class="l"> 92 </a>            EUserFlash::setErrorMessage(<span class="php-quote">&quot;You don't have enough resources to buy this.&quot;</span>);
-<a href="#93" id="93" class="l"> 93 </a>            <span class="php-var">$this</span>-&gt;controller-&gt;redirect(<span class="php-keyword1">array</span>(<span class="php-quote">'shop'</span>, <span class="php-quote">'shopID'</span> =&gt; <span class="php-var">$shopID</span>));
-<a href="#94" id="94" class="l"> 94 </a>        }
-<a href="#95" id="95" class="l"> 95 </a>        
-<a href="#96" id="96" class="l"> 96 </a>        <span class="php-comment">/**
-</span><a href="#97" id="97" class="l"> 97 </a><span class="php-comment">         * BEWARE: ACTUAL BUSINESS LOGIC 
-</span><a href="#98" id="98" class="l"> 98 </a><span class="php-comment">         */</span>
-<a href="#99" id="99" class="l"> 99 </a>        
-<a href="#100" id="100" class="l">100 </a>        <span class="php-var">$transaction</span> = Yii::app()-&gt;tools-&gt;getTransaction();
-<a href="#101" id="101" class="l">101 </a>        <span class="php-keyword1">try</span> {
-<a href="#102" id="102" class="l">102 </a>            <span class="php-var">$Character</span>-&gt;gainItem(<span class="php-var">$ShopItem</span>-&gt;item, <span class="php-var">$n</span>);
-<a href="#103" id="103" class="l">103 </a>            <span class="php-var">$Character</span>-&gt;decreaseCash(<span class="php-var">$ShopItem</span>-&gt;cash * <span class="php-var">$n</span>);
-<a href="#104" id="104" class="l">104 </a>            <span class="php-var">$Character</span>-&gt;decreaseFavours(<span class="php-var">$ShopItem</span>-&gt;favours * <span class="php-var">$n</span>);
-<a href="#105" id="105" class="l">105 </a>            <span class="php-var">$Character</span>-&gt;decreaseKudos(<span class="php-var">$ShopItem</span>-&gt;kudos * <span class="php-var">$n</span>);
-<a href="#106" id="106" class="l">106 </a>            <span class="php-var">$Character</span>-&gt;update();
-<a href="#107" id="107" class="l">107 </a>            <span class="php-var">$transaction</span>-&gt;commit();
-<a href="#108" id="108" class="l">108 </a>       } <span class="php-keyword1">catch</span>(Exception <span class="php-var">$e</span>) {
-<a href="#109" id="109" class="l">109 </a>            <span class="php-var">$transaction</span>-&gt;rollback();
-<a href="#110" id="110" class="l">110 </a>            EUserFlash::setErrorMessage(<span class="php-quote">&quot;Weird database shit happened.&quot;</span>);
-<a href="#111" id="111" class="l">111 </a>        }
-<a href="#112" id="112" class="l">112 </a>                
-<a href="#113" id="113" class="l">113 </a>        <span class="php-var">$this</span>-&gt;controller-&gt;render(<span class="php-quote">&quot;shop&quot;</span>, <span class="php-keyword1">array</span>(
-<a href="#114" id="114" class="l">114 </a>            <span class="php-quote">&quot;Shop&quot;</span> =&gt; <span class="php-var">$Shop</span>,
-<a href="#115" id="115" class="l">115 </a>        ));
-<a href="#116" id="116" class="l">116 </a>    }
-<a href="#117" id="117" class="l">117 </a>}</code></pre>
+<a href="#87" id="87" class="l"> 87 </a>        <span class="php-comment">// Does the Character have enough cash to buy the stuff?</span>
+<a href="#88" id="88" class="l"> 88 </a>        <span class="php-keyword1">if</span>(<span class="php-var">$Character</span>-&gt;cash &lt; <span class="php-var">$ShopItem</span>-&gt;cash * <span class="php-var">$n</span>) {
+<a href="#89" id="89" class="l"> 89 </a>            
+<a href="#90" id="90" class="l"> 90 </a>            EUserFlash::setErrorMessage(<span class="php-quote">&quot;You don't have enough cash to buy this.&quot;</span>);
+<a href="#91" id="91" class="l"> 91 </a>            <span class="php-var">$this</span>-&gt;controller-&gt;redirect(<span class="php-keyword1">array</span>(<span class="php-quote">'shop'</span>, <span class="php-quote">'shopID'</span> =&gt; <span class="php-var">$shopID</span>));
+<a href="#92" id="92" class="l"> 92 </a>        }
+<a href="#93" id="93" class="l"> 93 </a>        
+<a href="#94" id="94" class="l"> 94 </a>        <span class="php-comment">/**
+</span><a href="#95" id="95" class="l"> 95 </a><span class="php-comment">         * BEWARE: ACTUAL BUSINESS LOGIC 
+</span><a href="#96" id="96" class="l"> 96 </a><span class="php-comment">         */</span>
+<a href="#97" id="97" class="l"> 97 </a>        
+<a href="#98" id="98" class="l"> 98 </a>        <span class="php-var">$transaction</span> = Yii::app()-&gt;tools-&gt;getTransaction();
+<a href="#99" id="99" class="l"> 99 </a>        <span class="php-keyword1">try</span> {
+<a href="#100" id="100" class="l">100 </a>            <span class="php-var">$Character</span>-&gt;gainItem(<span class="php-var">$ShopItem</span>-&gt;item, <span class="php-var">$n</span>);
+<a href="#101" id="101" class="l">101 </a>            <span class="php-var">$Character</span>-&gt;decreaseCash(<span class="php-var">$ShopItem</span>-&gt;cash * <span class="php-var">$n</span>);
+<a href="#102" id="102" class="l">102 </a>            <span class="php-var">$Character</span>-&gt;update();
+<a href="#103" id="103" class="l">103 </a>            <span class="php-var">$transaction</span>-&gt;commit();
+<a href="#104" id="104" class="l">104 </a>       } <span class="php-keyword1">catch</span>(Exception <span class="php-var">$e</span>) {
+<a href="#105" id="105" class="l">105 </a>            <span class="php-var">$transaction</span>-&gt;rollback();
+<a href="#106" id="106" class="l">106 </a>            EUserFlash::setErrorMessage(<span class="php-quote">&quot;Weird database shit happened.&quot;</span>);
+<a href="#107" id="107" class="l">107 </a>        }
+<a href="#108" id="108" class="l">108 </a>                
+<a href="#109" id="109" class="l">109 </a>        <span class="php-var">$this</span>-&gt;controller-&gt;render(<span class="php-quote">&quot;shop&quot;</span>, <span class="php-keyword1">array</span>(
+<a href="#110" id="110" class="l">110 </a>            <span class="php-quote">&quot;Shop&quot;</span> =&gt; <span class="php-var">$Shop</span>,
+<a href="#111" id="111" class="l">111 </a>        ));
+<a href="#112" id="112" class="l">112 </a>    }
+<a href="#113" id="113" class="l">113 </a>}</code></pre>
 	</div>
 
 	<div id="footer">
