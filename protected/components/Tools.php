@@ -10,6 +10,29 @@
 class Tools extends CApplicationComponent {
     
     /**
+     * Called by Yii preloader
+     * Used to initialize aliases for Yii::app()->tools->getXPronoun
+     * @return void
+     */
+    public function init() {
+        if (!function_exists('_personal')) {
+            function _personal($sex = null) {
+                return Yii::app()->tools->getPersonalPronoun($sex);
+            }
+        }
+        if (!function_exists('_possessive')) {
+            function _possessive($sex = null) {
+                return Yii::app()->tools->getPossessivePronoun($sex);
+            }
+        }
+        if (!function_exists('_objective')) {
+            function _objective($sex = null) {
+                return Yii::app()->tools->getObjectPronoun($sex);
+            }
+        }
+    }
+    
+    /**
      * returns an integer number adjacent to $number
      * 3.38 has a 38% chance to return 4 and a 62% chance to return 3.
      * @param float $number

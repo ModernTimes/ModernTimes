@@ -45,6 +45,11 @@ return array(
             'log',
             'kint', // To be able to use d(), dd(), s() and sd()
             'cd', // Initializes global static function CD() which returns the Character model
+            /**
+             * Initializes global static functions _personal, _possessive, 
+             * and _objective for easy pronoun generation
+             */
+            'tools', 
             'bootstrap',
         ),
 
