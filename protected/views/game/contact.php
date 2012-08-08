@@ -39,38 +39,32 @@
         
         echo "<h2 align='center' style='margin-top: 1em'>Exploitation options</h2>";
         
-        echo CHtml::link(
-                CHtml::tag("div", array('class' => 'btn-group'),
-                    CHtml::htmlButton(
-                        $CharacterContact->contact->levelOfInfluence . " " .
-                            CHtml::tag("i", array('class' => 'icon-eye-close'), " "),
-                        array('class' => 'btn btn-large', 'title' => 'Bad conscience')) . 
-                    CHtml::htmlButton("Ask for praise",
-                        array('class' => 'btn btn-large btn-primary', 
-                              'title' => "Gain kudos " . 
-                                            $CharacterContact->contact->getAreaOfInfluenceLabel2())
-                    )
-                ),
-                array("exploitContact", "favorID" => "1",
-                                        "charactercontactID" => $CharacterContact->id),
-                array('class' => 'nounderline', 'style' => 'margin: 10px; display: inline-block')
-             );
+        foreach($Favors as $Favor) {
+            $meetsRequirements = $Favor->meetsRequirements($Character, $CharacterContact, false);
+            $btnHTML = CHtml::tag("div", array('class' => 'btn-group', 'style' => 'margin: 10px; display: inline-block'),
+                        CHtml::htmlButton(
+                            $Favor->call("getBadConscience", $CharacterContact) . " " .
+                                CHtml::tag("i", array('class' => 'icon-eye-close'), " "),
+                            array('class' => "btn btn-large" . 
+                                    ($meetsRequirements ? "" : " disabled"), 
+                                   'title' => 'Bad conscience')) . 
+                        CHtml::htmlButton($Favor->name,
+                            array('class' => "btn btn-large btn-primary" . 
+                                    ($meetsRequirements ? "" : " disabled"), 
+                                  'title' => "Gain kudos")
+                        ));
+            
+            if($meetsRequirements) {
+                echo CHtml::link($btnHTML,
+                        array("exploitContact", "favorID" => $Favor->id,
+                                                "charactercontactID" => $CharacterContact->id),
+                        array('class' => 'nounderline')
+                    );
+            } else {
+                echo $btnHTML;
+            }
+        }
         
-        echo CHtml::link(
-                CHtml::tag("div", array('class' => 'btn-group'),
-                    CHtml::htmlButton(
-                        $CharacterContact->contact->levelOfInfluence . " " .
-                            CHtml::tag("i", array('class' => 'icon-eye-close'), " "),
-                        array('class' => 'btn btn-large', 'title' => 'Bad conscience')) . 
-                    CHtml::htmlButton("Ask for cash",
-                        array('class' => 'btn btn-large btn-primary', 
-                              'title' => "Gain cash")
-                    )
-                ),
-                array("exploitContact", "favorID" => "2",
-                                        "charactercontactID" => $CharacterContact->id),
-                array('class' => 'nounderline', 'style' => 'margin: 10px; display: inline-block')
-             );
     }
     
     // Untreated: Show possible treatments
