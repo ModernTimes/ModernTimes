@@ -6,3 +6,8 @@ span.label {
 .nounderline {
     text-decoration: none !important;
 }
+
+.icon-cash {
+    background-image: url("../images/cash.png");
+    background-position: center center;
+}

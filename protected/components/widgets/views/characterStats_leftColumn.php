@@ -17,11 +17,19 @@
         <div class="bar" style="width: <?php echo floor($this->character->getLevelProgress() * 100); ?>%"></div>
     </div>
     
-    <?php /* Turn counter */ ?>
-    <div align="center" style="margin-top: 15px">
-        <span class="btn btn-large" title="Turns"><i class="icon-time"></i> <b><?php echo $this->character->turns; ?></b></span>
-    </div>
+    <hr />
 
+    <?php /* Turns + Cash */ ?>
+    <div style="margin-top: 15px; margin-left: 5px"><div class="row">
+        <div class="span<?php echo ($this->character->cash > 100000 ? "5" : "6"); ?>" align="center">
+            <span class="btn btn-large" title="Turns"><i class="icon-time"></i> <b>1<?php echo $this->character->turns; ?></b></span>
+        </div><div class="span<?php echo ($this->character->cash > 100000 ? "7" : "6"); ?>" align="center">
+            <div class='btn btn-large' title="Cash" style="padding-right: 12px; padding-left: 12px"><i class="icon-cash" style="position: relative; top: 0px"></i>&nbsp;<b><?php echo number_format($this->character->cash); ?></b>
+            </div>
+        </div>
+    </div></div>
+
+    <hr />
 
     <?php 
     /**
@@ -46,7 +54,7 @@
             <div class="progress progress-danger" style="height: 11px;"><div class="bar" style="width: <?php echo floor($this->character->hp / $this->character->getHpMax() * 100); ?>%"></div></div>
         </div>
     </div>
-    <div class="row" style="margin-left: 5px; position: relative; top: -10px" title="Energy: <?php echo $this->character->energy . " / " . $this->character->getEnergyMax(); ?>">
+    <div class="row" style="margin-left: 5px; position: relative; top: -10px;" title="Energy: <?php echo $this->character->energy . " / " . $this->character->getEnergyMax(); ?>">
         <div class="span4">
             <div class='btn btn-mini'><i class="icon-star"></i> <?php echo $this->character->energy; ?></div>
         </div>
@@ -55,24 +63,15 @@
             <div class="progress" style="height: 11px;"><div class="bar" style="width: <?php echo floor($this->character->energy / $this->character->getEnergyMax() * 100); ?>%"></div></div>
         </div>
     </div>
+
+    <hr style="position: relative; top: -10px" />
     
-    <?php
+    
+    <?php 
     /**
-     * Cash
-     */
+    * Active familiar
+    */ 
     ?>
-    <table cellspacing="3" style="margin: 0px 0px 4px 10px;">
-        <tr>
-            <td width="50"><img src="<? echo Yii::app()->getBaseUrl(); ?>/images/cash.png" width="24" height="24" style="vertical-align: middle" title="Cash"></td>
-            <td style="font-size: 11pt"><span title="Cash"><?php echo number_format($this->character->cash); ?></span></td>
-        </tr>
-    </table>
-    
-<?php /*
-
-* Active familiar
-
-*/ ?>
     <?php if (is_a($this->character->getFamiliar(), "Familiar")) { ?>
         <div align=center style="margin-top: 30px">
             <b><?php echo $this->character->getFamiliar()->name . "</b><BR />Level " . $this->character->getFamiliar()->getLevel() . " Secretary"; ?>
@@ -85,7 +84,6 @@
 
 <?php // Active effects
 if(count($this->character->characterEffects) > 0) { ?>
-    <BR />
     <?php foreach ($this->character->characterEffects as $characterEffect) {
         // d($characterEffect);
         $this->widget("EffectWidget", 
