@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 08. Aug 2012 um 15:50
+-- Erstellungszeit: 08. Aug 2012 um 19:39
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `mt_battle` (
   KEY `combatantBID` (`combatantBID`),
   KEY `state` (`state`),
   KEY `winnerID` (`winnerID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=294 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=386 ;
 
 -- --------------------------------------------------------
 
@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `mt_battleeffect` (
   `msgExpire` tinytext NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -177,10 +177,11 @@ CREATE TABLE IF NOT EXISTS `mt_battleskill` (
   `effectMsgIncreasedDuration` tinytext NOT NULL,
   `desc` text NOT NULL,
   `msgResolved` tinytext NOT NULL,
+  `msgFailed` tinytext NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `createEffectID` (`createBattleeffectID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_battleskill`:
@@ -224,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `mt_character` (
   UNIQUE KEY `name` (`name`),
   KEY `userID` (`userID`),
   KEY `active` (`active`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character`:
@@ -299,7 +300,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_battleskills` (
   KEY `characterID` (`characterID`),
   KEY `battleskillID` (`battleskillID`),
   KEY `available` (`available`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_battleskills`:
@@ -330,7 +331,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_contacts` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `contactID` (`contactID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=36 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_contacts`:
@@ -355,7 +356,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_effects` (
   KEY `characterID` (`characterID`),
   KEY `effectID` (`effectID`),
   KEY `turns` (`turns`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_effects`:
@@ -412,7 +413,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_equipments` (
   KEY `accessoryAID` (`accessoryAID`),
   KEY `accessoryBID` (`accessoryBID`),
   KEY `accessoryCID` (`accessoryCID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_equipments`:
@@ -469,7 +470,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_items` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `itemID` (`itemID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=70 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=86 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_items`:
@@ -495,7 +496,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_quests` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `questID` (`questID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_quests`:
@@ -519,7 +520,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_recipes` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `recipeID` (`recipeID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_recipes`:
@@ -545,7 +546,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_skills` (
   KEY `characterID` (`characterID`),
   KEY `skillID` (`skillID`),
   KEY `available` (`available`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_skills`:
@@ -588,7 +589,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_skillsets` (
   KEY `pos8ID` (`pos8ID`),
   KEY `pos9ID` (`pos9ID`),
   KEY `pos10ID` (`pos10ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_skillsets`:
@@ -817,7 +818,7 @@ CREATE TABLE IF NOT EXISTS `mt_item` (
   KEY `charactermodifierID` (`charactermodifierID`),
   KEY `useEffectID` (`useEffectID`),
   KEY `requirementID` (`requirementID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_item`:
@@ -905,7 +906,7 @@ CREATE TABLE IF NOT EXISTS `mt_monster_battleskills` (
   PRIMARY KEY (`id`),
   KEY `monsterID` (`monsterID`),
   KEY `battleskillID` (`battleskillID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_monster_battleskills`:
