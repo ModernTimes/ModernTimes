@@ -21,7 +21,7 @@ class ContactAction extends CAction {
             $this->controller->redirect(array("contacts"));
         } else {
             // Does CharacterContact exist?
-            $CharacterContact = CharacterContacts::model()->findByPk($charactercontactID);
+            $CharacterContact = CharacterContacts::model()->withRelated()->findByPk($charactercontactID);
             if(!is_a($CharacterContact, "CharacterContacts")) {
                 EUserFlash::setErrorMessage("Something went wrong. Shit happens.");
                 $this->controller->redirect(array("contacts"));
@@ -37,10 +37,15 @@ class ContactAction extends CAction {
                         'route' => array("contact", "charactercontactID" => $charactercontactID),
                         'name'  => "Contact: " . $CharacterContact->name
                     );
+                    
+                    $ContactFavors = $CharacterContact->contact->contactFavors;
+                    $GeneralFavors = Favor::model()->findAll('generalFavor=1');
+                    // d(array_merge($ContactFavors, $GeneralFavors));
 
                     $this->controller->render("contact", array(
                         'Character' => $Character,
-                        'CharacterContact' => $CharacterContact
+                        'CharacterContact' => $CharacterContact,
+                        'Favors' => array_merge($GeneralFavors, $ContactFavors)
                     ));
                 }
             }

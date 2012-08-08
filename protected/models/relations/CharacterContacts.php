@@ -91,6 +91,26 @@ class CharacterContacts extends BaseCharacterContacts {
     }
     
     /**
+     * Returns the declaration of named scopes. A named scope represents a query
+     * criteria that can be chained together with other named scopes and applied
+     * to a query.
+     * @link http://www.yiiframework.com/doc/api/1.1/CActiveRecord#scopes-detail
+     * @return array the scope definition. The array keys are scope names
+     */
+    public function scopes() {
+        return array(
+            'withRelated' => array(
+                'with' => array(
+                    'contact' => array(
+                        'alias' => 'characterContactsContact' . self::getScopeCounter(),
+                        'scopes' => 'withRelated'
+                    ),
+                )
+            ),
+        );
+    }
+    
+    /**
      * Factory method to get Model objects
      * @link http://www.yiiframework.com/doc/api/CModel
      * @param string $className

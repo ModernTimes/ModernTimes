@@ -64,6 +64,15 @@ class Favor extends BaseFavor {
         return $meetsRequirements;
     }
     
+    /**
+     * Basic getter
+     * @param CharacterContacts $CharacterContact
+     * @return int 
+     */
+    public function getBadConscience($CharacterContact) {
+        return $this->badConscience;
+    }
+    
     public function byebye($CharacterContact) {
         return "You lost your grip over " . $CharacterContact->name . ". " . 
                "But who cares? " . ucfirst(_personal($CharacterContact->sex)) .

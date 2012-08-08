@@ -167,6 +167,26 @@ class Contact extends BaseContact {
     }
     
     /**
+     * Returns the declaration of named scopes. A named scope represents a query
+     * criteria that can be chained together with other named scopes and applied
+     * to a query.
+     * @link http://www.yiiframework.com/doc/api/1.1/CActiveRecord#scopes-detail
+     * @return array the scope definition. The array keys are scope names
+     */
+    public function scopes() {
+        return array(
+            'withRelated' => array(
+                'with' => array(
+                    'contactFavors' => array(
+                        'alias' => 'contactFavors' . self::getScopeCounter(),
+                        'scopes' => 'withRelated'
+                    ),
+                )
+            ),
+        );
+    }
+    
+    /**
      * Returns a list of CBehaviors to be attached to this Model
      * @link http://www.yiiframework.com/doc/api/CBehavior
      * @return array
