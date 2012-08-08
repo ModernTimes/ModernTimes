@@ -7,6 +7,11 @@
 
 class CashFavor extends CBehavior {
     
+    /**
+     * See above
+     * @param Character $Character
+     * @param CharacterContacts $CharacterContact 
+     */
     public function resolve($Character, $CharacterContact) {
         $Character->gainCash(
             $CharacterContact->contact->levelOfInfluence * 50,
@@ -25,6 +30,15 @@ class CashFavor extends CBehavior {
             _possessive($CharacterContact->sex) . " money. " . 
             $this->owner->byebye($CharacterContact)
         );
+    }
+    
+    /**
+     * Returns the amount of badConscience that this favor will cause
+     * @param CharacterContact $CharacterContact
+     * @return int
+     */
+    public function getBadConscience($CharacterContact) {
+        return $CharacterContact->contact->levelOfInfluence;
     }
 }
 

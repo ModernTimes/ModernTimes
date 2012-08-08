@@ -7,6 +7,11 @@
 
 class PraiseFavor extends CBehavior {
     
+    /**
+     * See above
+     * @param Character $Character
+     * @param CharacterContacts $CharacterContact 
+     */
     public function resolve($Character, $CharacterContact) {
         $Character->gainKudos(
             $CharacterContact->contact->areaOfInfluence,
@@ -27,6 +32,15 @@ class PraiseFavor extends CBehavior {
             $CharacterContact->contact->getAreaOfInfluenceLabel2() . ". " .
             $this->owner->byebye($CharacterContact)
         );
+    }
+    
+    /**
+     * Returns the amount of badConscience that this favor will cause
+     * @param CharacterContact $CharacterContact
+     * @return int
+     */
+    public function getBadConscience($CharacterContact) {
+        return $CharacterContact->contact->levelOfInfluence;
     }
 }
 
