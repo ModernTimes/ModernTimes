@@ -37,8 +37,12 @@
         
         echo "<p align='center' style='font-size: 1.8em'>" . $CharacterContact->getStatusDesc() . "</p>";
         
-        echo "<h2 align='center' style='margin-top: 1em'>Exploitation options</h2>";
-        
+        if(count($Favors) > 0) { 
+            echo "<div class='well' style='margin-top: 2em'>"; 
+            echo "<h2 align='center'>Exploitation options</h2><BR />";
+        } else {
+            echo "<h2 align='center' style='margin-top: 1em'>No exploitation options</h2>";
+        }
         foreach($Favors as $Favor) {
             $meetsRequirements = $Favor->meetsRequirements($Character, $CharacterContact, false);
             $btnHTML = CHtml::tag("div", array('class' => 'btn-group', 'style' => 'margin: 10px; display: inline-block'),
@@ -60,10 +64,11 @@
                                                 "charactercontactID" => $CharacterContact->id),
                         array('class' => 'nounderline')
                     );
-            } else {
+            } elseif(!$Favor->requirementHideIfFails) {
                 echo $btnHTML;
             }
         }
+        if(count($Favors) > 0) { echo "</div>"; }
         
     }
     

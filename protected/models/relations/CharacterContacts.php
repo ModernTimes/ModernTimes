@@ -78,12 +78,12 @@ class CharacterContacts extends BaseCharacterContacts {
             case "befriended":
                 return "You guys are <b>friends</b>";
             case "bribed":
-                return "You <b>bribed</b> " . Yii::app()->tools->getObjectPronoun($this->sex);
+                return "You <b>bribed</b> " . _objective($this->sex);
             case "seduced":
-                return "You <b>seduced</b> " . Yii::app()->tools->getObjectPronoun($this->sex);
+                return "You <b>seduced</b> " . _objective($this->sex);
             // should never happen
             case "untreated":
-                return "You don't really know " . Yii::app()->tools->getObjectPronoun($this->sex) . " yet";
+                return "You don't really know " . _objective($this->sex) . " yet";
             // should never happen
             default:
                 return $this->name . " is <b>" . $status . "</b>";
