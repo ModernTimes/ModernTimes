@@ -8,6 +8,16 @@
 class CashFavor extends CBehavior {
     
     /**
+     * Array with cash gain factors for different areas of influence
+     * @var array
+     */
+    private $_areaCashGainFactors = array(
+        'finance' => 3,
+        'realEconomy' => 1.5,
+        'police' => 0.5,
+    );
+    
+    /**
      * See above
      * @param Character $Character
      * @param CharacterContacts $CharacterContact 
@@ -15,7 +25,11 @@ class CashFavor extends CBehavior {
      */
     public function resolve($Character, $CharacterContact) {
         $Character->gainCash(
-            $CharacterContact->contact->levelOfInfluence * 50,
+            $CharacterContact->contact->levelOfInfluence * 25
+                * pow(2, $CharacterContact->contact->levelOfInfluence)
+                * (isset($this->_areaCashGainFactors[$CharacterContact->contact->areaOfInfluence]) 
+                        ? $this->_areaCashGainFactors[$CharacterContact->contact->areaOfInfluence] 
+                        : 1),
             "exploitation"
         );
         $Character->gainBadConscience(
@@ -28,9 +42,9 @@ class CashFavor extends CBehavior {
         
         EUserFlash::setSuccessMessage(
            "You exploited " . $CharacterContact->name . " by taking " . 
-            _possessive($CharacterContact->sex) . " money. " . 
-            $this->owner->byebye($CharacterContact)
+            _possessive($CharacterContact->sex) . " money. "
         );
+        $CharacterContact->byebye();
         
         return true;
     }
