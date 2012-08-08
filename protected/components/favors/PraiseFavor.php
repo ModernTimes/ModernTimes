@@ -30,9 +30,9 @@ class PraiseFavor extends CBehavior {
         EUserFlash::setSuccessMessage(
            "You exploited " . $CharacterContact->name . " by making " . 
             _objective($CharacterContact->sex) . " praise you " . 
-            $CharacterContact->contact->getAreaOfInfluenceLabel2() . ". " .
-            $this->owner->byebye($CharacterContact)
+            $CharacterContact->contact->getAreaOfInfluenceLabel2() . ". "
         );
+        $CharacterContact->byebye();
         
         return true;
     }

@@ -56,7 +56,7 @@
                     CHtml::htmlButton($Favor->name,
                         array('class' => "btn btn-large btn-primary" . 
                                 ($meetsRequirements ? "" : " disabled"), 
-                                'title' => sprintf($Favor->desc, _possessive($CharacterContact->sex)))
+                                'title' => sprintf($Favor->desc, _objective($CharacterContact->sex)))
                     ));
             
             if($meetsRequirements) {

@@ -91,6 +91,17 @@ class CharacterContacts extends BaseCharacterContacts {
     }
     
     /**
+     * Generate a bye-bye message regarding loosing this CharacterContact 
+     */
+    public function byebye() {
+        EUserFlash::setSuccessMessage(
+            "You lost your grip over " . $this->name . ". " . 
+            "But who cares? " . ucfirst(_personal($this->sex)) .
+            " fulfilled " . _possessive($this->sex) . " purpose."
+        );
+    }
+    
+    /**
      * Returns the declaration of named scopes. A named scope represents a query
      * criteria that can be chained together with other named scopes and applied
      * to a query.

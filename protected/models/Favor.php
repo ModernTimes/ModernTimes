@@ -75,12 +75,6 @@ class Favor extends BaseFavor {
         return $this->badConscience;
     }
     
-    public function byebye($CharacterContact) {
-        return "You lost your grip over " . $CharacterContact->name . ". " . 
-               "But who cares? " . ucfirst(_personal($CharacterContact->sex)) .
-               " fulfilled " . _possessive($CharacterContact->sex) . " purpose.";
-    }
-    
     /**
      * Returns a list of CBehaviors to be attached to this Model
      * @link http://www.yiiframework.com/doc/api/CBehavior
