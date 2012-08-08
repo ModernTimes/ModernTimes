@@ -51,7 +51,8 @@
                                             $CharacterContact->contact->getAreaOfInfluenceLabel2())
                     )
                 ),
-                array("praiseContact", "charactercontactID" => $CharacterContact->id),
+                array("exploitContact", "favorID" => "1",
+                                        "charactercontactID" => $CharacterContact->id),
                 array('class' => 'nounderline', 'style' => 'margin: 10px')
              );
         

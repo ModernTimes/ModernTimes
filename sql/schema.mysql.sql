@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 07. Aug 2012 um 19:42
+-- Erstellungszeit: 08. Aug 2012 um 11:30
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `mt_battle` (
   KEY `combatantBID` (`combatantBID`),
   KEY `state` (`state`),
   KEY `winnerID` (`winnerID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=273 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=294 ;
 
 -- --------------------------------------------------------
 
@@ -212,6 +212,14 @@ CREATE TABLE IF NOT EXISTS `mt_character` (
   `hp` int(11) NOT NULL DEFAULT '0',
   `energy` int(11) NOT NULL DEFAULT '0',
   `cash` int(11) NOT NULL DEFAULT '0',
+  `kudosPopulace` smallint(6) NOT NULL DEFAULT '0',
+  `kudosFinance` smallint(6) NOT NULL DEFAULT '0',
+  `kudosRealEconomy` smallint(6) NOT NULL DEFAULT '0',
+  `kudosPolice` smallint(6) NOT NULL DEFAULT '0',
+  `kudosUnderworld` smallint(6) NOT NULL DEFAULT '0',
+  `kudosSociety` smallint(6) NOT NULL DEFAULT '0',
+  `kudosPress` smallint(6) NOT NULL DEFAULT '0',
+  `kudosBureaucracy` smallint(6) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `userID` (`userID`),
@@ -322,7 +330,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_contacts` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `contactID` (`contactID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_contacts`:
@@ -347,7 +355,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_effects` (
   KEY `characterID` (`characterID`),
   KEY `effectID` (`effectID`),
   KEY `turns` (`turns`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_effects`:
@@ -461,7 +469,7 @@ CREATE TABLE IF NOT EXISTS `mt_character_items` (
   PRIMARY KEY (`id`),
   KEY `characterID` (`characterID`),
   KEY `itemID` (`itemID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=68 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=70 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_character_items`:
@@ -765,10 +773,11 @@ CREATE TABLE IF NOT EXISTS `mt_favor` (
   `requirementBefriended` tinyint(1) NOT NULL DEFAULT '0',
   `requirementBribed` tinyint(1) NOT NULL DEFAULT '0',
   `requirementSeduced` tinyint(1) NOT NULL DEFAULT '0',
+  `badConscience` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `requirementID` (`requirementID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_favor`:

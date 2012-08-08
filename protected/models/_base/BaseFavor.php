@@ -10,6 +10,7 @@
  * - integer requirementBefriended
  * - integer requirementBribed
  * - integer requirementSeduced
+ * - integer badConscience
  *
  * - ContactFavors contactFavors
  * - Requirement requirement
@@ -67,11 +68,11 @@ abstract class BaseFavor extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('name, specialClass', 'required'),
-			array('requirementID, requirementBefriended, requirementBribed, requirementSeduced', 'numerical', 'integerOnly'=>true),
+			array('requirementID, requirementBefriended, requirementBribed, requirementSeduced, badConscience', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>50),
 			array('specialClass', 'length', 'max'=>100),
-			array('requirementID, requirementBefriended, requirementBribed, requirementSeduced', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, name, specialClass, requirementID, requirementBefriended, requirementBribed, requirementSeduced', 'safe', 'on'=>'search'),
+			array('requirementID, requirementBefriended, requirementBribed, requirementSeduced, badConscience', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, name, specialClass, requirementID, requirementBefriended, requirementBribed, requirementSeduced, badConscience', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -109,6 +110,7 @@ abstract class BaseFavor extends GxActiveRecord {
 			'requirementBefriended' => Yii::t('app', 'Requirement Befriended'),
 			'requirementBribed' => Yii::t('app', 'Requirement Bribed'),
 			'requirementSeduced' => Yii::t('app', 'Requirement Seduced'),
+			'badConscience' => Yii::t('app', 'Bad Conscience'),
 			'contactFavors' => null,
 			'requirement' => null,
 		);
@@ -130,6 +132,7 @@ abstract class BaseFavor extends GxActiveRecord {
 		$criteria->compare('requirementBefriended', $this->requirementBefriended);
 		$criteria->compare('requirementBribed', $this->requirementBribed);
 		$criteria->compare('requirementSeduced', $this->requirementSeduced);
+		$criteria->compare('badConscience', $this->badConscience);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

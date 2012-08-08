@@ -31,11 +31,21 @@ class Character extends BaseCharacter {
      * Wrapper for gainResource
      * @uses gainResource
      * @param float $amount
-     * @param string $source enum(other|battle|encounter|quest|autosell) 
+     * @param string $source enum(other|exploitation|encounter|quest|autosell) 
      * @return int the actual amount of cash gained
      */
     public function gainCash($amount = 0, $source = '') {
         return $this->gainResource('cash', $amount, $source);
+    }
+    /**
+     * Wrapper for gainResource
+     * @uses gainResource
+     * @param float $amount
+     * @param string $source enum(other|exploitation|encounter|quest) 
+     * @return int the actual amount of badConscience gained
+     */
+    public function gainBadConscience($amount = 0, $source = '') {
+        return $this->gainResource('badConscience', $amount, $source);
     }
     /**
      * Gives resources to the character (or takes them away)
@@ -45,7 +55,7 @@ class Character extends BaseCharacter {
      * @uses GainStatEvent
      * @param string $resource enum(cash)
      * @param float $amount
-     * @param string $source enum(other|battle|encounter|quest|autosell) 
+     * @param string $source enum(other|exploitation|encounter|quest|autosell) 
      * Allows event handlers to react to gainStuff events only in case the
      * resources come from a certain source
      * @return int the actual amount of resource gained
@@ -60,6 +70,30 @@ class Character extends BaseCharacter {
         $amount = max(0, $event->adjustStat($amount));
         
         return call_user_func(array($this, "increase" . ucfirst($resource)), $amount);
+    }
+    /**
+     * Gives kudos to the character (or takes it away)
+     * Before it actually does, it raises a GainKudosAREA event, to which
+     * other code elements can react, especially Model records with
+     * CharacterModifierBehavior.
+     * @uses GainStatEvent
+     * @param string $areaOfInfluence enum(populace|finance|realEconomy|etc.)
+     * @param float $amount
+     * @param string $source enum(other|exploitation|encounter|quest) 
+     * Allows event handlers to react to gainStuff events only in case 
+     * kudos come from a certain source
+     * @return int the actual amount of kudos gained
+     */
+    public function gainKudos($areaOfInfluence, $amount = 0, $source = '') {
+        $event = new GainStatEvent($this, array(
+            'amount' => $amount,
+            'source'   => $source
+        ));
+        call_user_func(array($this, "onGainKudos" . ucfirst($areaOfInfluence)), $event);
+
+        $amount = max(0, $event->adjustStat($amount));
+        
+        return call_user_func(array($this, "increaseKudos"), $areaOfInfluence, $amount);
     }
     
     /**
@@ -83,11 +117,53 @@ class Character extends BaseCharacter {
     }
 
     /**
+     * Wrapper for changeResource
+     * @uses changeResource
+     * @param string $areaOfInfluence enum(populace|finance|realEconomy|etc.)
+     * @param float $amount
+     * @return int the actual kudos increase
+     */
+    public function increaseKudos($areaOfInfluence, $amount = 0) {
+        return $this->changeResource("kudos" . ucfirst($areaOfInfluence), $amount);
+    }
+
+    /**
+     * Wrapper for changeResource
+     * @uses changeResource
+     * @param string $areaOfInfluence enum(populace|finance|realEconomy|etc.)
+     * @param float $amount
+     * @return int the actual kudos increase
+     */
+    public function decreaseKudos($areaOfInfluence, $amount = 0) {
+        return $this->changeResource("kudos" . ucfirst($areaOfInfluence), -$amount);
+    }
+    
+    /**
+     * Wrapper for changeResource
+     * @uses changeResource
+     * @param float $amount
+     * @return int the actual badConscience increase
+     */
+    public function increaseBadConscience($amount = 0) {
+        return $this->changeResource("badConscience", $amount);
+    }
+
+    /**
+     * Wrapper for changeResource
+     * @uses changeResource
+     * @param float $amount
+     * @return int the actual badConscience increase
+     */
+    public function decreaseBadConscience($amount = 0) {
+        return $this->changeResource("badConscience", -$amount);
+    }
+    
+    /**
      * Changes the indicated resource by $amount (which can be negative)
      * Also generates an EUserFlash message to inform the user about this
      * fortunate turn of events.
      * This is more of a setter method and does not raise any events.
-     * @param string $resource enum(cash)
+     * @param string $resource enum(cash|kudosAREA)
      * @param int $amount
      * @return int actual change in resource
      */
@@ -101,6 +177,8 @@ class Character extends BaseCharacter {
         }
         return $amount;
     }
+    
+
     
     /**
      * Returns the cumulative bonus to item drop chances by raising a
@@ -1446,35 +1524,99 @@ class Character extends BaseCharacter {
     
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param GainStatEvent $event 
      */
     public function onGainCash($event) {
         $this->raiseEvent("onGainCash", $event);
     }
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param GainStatEvent $event 
+     */
+    public function onGainBadConscience($event) {
+        $this->raiseEvent("onGainBadConscience", $event);
+    }
+    /**
+     * Event raiser
+     * @param GainStatEvent $event 
+     */
+    public function onGainKudosPopulace($event) {
+        $this->raiseEvent("onGainKudosPopulace", $event);
+    }
+    /**
+     * Event raiser
+     * @param GainStatEvent $event 
+     */
+    public function onGainKudosFinance($event) {
+        $this->raiseEvent("onGainKudosFinance", $event);
+    }
+    /**
+     * Event raiser
+     * @param GainStatEvent $event 
+     */
+    public function onGainKudosRealEconomy($event) {
+        $this->raiseEvent("onGainKudosRealEconomy", $event);
+    }
+    /**
+     * Event raiser
+     * @param GainStatEvent $event 
+     */
+    public function onGainKudosPolice($event) {
+        $this->raiseEvent("onGainKudosPolice", $event);
+    }
+    /**
+     * Event raiser
+     * @param GainStatEvent $event 
+     */
+    public function onGainKudosUnderworld($event) {
+        $this->raiseEvent("onGainKudosUnderworld", $event);
+    }
+    /**
+     * Event raiser
+     * @param GainStatEvent $event 
+     */
+    public function onGainKudosSociety($event) {
+        $this->raiseEvent("onGainKudosSociety", $event);
+    }
+    /**
+     * Event raiser
+     * @param GainStatEvent $event 
+     */
+    public function onGainKudosPress($event) {
+        $this->raiseEvent("onGainKudosPress", $event);
+    }
+    /**
+     * Event raiser
+     * @param GainStatEvent $event 
+     */
+    public function onGainKudosBureaucracy($event) {
+        $this->raiseEvent("onGainKudosBureaucracy", $event);
+    }
+    
+    /**
+     * Event raiser
+     * @param GainStatEvent $event 
      */
     public function onGainXp($event) {
         $this->raiseEvent("onGainXp", $event);
     }
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param GainStatEvent $event 
      */
     public function onGainResoluteness($event) {
         $this->raiseEvent("onGainResoluteness", $event);
     }
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param GainStatEvent $event 
      */
     public function onGainWillpower($event) {
         $this->raiseEvent("onGainWillpower", $event);
     }
     /**
      * Event raiser
-     * @param CEvent $event 
+     * @param GainStatEvent $event 
      */
     public function onGainCunning($event) {
         $this->raiseEvent("onGainCunning", $event);

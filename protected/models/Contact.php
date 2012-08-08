@@ -23,6 +23,15 @@ class Contact extends BaseContact {
     public $treatments = array("befriendable", "bribable", "seducible");
     
     /**
+     * array with string representations of areas of influence
+     * @var array
+     */
+    public $areasOfInfluence = array(
+        "populace", "finance", "realEconomy", "police", "underworld", "society",
+        "press", "bureaucracy"
+    );
+
+    /**
      * Factory-style
      * Stamps out a specific contact based on the attributes of this record
      * @uses Name::createName
