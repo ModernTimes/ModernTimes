@@ -306,20 +306,24 @@ class Battleskill extends BaseBattleskill {
      * - %1$s: hero's name
      * - %2$s: personal pronoun for hero
      * - %3$s: possessive pronoun for hero
-     * - %4$s: enemy's name
-     * - %5$s: personal pronoun for enemy
-     * - %6$s: possessive pronoun for enemy
+     * - %4$s: objective pronoun for hero
+     * - %5$s: enemy's name
+     * - %6$s: personal pronoun for enemy
+     * - %7$s: possessive pronoun for enemy
+     * - %8$s: objective pronoun for enemy
      * @param string $msg
      * @param mixed $hero
      * @param mixed $enemy 
      */
     static function parseMsg($msg, $hero, $enemy) {
         return sprintf($msg, $hero->name, 
-                             Yii::app()->tools->getPersonalPronoun($hero->sex),
-                             Yii::app()->tools->getPossessivePronoun($hero->sex),
+                             _personal($hero->sex),
+                             _possessive($hero->sex),
+                             _objective($hero->sex),
                              $enemy->name, 
-                             Yii::app()->tools->getPersonalPronoun($enemy->sex),
-                             Yii::app()->tools->getPossessivePronoun($enemy->sex));
+                             _personal($enemy->sex),
+                             _possessive($enemy->sex),
+                             _objective($enemy->sex));
     }
 
     /**

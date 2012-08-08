@@ -32,17 +32,17 @@ if(!empty($this->CharacterContact)) {
                 if($i == $total && $total > 1) { $popup .= ($total == 2 ? " " : "") . "or "; }
                 switch($treatment) {
                     case "befriendable":
-                        $popup .= "<b>make friends</b> with " . Yii::app()->tools->getObjectPronoun($this->CharacterContact->sex);
+                        $popup .= "<b>make friends</b> with " . _objective($this->CharacterContact->sex);
                         break;
                     case "bribable":
-                        $popup .= "<b>bribe</b> " . Yii::app()->tools->getObjectPronoun($this->CharacterContact->sex);
+                        $popup .= "<b>bribe</b> " . _objective($this->CharacterContact->sex);
                         break;
                     case "seducible":
-                        $popup .= "<b>seduce</b> " . Yii::app()->tools->getObjectPronoun($this->CharacterContact->sex);
+                        $popup .= "<b>seduce</b> " . _objective($this->CharacterContact->sex);
                         break;
                     // Should never happen
                     default:
-                        $popup .= "use the fact that " . Yii::app()->tools->getPersonalPronoun($this->CharacterContact->sex) . " is " . $treatment;
+                        $popup .= "use the fact that " . _personal($this->CharacterContact->sex) . " is " . $treatment;
                         break;
                 }
                 if($i < $total && $total > 2) { $popup .= ", "; }
