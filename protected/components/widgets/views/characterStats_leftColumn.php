@@ -22,7 +22,7 @@
     <?php /* Turns + Cash */ ?>
     <div style="margin-top: 15px; margin-left: 5px"><div class="row">
         <div class="span<?php echo ($this->character->cash > 100000 ? "5" : "6"); ?>" align="center">
-            <span class="btn" title="Turns"><i class="icon-time"></i> <b>1<?php echo $this->character->turns; ?></b></span>
+            <span class="btn" title="Turns"><i class="icon-time"></i> <b><?php echo $this->character->turns; ?></b></span>
         </div><div class="span<?php echo ($this->character->cash > 100000 ? "7" : "6"); ?>" align="center">
             <div class='btn' title="Cash" style="padding-right: 12px; padding-left: 12px"><i class="icon-cash" style="position: relative; top: 0px"></i>&nbsp;<b><?php echo number_format($this->character->cash); ?></b>
             </div>
