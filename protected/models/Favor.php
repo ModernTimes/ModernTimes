@@ -28,25 +28,36 @@ class Favor extends BaseFavor {
     }
     
     /**
-     * "Overrides" meetsRequirement of RequirementCheckerBehavior to include
+     * "Overrides" meetsRequirements of RequirementCheckerBehavior to include
      * checking for proper contact treatments
      * @uses RequirementCheckerBehavior->meetsRequirement
      * @param Character $Character
      * @param CharacterContacts $CharacterContact 
      * @return bool
      */
-    public function meetsRequirement($Character, $CharacterContact, $generateMessages = true) {
+    public function meetsRequirements($Character, $CharacterContact, $generateMessages = true) {
         // Check Character-based requirements
         $meetsRequirements = $this->asa("RequirementChecker")->meetsRequirements($Character, $generateMessages);
         
         foreach($CharacterContact->statuses as $status) {
-            if($this->{"requirement" . ucfirst($status)}) {
-                if(!$CharacterContact->{$status}) {
-                    if($generateMessages) {
-                        EUserFlash::setErrorMessage($CharacterContact->name . " needs to be " . $status);
+            switch($this->{"requirement" . ucfirst($status)}) {
+                case 1:
+                    if(!$CharacterContact->{$status}) {
+                        if($generateMessages) {
+                            EUserFlash::setErrorMessage($CharacterContact->name . " needs to be " . $status . " to do that");
+                        }
+                        $meetsRequirements = false;
                     }
-                    $meetsRequirements = false;
-                }
+                    break;
+                case -1:
+                    if($CharacterContact->{$status}) {
+                        if($generateMessages) {
+                            EUserFlash::setErrorMessage($CharacterContact->name . " must not be " . $status);
+                        }
+                        $meetsRequirements = false;
+                    }
+                default:
+                    break;
             }
         }
         
