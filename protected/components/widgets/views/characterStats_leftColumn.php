@@ -12,22 +12,32 @@
         </td>
     </tr></table>
 
+    <?php /* Level progress */ ?>
     <div class="progress progress-info" title="Level progress" align="left" style="height: 12px; margin-top: 5px">
         <div class="bar" style="width: <?php echo floor($this->character->getLevelProgress() * 100); ?>%"></div>
     </div>
     
+    <?php /* Turn counter */ ?>
     <div align="center" style="margin-top: 15px">
         <span class="btn btn-large" title="Turns"><i class="icon-time"></i> <b><?php echo $this->character->turns; ?></b></span>
     </div>
 
 
-
     <?php 
     /**
-     * HP + Energy bars
+     * Bad conscience, HP + Energy bars
      */ 
     ?>
-    <div class="row" style="margin-left: 5px; margin-top: 20px;" title="Health: <?php echo $this->character->hp . " / " . $this->character->getHpMax(); ?>">
+    <div class="row" style="margin-left: 5px; margin-top: 20px; position: relative; top: 10px" title="Bad conscience">
+        <div class="span4">
+            <div class='btn btn-mini'>&nbsp;<i class="icon-eye-close"></i> &nbsp;</div>
+        </div>
+        <div class="span8">
+            <div style="height: 5px;"></div>
+            <div class="progress" style="height: 11px;"><div class="bar" style="width: <?php echo floor($this->character->badConscience / $this->character->getBadConscienceMax() * 100); ?>%; background: black"></div></div>
+        </div>
+    </div>
+    <div class="row" style="margin-left: 5px;" title="Health: <?php echo $this->character->hp . " / " . $this->character->getHpMax(); ?>">
         <div class="span4">
             <div class='btn btn-mini'><i class="icon-heart"></i> <?php echo $this->character->hp; ?></div>
         </div>

@@ -652,6 +652,25 @@ class Character extends BaseCharacter {
     }
     
     /**
+     * Returns the Character's buffed maximum badConscience score
+     * In order to determine bonuses, it raises a CalcBadConscience
+     * event, to which other code elements can react, especially Model records 
+     * with CharacterModifierBehavior.
+     * @uses CollectBonusEvent
+     * @uses adjustStat
+     * @return int
+     */ 
+    public function getBadConscienceMax() {
+        $event = new CollectBonusEvent($this);
+        call_user_func(array($this, "onCalcBadConscience"), $event);
+
+        $base = 15;
+        $buffed = max(1, $event->adjustStat($base));
+
+        return $buffed;
+    }
+    
+    /**
      * Calculates the level (x) of the Character based on mainstat (y)
      * y = (x−1)^2 + 4
      * => y-4 = (x-1)^2
@@ -1350,6 +1369,14 @@ class Character extends BaseCharacter {
     public function onCalcEnergy($event) {
         $this->raiseEvent("onCalcEnergy", $event);
     }
+    /** 
+     * Event raiser
+     * @param CollectBonusEvent $event 
+     */
+    public function onCalcBadConscience($event) {
+        $this->raiseEvent("onCalcBadConscience", $event);
+    }
+    
     /**
      * Event raiser
      * @param CollectBonusEvent $event 
