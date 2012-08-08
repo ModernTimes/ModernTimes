@@ -6,11 +6,14 @@
  * - integer id
  * - string name
  * - string specialClass
+ * - integer generalFavor
  * - integer requirementID
  * - integer requirementBefriended
  * - integer requirementBribed
  * - integer requirementSeduced
+ * - integer requirementHideIfFails
  * - integer badConscience
+ * - string desc
  *
  * - ContactFavors contactFavors
  * - Requirement requirement
@@ -67,12 +70,12 @@ abstract class BaseFavor extends GxActiveRecord {
 	 */
 	public function rules() {
 		return array(
-			array('name, specialClass', 'required'),
-			array('requirementID, requirementBefriended, requirementBribed, requirementSeduced, badConscience', 'numerical', 'integerOnly'=>true),
+			array('name, specialClass, desc', 'required'),
+			array('generalFavor, requirementID, requirementBefriended, requirementBribed, requirementSeduced, requirementHideIfFails, badConscience', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>50),
 			array('specialClass', 'length', 'max'=>100),
-			array('requirementID, requirementBefriended, requirementBribed, requirementSeduced, badConscience', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, name, specialClass, requirementID, requirementBefriended, requirementBribed, requirementSeduced, badConscience', 'safe', 'on'=>'search'),
+			array('generalFavor, requirementID, requirementBefriended, requirementBribed, requirementSeduced, requirementHideIfFails, badConscience', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, name, specialClass, generalFavor, requirementID, requirementBefriended, requirementBribed, requirementSeduced, requirementHideIfFails, badConscience, desc', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -106,11 +109,14 @@ abstract class BaseFavor extends GxActiveRecord {
 			'id' => Yii::t('app', 'ID'),
 			'name' => Yii::t('app', 'Name'),
 			'specialClass' => Yii::t('app', 'Special Class'),
+			'generalFavor' => Yii::t('app', 'General Favor'),
 			'requirementID' => null,
 			'requirementBefriended' => Yii::t('app', 'Requirement Befriended'),
 			'requirementBribed' => Yii::t('app', 'Requirement Bribed'),
 			'requirementSeduced' => Yii::t('app', 'Requirement Seduced'),
+			'requirementHideIfFails' => Yii::t('app', 'Requirement Hide If Fails'),
 			'badConscience' => Yii::t('app', 'Bad Conscience'),
+			'desc' => Yii::t('app', 'Desc'),
 			'contactFavors' => null,
 			'requirement' => null,
 		);
@@ -128,11 +134,14 @@ abstract class BaseFavor extends GxActiveRecord {
 		$criteria->compare('id', $this->id);
 		$criteria->compare('name', $this->name, true);
 		$criteria->compare('specialClass', $this->specialClass, true);
+		$criteria->compare('generalFavor', $this->generalFavor);
 		$criteria->compare('requirementID', $this->requirementID);
 		$criteria->compare('requirementBefriended', $this->requirementBefriended);
 		$criteria->compare('requirementBribed', $this->requirementBribed);
 		$criteria->compare('requirementSeduced', $this->requirementSeduced);
+		$criteria->compare('requirementHideIfFails', $this->requirementHideIfFails);
 		$criteria->compare('badConscience', $this->badConscience);
+		$criteria->compare('desc', $this->desc, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

@@ -45,18 +45,19 @@
         }
         foreach($Favors as $Favor) {
             $meetsRequirements = $Favor->meetsRequirements($Character, $CharacterContact, false);
-            $btnHTML = CHtml::tag("div", array('class' => 'btn-group', 'style' => 'margin: 10px; display: inline-block'),
-                        CHtml::htmlButton(
-                            $Favor->call("getBadConscience", $CharacterContact) . " " .
-                                CHtml::tag("i", array('class' => 'icon-eye-close'), " "),
-                            array('class' => "btn btn-large" . 
-                                    ($meetsRequirements ? "" : " disabled"), 
-                                   'title' => 'Bad conscience')) . 
-                        CHtml::htmlButton($Favor->name,
-                            array('class' => "btn btn-large btn-primary" . 
-                                    ($meetsRequirements ? "" : " disabled"), 
-                                  'title' => "Gain kudos")
-                        ));
+            $btnHTML = CHtml::tag("div", 
+                    array('class' => 'btn-group', 'style' => 'margin: 10px; display: inline-block'),
+                    CHtml::htmlButton(
+                        $Favor->call("getBadConscience", $CharacterContact) . " " .
+                            CHtml::tag("i", array('class' => 'icon-eye-close'), " "),
+                        array('class' => "btn btn-large" . 
+                                ($meetsRequirements ? "" : " disabled"), 
+                                'title' => 'Bad conscience')) . 
+                    CHtml::htmlButton($Favor->name,
+                        array('class' => "btn btn-large btn-primary" . 
+                                ($meetsRequirements ? "" : " disabled"), 
+                                'title' => sprintf($Favor->desc, _possessive($CharacterContact->sex)))
+                    ));
             
             if($meetsRequirements) {
                 echo CHtml::link($btnHTML,

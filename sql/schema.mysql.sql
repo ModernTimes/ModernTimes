@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 08. Aug 2012 um 11:30
+-- Erstellungszeit: 08. Aug 2012 um 15:50
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -769,15 +769,19 @@ CREATE TABLE IF NOT EXISTS `mt_favor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `specialClass` varchar(100) NOT NULL,
+  `generalFavor` tinyint(1) NOT NULL DEFAULT '0',
   `requirementID` int(11) DEFAULT NULL,
   `requirementBefriended` tinyint(1) NOT NULL DEFAULT '0',
   `requirementBribed` tinyint(1) NOT NULL DEFAULT '0',
   `requirementSeduced` tinyint(1) NOT NULL DEFAULT '0',
-  `badConscience` tinyint(4) NOT NULL DEFAULT '0',
+  `requirementHideIfFails` tinyint(1) NOT NULL DEFAULT '1',
+  `badConscience` tinyint(4) DEFAULT NULL,
+  `desc` tinytext NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
-  KEY `requirementID` (`requirementID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  KEY `requirementID` (`requirementID`),
+  KEY `generalFavor` (`generalFavor`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- RELATIONEN DER TABELLE `mt_favor`:
