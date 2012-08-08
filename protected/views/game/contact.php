@@ -45,7 +45,7 @@
                         $CharacterContact->contact->levelOfInfluence . " " .
                             CHtml::tag("i", array('class' => 'icon-eye-close'), " "),
                         array('class' => 'btn btn-large', 'title' => 'Bad conscience')) . 
-                    CHtml::htmlButton("Let " . _objective($CharacterContact->sex) . " praise you",
+                    CHtml::htmlButton("Ask for praise",
                         array('class' => 'btn btn-large btn-primary', 
                               'title' => "Gain kudos " . 
                                             $CharacterContact->contact->getAreaOfInfluenceLabel2())
@@ -53,9 +53,24 @@
                 ),
                 array("exploitContact", "favorID" => "1",
                                         "charactercontactID" => $CharacterContact->id),
-                array('class' => 'nounderline', 'style' => 'margin: 10px')
+                array('class' => 'nounderline', 'style' => 'margin: 10px; display: inline-block')
              );
         
+        echo CHtml::link(
+                CHtml::tag("div", array('class' => 'btn-group'),
+                    CHtml::htmlButton(
+                        $CharacterContact->contact->levelOfInfluence . " " .
+                            CHtml::tag("i", array('class' => 'icon-eye-close'), " "),
+                        array('class' => 'btn btn-large', 'title' => 'Bad conscience')) . 
+                    CHtml::htmlButton("Ask for cash",
+                        array('class' => 'btn btn-large btn-primary', 
+                              'title' => "Gain cash")
+                    )
+                ),
+                array("exploitContact", "favorID" => "2",
+                                        "charactercontactID" => $CharacterContact->id),
+                array('class' => 'nounderline', 'style' => 'margin: 10px; display: inline-block')
+             );
     }
     
     // Untreated: Show possible treatments

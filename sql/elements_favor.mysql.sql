@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 08. Aug 2012 um 11:30
+-- Erstellungszeit: 08. Aug 2012 um 11:40
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -25,7 +25,8 @@ SET time_zone = "+00:00";
 --
 
 INSERT INTO `mt_favor` (`id`, `name`, `specialClass`, `requirementID`, `requirementBefriended`, `requirementBribed`, `requirementSeduced`, `badConscience`) VALUES
-(1, 'Praise', 'PraiseFavor', NULL, 0, 0, 0, 1);
+(1, 'Ask for praise', 'PraiseFavor', NULL, 0, 0, 0, 1),
+(2, 'Ask for cash', 'CashFavor', NULL, 0, 0, 0, 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
