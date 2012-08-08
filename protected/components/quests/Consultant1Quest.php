@@ -19,7 +19,7 @@ class Consultant1Quest extends CBehavior {
      * Amount of cash that the character gets for completing the quest
      * @constant int 
      */
-    const rewardCash = 2000;
+    const rewardCash = 500;
     
     /**
      * ID of the required item
@@ -58,7 +58,7 @@ class Consultant1Quest extends CBehavior {
      * @param QuestChangeStateEvent $event 
      */
     public function reactToOnOngoing($event) {
-        EUserFlash::setSuccessMessage("You agreed to make your very own PowerPoint presentation. Your client, an undisclosed insurance company, is marked on your map.");
+        EUserFlash::setSuccessMessage("You agreed to make your very own PowerPoint presentation. Your client, an undisclosed insurance company, has been marked on your map.");
     }
     
     /**

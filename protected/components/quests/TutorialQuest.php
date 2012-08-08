@@ -59,7 +59,7 @@ class TutorialQuest extends CBehavior {
                     return "<BR />You do have some talents, now that you think about it. Click on 'Skills' in the navigation bar, then click on your talent to see what happens.";
                     break;
                 case "battleskills":
-                    return "<BR /><span class='label label-important'>KNOCK</span> <span class='label label-important'>KNOCK</span> Seems like you have other worries than protecting yourself. Better pick yourself up and open the door. Oh, by the way: <button class='btn btn-mini'><i class='icon-time'></i></button> indicates that opening the door will cost you 1 turn. Every day, you will get 50 turns to spend as you please. You can see the number of remaining turns under your character's profile on the left.";
+                    return "<BR /><span class='label label-important'>KNOCK</span> <span class='label label-important'>KNOCK</span> Better pick yourself up and open the door. Did you notice the <button class='btn btn-mini'><i class='icon-time'></i></button>? It indicates that that opening the door will cost you 1 turn. Every day, you will get 50 turns to spend as you please. You can see the number of remaining turns under your character's profile on the left.";
                     break;
                 default:
                     return "";

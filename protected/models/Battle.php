@@ -341,6 +341,24 @@ class Battle extends BaseBattle {
     }
     
     /**
+     * Finds out if a combatant has a specific Battleeffect attached to them
+     * @todo allow obj for combatantString
+     * @param string $combatantString
+     * @param int $effectID
+     * @return boolean 
+     */
+    public function combatantHasEffect($combatantString, $effectID) {
+        foreach($this->battleeffects as $battleeffect) {
+            if ($battleeffect->heroString == $combatantString &&
+                    $battleeffect->id == $effectID) {
+                
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
      * Event raisers
      * When adding new ones: Don't forget to add their names to the array in 
      * detachAll()
@@ -621,6 +639,7 @@ class Battle extends BaseBattle {
             }
         }
         foreach($toDelete as $deletee) {
+            $deletee->detachFromBattle($this);
             $this->battleeffects->remove($deletee);
         }
         

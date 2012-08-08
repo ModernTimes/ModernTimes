@@ -182,14 +182,20 @@ if($battle->state == "resolved") { ?>
                             <?php if($logs[$i][$j]->hero == "combatantA" &&
                                     ($battle->type == "pve" || $battle->round > 0)) {
 
-                                echo $this->widget('BattleMessageWidget', array("msg" => $logs[$i][$j]), true);
+                                $this->widget('BattleMessageWidget', 
+                                        array("msg" => $logs[$i][$j],
+                                              "hero" => $battle->combatantA,
+                                              "enemy" => $battle->combatantB));
                             } ?>
                         </td>
                 
                         <td valign="top" style="width: 50%; padding-left: 20px;">
                             <?php if($logs[$i][$j]->hero == "combatantB") {
 
-                                    echo $this->widget('BattleMessageWidget', array("msg" => $logs[$i][$j]), true);
+                                $this->widget('BattleMessageWidget', 
+                                        array("msg" => $logs[$i][$j],
+                                              "hero" => $battle->combatantB,
+                                              "enemy" => $battle->combatantA));
                             } ?>
                         </td>
                     </tr>

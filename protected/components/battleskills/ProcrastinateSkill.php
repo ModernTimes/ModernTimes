@@ -18,7 +18,7 @@ class ProcrastinateSkill extends CBehavior {
      */
     public function resolve($battle, $hero, $enemy) {
         $battleMsg = new Battlemessage(
-                $this->owner->call("getMsgResolved", $hero, $enemy), 
+                $this->owner->call("getMsgResolved"), 
                 $this->owner
         );
         $battle->log($hero, $battleMsg);

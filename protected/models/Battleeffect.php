@@ -96,7 +96,7 @@ class Battleeffect extends BaseBattleeffect {
         }
         
         $this->active = true;
-        $this->turns = $options['turns'];
+        $this->turns = (!empty($options['turns']) ? $options['turns'] : 0);
 
         if($this->blocks && $this->blockNumberOfBlocks > 0) {
             $this->charges = $this->blockNumberOfBlocks;
@@ -128,8 +128,8 @@ class Battleeffect extends BaseBattleeffect {
         if($this->blocks) {
             return $this->desc . "<BR />&nbsp;<BR />" . 
                 "<b>Blocks" . 
-                    ($this->blockNumberOfBlocks > 0 ? " the next" . $this->numberOfBlocks : "") .
-                    " " . $this->blockActionTypes . " actions" . 
+                    ($this->charges > 0 ? " " . $this->charges . " more" : "") .
+                    ($this->blockActionTypes != "all" ? $this->blockActionTypes : "") . " actions" . 
                 ($this->blockChance < 1 ? " with a chance of " . floor($this->blockChance * 100) . "%" : "") . 
                 ($this->turns > 0 ? " within the next " . $this->turns . " rounds" : "") .
                 ".";
@@ -174,7 +174,6 @@ class Battleeffect extends BaseBattleeffect {
     
     /** 
      * Attaches the Battleeffect to the Battle
-     * @todo Add more event handlers once Battleeffects can handle more stuff
      * "Override" by specialness classes by using these commands:
      * $battle->onBeforeAction = array($this, 'reactToOnBeforeAction');
      * $battle->onAfterAction = array($this, 'reactToOnAfterAction');
@@ -188,6 +187,17 @@ class Battleeffect extends BaseBattleeffect {
         $battle->onAfterRound = array($this, 'reactToOnAfterRound');
         if($this->blocks) {
             $battle->onBeforeAction = array($this, 'reactToOnBeforeAction');
+        }
+    }
+    /** 
+     * Detaches the Battleeffect from the Battle
+     * "Override" by specialness classes by using these commands:
+     * @param Battle $battle
+     */
+    public function detachFromBattle($battle) {
+        $battle->detachEventHandler("onAfterRound", array($this, 'reactToOnAfterRound'));
+        if($this->blocks) {
+            $battle->detachEventHandler("onBeforeAction", array($this, 'reactToOnBeforeAction'));
         }
     }
 
@@ -211,13 +221,14 @@ class Battleeffect extends BaseBattleeffect {
         if($this->turns == 0) {
             $this->active = 0;
 
-            $battleMsg = new Battlemessage(sprintf($this->msgExpire, $event->sender->{$this->heroString}->name));
+            $battleMsg = new Battlemessage($this->msgExpire);
             $event->sender->log($event->sender->{$this->heroString}, $battleMsg);
         }
     }
     
     /**
      * Checks if a battle action is blocked by this Battleeffect
+     * If buff: Block enemy's actions; if debuff: block hero's actions
      * "Override" and extend by SpecialnessBehavior classes as necessary
      * @todo check typeOfActions
      * @param CEvent $event 
@@ -225,9 +236,9 @@ class Battleeffect extends BaseBattleeffect {
     public function reactToOnBeforeAction($event) {
         if($this->blocks &&
            $this->active &&
-           $event->sender->getCombatantString($event->hero) == $this->enemyString &&
            !$event->action->blocked &&
-           $event->action->battlePhase == "offense") {
+           $event->action->battlePhase == "offense" &&
+           ($this->buff == ($event->sender->getCombatantString($event->hero) == $this->enemyString))) {
             
             if($this->blockChance != 1) {
                 $rand = mt_rand(0,100);
@@ -237,16 +248,15 @@ class Battleeffect extends BaseBattleeffect {
             }
             
             if($event->action->call("setBlocked")) {
-                $this->blockNumberOfBlocks --;
                 $this->charges --;
                 
-                $battleMsg = new Battlemessage(sprintf($this->call("getMsgBlock"), $event->hero->name, $event->action->name));
+                $battleMsg = new Battlemessage($this->call("getMsgBlock"));
                 $event->sender->log($event->hero, $battleMsg);
                         
-                if($this->blockNumberOfBlocks == 0) {
+                if($this->charges == 0) {
                     $this->active = false;
 
-                    $battleMsg = new Battlemessage(sprintf($this->msgExpire, $event->hero->name));
+                    $battleMsg = new Battlemessage($this->msgExpire);
                     $event->sender->log($event->hero, $battleMsg);
                 }
             }

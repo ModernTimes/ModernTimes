@@ -27,4 +27,4 @@ if(!empty($this->msg->skill)) {
 
 <?php /* MESSAGE */ ?>
 <p><span style='font-size: smaller;'><?php
-    echo ucfirst($this->msg->msg); ?> </span><p/>
+    echo ucfirst($this->parseMsg($this->msg->msg)); ?> </span><p/>

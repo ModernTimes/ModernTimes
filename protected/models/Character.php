@@ -174,6 +174,8 @@ class Character extends BaseCharacter {
         $this->{$resource} += $amount;
         if($amount > 0) {
             EUserFlash::setSuccessMessage($amount . " " . ucfirst($resource), 'gainResource gain' . ucfirst($resource));
+        } elseif($amount < 0) {
+            EUserFlash::setWarningMessage($amount . " " . ucfirst($resource), 'loseResource lose' . ucfirst($resource));
         }
         return $amount;
     }
@@ -225,26 +227,26 @@ class Character extends BaseCharacter {
      * Adds an item to the character's inventory
      * @uses GainItemEvent
      * @uses onGainItem
-     * @param Item $Item 
+     * @param mixed $item Item or int (for an Item record ID)
      * @param int $n how many Items of the indicated kind?
      * @param string $source enum(other|battle|encounter|quest|unequip) 
      * @return bool success?
      */
-    public function gainItem($Item, $n = 1, $source = "other") {
-        if(!is_a($Item, "Item")) {
+    public function gainItem($item, $n = 1, $source = "other") {
+        if(!is_numeric($item) && !is_a($item, "Item")) {
             return false;
         }
        
         $this->loadItems();
 
-        $CharacterItem = $this->getCharacterItem($Item);
+        $CharacterItem = $this->getCharacterItem($item);
         $CharacterItem->n += $n;
         $CharacterItem->save();
 
         if($source != "unequip") {
-            $event = new GainItemEvent($this, $Item, $n);
+            $event = new GainItemEvent($this, $CharacterItem->item, $n);
             $this->onGainItem($event);
-            EUserFlash::setSuccessMessage("You got " . $n . " <b>" . $Item->name . "</b>", 'gainItem id:' . $Item->id);
+            EUserFlash::setSuccessMessage("You got " . $n . " <b>" . $CharacterItem->item->name . "</b>", 'gainItem id:' . $CharacterItem->item->id);
         }
         return true;
     }

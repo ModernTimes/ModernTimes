@@ -31,6 +31,16 @@ class BabbleComboEffect extends CBehavior {
         $Battle->onAfterAction = array($this, 'reactToOnAfterAction');
         $Battle->onBeforeDealDamage = array($this, 'reactToOnBeforeDealDamage');
     }
+    
+    /** 
+     * Detaches the Battleeffect from the Battle
+     * @param Battle $battle
+     */
+    public function detachFromBattle($Battle) {
+        $Battle->detachEventHandler("onAfterAction", array($this, 'reactToOnAfterAction'));
+        $Battle->detachEventHandler("onBeforeDealDamage", array($this, 'reactToOnBeforeDealDamage'));
+    }
+    
 
     /**
      * Returns a popup message, indicating
@@ -77,7 +87,7 @@ class BabbleComboEffect extends CBehavior {
             
                     $this->owner->active = false;
 
-                    $battleMsg = new Battlemessage($event->hero . " loses " . Yii::app()->tools->getPossessivePronoun($event->hero->sex) . " babble momentum");
+                    $battleMsg = new Battlemessage($this->owner->msgExpired);
                     $event->sender->log($event->hero, $battleMsg);
             }
             

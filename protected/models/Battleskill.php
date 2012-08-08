@@ -87,7 +87,7 @@ class Battleskill extends BaseBattleskill {
             return true;
         } else {
             if(mt_rand(0, 100) > $this->successRate * 100) {
-                $battleMsg = new Battlemessage("", $this);
+                $battleMsg = new Battlemessage($this->call("getMsgFailed"), $this);
                 $battleMsg->setResult("failed");
                 $battle->log($hero, $battleMsg);
                 return false;
@@ -116,9 +116,9 @@ class Battleskill extends BaseBattleskill {
             if($log) {
                 $battleMsg = new Battlemessage("", $this);
                 if($result == "added") {
-                    $battleMsg->msg = $this->call("getMsgResolved", $hero, $enemy);
+                    $battleMsg->msg = $this->call("getMsgResolved");
                 } elseif($result == "increasedDuration") {
-                    $battleMsg->msg = $this->call("getMsgIncreasedDuration", $hero, $enemy);
+                    $battleMsg->msg = $this->call("getMsgIncreasedDuration");
                 }
                 $battleMsg->setResult("effect", $Battleeffect);
                 $battle->log($hero, $battleMsg);
@@ -175,7 +175,7 @@ class Battleskill extends BaseBattleskill {
             $battleMsg = new Battlemessage(
                     ($critFactor > 1
                         ? "<span class='label label-important'>Critical Hit!</span> " : "") . 
-                    $this->call("getMsgResolved", $hero, $enemy), 
+                    $this->call("getMsgResolved"), 
                     $this);
             $battleMsg->setResult("damage", $damageDone, $damageType);
             $battle->log($hero, $battleMsg);
@@ -274,14 +274,19 @@ class Battleskill extends BaseBattleskill {
     }
     
     /**
-     * Basic version. Parses $this->msgResolved
-     * MsgResolved is usually used as the main message in BattleMessages
-     * @param mixed $hero Character or Monster
-     * @param mixed $enemy Character or Monster
+     * Basic getter
      * @return string
      */
-    public function getMsgResolved($hero, $enemy) {
-        return self::parseMsg($this->msgResolved, $hero, $enemy);
+    public function getMsgResolved() {
+        return $this->msgResolved;
+    }
+    
+    /**
+     * Basic getter
+     * @return string
+     */
+    public function getMsgFailed() {
+        return $this->msgFailed;
     }
     
     /**
@@ -289,42 +294,15 @@ class Battleskill extends BaseBattleskill {
      * MsgResolved is usually used as the main message in BattleMessages
      * There might be a different message in case the duration of an effect
      * was increased (instead of a new effect getting in place)
-     * @param mixed $hero Character or Monster
-     * @param mixed $enemy Character or Monster
      * @uses getMsgResolved
      * @return string
      */
-    public function getMsgIncreasedDuration($hero, $enemy) {
+    public function getMsgIncreasedDuration() {
         return (!empty($this->effectMsgIncreasedDuration) ? 
-                    self::parseMsg($this->effectMsgIncreasedDuration, $hero, $enemy) :
-                    $this->call("getMsgResolved", $hero, $enemy));
+                    $this->effectMsgIncreasedDuration :
+                    $this->call("getMsgResolved"));
     }
     
-    /**
-     * Parses a msg so that hero's and enemy's names and sexes are
-     * considered appropriately
-     * - %1$s: hero's name
-     * - %2$s: personal pronoun for hero
-     * - %3$s: possessive pronoun for hero
-     * - %4$s: objective pronoun for hero
-     * - %5$s: enemy's name
-     * - %6$s: personal pronoun for enemy
-     * - %7$s: possessive pronoun for enemy
-     * - %8$s: objective pronoun for enemy
-     * @param string $msg
-     * @param mixed $hero
-     * @param mixed $enemy 
-     */
-    static function parseMsg($msg, $hero, $enemy) {
-        return sprintf($msg, $hero->name, 
-                             _personal($hero->sex),
-                             _possessive($hero->sex),
-                             _objective($hero->sex),
-                             $enemy->name, 
-                             _personal($enemy->sex),
-                             _possessive($enemy->sex),
-                             _objective($enemy->sex));
-    }
 
     /**
      * Returns a string that can be used as the ocntent of a popup for this

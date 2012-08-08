@@ -35,7 +35,7 @@ if($numberOfMessages > 0) {
             } else { ?>
                 <span class="label label-success">Item</span>
             <?php }
-        } elseif (strstr($key, "gainCash")) { 
+        } elseif (strstr($key, "gainCash") || strstr($key, "loseCash")) { 
             echo "<i class='icon-cash'></i>";
         } elseif (strstr($key, "gainLevel")) { ?>
             <span class="label label-success">Level</span>

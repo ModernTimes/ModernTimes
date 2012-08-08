@@ -147,7 +147,7 @@ class CreateCharacterAction extends CAction {
 
                     $transaction->commit();
                     
-                    EUserFlash::setSuccessMessage("Welcome to Modern Times!");
+                    // EUserFlash::setSuccessMessage("Welcome to Modern Times!");
                     $this->controller->redirect(array("game/home"));
 
                 } catch(Exception $e) {
