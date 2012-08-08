@@ -68,6 +68,29 @@ class CharacterContacts extends BaseCharacterContacts {
     }
     
     /**
+     * Returns a description of the status of this contact
+     * @uses getStatus
+     * @return string 
+     */
+    public function getStatusDesc() {
+        $status = $this->getStatus();
+        switch($status) {
+            case "befriended":
+                return "You guys are <b>friends</b>";
+            case "bribed":
+                return "You <b>bribed</b> " . Yii::app()->tools->getObjectPronoun($this->sex);
+            case "seduced":
+                return "You <b>seduced</b> " . Yii::app()->tools->getObjectPronoun($this->sex);
+            // should never happen
+            case "untreated":
+                return "You don't really know " . Yii::app()->tools->getObjectPronoun($this->sex) . " yet";
+            // should never happen
+            default:
+                return $this->name . " is <b>" . $status . "</b>";
+        }
+    }
+    
+    /**
      * Factory method to get Model objects
      * @link http://www.yiiframework.com/doc/api/CModel
      * @param string $className

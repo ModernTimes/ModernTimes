@@ -82,13 +82,16 @@ class Contact extends BaseContact {
                 return "small-time ";
             case 2:
                 return "influential ";
+            case 3:
+                return "mover and shaker ";
             default:
                 return "";
         }
     }
     
     /**
-     * Returns a string representation of the contact's area of influence 
+     * Returns a string representation of the contact's area of influence
+     * To be used after LevelOfInfluenceLabel
      */
     public function getAreaOfInfluenceLabel() {
         switch($this->areaOfInfluence) {
@@ -111,6 +114,34 @@ class Contact extends BaseContact {
             // Should never happen
             default:
                 return "person";
+        }
+    }
+    
+    /**
+     * Returns a string representation of the contact's area of influence
+     * To be used after "gain kudos ..."
+     */
+    public function getAreaOfInfluenceLabel2() {
+        switch($this->areaOfInfluence) {
+            case "populace":
+                return "among the populace";
+            case "finance":
+                return "in the financial sector";
+            case "realEconomy":
+                return "among players in the real economy";
+            case "police":
+                return "in the police force";
+            case "underworld":
+                return "in the underworld";
+            case "society":
+                return "in society";
+            case "press":
+                return "among the members of the press";
+            case "bureaucracy":
+                return "among bureaucrats";
+            // Should never happen
+            default:
+                return "in " . $this->areaOfInfluence;
         }
     }
     
