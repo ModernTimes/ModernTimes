@@ -31,7 +31,7 @@ class Greed1Quest extends CBehavior {
      * Encounter record id of Mommon saying hello the first time
      * @const int 
      */
-    const mommonCallsEncounterID = 2;
+    const mammonCallsEncounterID = 2;
 
     /**
      * Set the initial parameters for the Quest.
@@ -83,7 +83,7 @@ class Greed1Quest extends CBehavior {
     public function reactToOnSucceeded($event) {
         $CharacterEncounter = new CharacterEncounters();
         $CharacterEncounter->characterID = $this->owner->CharacterQuest->characterID;
-        $CharacterEncounter->encounterID = self::mommonCallsEncounterID;
+        $CharacterEncounter->encounterID = self::mammonCallsEncounterID;
         $CharacterEncounter->delay = 0;
         $CharacterEncounter->save();
     }

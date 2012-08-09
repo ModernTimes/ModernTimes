@@ -159,6 +159,7 @@ class TutorialQuest extends CBehavior {
             if(in_array($Item->id, $startingItems)) {
                 if($this->completeStep("inventory")) {
                     EUserFlash::setSuccessMessage("Congratulations! You found your things.");
+                    EUserFlash::setSucessMessage("To get back to your apartment, just click on 'London' in the navigation bar, and then on the blue and only marker on the map.");
                     if($this->isFinished()) {
                         $this->owner->setState("completed");
                     } else {
